@@ -1,6 +1,6 @@
-# Mockups New Stappando
+# Nuovo look dashboard stapp
 
-Mockup e prototipi HTML per Stappando.
+Mockup e prototipi HTML per Stap.
 
 ## Struttura dei branch
 
