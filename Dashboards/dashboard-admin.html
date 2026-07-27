@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Dashboard Admin (super/owner)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sidebar-bg:#003d4d;
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --accent:#c9a87c;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --root:#7f1d1d;
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);
+  font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,textarea,select{font:inherit;color:inherit}
+ul{list-style:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.ic{flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ── shell ───────────────────────────────────────────── */
+#root{display:flex;height:100vh;overflow:hidden}
+
+.sidebar{
+  width:248px;flex:none;background:var(--sidebar-bg);
+  display:flex;flex-direction:column;height:100%;
+}
+.sb-logo{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.logo{color:#fff;font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:8px;letter-spacing:.34em;color:rgba(255,255,255,.5);margin-top:5px;font-weight:500}
+.sb-cantina{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:12px}
+.sb-avatar{width:36px;height:36px;border-radius:999px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.sb-cantina p{color:#fff;font-size:13px;font-weight:600;line-height:1.2}
+.role-chip{display:inline-block;margin-top:4px;font-size:10px;font-weight:600;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.2);color:#fff}
+.role-chip.root{background:rgba(239,68,68,.28);color:#fecaca}
+
+.sb-nav{flex:1;padding:16px 12px;overflow-y:auto}
+.sb-label{padding:0 12px;margin-bottom:8px;color:rgba(255,255,255,.32);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+.sb-label.root{color:rgba(252,165,165,.6)}
+.sb-item{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-sm);font-size:14px;color:rgba(255,255,255,.6);transition:.15s;text-align:left}
+.sb-item:hover{color:#fff;background:rgba(255,255,255,.08)}
+.sb-item.on{background:rgba(255,255,255,.15);color:#fff;font-weight:500}
+.sb-item.root.on{background:rgba(239,68,68,.18);color:#fff}
+.sb-item .chev{margin-left:auto;color:rgba(255,255,255,.4)}
+.sb-item .cnt{margin-left:auto;min-width:20px;height:18px;padding:0 6px;border-radius:999px;background:#ef4444;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sb-sep{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+.sb-foot{padding:16px 12px;border-top:1px solid rgba(255,255,255,.1)}
+.sb-logout{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-sm);font-size:14px;color:rgba(255,255,255,.5);transition:.15s}
+.sb-logout:hover{color:#fca5a5;background:rgba(239,68,68,.1)}
+
+.main{flex:1;display:flex;flex-direction:column;min-width:0;height:100%;overflow:hidden}
+.header{
+  height:56px;flex:none;background:#fff;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;padding:0 24px;z-index:10;
+}
+.header h1{font-size:16px;font-weight:600;flex:1;min-width:0}
+.mob-logo{display:none}
+.roleswitch{position:relative}
+.rs-btn{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;transition:.15s}
+.rs-btn:hover{background:var(--muted)}
+.rs-badge{width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex:none}
+.rs-txt p:first-child{font-size:12px;font-weight:600;line-height:1}
+.rs-txt p:last-child{font-size:10px;color:var(--muted-fg);margin-top:3px;line-height:1}
+.rs-menu{position:absolute;right:0;top:calc(100% + 6px);width:300px;background:#fff;border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden;z-index:40}
+.rs-menu-h{padding:12px 16px;border-bottom:1px solid var(--border);font-size:11px;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.1em}
+.rs-opt{width:100%;display:flex;gap:12px;padding:14px 16px;text-align:left;transition:.15s}
+.rs-opt:hover{background:rgba(0,0,0,.03)}
+.rs-opt.on{background:rgba(0,95,115,.05)}
+.rs-opt-ic{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex:none;margin-top:2px}
+.rs-opt-t{display:flex;align-items:center;gap:8px}
+.rs-opt-t p{font-size:13px;font-weight:600}
+.rs-opt-t span{font-size:10px;font-weight:700;padding:2px 6px;border-radius:999px;color:#fff}
+.rs-opt-s{font-size:11px;color:var(--muted-fg);margin-top:3px;line-height:1.4}
+.bell{position:relative;padding:8px;border-radius:var(--r-sm);color:rgba(26,26,26,.7);transition:.15s;flex:none}
+.bell:hover{background:var(--muted)}
+.bell b{position:absolute;top:5px;right:5px;width:16px;height:16px;border-radius:999px;background:#ef4444;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center}
+
+.content{flex:1;overflow-y:auto;padding:24px}
+.wrap{max-width:1020px;margin:0 auto}
+.wrap-sm{max-width:840px;margin:0 auto}
+.wrap-lg{max-width:1180px;margin:0 auto}
+.stack{display:flex;flex-direction:column;gap:20px}
+.stack-sm{display:flex;flex-direction:column;gap:12px}
+
+/* ── generic ─────────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.card-h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
+.card-h h3{font-size:14px;font-weight:600}
+.link{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--primary)}
+.link:hover{text-decoration:underline}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:.15s}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-ghost{border:1px solid var(--border);color:var(--muted-fg);background:#fff}
+.btn-ghost:hover{background:var(--muted)}
+.btn-danger{background:#ef4444;color:#fff}
+.btn-danger:hover{background:#dc2626}
+.btn-root{background:var(--root);color:#fff}
+.btn-root:hover{opacity:.9}
+.muted{color:var(--muted-fg)}
+.eyebrow{font-size:11px;font-weight:600;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.1em}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.row{display:flex;align-items:center;gap:12px}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+.input{width:100%;padding:10px 16px;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;font-size:14px;outline:none;transition:.15s}
+.input:focus{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.12)}
+.search{position:relative;flex:1;min-width:190px}
+.search .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted-fg)}
+.search input{padding-left:36px}
+.field label{display:block;margin-bottom:6px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--r-sm);font-size:12px;font-weight:500;border:1px solid var(--border);background:#fff;color:var(--muted-fg);white-space:nowrap;flex:none;transition:.15s}
+.chip:hover{color:var(--fg)}
+.chip.on{color:#fff;border-color:transparent;background:var(--primary)}
+.chip b{padding:1px 6px;border-radius:8px;font-size:10px;font-weight:700;background:var(--muted);color:var(--muted-fg)}
+.chip.on b{background:rgba(255,255,255,.2);color:#fff}
+.chiprow{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;border:1px solid}
+.badge i{width:6px;height:6px;border-radius:999px;display:block}
+.st-consegnato{background:#ecfdf5;color:#047857;border-color:#a7f3d0}
+.st-consegnato i{background:#10b981}
+.st-spedito{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.st-spedito i{background:#3b82f6}
+.st-in_lavorazione{background:#fffbeb;color:#b45309;border-color:#fde68a}
+.st-in_lavorazione i{background:#fbbf24}
+.st-annullato{background:#fef2f2;color:#dc2626;border-color:#fecaca}
+.st-annullato i{background:#ef4444}
+
+.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:600}
+.p-attivo{background:#ecfdf5;color:#047857}
+.p-esaurito{background:#fef2f2;color:#dc2626}
+.p-bozza{background:#f3f4f6;color:#6b7280}
+.p-root{background:rgba(127,29,29,.1);color:var(--root)}
+
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 0;text-align:center;gap:12px;color:var(--muted-fg)}
+.empty p{font-size:14px;font-weight:500}
+
+/* ── panoramica ──────────────────────────────────────── */
+.hello h2{font-size:20px;font-weight:600}
+.hello p{font-size:14px;color:var(--muted-fg);margin-top:2px}
+.stat{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-sm)}
+.stat .lbl{font-size:11px;font-weight:500;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.09em}
+.stat .val{font-size:24px;font-weight:600}
+.stat .sub{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#059669}
+.ord-mini{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border-soft);transition:.15s}
+.ord-mini:last-child{border-bottom:none}
+.ord-mini:hover{background:rgba(0,0,0,.02)}
+.thumb{border-radius:var(--r-sm);overflow:hidden;flex:none;background:var(--muted);display:block}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.iconbtn{padding:6px;border-radius:10px;color:var(--muted-fg);transition:.15s}
+.iconbtn:hover{background:var(--muted);color:var(--fg)}
+.quick{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;text-align:left;box-shadow:var(--shadow-sm);transition:.15s}
+.quick:hover{box-shadow:var(--shadow-md)}
+.quick:active{transform:scale(.98)}
+.quick-ic{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;transition:.15s;flex:none}
+.quick:hover .quick-ic{transform:scale(1.1)}
+.quick span{font-size:14px;font-weight:500;line-height:1.25}
+
+/* ── tabelle e righe ─────────────────────────────────── */
+.ministat{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.ministat span{font-size:12px;color:var(--muted-fg)}
+.ministat b{font-size:16px;font-weight:700}
+.dt{width:100%;border-collapse:collapse;min-width:560px}
+.dt th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-fg);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--border);white-space:nowrap}
+.dt td{padding:12px 16px;border-bottom:1px solid var(--border-soft);font-size:13px;vertical-align:middle}
+.dt tbody tr:last-child td{border-bottom:none}
+.dt tbody tr:hover{background:rgba(0,0,0,.02)}
+.prow{background:#fff;border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:16px;padding:16px;transition:.15s}
+.prow:hover{box-shadow:var(--shadow-md)}
+.low{color:#d97706}.zero{color:#ef4444}
+.codechip{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:.04em;background:var(--muted);padding:7px 12px;border-radius:8px;font-size:13px;color:var(--primary);flex:none}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+.savebar{display:flex;align-items:center;gap:10px;background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;border-radius:var(--r-sm);padding:12px 16px;font-size:13px;font-weight:500}
+.lockrow{display:flex;align-items:center;gap:14px;background:rgba(240,235,227,.7);border:1px dashed var(--border);border-radius:var(--r);padding:16px 20px}
+.lockrow .ico{width:38px;height:38px;border-radius:11px;background:#fff;color:var(--muted-fg);display:flex;align-items:center;justify-content:center;flex:none}
+.note{padding:8px 12px;background:#fffbeb;border:1px solid #fef3c7;border-radius:var(--r-sm);font-size:12px;color:#b45309;font-weight:500}
+.infobox{display:flex;gap:10px;background:rgba(240,235,227,.6);border-radius:var(--r-sm);padding:12px 16px;font-size:12px;color:var(--muted-fg);line-height:1.5}
+.readonly{display:flex;align-items:center;gap:10px;background:rgba(240,235,227,.7);border-radius:var(--r);padding:12px 16px;font-size:12px;color:var(--muted-fg)}
+.stars{display:inline-flex;gap:2px;align-items:center}
+.avatar{width:36px;height:36px;border-radius:999px;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700}
+.review{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px}
+.dl{display:grid;grid-template-columns:190px 1fr;gap:4px 20px;font-size:13px}
+.dl dt{color:var(--muted-fg);font-size:12px;padding:9px 0;border-bottom:1px solid var(--border-soft)}
+.dl dd{font-weight:500;padding:9px 0;border-bottom:1px solid var(--border-soft);word-break:break-word}
+.dl dt:last-of-type,.dl dd:last-of-type{border-bottom:none}
+.switch{width:42px;height:24px;border-radius:999px;background:#d6d0c6;position:relative;flex:none;transition:.18s}
+.switch.on{background:var(--primary)}
+.switch i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:999px;background:#fff;box-shadow:var(--shadow-sm);transition:.18s;display:block}
+.switch.on i{left:21px}
+
+/* ── grafici ─────────────────────────────────────────── */
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;gap:16px;align-items:flex-start}
+.kpi-ic{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex:none}
+.kpi p.l{font-size:12px;color:var(--muted-fg)}
+.kpi p.v{font-size:20px;font-weight:700;margin-top:2px}
+.kpi p.s{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:#059669;margin-top:4px}
+.periods{display:flex;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;flex-wrap:wrap}
+.periods button{padding:8px 14px;font-size:12px;font-weight:500;color:var(--muted-fg);transition:.15s}
+.periods button.on{background:var(--primary);color:#fff}
+.chartbox{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.chartbox h3{font-size:14px;font-weight:600}
+.chartbox .csub{font-size:12px;color:var(--muted-fg);margin-top:2px}
+.legend{display:flex;flex-direction:column;gap:8px;flex:1}
+.legend div{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.legend i{width:10px;height:10px;border-radius:999px;display:block;flex:none}
+svg .gridline{stroke:#f0ebe3;stroke-dasharray:3 3}
+svg .axis{font-size:11px;fill:#7a7060}
+
+/* ── modali ──────────────────────────────────────────── */
+.overlay{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px}
+.overlay .scrim{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.modal{position:relative;width:100%;max-width:520px;background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;max-height:92vh}
+.modal-h{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border)}
+.modal-h h2{font-size:16px;font-weight:600}
+.modal-b{overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.modal-f{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:12px}
+.modal-f .btn{flex:1}
+.confirm{position:relative;background:#fff;border-radius:var(--r);box-shadow:var(--shadow-lg);padding:24px;max-width:420px;width:100%;display:flex;flex-direction:column;gap:16px}
+.confirm .ico{width:48px;height:48px;border-radius:var(--r);background:#fef2f2;color:#ef4444;display:flex;align-items:center;justify-content:center;flex:none}
+
+/* ══════════════════════════════════════════════════════
+   ADMIN super/owner — componenti esclusivi
+   ══════════════════════════════════════════════════════ */
+.rootbar{display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:var(--r);
+  border:1px solid rgba(127,29,29,.22);background:linear-gradient(135deg,rgba(127,29,29,.06),rgba(201,168,124,.08))}
+.rootbar .ico{width:38px;height:38px;border-radius:11px;background:rgba(127,29,29,.12);color:var(--root);display:flex;align-items:center;justify-content:center;flex:none}
+.rootbar h4{font-size:13px;font-weight:600}
+.rootbar p{font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.5}
+
+/* matrice RBAC */
+.mxwrap{overflow-x:auto}
+.mx{width:100%;border-collapse:collapse;min-width:860px}
+.mx th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted-fg);font-weight:700;padding:12px 8px;border-bottom:1px solid var(--border);text-align:center;white-space:nowrap}
+.mx th.lbl{text-align:left;padding-left:20px;min-width:300px}
+.mx th span{display:block;font-size:9px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted-fg);opacity:.75;margin-top:2px}
+.mx td{padding:11px 8px;border-bottom:1px solid var(--border-soft);text-align:center;font-size:13px}
+.mx td.lbl{text-align:left;padding-left:20px}
+.mx td.lbl b{font-weight:600;font-size:13px}
+.mx td.lbl p{font-size:11px;color:var(--muted-fg);margin-top:1px}
+.mx tbody tr:hover{background:rgba(0,0,0,.02)}
+.mx tr.grp td{background:rgba(240,235,227,.75);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted-fg);padding:9px 20px;text-align:left}
+.d-full{width:12px;height:12px;border-radius:999px;background:var(--primary);display:inline-block}
+.d-part{width:12px;height:12px;border-radius:999px;display:inline-block;border:1.5px solid var(--accent);
+  background:linear-gradient(90deg,var(--accent) 0 50%,transparent 50% 100%)}
+.d-none{width:5px;height:5px;border-radius:999px;background:#d6d0c6;display:inline-block}
+.mxlegend{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted-fg);align-items:center}
+.mxlegend span{display:inline-flex;align-items:center;gap:7px}
+
+/* ruoli */
+.rolecard{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-sm)}
+.rolecard .rt{display:flex;align-items:center;gap:9px}
+.rolecard .rdot{width:10px;height:10px;border-radius:999px;flex:none}
+.rolecard b{font-size:13px;font-weight:600}
+.rolecard p{font-size:11px;color:var(--muted-fg);line-height:1.45}
+.rolecard .n{font-size:18px;font-weight:700}
+
+/* integrazioni / chiavi API */
+.intg{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border-soft)}
+.intg:last-child{border-bottom:none}
+.intg .ii{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:none}
+.intg h4{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.intg p{font-size:12px;color:var(--muted-fg);margin-top:2px}
+.keyline{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px dashed rgba(0,0,0,.16);border-radius:var(--r-sm);background:rgba(240,235,227,.5);margin-top:8px}
+.keyline code{flex:1;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.03em;word-break:break-all}
+
+/* log & audit */
+.logline{display:flex;gap:14px;padding:14px 20px;border-bottom:1px solid var(--border-soft);align-items:flex-start}
+.logline:last-child{border-bottom:none}
+.logline:hover{background:rgba(0,0,0,.02)}
+.logline .lts{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted-fg);white-space:nowrap;flex:none;padding-top:2px;min-width:104px}
+.logline .lic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none}
+.logline h4{font-size:13px;font-weight:600}
+.logline p{font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.45}
+.sev-info{background:rgba(0,95,115,.1);color:var(--primary)}
+.sev-warn{background:#fffbeb;color:#b45309}
+.sev-crit{background:#fef2f2;color:#dc2626}
+
+/* feature flag */
+.flagrow{display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--border-soft);flex-wrap:wrap}
+.flagrow:last-child{border-bottom:none}
+.flagrow h4{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.flagrow .fkey{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--muted-fg)}
+.flagrow p{font-size:12px;color:var(--muted-fg);margin-top:3px;line-height:1.45}
+.rollout{width:150px;flex:none}
+.rollout .rtrack{height:6px;border-radius:999px;background:var(--muted);overflow:hidden;margin-top:6px}
+.rollout .rfill{height:100%;border-radius:999px;background:var(--primary);display:block}
+.rollout .rlbl{display:flex;justify-content:space-between;font-size:10px;color:var(--muted-fg)}
+.stepbtns{display:flex;gap:4px;flex:none}
+.stepbtns button{width:30px;height:30px;border-radius:9px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.15s}
+.stepbtns button:hover:not(:disabled){background:var(--muted);color:var(--fg)}
+.stepbtns button:disabled{opacity:.35;cursor:not-allowed}
+
+/* zona pericolosa */
+.danger{border:1px solid #fecaca;border-radius:var(--r);background:linear-gradient(135deg,rgba(239,68,68,.04),rgba(239,68,68,.01))}
+.danger .card-h{border-bottom:1px solid #fecaca}
+.danger .card-h h3{color:#b91c1c}
+.dngrow{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid rgba(239,68,68,.14);flex-wrap:wrap}
+.dngrow:last-child{border-bottom:none}
+.dngrow h4{font-size:13px;font-weight:600}
+.dngrow p{font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.45;max-width:560px}
+
+/* ── mobile ──────────────────────────────────────────── */
+.mobnav,.mobsheet{display:none}
+@media (max-width:900px){
+  .grid4{grid-template-columns:repeat(2,1fr)}
+  .grid-2col{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .sidebar{display:none}
+  .content{padding:16px 16px 88px}
+  .header{padding:0 16px}
+  .header h1{display:none}
+  .mob-logo{display:block;flex:1}
+  .mob-logo .logo{color:var(--sidebar-bg);font-size:13px}
+  .mob-logo .logo-sub{color:var(--muted-fg)}
+  .rs-txt{display:none}
+  .grid3,.grid2{grid-template-columns:1fr}
+  .dl{grid-template-columns:1fr;gap:0}
+  .dl dt{padding-bottom:0;border-bottom:none}
+  .dl dd{padding-top:2px}
+  .prow{flex-wrap:wrap}
+  .toolbar .btn-primary span{display:none}
+  .rollout{width:100%}
+  .mobnav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;height:64px;z-index:40;
+    background:#fff;border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(0,0,0,.06);
+  }
+  .mobnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;color:var(--muted-fg)}
+  .mobnav button.on{color:var(--primary)}
+  .mobsheet{display:flex;position:fixed;inset:0;z-index:50;flex-direction:column}
+  .mobsheet .scrim{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+  .mobsheet .sheet{position:relative;margin-top:auto;background:var(--sidebar-bg);border-radius:24px 24px 0 0;padding-bottom:24px;box-shadow:var(--shadow-lg)}
+  .sheet-h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .sheet-h p{color:#fff;font-size:14px;font-weight:600}
+  .sheet-h span{color:rgba(255,255,255,.4);font-size:10px}
+  .sheet ul{padding:12px;max-height:62vh;overflow-y:auto}
+  .sheet .sb-item{padding:12px 16px;margin-bottom:2px}
+  .modal{max-width:none;border-radius:24px 24px 0 0;max-height:94vh}
+  .overlay{align-items:flex-end;padding:0}
+  .confirm{max-width:none;border-radius:24px 24px 0 0}
+}
+@media (max-width:520px){
+  .grid4{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   Stappando — Dashboard ADMIN (super / owner)
+   Ruolo come da PDF "Menu & Ruoli · shop.stappando.it":
+   ruolo radice della piattaforma, 2FA obbligatoria.
+   Eredita Manager Admin SENZA limiti di soglia, più il blocco
+   "Impostazioni sistema" che nessun altro ruolo vede:
+   RBAC · Integrazioni/API · Log & audit · Feature flag ·
+   Commissioni & contratti · cambio ruolo utente ·
+   rimborsi oltre soglia e cancellazioni definitive.
+   ═══════════════════════════════════════════════════════════════ */
+const ROLE = "admin";
+const TEAL="#005f73", GOLD="#c9a87c", ROOT="#7f1d1d", GREEN="#2d6a4f", BLUE="#3b82f6", VIOLET="#6d28d9";
+
+/* ── Icone (set lucide, disegnate inline) ───────────────────── */
+const P = {
+  dashboard:'<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+  bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+  box:'<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+  star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  chart:'<line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/>',
+  megaphone:'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+  settings:'<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+  bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  menu:'<line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>',
+  x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  chevR:'<path d="m9 18 6-6-6-6"/>',
+  chevD:'<path d="m6 9 6 6 6-6"/>',
+  arrowL:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+  up:'<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  down:'<polyline points="22 17 13.5 8.5 8.5 13.5 2 6"/><polyline points="16 17 22 17 22 11"/>',
+  plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+  minus:'<path d="M5 12h14"/>',
+  eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  eyeoff:'<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>',
+  pencil:'<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+  mail:'<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  trash:'<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+  award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  checkCircle:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>',
+  euro:'<path d="M4 10h12"/><path d="M4 14h9"/><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  cart:'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  rotate:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  news:'<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9h4"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8Z"/>',
+  sparkles:'<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>',
+  send:'<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  unlock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>',
+  key:'<path d="m15.5 7.5 3 3L22 7l-3-3"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/>',
+  tag:'<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.41 2.41 0 0 0 3.42 0l6.58-6.58a2.41 2.41 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>',
+  truck:'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  ticket:'<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>',
+  store:'<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/>',
+  download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
+  percent:'<line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+  copy:'<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+  package:'<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73Z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/>',
+  creditcard:'<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
+  layout:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+  sliders:'<line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="2" x2="6" y1="14" y2="14"/><line x1="10" x2="14" y1="8" y2="8"/><line x1="18" x2="22" y1="16" y2="16"/>',
+  flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/>',
+  clipboard:'<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>',
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+  alert:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  refresh:'<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+  ban:'<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  file:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h5"/>',
+  plug:'<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  swap:'<path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/>',
+  smartphone:'<rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/>',
+};
+function ic(n, s, style, cls){
+  return '<svg class="ic '+(cls||'')+'" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" '+
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"'+(style?' style="'+style+'"':'')+'>'+P[n]+'</svg>';
+}
+function icf(n, s, color){
+  return '<svg class="ic" width="'+(s||14)+'" height="'+(s||14)+'" viewBox="0 0 24 24" fill="'+color+'" stroke="'+color+'" stroke-width="2" stroke-linejoin="round">'+P[n]+'</svg>';
+}
+
+/* ── Immagini vini (riuso asset di progetto) ────────────────── */
+const W = {
+  barolo:"https://images.unsplash.com/photo-1739047318813-a4f3ab6f3454?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  brunello:"https://images.unsplash.com/photo-1783196736260-e281bd635df0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  amarone:"https://images.unsplash.com/photo-1759971408697-a0ae9a906e4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  chianti:"https://images.unsplash.com/photo-1768328155496-c66f09b96732?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  prosecco:"https://images.unsplash.com/photo-1611571940159-425a28706d6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  pinot:"https://images.unsplash.com/photo-1697115355209-46e7bce340fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  mockup1:"https://images.unsplash.com/photo-1697115355244-03ec613392c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  mockup2:"https://images.unsplash.com/photo-1697115355190-c0048a1f1c17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+  mockup3:"https://images.unsplash.com/photo-1697115355219-310cbdde03f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+};
+
+/* ── Utility ────────────────────────────────────────────────── */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const eur = n => "€ " + Number(n).toFixed(2).replace(".", ",");
+const eurK = n => "€ " + Number(n).toLocaleString("it-IT");
+let nextId = 100;
+
+/* ── L'Admin loggato ────────────────────────────────────────── */
+const ADMIN = {
+  nome:"Andrea Stappando",
+  iniziali:"AD",
+  email:"andrea@stappando.it",
+  ruolo:"Admin super / owner",
+  fa2:true,
+  accesso:"oggi alle 08:41 · Milano, Chrome su macOS",
+  dal:"gennaio 2024",
+};
+
+/* ── I 7 livelli utente (PDF §01) ───────────────────────────── */
+const ROLES = [
+  {id:"guest",   short:"Guest",     label:"Guest",          sub:"visitatore",           color:"#9ca3af", n:"—",     desc:"Naviga senza account, compra col checkout ospite."},
+  {id:"user",    short:"User",      label:"User",           sub:"cliente B2C",          color:BLUE,      n:"11.204", desc:"Account registrato con email verificata."},
+  {id:"horeca",  short:"Horeca",    label:"Horeca",         sub:"cliente B2B",          color:GREEN,     n:"1.276",  desc:"Registrazione con P.IVA, listino riservato."},
+  {id:"vmanager",short:"V. Manager",label:"Vendor Manager", sub:"operativo cantina",    color:GOLD,      n:"34",     desc:"Invitato dall'Owner, non si autoregistra."},
+  {id:"vowner",  short:"V. Owner",  label:"Vendor Owner",   sub:"titolare cantina",     color:"#8B2635", n:"21",     desc:"Responsabile legale e fiscale della cantina."},
+  {id:"madmin",  short:"M. Admin",  label:"Manager Admin",  sub:"operatore piattaforma",color:VIOLET,    n:"6",      desc:"Back-office quotidiano, senza impostazioni sistema."},
+  {id:"admin",   short:"Admin",     label:"Admin",          sub:"super / owner",        color:ROOT,      n:"2",      desc:"Ruolo radice. 2FA obbligatoria."},
+];
+
+/* ── Matrice permessi (PDF §03, estesa alle 7 colonne) ──────
+   2 = pieno ●   1 = parziale ◐   0 = negato ·                */
+const RBAC = [
+  {grp:"Catalogo & acquisto", rows:[
+    {t:"Sfogliare catalogo e PDP",             v:[2,2,2,2,2,2,2]},
+    {t:"Vedere prezzi B2C",                    v:[2,2,2,2,2,2,2]},
+    {t:"Vedere listino Horeca",s:"prezzi riservati B2B", v:[0,0,2,1,1,2,2]},
+    {t:"Aggiungere al carrello",               v:[2,2,2,2,2,2,2]},
+    {t:"Concludere il checkout",s:"checkout ospite attivo — no login", v:[2,2,2,2,2,2,2]},
+    {t:"Salvare wishlist",                     v:[0,2,2,2,2,2,2]},
+    {t:"Scrivere una recensione",s:"solo su prodotti acquistati", v:[0,2,2,2,2,2,2]},
+  ]},
+  {grp:"Prodotti", rows:[
+    {t:"Creare / modificare prodotto",s:"solo della propria cantina", v:[0,0,0,2,2,2,2]},
+    {t:"Gestire giacenze e stock",             v:[0,0,0,2,2,2,2]},
+    {t:"Impostare prezzi B2C e Horeca",        v:[0,0,0,2,2,2,2]},
+    {t:"Import / export CSV",                  v:[0,0,0,2,2,2,2]},
+    {t:"Eliminare un prodotto",s:"il Manager può solo archiviare", v:[0,0,0,1,2,2,2]},
+    {t:"Gestire categorie, uvaggi, regioni, tag", v:[0,0,0,0,0,2,2]},
+  ]},
+  {grp:"Ordini & spedizioni", rows:[
+    {t:"Vedere i propri ordini",               v:[0,2,2,2,2,2,2]},
+    {t:"Vedere ordini della propria cantina",  v:[0,0,0,2,2,2,2]},
+    {t:"Evadere ordine, cambiare stato",       v:[0,0,0,2,2,2,2]},
+    {t:"Vedere tutti gli ordini della piattaforma", v:[0,0,0,0,0,2,2]},
+    {t:"Rimborsare un ordine",s:"Manager Admin fino a 200 €", v:[0,0,0,0,0,1,2]},
+    {t:"Cancellazione definitiva di un ordine", v:[0,0,0,0,0,0,2]},
+  ]},
+  {grp:"Piattaforma & sistema", rows:[
+    {t:"Gestire il team della cantina",s:"inviti e ruoli dei manager", v:[0,0,0,0,2,0,2]},
+    {t:"Moderare le recensioni",s:"il vendor risponde ma non cancella", v:[0,0,0,0,0,2,2]},
+    {t:"Attivare o sospendere una cantina",s:"il Manager sospende, non attiva", v:[0,0,0,0,0,1,2]},
+    {t:"Fissare le commissioni marketplace",   v:[0,0,0,0,0,0,2]},
+    {t:"Cambiare il ruolo di un utente",       v:[0,0,0,0,0,0,2]},
+    {t:"Ruoli & permessi (RBAC)",              v:[0,0,0,0,0,0,2]},
+    {t:"Integrazioni / API e chiavi",          v:[0,0,0,0,0,0,2]},
+    {t:"Log & audit del back-office",          v:[0,0,0,0,0,0,2]},
+    {t:"Feature flag e rilasci progressivi",   v:[0,0,0,0,0,0,2]},
+  ]},
+];
+
+/* ── Dati di piattaforma ────────────────────────────────────── */
+const GMV_MONTHLY = [
+  {month:"Feb",fatturato:198000,ordini:2140},{month:"Mar",fatturato:241000,ordini:2610},
+  {month:"Apr",fatturato:224000,ordini:2380},{month:"Mag",fatturato:287000,ordini:3120},
+  {month:"Giu",fatturato:329000,ordini:3540},{month:"Lug",fatturato:381000,ordini:4080},
+];
+const ORDER_STATUS_PIE = [
+  {name:"Consegnato",value:2960,color:"#10b981"},{name:"Spedito",value:640,color:"#3b82f6"},
+  {name:"In lavorazione",value:340,color:"#f59e0b"},{name:"Annullato",value:140,color:"#ef4444"},
+];
+const WEEKLY_VISITS = [
+  {day:"Lun",visite:4820},{day:"Mar",visite:5210},{day:"Mer",visite:4990},{day:"Gio",visite:6130},
+  {day:"Ven",visite:7480},{day:"Sab",visite:8210},{day:"Dom",visite:6040},
+];
+
+const VENDORS = [
+  {id:"v1",name:"Tenuta del Sole",region:"Toscana",city:"Montalcino",products:24,gmv:184200,orders:1420,rating:4.8,status:"attiva",commission:12,owner:"Marco Bellini",joined:"mar 2024",contratto:"firmato",scadenza:"31 mar 2027",img:W.brunello},
+  {id:"v2",name:"Cantine Barolo Re",region:"Piemonte",city:"Barolo",products:31,gmv:246800,orders:1810,rating:4.9,status:"attiva",commission:12,owner:"Elena Ferrero",joined:"gen 2024",contratto:"firmato",scadenza:"31 gen 2027",img:W.barolo},
+  {id:"v3",name:"Valpolicella Nord",region:"Veneto",city:"Verona",products:18,gmv:132400,orders:980,rating:4.6,status:"attiva",commission:14,owner:"Luca Zanetti",joined:"mag 2024",contratto:"firmato",scadenza:"31 mag 2027",img:W.amarone},
+  {id:"v4",name:"Bollicine Venete",region:"Veneto",city:"Valdobbiadene",products:12,gmv:98600,orders:1240,rating:4.5,status:"attiva",commission:15,owner:"Sara Bortolin",joined:"giu 2024",contratto:"firmato",scadenza:"30 giu 2027",img:W.prosecco},
+  {id:"v5",name:"Sardegna Vini",region:"Sardegna",city:"Cagliari",products:9,gmv:41200,orders:360,rating:4.3,status:"in_review",commission:15,owner:"Paolo Sanna",joined:"lug 2026",contratto:"da_firmare",scadenza:"—",img:W.pinot},
+  {id:"v6",name:"Etna Rossi",region:"Sicilia",city:"Catania",products:15,gmv:76300,orders:540,rating:4.7,status:"attiva",commission:13,owner:"Giulia Russo",joined:"feb 2025",contratto:"firmato",scadenza:"28 feb 2028",img:W.chianti},
+  {id:"v7",name:"Franciacorta Elite",region:"Lombardia",city:"Brescia",products:11,gmv:112900,orders:720,rating:4.8,status:"sospesa",commission:12,owner:"Andrea Conti",joined:"nov 2024",contratto:"in_verifica",scadenza:"30 nov 2026",img:W.mockup1},
+  {id:"v8",name:"Chianti Hills",region:"Toscana",city:"Greve",products:20,gmv:88700,orders:610,rating:4.4,status:"attiva",commission:14,owner:"Chiara Neri",joined:"apr 2025",contratto:"firmato",scadenza:"30 apr 2028",img:W.mockup2},
+];
+const VENDOR_STATUS = {attiva:{label:"Attiva",pill:"p-attivo"},sospesa:{label:"Sospesa",pill:"p-esaurito"},in_review:{label:"In revisione",pill:"p-bozza"}};
+const CONTRATTO_CFG = {firmato:{label:"Firmato",pill:"p-attivo"},da_firmare:{label:"Da firmare",pill:"p-esaurito"},in_verifica:{label:"In verifica",pill:"p-bozza"}};
+
+const USERS = [
+  {id:"u1",name:"Luca Ferretti",email:"luca.ferretti@email.it",role:"user",orders:14,spent:1240,status:"attivo",joined:"feb 2025"},
+  {id:"u2",name:"Enoteca Bacco Srl",email:"ordini@enotecabacco.it",role:"horeca",piva:"IT03920140127",orders:62,spent:18420,status:"attivo",joined:"gen 2024"},
+  {id:"u3",name:"Marta Conti",email:"marta.conti@email.it",role:"user",orders:8,spent:640,status:"attivo",joined:"apr 2025"},
+  {id:"u4",name:"Ristorante Le Volte",email:"acquisti@levolte.it",role:"horeca",piva:"IT02214560488",orders:41,spent:12980,status:"attivo",joined:"mar 2024"},
+  {id:"u5",name:"Giorgio Russo",email:"g.russo@email.it",role:"user",orders:3,spent:210,status:"sospeso",joined:"giu 2026"},
+  {id:"u6",name:"Marco Bellini",email:"marco@tenutadelsole.it",role:"vowner",orders:0,spent:0,status:"attivo",joined:"mar 2024"},
+  {id:"u7",name:"Silvia Neri",email:"silvia.neri@email.it",role:"user",orders:19,spent:1810,status:"attivo",joined:"nov 2024"},
+  {id:"u8",name:"Davide Poli",email:"davide@tenutadelsole.it",role:"vmanager",orders:0,spent:0,status:"attivo",joined:"set 2024"},
+  {id:"u9",name:"Chiara Lodi",email:"chiara.lodi@stappando.it",role:"madmin",orders:0,spent:0,status:"attivo",joined:"gen 2025"},
+  {id:"u10",name:"Elena Marchetti",email:"e.marchetti@email.it",role:"user",orders:11,spent:930,status:"attivo",joined:"set 2025"},
+];
+
+const ADMIN_ORDERS = [
+  {id:"#ORD-9241",customer:"Luca Ferretti",vendor:"Cantine Barolo Re",date:"17 lug 2026",total:312,status:"consegnato"},
+  {id:"#ORD-9240",customer:"Enoteca Bacco Srl",vendor:"Tenuta del Sole",date:"17 lug 2026",total:1840,status:"rimborso_richiesto",richiestaDa:"Chiara Lodi (Manager Admin)",motivo:"Cliente segnala 6 bottiglie danneggiate in consegna"},
+  {id:"#ORD-9239",customer:"Marta Conti",vendor:"Bollicine Venete",date:"16 lug 2026",total:96,status:"in_lavorazione"},
+  {id:"#ORD-9238",customer:"Ristorante Le Volte",vendor:"Valpolicella Nord",date:"16 lug 2026",total:624,status:"rimborso_richiesto",richiestaDa:"Chiara Lodi (Manager Admin)",motivo:"Ordine mai consegnato, corriere ha smarrito il collo"},
+  {id:"#ORD-9237",customer:"Silvia Neri",vendor:"Etna Rossi",date:"15 lug 2026",total:148,status:"annullato"},
+  {id:"#ORD-9236",customer:"Hotel Belvedere",vendor:"Chianti Hills",date:"15 lug 2026",total:432,status:"consegnato"},
+  {id:"#ORD-9235",customer:"Francesco Bianchi",vendor:"Tenuta del Sole",date:"14 lug 2026",total:78,status:"consegnato"},
+  {id:"#ORD-9234",customer:"Wine Bar Centrale",vendor:"Franciacorta Elite",date:"14 lug 2026",total:268,status:"spedito"},
+  {id:"#ORD-9233",customer:"Elena Marchetti",vendor:"Bollicine Venete",date:"13 lug 2026",total:54,status:"consegnato"},
+  {id:"#ORD-9232",customer:"Giorgio Russo",vendor:"Cantine Barolo Re",date:"13 lug 2026",total:196,status:"consegnato"},
+];
+const ORDER_STATUS_CFG = {
+  consegnato:{label:"Consegnato"},spedito:{label:"Spedito"},
+  in_lavorazione:{label:"In lavorazione"},annullato:{label:"Annullato"},
+  rimborsato:{label:"Rimborsato"},rimborso_richiesto:{label:"Rimborso da approvare"},
+  cancellato:{label:"Cancellato definitivamente"},
+};
+
+const PAYMENTS = [
+  {id:"TX-58120",date:"17 lug 2026",kind:"incasso",party:"Ordine #ORD-9240",amount:1840,status:"completato"},
+  {id:"TX-58119",date:"17 lug 2026",kind:"commissione",party:"Tenuta del Sole",amount:-220.8,status:"completato"},
+  {id:"TX-58118",date:"16 lug 2026",kind:"payout",party:"Cantine Barolo Re",amount:-4120,status:"in_corso"},
+  {id:"TX-58117",date:"16 lug 2026",kind:"incasso",party:"Ordine #ORD-9238",amount:624,status:"completato"},
+  {id:"TX-58116",date:"15 lug 2026",kind:"rimborso",party:"Ordine #ORD-9237",amount:-148,status:"completato"},
+  {id:"TX-58115",date:"15 lug 2026",kind:"payout",party:"Valpolicella Nord",amount:-2980,status:"completato"},
+  {id:"TX-58114",date:"14 lug 2026",kind:"commissione",party:"Bollicine Venete",amount:-14.4,status:"completato"},
+  {id:"TX-58113",date:"14 lug 2026",kind:"incasso",party:"Ordine #ORD-9234",amount:268,status:"completato"},
+];
+const PAY_KIND = {
+  incasso:{label:"Incasso",color:"#10b981"},payout:{label:"Payout",color:"#3b82f6"},
+  commissione:{label:"Commissione",color:GOLD},rimborso:{label:"Rimborso",color:"#ef4444"},
+};
+
+const WINECLUB_SUBS = [
+  {id:"wc1",name:"Luca Ferretti",plan:"2 bottiglie",since:"gen 2025",renew:"5 ago 2026",status:"attivo"},
+  {id:"wc2",name:"Silvia Neri",plan:"2 bottiglie",since:"mar 2025",renew:"12 ago 2026",status:"attivo"},
+  {id:"wc3",name:"Elena Marchetti",plan:"3 bottiglie",since:"nov 2024",renew:"2 ago 2026",status:"attivo"},
+  {id:"wc4",name:"Marco Esposito",plan:"2 bottiglie",since:"giu 2025",renew:"20 ago 2026",status:"in_pausa"},
+  {id:"wc5",name:"Claudia Ricci",plan:"2 bottiglie",since:"feb 2026",renew:"8 ago 2026",status:"attivo"},
+];
+const WINECLUB_BOX = [
+  {name:"Barolo DOCG 2019",vendor:"Cantine Barolo Re",img:W.barolo},
+  {name:"Prosecco Extra Dry 2023",vendor:"Bollicine Venete",img:W.prosecco},
+];
+
+const GLOBAL_PROMOS = [
+  {id:"gp1",code:"STAPPANDO10",type:"perc",value:10,min:0,uses:1842,expires:"31 dic 2026",status:"attivo"},
+  {id:"gp2",code:"SUMMERWINE",type:"perc",value:15,min:80,uses:640,expires:"31 ago 2026",status:"attivo"},
+  {id:"gp3",code:"FREESHIP50",type:"spedizione",value:0,min:50,uses:2103,expires:"31 dic 2026",status:"attivo"},
+  {id:"gp4",code:"WELCOME5",type:"fisso",value:5,min:0,uses:980,expires:"31 dic 2026",status:"attivo"},
+  {id:"gp5",code:"BLACKFRIDAY",type:"perc",value:25,min:120,uses:0,expires:"30 nov 2026",status:"bozza"},
+];
+
+const CARRIERS = [
+  {id:"c1",name:"BRT",enabled:true,italia:6.90,isole:9.90},
+  {id:"c2",name:"GLS",enabled:true,italia:7.50,isole:10.50},
+  {id:"c3",name:"Poste Italiane",enabled:true,italia:5.90,isole:8.90},
+  {id:"c4",name:"TNT / FedEx",enabled:true,italia:8.90,isole:12.90},
+  {id:"c5",name:"DHL Express",enabled:false,italia:12.90,isole:16.90},
+];
+
+const CMS_HOME = [
+  {id:"h1",name:"Hero — Vini in evidenza",type:"Slider",visible:true},
+  {id:"h2",name:"Best Seller",type:"Carosello prodotti",visible:true},
+  {id:"h3",name:"Novità in catalogo",type:"Carosello prodotti",visible:true},
+  {id:"h4",name:"Cantine in evidenza",type:"Griglia vendor",visible:true},
+  {id:"h5",name:"Banner Wine Club",type:"Banner CTA",visible:true},
+  {id:"h6",name:"Idee regalo / Gift card",type:"Carosello",visible:false},
+];
+const CMS_PAGES = [
+  {id:"pg1",title:"Chi siamo",slug:"/chi-siamo",updated:"10 lug 2026"},
+  {id:"pg2",title:"Come funziona",slug:"/come-funziona",updated:"2 lug 2026"},
+  {id:"pg3",title:"Spedizioni & corrieri",slug:"/spedizioni",updated:"28 giu 2026"},
+  {id:"pg4",title:"Resi & rimborsi",slug:"/resi",updated:"28 giu 2026"},
+  {id:"pg5",title:"FAQ / Assistenza",slug:"/faq",updated:"15 giu 2026"},
+];
+
+const BLOG_POSTS = [
+  {id:"b1",title:"Guida ai grandi rossi piemontesi",author:"Redazione Stappando",category:"Guide",date:"14 lug 2026",status:"pubblicato"},
+  {id:"b2",title:"Abbinamenti estivi: bollicine e mare",author:"Giulia Russo",category:"Abbinamenti",date:"9 lug 2026",status:"pubblicato"},
+  {id:"b3",title:"Cosa significa DOCG?",author:"Redazione Stappando",category:"Cultura",date:"1 lug 2026",status:"pubblicato"},
+  {id:"b4",title:"Vendemmia 2026: le prime stime",author:"Marco Bellini",category:"News",date:"—",status:"bozza"},
+  {id:"b5",title:"5 cantine da scoprire in Sicilia",author:"Redazione Stappando",category:"Territori",date:"—",status:"bozza"},
+];
+const BLOG_STATUS = {pubblicato:{label:"Pubblicato",pill:"p-attivo"},bozza:{label:"Bozza",pill:"p-bozza"}};
+
+const CAMPAIGNS = [
+  {id:"m1",name:"Newsletter · Nuovi arrivi luglio",channel:"Mailchimp",sent:12480,openRate:38,status:"inviata"},
+  {id:"m2",name:"Popup · Sconto primo ordine",channel:"Popup on-site",sent:0,openRate:0,status:"attiva"},
+  {id:"m3",name:"Campagna · Wine Club estate",channel:"Mailchimp",sent:8210,openRate:44,status:"inviata"},
+  {id:"m4",name:"Retargeting · Carrelli abbandonati",channel:"Automazione",sent:3140,openRate:29,status:"attiva"},
+  {id:"m5",name:"Newsletter · Ferragosto",channel:"Mailchimp",sent:0,openRate:0,status:"bozza"},
+];
+const CAMP_STATUS = {inviata:{label:"Inviata",pill:"p-bozza"},attiva:{label:"Attiva",pill:"p-attivo"},bozza:{label:"Bozza",pill:"p-bozza"},pausa:{label:"In pausa",pill:"p-esaurito"}};
+
+const ADMIN_REVIEWS = [
+  {id:"ar1",customer:"Luca Ferretti",vendor:"Cantine Barolo Re",product:"Barolo DOCG",rating:5,date:"17 lug 2026",text:"Vino straordinario, complessità aromatica eccezionale. Lo ricomprerei sicuramente.",status:"in_review"},
+  {id:"ar2",customer:"Marco Esposito",vendor:"Chianti Hills",product:"Chianti Classico",rating:1,date:"16 lug 2026",text:"Bottiglia arrivata con difetto di tappo, contenuto imbevibile. Pessima esperienza, contattate un numero che non risponde mai!!!",status:"segnalata"},
+  {id:"ar3",customer:"Silvia Neri",vendor:"Bollicine Venete",product:"Prosecco Extra Dry",rating:4,date:"16 lug 2026",text:"Bollicine fini e persistenti, ottimo per l'aperitivo. Consegna puntuale.",status:"pubblicata"},
+  {id:"ar4",customer:"Anonimo",vendor:"Etna Rossi",product:"Nerello Mascalese",rating:2,date:"15 lug 2026",text:"Comprate altrove, prezzi gonfiati. Seguite il mio profilo per sconti veri >>> link",status:"segnalata"},
+  {id:"ar5",customer:"Hotel Belvedere",vendor:"Tenuta del Sole",product:"Brunello di Montalcino",rating:5,date:"15 lug 2026",text:"Fornitura impeccabile per il nostro ristorante. Qualità costante e servizio B2B eccellente.",status:"in_review"},
+  {id:"ar6",customer:"Elena Marchetti",vendor:"Valpolicella Nord",product:"Amarone",rating:4,date:"14 lug 2026",text:"Vino importante e avvolgente, perfetto per le occasioni speciali.",status:"pubblicata"},
+];
+const REV_STATUS = {pubblicata:{label:"Pubblicata",pill:"p-attivo"},in_review:{label:"Da moderare",pill:"p-bozza"},segnalata:{label:"Segnalata",pill:"p-esaurito"},rifiutata:{label:"Rifiutata",pill:"p-esaurito"}};
+
+const TAXONOMY = {
+  categorie:["Rossi","Bianchi","Rosati","Bollicine","Champagne","Dolci & Passiti","Distillati"],
+  uvaggi:["Nebbiolo","Sangiovese","Barbera","Primitivo","Glera","Chardonnay","Nerello Mascalese"],
+  regioni:["Piemonte","Toscana","Veneto","Sicilia","Sardegna","Lombardia","Puglia"],
+  tag:["Best seller","Novità","Bio","Vegano","Idea regalo","Premiato"],
+};
+const CATALOG = [
+  {id:"c1",name:"Barolo DOCG 2019",vendor:"Cantine Barolo Re",type:"Rossi",price:78,stock:24,status:"attivo",img:W.barolo},
+  {id:"c2",name:"Brunello di Montalcino 2018",vendor:"Tenuta del Sole",type:"Rossi",price:124,stock:11,status:"attivo",img:W.brunello},
+  {id:"c3",name:"Amarone della Valpolicella 2017",vendor:"Valpolicella Nord",type:"Rossi",price:95,stock:18,status:"attivo",img:W.amarone},
+  {id:"c4",name:"Prosecco Extra Dry 2023",vendor:"Bollicine Venete",type:"Bollicine",price:18,stock:72,status:"attivo",img:W.prosecco},
+  {id:"c5",name:"Pinot Grigio IGT 2022",vendor:"Sardegna Vini",type:"Bianchi",price:22,stock:6,status:"attivo",img:W.pinot},
+  {id:"c6",name:"Chianti Classico 2021",vendor:"Chianti Hills",type:"Rossi",price:42,stock:58,status:"attivo",img:W.chianti},
+  {id:"c7",name:"Nerello Mascalese 2021",vendor:"Etna Rossi",type:"Rossi",price:34,stock:0,status:"esaurito",img:W.mockup3},
+  {id:"c8",name:"Franciacorta Brut",vendor:"Franciacorta Elite",type:"Bollicine",price:29,stock:40,status:"attivo",img:W.mockup1},
+];
+const CAT_STATUS = {attivo:{label:"Attivo",pill:"p-attivo"},esaurito:{label:"Esaurito",pill:"p-esaurito"},bozza:{label:"Bozza",pill:"p-bozza"}};
+
+/* ── SISTEMA · Integrazioni e chiavi API ────────────────────── */
+const INTEGRAZIONI = [
+  {id:"i1",name:"Stripe",cat:"Pagamenti",desc:"Incassi con carta, SEPA e payout automatici verso le cantine",icon:"creditcard",color:VIOLET,on:true,key:"sk_live_51Ha9••••••••••••4f2a",updated:"12 lug 2026"},
+  {id:"i2",name:"PayPal",cat:"Pagamenti",desc:"Checkout alternativo e rimborsi diretti sul conto del cliente",icon:"euro",color:BLUE,on:true,key:"live_id_AZk8••••••••••9c11",updated:"3 giu 2026"},
+  {id:"i3",name:"Fatturazione elettronica (SDI)",cat:"Fiscale",desc:"Invio e ricezione fatture verso il Sistema di Interscambio",icon:"file",color:GREEN,on:true,key:"sdi_prod_••••••••••7710",updated:"28 giu 2026"},
+  {id:"i4",name:"Mailchimp",cat:"Marketing",desc:"Sincronizzazione lista iscritti, campagne e automazioni",icon:"mail",color:"#b45309",on:true,key:"mc_us14_••••••••••e3d0",updated:"17 lug 2026"},
+  {id:"i5",name:"BRT · tracking API",cat:"Spedizioni",desc:"Creazione lettere di vettura e tracking in tempo reale",icon:"truck",color:TEAL,on:true,key:"brt_api_••••••••••2288",updated:"1 lug 2026"},
+  {id:"i6",name:"Google Analytics 4",cat:"Analytics",desc:"Traffico, funnel di acquisto e attribuzione delle campagne",icon:"chart",color:GOLD,on:true,key:"G-••••••••XZ",updated:"14 mag 2026"},
+  {id:"i7",name:"Age verification API",cat:"Compliance",desc:"Verifica maggiore età al checkout e alla consegna",icon:"shield",color:ROOT,on:false,key:"—",updated:"non attivata"},
+];
+
+/* ── SISTEMA · Log & audit ──────────────────────────────────── */
+const AUDIT = [
+  {id:"l1",ts:"17 lug · 09:42",actor:"Andrea Stappando",role:"Admin",sev:"crit",action:"Commissione modificata",target:"Etna Rossi · 14% → 13%",ip:"93.44.12.8"},
+  {id:"l2",ts:"17 lug · 09:20",actor:"Chiara Lodi",role:"Manager Admin",sev:"warn",action:"Rimborso oltre soglia richiesto",target:"#ORD-9240 · € 1.840,00",ip:"93.44.12.19"},
+  {id:"l3",ts:"17 lug · 08:55",actor:"Andrea Stappando",role:"Admin",sev:"crit",action:"Ruolo utente modificato",target:"Davide Poli · User → Vendor Manager",ip:"93.44.12.8"},
+  {id:"l4",ts:"16 lug · 18:31",actor:"Chiara Lodi",role:"Manager Admin",sev:"info",action:"Recensione rifiutata",target:"ar4 · contenuto promozionale",ip:"93.44.12.19"},
+  {id:"l5",ts:"16 lug · 17:04",actor:"Andrea Stappando",role:"Admin",sev:"crit",action:"Chiave API rigenerata",target:"Stripe · sk_live_…4f2a",ip:"93.44.12.8"},
+  {id:"l6",ts:"16 lug · 11:47",actor:"Sistema",role:"Automazione",sev:"info",action:"Payout eseguito",target:"Cantine Barolo Re · € 4.120,00",ip:"—"},
+  {id:"l7",ts:"15 lug · 16:12",actor:"Andrea Stappando",role:"Admin",sev:"warn",action:"Cantina sospesa",target:"Franciacorta Elite · contratto in verifica",ip:"93.44.12.8"},
+  {id:"l8",ts:"15 lug · 10:03",actor:"Chiara Lodi",role:"Manager Admin",sev:"info",action:"Codice sconto creato",target:"SUMMERWINE · −15%",ip:"93.44.12.19"},
+  {id:"l9",ts:"14 lug · 14:38",actor:"Andrea Stappando",role:"Admin",sev:"crit",action:"Feature flag attivato",target:"recensioni_foto · rollout 50%",ip:"93.44.12.8"},
+  {id:"l10",ts:"14 lug · 09:11",actor:"Marco Bellini",role:"Vendor Owner",sev:"info",action:"Membro del team invitato",target:"Tenuta del Sole · nuovo Vendor Manager",ip:"87.20.55.3"},
+];
+const SEV_CFG = {info:{label:"Informativa",cls:"sev-info",icon:"info"},warn:{label:"Da verificare",cls:"sev-warn",icon:"alert"},crit:{label:"Azione critica",cls:"sev-crit",icon:"shield"}};
+
+/* ── SISTEMA · Feature flag ─────────────────────────────────── */
+const FLAGS = [
+  {id:"f1",key:"checkout_ospite_v2",name:"Checkout ospite v2",desc:"Nuovo flusso di acquisto senza registrazione, con conferma 18+ in un solo passaggio.",on:true,rollout:100,scope:"Tutti gli utenti"},
+  {id:"f2",key:"wine_club_3_bottiglie",name:"Wine Club · piano da 3 bottiglie",desc:"Terzo piano di abbonamento accanto a quello da 2 bottiglie.",on:true,rollout:25,scope:"Nuovi abbonati"},
+  {id:"f3",key:"recensioni_foto",name:"Foto nelle recensioni",desc:"Permette di allegare immagini alla recensione di un vino acquistato.",on:true,rollout:50,scope:"Clienti B2C"},
+  {id:"f4",key:"listino_horeca_dinamico",name:"Listino Horeca dinamico",desc:"Prezzi B2B calcolati a scaglioni sul volume dell'ultimo trimestre.",on:false,rollout:0,scope:"Clienti Horeca"},
+  {id:"f5",key:"nuovo_pdp",name:"Nuova scheda prodotto",desc:"Layout PDP ridisegnato con abbinamenti e scheda della cantina.",on:true,rollout:10,scope:"Traffico organico"},
+  {id:"f6",key:"pagamento_rateale",name:"Pagamento rateale",desc:"Rate a 3 mesi sopra i 150 € di spesa, tramite provider esterno.",on:false,rollout:0,scope:"Non rilasciato"},
+];
+
+/* ── SISTEMA · Commissioni & contratti ──────────────────────── */
+const SCAGLIONI = [
+  {da:"0",a:"50.000",perc:15},
+  {da:"50.001",a:"150.000",perc:14},
+  {da:"150.001",a:"300.000",perc:12},
+  {da:"oltre 300.000",a:"",perc:10},
+];
+const COMMISSIONI_PRESET = [10,11,12,13,14,15];
+</script>
+<script>
+/* ── Navigazione ────────────────────────────────────────────
+   Back-office: le 14 voci ereditate dal Manager Admin.
+   Sistema: le voci esclusive dell'Admin super/owner.        */
+const NAV_BACKOFFICE = [
+  {id:"panoramica",label:"Panoramica globale",icon:"dashboard"},
+  {id:"catalogo",  label:"Catalogo",            icon:"box"},
+  {id:"vendor",    label:"Vendor / Cantine",    icon:"store"},
+  {id:"utenti",    label:"Utenti",              icon:"users"},
+  {id:"ordini",    label:"Ordini",              icon:"bag"},
+  {id:"pagamenti", label:"Pagamenti",           icon:"creditcard"},
+  {id:"wineclub",  label:"Wine Club",           icon:"award"},
+  {id:"promozioni",label:"Promozioni & codici", icon:"ticket"},
+  {id:"spedizioni",label:"Spedizioni & Corrieri",icon:"truck"},
+  {id:"contenuti", label:"Contenuti (CMS)",     icon:"layout"},
+  {id:"blog",      label:"Blog",                icon:"news"},
+  {id:"marketing", label:"Marketing",           icon:"megaphone"},
+  {id:"recensioni",label:"Recensioni",          icon:"star"},
+  {id:"report",    label:"Report & Analytics",  icon:"chart"},
+];
+const NAV_SISTEMA = [
+  {id:"rbac",       label:"Ruoli & permessi",     icon:"shield"},
+  {id:"integrazioni",label:"Integrazioni / API",  icon:"plug"},
+  {id:"audit",      label:"Log & audit",          icon:"clipboard"},
+  {id:"flags",      label:"Feature flag",         icon:"flag"},
+  {id:"commissioni",label:"Commissioni & contratti",icon:"percent"},
+];
+const ALL_NAV = NAV_BACKOFFICE.concat(NAV_SISTEMA);
+const SECTIONS = ALL_NAV.map(n=>n.id);
+const MOBILE_NAV = ["panoramica","ordini","vendor","rbac"];
+
+/* ── Stato ──────────────────────────────────────────────────── */
+const S = {
+  section:"panoramica",
+  roleMenu:false, mobMenu:false, toast:null,
+  cat:{q:"",type:"all"},
+  ven:{q:"",status:"all",comm:null},
+  vendors: VENDORS.map(v=>Object.assign({},v)),
+  usr:{q:"",role:"all",roleModal:null,pick:null},
+  users: USERS.map(u=>Object.assign({},u)),
+  ord:{q:"",status:"all",refund:null,destroy:null},
+  orders: ADMIN_ORDERS.map(o=>Object.assign({},o)),
+  pay:{tab:"all"},
+  wc:{tab:"abbonati"},
+  promo:{creating:false,form:null,copied:null},
+  promos: GLOBAL_PROMOS.map(p=>Object.assign({},p)),
+  carriers: CARRIERS.map(c=>Object.assign({},c)),
+  cms:{tab:"home"},
+  cmsHome: CMS_HOME.map(h=>Object.assign({},h)),
+  blog:{status:"all"},
+  posts: BLOG_POSTS.map(b=>Object.assign({},b)),
+  campaigns: CAMPAIGNS.map(c=>Object.assign({},c)),
+  rev:{status:"all"},
+  reviews: ADMIN_REVIEWS.map(r=>Object.assign({},r)),
+  report:{period:"6m"},
+  rbac:{grp:"all"},
+  intg: INTEGRAZIONI.map(i=>Object.assign({},i)),
+  intgShow:null,
+  audit:{sev:"all",q:""},
+  flags: FLAGS.map(f=>Object.assign({},f)),
+};
+const EMPTY_PROMO = () => ({code:"",type:"perc",value:"",min:"",expires:"31 dic 2026"});
+
+/* ── Utility di ruolo ───────────────────────────────────────── */
+const roleById = id => ROLES.find(r=>r.id===id) || ROLES[0];
+const pendingRefunds = () => S.orders.filter(o=>o.status==="rimborso_richiesto");
+
+/* ═══ GRAFICI (SVG scritti a mano) ══════════════════════════ */
+function niceMax(v,ticks){
+  ticks=ticks||4;
+  if(v<=0) return ticks;
+  const raw=v/ticks, p=Math.pow(10,Math.floor(Math.log10(raw)));
+  const steps=[1,1.5,2,2.5,3,4,5,6,8,10];
+  let step=p*10;
+  for(let i=0;i<steps.length;i++){ if(p*steps[i]>=raw){step=p*steps[i];break;} }
+  return step*ticks;
+}
+function kLabel(v){
+  if(v===0) return "€0";
+  const k=v/1000;
+  return "€"+(Number.isInteger(k)?k:String(k).replace(".",","))+"k";
+}
+function areaChart(data){
+  const WD=720,H=212,L=54,R=8,T=14,B=38;
+  const max=niceMax(Math.max.apply(null,data.map(d=>d.fatturato))), n=data.length;
+  const px=i=> n===1 ? (L+(WD-L-R)/2) : L + i*(WD-L-R)/(n-1);
+  const py=v=> T + (1-v/max)*(H-T-B);
+  const pts=data.map((d,i)=>[px(i),py(d.fatturato)]);
+  const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const area=line+" L"+pts[pts.length-1][0].toFixed(1)+" "+(H-B)+" L"+pts[0][0].toFixed(1)+" "+(H-B)+" Z";
+  let g="",yl="";
+  for(let i=0;i<=4;i++){
+    const v=max*i/4, y=py(v);
+    g+='<line class="gridline" x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(WD-R)+'" y2="'+y.toFixed(1)+'"/>';
+    yl+='<text class="axis" x="'+(L-10)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end">'+kLabel(v)+'</text>';
+  }
+  return '<svg viewBox="0 0 '+WD+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Andamento GMV mensile">'+
+    '<defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="5%" stop-color="'+TEAL+'" stop-opacity=".18"/><stop offset="95%" stop-color="'+TEAL+'" stop-opacity="0"/></linearGradient></defs>'+
+    g+yl+
+    '<path d="'+area+'" fill="url(#gf)"/>'+
+    '<path d="'+line+'" fill="none" stroke="'+TEAL+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'+
+    data.map((d,i)=>'<g><circle cx="'+px(i).toFixed(1)+'" cy="'+py(d.fatturato).toFixed(1)+'" r="4" fill="'+TEAL+'"/>'+
+      '<circle cx="'+px(i).toFixed(1)+'" cy="'+py(d.fatturato).toFixed(1)+'" r="14" fill="transparent"><title>'+d.month+': '+eurK(d.fatturato)+' · '+d.ordini+' ordini</title></circle></g>').join("")+
+    data.map((d,i)=>'<text class="axis" x="'+px(i).toFixed(1)+'" y="'+(H-14)+'" text-anchor="middle">'+d.month+'</text>').join("")+
+  '</svg>';
+}
+function donut(data){
+  const size=140,c=size/2,ro=60,ri=38,gap=.05;
+  const tot=data.reduce((s,d)=>s+d.value,0);
+  let a=-Math.PI/2, out="";
+  data.forEach(d=>{
+    const sweep=(d.value/tot)*Math.PI*2, s=a+gap/2, e=a+sweep-gap/2;
+    const large=(e-s)>Math.PI?1:0;
+    const p=(r,ang)=>[(c+r*Math.cos(ang)).toFixed(2),(c+r*Math.sin(ang)).toFixed(2)];
+    const a1=p(ro,s),a2=p(ro,e),a3=p(ri,e),a4=p(ri,s);
+    out+='<path d="M'+a1[0]+' '+a1[1]+' A'+ro+' '+ro+' 0 '+large+' 1 '+a2[0]+' '+a2[1]+' L'+a3[0]+' '+a3[1]+' A'+ri+' '+ri+' 0 '+large+' 0 '+a4[0]+' '+a4[1]+' Z" fill="'+d.color+'">'+
+      '<title>'+d.name+': '+d.value+' ordini</title></path>';
+    a+=sweep;
+  });
+  return '<svg viewBox="0 0 '+size+' '+size+'" width="140" height="140" role="img" aria-label="Distribuzione ordini per stato">'+out+
+    '<text x="'+c+'" y="'+(c-2)+'" text-anchor="middle" style="font-size:18px;font-weight:700;fill:#1a1a1a">'+tot+'</text>'+
+    '<text x="'+c+'" y="'+(c+13)+'" text-anchor="middle" style="font-size:9px;fill:#7a7060">ordini</text></svg>';
+}
+function barsV(data){
+  const WD=720,H=170,L=44,R=8,T=10,B=32;
+  const max=niceMax(Math.max.apply(null,data.map(d=>d.visite)));
+  const step=(WD-L-R)/data.length, bw=30;
+  let g="";
+  for(let i=0;i<=4;i++){
+    const v=max*i/4, y=T+(1-i/4)*(H-T-B);
+    g+='<line class="gridline" x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+(WD-R)+'" y2="'+y.toFixed(1)+'"/>'+
+       '<text class="axis" x="'+(L-8)+'" y="'+(y+4).toFixed(1)+'" text-anchor="end">'+Math.round(v)+'</text>';
+  }
+  return '<svg viewBox="0 0 '+WD+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Visite settimanali">'+g+
+    data.map((d,i)=>{
+      const x=L+i*step+step/2-bw/2, h=(d.visite/max)*(H-T-B), y=H-B-h;
+      return '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw+'" height="'+h.toFixed(1)+'" rx="6" fill="'+GOLD+'">'+
+        '<title>'+d.day+': '+d.visite+' visite</title></rect>'+
+        '<text class="axis" x="'+(x+bw/2).toFixed(1)+'" y="'+(H-12)+'" text-anchor="middle">'+d.day+'</text>';
+    }).join("")+'</svg>';
+}
+function barsH2(data,unit){
+  const WD=520,H=200,L=140,R=16,T=6,B=26;
+  const max=niceMax(Math.max.apply(null,data.map(d=>d.val)));
+  const rowH=(H-T-B)/data.length, bh=15;
+  let g="";
+  for(let i=0;i<=4;i++){
+    const x=L+(WD-L-R)*i/4;
+    g+='<line class="gridline" x1="'+x.toFixed(1)+'" y1="'+T+'" x2="'+x.toFixed(1)+'" y2="'+(H-B)+'"/>'+
+       '<text class="axis" x="'+x.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle" style="font-size:10px">'+Math.round(max*i/4)+'</text>';
+  }
+  return '<svg viewBox="0 0 '+WD+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Classifica cantine">'+g+
+    data.map((d,i)=>{
+      const y=T+i*rowH+(rowH-bh)/2, w=(d.val/max)*(WD-L-R);
+      return '<text class="axis" x="'+(L-8)+'" y="'+(y+bh/2+3.5).toFixed(1)+'" text-anchor="end" style="font-size:10px">'+esc(d.name)+'</text>'+
+        '<rect x="'+L+'" y="'+y.toFixed(1)+'" width="'+Math.max(w,2).toFixed(1)+'" height="'+bh+'" rx="6" fill="'+TEAL+'">'+
+        '<title>'+esc(d.name)+': '+d.val+' '+unit+'</title></rect>';
+    }).join("")+'</svg>';
+}
+
+/* ═══ COMPONENTI CONDIVISI ══════════════════════════════════ */
+function stars(n){
+  let s="";
+  for(let i=1;i<=5;i++) s+= i<=n?icf("star",13,"#fbbf24"):ic("star",13,"color:#d8d3c8");
+  return '<span class="stars">'+s+'</span>';
+}
+function pill(cfg){ return '<span class="pill '+cfg.pill+'">'+cfg.label+'</span>'; }
+function rolePill(id){
+  const r=roleById(id);
+  return '<span class="pill" style="background:'+r.color+'1a;color:'+r.color+'">'+r.label+'</span>';
+}
+function statTile(lbl,val,sub,icon,color){
+  return '<div class="stat"><div class="spread"><span class="lbl">'+lbl+'</span>'+
+    '<span style="width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:'+color+'1a;color:'+color+'">'+ic(icon,16)+'</span></div>'+
+    '<div class="val">'+val+'</div>'+(sub?'<div class="sub">'+ic("up",11)+sub+'</div>':'')+'</div>';
+}
+function toastBar(){ return S.toast?'<div class="savebar">'+ic("checkCircle",15)+esc(S.toast)+'</div>':''; }
+function rootBar(txt,sub){
+  return '<div class="rootbar"><span class="ico">'+ic("unlock",18)+'</span>'+
+    '<div style="flex:1;min-width:0"><h4>'+txt+'</h4><p>'+sub+'</p></div>'+
+    '<span class="pill p-root">'+ic("shield",11)+' Solo Admin</span></div>';
+}
+function initials(name){ return name.split(" ").map(x=>x[0]).join("").slice(0,2).toUpperCase(); }
+
+/* ═══ PANORAMICA GLOBALE ════════════════════════════════════ */
+function viewPanoramica(){
+  const vAtt=S.vendors.filter(v=>v.status==="attiva").length;
+  const vRev=S.vendors.filter(v=>v.status==="in_review").length;
+  const vSusp=S.vendors.filter(v=>v.status==="sospesa").length;
+  const revFlag=S.reviews.filter(r=>r.status==="segnalata").length;
+  const outStock=CATALOG.filter(p=>p.status==="esaurito").length;
+  const refundReq=pendingRefunds().length;
+  const contrattiOpen=S.vendors.filter(v=>v.contratto!=="firmato").length;
+  const alertN=vRev+vSusp+revFlag+outStock+refundReq+contrattiOpen;
+  const tot=ORDER_STATUS_PIE.reduce((a,b)=>a+b.value,0);
+  const topV=S.vendors.slice().sort((a,b)=>b.gmv-a.gmv).slice(0,5).map(v=>({name:v.name,val:Math.round(v.gmv/1000)}));
+  const flagsOn=S.flags.filter(f=>f.on).length;
+
+  const alertRow=(icon,color,txt,sec,root)=>'<button class="ord-mini" data-act="nav" data-id="'+sec+'" style="width:100%;text-align:left;border:none;background:none">'+
+    '<span style="width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:'+color+'1a;color:'+color+'">'+ic(icon,16)+'</span>'+
+    '<span style="flex:1;min-width:0;font-size:13px">'+txt+'</span>'+
+    (root?'<span class="pill p-root">richiede te</span>':'')+ic("chevR",15,"color:var(--muted-fg)")+'</button>';
+
+  const quick=(icon,color,label,sec)=>'<button class="quick" data-act="nav" data-id="'+sec+'">'+
+    '<span class="quick-ic" style="background:'+color+'1a;color:'+color+'">'+ic(icon,20)+'</span><span>'+label+'</span></button>';
+
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="hello"><div class="row" style="gap:10px;flex-wrap:wrap"><h2>Panoramica globale</h2>'+
+      '<span class="pill p-root">'+ic("shield",11)+' Admin super/owner</span></div>'+
+      '<p>Stato della piattaforma · aggiornato al 17 luglio 2026 · ultimo accesso '+esc(ADMIN.accesso)+'</p></div>'+
+
+    '<div class="grid4" style="grid-template-columns:repeat(5,1fr)">'+
+      statTile("GMV mese","€ 381k","+15,8%","euro",TEAL)+
+      statTile("Ordini mese","4.080","+15,3%","bag",GREEN)+
+      statTile("Utenti","12.480","+6,2%","users","#7f1d1d")+
+      statTile("Vendor attivi",vAtt+" / "+S.vendors.length,"","store",GOLD)+
+      statTile("Alert aperti",String(alertN),"","alert","#d97706")+
+    '</div>'+
+
+    (refundReq>0
+      ? '<div class="rootbar"><span class="ico">'+ic("clock",18)+'</span>'+
+        '<div style="flex:1;min-width:0"><h4>'+refundReq+' '+(refundReq===1?"rimborso in attesa":"rimborsi in attesa")+' della tua approvazione</h4>'+
+        '<p>Il Manager Admin può rimborsare fino a 200 €. Oltre soglia la richiesta arriva qui: solo tu puoi approvarla.</p></div>'+
+        '<button class="btn btn-root" style="flex:none" data-act="nav" data-id="ordini">Esamina '+ic("chevR",14)+'</button></div>'
+      : '')+
+
+    '<div class="chartbox"><h3>Andamento GMV</h3><p class="csub" style="margin-bottom:16px">Valore lordo delle vendite (marketplace), ultimi 6 mesi</p>'+areaChart(GMV_MONTHLY)+'</div>'+
+
+    '<div class="grid-2col">'+
+      '<div class="chartbox"><h3>Top cantine per GMV</h3><p class="csub" style="margin-bottom:16px">Migliaia di euro, periodo corrente</p>'+barsH2(topV,"k€")+'</div>'+
+      '<div class="chartbox"><h3>Distribuzione ordini</h3><p class="csub" style="margin-bottom:16px">Per stato di evasione</p>'+
+        '<div class="row" style="gap:16px;flex-wrap:wrap">'+donut(ORDER_STATUS_PIE)+
+        '<div class="legend">'+ORDER_STATUS_PIE.map(s=>'<div><span class="row" style="gap:6px"><i style="background:'+s.color+'"></i>'+
+          '<span style="font-size:12px;color:var(--muted-fg)">'+s.name+'</span></span>'+
+          '<span class="row" style="gap:6px"><b style="font-size:12px">'+s.value.toLocaleString("it-IT")+'</b>'+
+          '<span style="font-size:10px;color:var(--muted-fg)">'+Math.round(s.value/tot*100)+'%</span></span></div>').join("")+'</div></div></div>'+
+    '</div>'+
+
+    '<div class="card"><div class="card-h"><h3>Alert operativi</h3><span class="pill p-bozza">'+alertN+' da gestire</span></div>'+
+      (refundReq?alertRow("clock",ROOT,refundReq+" <b>rimborsi oltre soglia</b> da approvare","ordini",true):"")+
+      (vRev?alertRow("store","#d97706",vRev+" cantina/e in <b>revisione</b> da attivare","vendor",true):"")+
+      (contrattiOpen?alertRow("file","#d97706",contrattiOpen+" <b>contratti</b> non ancora firmati","commissioni",true):"")+
+      (vSusp?alertRow("ban","#ef4444",vSusp+" cantina/e <b>sospesa/e</b>","vendor"):"")+
+      (outStock?alertRow("box","#d97706",outStock+" prodotti <b>esauriti</b> nel catalogo","catalogo"):"")+
+      (revFlag?alertRow("flag","#ef4444",revFlag+" recensioni <b>segnalate</b> da moderare","recensioni"):"")+
+      (alertN===0?'<div class="empty" style="padding:32px 0">'+ic("checkCircle",32,"opacity:.4")+'<p>Nessun alert. Tutto sotto controllo.</p></div>':"")+
+    '</div>'+
+
+    '<div><p class="eyebrow" style="margin-bottom:12px">Impostazioni sistema · riservate a te</p><div class="grid4">'+
+      quick("shield",ROOT,"Ruoli & permessi","rbac")+
+      quick("plug",VIOLET,"Integrazioni / API","integrazioni")+
+      quick("clipboard",TEAL,"Log & audit","audit")+
+      quick("flag",GOLD,flagsOn+" feature flag attivi","flags")+
+    '</div></div>'+
+
+    '<div><p class="eyebrow" style="margin-bottom:12px">Azioni rapide</p><div class="grid4">'+
+      quick("percent",GREEN,"Commissioni & contratti","commissioni")+
+      quick("store",TEAL,"Gestione cantine","vendor")+
+      quick("users","#7f1d1d","Utenti e ruoli","utenti")+
+      quick("chart",GOLD,"Report & Analytics","report")+
+    '</div></div>'+
+  '</div>';
+}
+</script>
+<script>
+/* ═══ CATALOGO ══════════════════════════════════════════════ */
+function viewCatalogo(){
+  const q=S.cat.q.toLowerCase(), tp=S.cat.type;
+  const list=CATALOG.filter(p=>(tp==="all"||p.type===tp)&&(!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q)));
+  const types=["all"].concat(Array.from(new Set(CATALOG.map(p=>p.type))));
+  const taxCard=(title,items)=>'<div class="card" style="padding:16px 20px"><div class="spread" style="margin-bottom:10px"><span class="eyebrow">'+title+'</span>'+
+    '<button class="link" data-act="toast" data-msg="Gestione '+title.toLowerCase()+' (demo)">'+ic("plus",13)+' Aggiungi</button></div>'+
+    '<div class="chiprow" style="flex-wrap:wrap;overflow:visible">'+items.map(t=>'<span class="chip">'+esc(t)+'</span>').join("")+'</div></div>';
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Prodotti totali</span><b>'+CATALOG.length+'</b></div>'+
+      '<div class="ministat"><span>Cantine in catalogo</span><b>'+new Set(CATALOG.map(p=>p.vendor)).size+'</b></div>'+
+      '<div class="ministat"><span>Esauriti</span><b class="zero">'+CATALOG.filter(p=>p.status==="esaurito").length+'</b></div>'+
+    '</div>'+
+    '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="cat-q" data-focus-key="catq" placeholder="Cerca prodotto o cantina…" value="'+esc(S.cat.q)+'"></div>'+
+      '<div class="chiprow">'+types.map(t=>'<button class="chip '+(tp===t?"on":"")+'" data-act="cat-type" data-id="'+t+'">'+(t==="all"?"Tutti":t)+'</button>').join("")+'</div></div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Prodotto</th><th>Cantina</th><th>Tipo</th><th>Prezzo</th><th>Giacenza</th><th>Stato</th></tr></thead><tbody>'+
+      (list.length?list.map(p=>'<tr><td><div class="row" style="gap:10px"><span class="thumb" style="width:34px;height:42px"><img src="'+p.img+'" alt="" loading="lazy"></span><b style="font-weight:600">'+esc(p.name)+'</b></div></td>'+
+        '<td>'+esc(p.vendor)+'</td><td>'+esc(p.type)+'</td><td>'+eur(p.price)+'</td>'+
+        '<td class="'+(p.stock===0?"zero":p.stock<10?"low":"")+'">'+p.stock+'</td><td>'+pill(CAT_STATUS[p.status])+'</td></tr>').join("")
+        :'<tr><td colspan="6"><div class="empty" style="padding:40px 0">'+ic("box",32,"opacity:.4")+'<p>Nessun prodotto trovato</p></div></td></tr>')+
+      '</tbody></table></div>'+
+    '<p class="eyebrow" style="margin-top:4px">Tassonomie — categorie, uvaggi, regioni, tag</p>'+
+    '<div class="grid2">'+taxCard("Categorie",TAXONOMY.categorie)+taxCard("Uvaggi",TAXONOMY.uvaggi)+'</div>'+
+    '<div class="grid2">'+taxCard("Regioni",TAXONOMY.regioni)+taxCard("Tag",TAXONOMY.tag)+'</div>'+
+  '</div>';
+}
+
+/* ═══ VENDOR / CANTINE — commissioni e attivazione sbloccate ═ */
+function viewVendor(){
+  const q=S.ven.q.toLowerCase(), st=S.ven.status;
+  const list=S.vendors.filter(v=>(st==="all"||v.status===st)&&(!q||v.name.toLowerCase().includes(q)||v.region.toLowerCase().includes(q)));
+  const chips=[["all","Tutte"],["attiva","Attive"],["in_review","In revisione"],["sospesa","Sospese"]];
+  const rows=list.map(v=>{
+    let actions="";
+    if(v.status==="attiva") actions='<button class="btn btn-ghost" style="padding:8px 12px" data-act="ven-toggle" data-id="'+v.id+'">'+ic("ban",14)+' Sospendi</button>';
+    else if(v.status==="sospesa") actions='<button class="btn btn-ghost" style="padding:8px 12px" data-act="ven-toggle" data-id="'+v.id+'">'+ic("refresh",14)+' Riattiva</button>';
+    else actions='<button class="btn btn-root" style="padding:8px 12px" data-act="ven-activate" data-id="'+v.id+'">'+ic("check",14)+' Attiva cantina</button>';
+    return '<div class="prow" style="flex-wrap:wrap">'+
+      '<span class="thumb" style="width:44px;height:44px;border-radius:12px"><img src="'+v.img+'" alt="" loading="lazy"></span>'+
+      '<div style="flex:1;min-width:150px"><div class="row" style="gap:8px;flex-wrap:wrap"><b style="font-weight:600">'+esc(v.name)+'</b>'+
+        pill(VENDOR_STATUS[v.status])+pill(CONTRATTO_CFG[v.contratto])+'</div>'+
+        '<p style="font-size:12px;color:var(--muted-fg)">'+esc(v.city)+", "+esc(v.region)+' · '+esc(v.owner)+' · dal '+v.joined+'</p></div>'+
+      '<div style="text-align:right"><p style="font-size:10px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.08em">GMV</p><b>'+eurK(v.gmv)+'</b></div>'+
+      '<div style="text-align:right"><p style="font-size:10px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.08em">Prodotti</p><b>'+v.products+'</b></div>'+
+      '<div style="text-align:right"><p style="font-size:10px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.08em">Rating</p><b>'+stars(Math.round(v.rating))+'</b></div>'+
+      '<div style="text-align:right"><p style="font-size:10px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.08em">Commissione</p>'+
+        '<button class="btn btn-ghost" style="padding:6px 10px;font-size:13px;font-weight:700" data-act="ven-comm" data-id="'+v.id+'">'+v.commission+'% '+ic("pencil",12)+'</button></div>'+
+      '<div class="row" style="gap:6px;flex:none">'+actions+
+        '<button class="btn btn-ghost" style="padding:8px 12px" data-act="toast" data-msg="Messaggio inviato a '+esc(v.name)+'">'+ic("msg",14)+' Contatta</button></div>'+
+    '</div>';
+  }).join("");
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Commissioni e attivazione cantine sbloccate",
+      "Come Admin puoi fissare la percentuale di commissione di ogni cantina e attivare quelle in revisione. Il Manager Admin gestisce e supporta le cantine, ma non tocca questi due comandi.")+
+    '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="ven-q" data-focus-key="venq" placeholder="Cerca cantina o regione…" value="'+esc(S.ven.q)+'"></div>'+
+      '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(st===c[0]?"on":"")+'" data-act="ven-status" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div></div>'+
+    (list.length?'<div class="stack-sm" style="gap:8px">'+rows+'</div>':'<div class="empty">'+ic("store",36,"opacity:.4")+'<p>Nessuna cantina trovata</p></div>')+
+  '</div>';
+}
+function commModal(){
+  const v=S.vendors.find(x=>x.id===S.ven.comm); if(!v) return "";
+  return '<div class="overlay"><div class="scrim" data-act="ven-comm-close"></div>'+
+    '<div class="modal" style="max-width:460px">'+
+      '<div class="modal-h"><h2>Commissione marketplace</h2>'+
+        '<button class="iconbtn" data-act="ven-comm-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="row" style="gap:12px"><span class="thumb" style="width:44px;height:44px;border-radius:12px"><img src="'+v.img+'" alt=""></span>'+
+          '<div><p style="font-size:14px;font-weight:600">'+esc(v.name)+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(v.owner)+' · GMV '+eurK(v.gmv)+'</p></div></div>'+
+        '<div class="field"><label class="eyebrow">Percentuale trattenuta su ogni ordine</label>'+
+          '<div class="chiprow" style="flex-wrap:wrap;overflow:visible">'+
+          COMMISSIONI_PRESET.map(p=>'<button class="chip '+(v.commission===p?"on":"")+'" data-act="ven-comm-set" data-id="'+v.id+'" data-val="'+p+'">'+p+'%</button>').join("")+
+          '</div></div>'+
+        '<div class="infobox">'+ic("info",15)+'<span>Con GMV '+eurK(v.gmv)+' lo scaglione standard prevede il '+
+          scaglionePer(v.gmv)+'%. Una percentuale diversa vale come condizione contrattuale dedicata e viene registrata nel log &amp; audit.</span></div>'+
+      '</div>'+
+      '<div class="modal-f"><button class="btn btn-ghost" data-act="ven-comm-close">Chiudi</button></div>'+
+    '</div></div>';
+}
+function scaglionePer(gmv){
+  if(gmv<=50000) return 15;
+  if(gmv<=150000) return 14;
+  if(gmv<=300000) return 12;
+  return 10;
+}
+
+/* ═══ UTENTI — cambio ruolo sbloccato ═══════════════════════ */
+function viewUtenti(){
+  const q=S.usr.q.toLowerCase(), rl=S.usr.role;
+  const list=S.users.filter(u=>(rl==="all"||u.role===rl)&&(!q||u.name.toLowerCase().includes(q)||u.email.toLowerCase().includes(q)));
+  const chips=[["all","Tutti"]].concat(ROLES.filter(r=>r.id!=="guest"&&r.id!=="admin").map(r=>[r.id,r.label]));
+  const rows=list.map(u=>'<tr>'+
+    '<td><div class="row" style="gap:10px"><span class="avatar" style="background:'+roleById(u.role).color+'">'+initials(u.name)+'</span>'+
+      '<div><b style="font-weight:600">'+esc(u.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(u.email)+(u.piva?' · P.IVA '+esc(u.piva):"")+'</p></div></div></td>'+
+    '<td>'+rolePill(u.role)+'</td>'+
+    '<td>'+(u.orders||"—")+'</td><td>'+(u.spent?eurK(u.spent):"—")+'</td>'+
+    '<td>'+(u.status==="attivo"?'<span class="badge st-consegnato"><i></i>Attivo</span>':'<span class="badge st-annullato"><i></i>Sospeso</span>')+'</td>'+
+    '<td><div class="row" style="gap:6px;justify-content:flex-end">'+
+      '<button class="btn btn-root" style="padding:7px 12px;font-size:12px" data-act="usr-role" data-id="'+u.id+'">'+ic("swap",13)+' Ruolo</button>'+
+      '<button class="iconbtn" data-act="usr-toggle" data-id="'+u.id+'" title="'+(u.status==="attivo"?"Sospendi":"Riattiva")+'">'+ic(u.status==="attivo"?"ban":"refresh",15)+'</button>'+
+    '</div></td></tr>').join("");
+  const per=id=>S.users.filter(u=>u.role===id).length;
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Cambio ruolo utente sbloccato",
+      "Solo l'Admin può promuovere o declassare un account fra i 7 livelli. Ogni cambio di ruolo è un'azione critica e viene scritta nel log &amp; audit con autore, data e IP.")+
+    '<div class="grid4">'+
+      '<div class="ministat"><span>Clienti B2C</span><b>'+per("user")+'</b></div>'+
+      '<div class="ministat"><span>Clienti Horeca</span><b>'+per("horeca")+'</b></div>'+
+      '<div class="ministat"><span>Staff cantine</span><b>'+(per("vowner")+per("vmanager"))+'</b></div>'+
+      '<div class="ministat"><span>Sospesi</span><b class="zero">'+S.users.filter(u=>u.status==="sospeso").length+'</b></div>'+
+    '</div>'+
+    '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="usr-q" data-focus-key="usrq" placeholder="Cerca nome o email…" value="'+esc(S.usr.q)+'"></div>'+
+      '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(rl===c[0]?"on":"")+'" data-act="usr-role-filter" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div></div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Utente</th><th>Ruolo</th><th>Ordini</th><th>Speso</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+      (list.length?rows:'<tr><td colspan="6"><div class="empty" style="padding:40px 0">'+ic("users",32,"opacity:.4")+'<p>Nessun utente trovato</p></div></td></tr>')+
+    '</tbody></table></div>'+
+  '</div>';
+}
+function roleModal(){
+  const u=S.users.find(x=>x.id===S.usr.roleModal); if(!u) return "";
+  const scelto=S.usr.pick||u.role;
+  const cambia=scelto!==u.role;
+  return '<div class="overlay"><div class="scrim" data-act="usr-role-close"></div>'+
+    '<div class="modal">'+
+      '<div class="modal-h"><h2>Cambia il ruolo dell\'utente</h2>'+
+        '<button class="iconbtn" data-act="usr-role-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="row" style="gap:12px"><span class="avatar" style="width:44px;height:44px;background:'+roleById(u.role).color+'">'+initials(u.name)+'</span>'+
+          '<div><p style="font-size:14px;font-weight:600">'+esc(u.name)+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(u.email)+' · iscritto da '+u.joined+'</p></div></div>'+
+        '<div class="field"><label class="eyebrow">Livello assegnato</label>'+
+          '<div class="stack-sm" style="gap:6px">'+
+          ROLES.filter(r=>r.id!=="guest").map(r=>'<button class="prow" style="padding:12px 14px;gap:12px;'+(scelto===r.id?"border-color:"+r.color+";box-shadow:0 0 0 3px "+r.color+"1a":"")+'" data-act="usr-role-pick" data-id="'+r.id+'">'+
+            '<span class="rolecard-dot" style="width:10px;height:10px;border-radius:999px;background:'+r.color+';flex:none"></span>'+
+            '<span style="flex:1;min-width:0;text-align:left"><b style="font-size:13px;font-weight:600">'+r.label+'</b>'+
+            (u.role===r.id?'<span class="pill p-bozza" style="margin-left:8px">attuale</span>':'')+
+            '<p style="font-size:11px;color:var(--muted-fg);margin-top:2px">'+r.desc+'</p></span>'+
+            (scelto===r.id?ic("checkCircle",18,"color:"+r.color):"")+'</button>').join("")+
+          '</div></div>'+
+        (cambia&&(scelto==="admin"||scelto==="madmin")
+          ? '<div class="note">'+ic("alert",13)+' Stai assegnando un ruolo di back-office. L\'utente potrà operare sulla piattaforma: verifica l\'identità prima di confermare.'+
+            (scelto==="admin"?' Il ruolo Admin richiede 2FA obbligatoria.':'')+'</div>'
+          : '')+
+        '<div class="infobox">'+ic("clipboard",15)+'<span>L\'operazione viene registrata come <b>azione critica</b> in Log &amp; audit e l\'utente riceve una email di notifica.</span></div>'+
+      '</div>'+
+      '<div class="modal-f">'+
+        '<button class="btn btn-ghost" data-act="usr-role-close">Annulla</button>'+
+        '<button class="btn btn-root" data-act="usr-role-save" data-id="'+u.id+'"'+(cambia?"":" disabled")+'>'+
+          ic("swap",15)+' '+(cambia?"Assegna "+roleById(scelto).label:"Nessuna modifica")+'</button></div>'+
+    '</div></div>';
+}
+
+/* ═══ ORDINI — rimborsi senza soglia + cancellazione ════════ */
+function viewOrdini(){
+  const q=S.ord.q.toLowerCase(), st=S.ord.status;
+  const list=S.orders.filter(o=>(st==="all"||o.status===st)&&(!q||o.id.toLowerCase().includes(q)||o.customer.toLowerCase().includes(q)||o.vendor.toLowerCase().includes(q)));
+  const chips=[["all","Tutti"],["rimborso_richiesto","Da approvare"],["in_lavorazione","In lavorazione"],["spedito","Spediti"],["consegnato","Consegnati"],["annullato","Annullati"]];
+  const cnt=k=>S.orders.filter(o=>o.status===k).length;
+  const canRefund=o=>(o.status==="consegnato"||o.status==="spedito");
+  const badgeCls=st2=>({rimborsato:"in_lavorazione",rimborso_richiesto:"in_lavorazione",cancellato:"annullato"}[st2]||st2);
+  const pend=pendingRefunds();
+
+  const rows=list.map(o=>{
+    const badge='<span class="badge st-'+badgeCls(o.status)+'"><i></i>'+ORDER_STATUS_CFG[o.status].label+'</span>';
+    let act='<span style="color:var(--muted-fg);font-size:12px">—</span>';
+    if(o.status==="rimborso_richiesto"){
+      act='<button class="btn btn-root" style="padding:8px 12px" data-act="ord-refund" data-id="'+o.id+'">'+ic("shield",14)+' Approva</button>';
+    } else if(canRefund(o)){
+      act='<div class="row" style="gap:6px;justify-content:flex-end">'+
+        '<button class="btn btn-ghost" style="padding:8px 12px" data-act="ord-refund" data-id="'+o.id+'">'+ic("rotate",14)+' Rimborsa</button>'+
+        '<button class="iconbtn" data-act="ord-destroy" data-id="'+o.id+'" title="Cancellazione definitiva">'+ic("trash",15)+'</button></div>';
+    }
+    return '<tr><td><b style="font-weight:700;color:var(--muted-fg)">'+esc(o.id)+'</b>'+
+        (o.motivo?'<p style="font-size:11px;color:#b45309;margin-top:3px;max-width:280px">'+esc(o.motivo)+'</p>':"")+'</td>'+
+      '<td>'+esc(o.customer)+'</td><td>'+esc(o.vendor)+'</td><td>'+o.date+'</td>'+
+      '<td><b>'+eur(o.total)+'</b>'+(o.total>200?'<br><span style="font-size:10px;color:var(--root);font-weight:600">oltre soglia Manager</span>':"")+'</td>'+
+      '<td>'+badge+'</td><td style="text-align:right">'+act+'</td></tr>';
+  }).join("");
+
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Rimborsi senza limite di soglia e cancellazioni definitive",
+      "Il Manager Admin rimborsa fino a 200 € e non può cancellare un ordine. Tu approvi le richieste oltre soglia, rimborsi qualsiasi importo e puoi cancellare definitivamente un ordine dal database.")+
+
+    (pend.length?'<div class="card"><div class="card-h"><h3>In attesa della tua approvazione</h3>'+
+      '<span class="pill p-root">'+pend.length+' '+(pend.length===1?"richiesta":"richieste")+'</span></div>'+
+      pend.map(o=>'<div class="ord-mini">'+
+        '<span class="quick-ic" style="width:34px;height:34px;background:rgba(127,29,29,.1);color:var(--root)">'+ic("clock",16)+'</span>'+
+        '<div style="flex:1;min-width:0"><b style="font-size:13px;font-weight:600">'+esc(o.id)+' · '+eur(o.total)+'</b>'+
+        '<p style="font-size:12px;color:var(--muted-fg)">'+esc(o.customer)+' — richiesto da '+esc(o.richiestaDa)+'</p>'+
+        '<p style="font-size:12px;color:#b45309;margin-top:2px">'+esc(o.motivo)+'</p></div>'+
+        '<div class="row" style="gap:6px;flex:none">'+
+          '<button class="btn btn-ghost" style="padding:8px 12px" data-act="ord-reject" data-id="'+o.id+'">'+ic("ban",14)+' Nega</button>'+
+          '<button class="btn btn-root" style="padding:8px 12px" data-act="ord-refund" data-id="'+o.id+'">'+ic("check",14)+' Approva</button></div>'+
+      '</div>').join("")+'</div>':'')+
+
+    '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="ord-q" data-focus-key="ordq" placeholder="Cerca ordine, cliente o cantina…" value="'+esc(S.ord.q)+'"></div>'+
+      '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(st===c[0]?"on":"")+'" data-act="ord-status" data-id="'+c[0]+'">'+c[1]+
+        ((cnt(c[0])||0)>0?'<b>'+cnt(c[0])+'</b>':'')+'</button>').join("")+'</div></div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Ordine</th><th>Cliente</th><th>Cantina</th><th>Data</th><th>Totale</th><th>Stato</th><th style="text-align:right">Azione</th></tr></thead><tbody>'+
+      (list.length?rows:'<tr><td colspan="7"><div class="empty" style="padding:40px 0">'+ic("bag",32,"opacity:.4")+'<p>Nessun ordine trovato</p></div></td></tr>')+
+    '</tbody></table></div>'+
+  '</div>';
+}
+function refundModal(){
+  const o=S.orders.find(x=>x.id===S.ord.refund); if(!o) return "";
+  const daApprovare=o.status==="rimborso_richiesto";
+  return '<div class="overlay"><div class="scrim" data-act="ord-refund-cancel"></div>'+
+    '<div class="confirm">'+
+      '<div class="row" style="gap:12px"><span class="ico" style="background:rgba(127,29,29,.1);color:var(--root)">'+ic(daApprovare?"shield":"rotate",22)+'</span>'+
+        '<div><h2 style="font-size:16px;font-weight:600">'+(daApprovare?"Approva il rimborso":"Conferma rimborso")+'</h2>'+
+        '<p style="font-size:12px;color:var(--muted-fg)">Ordine '+esc(o.id)+' · '+esc(o.customer)+'</p></div></div>'+
+      (daApprovare
+        ? '<div class="note">Richiesta inviata da '+esc(o.richiestaDa)+': '+esc(o.motivo)+'</div>'
+        : '')+
+      '<p style="font-size:13px;color:var(--muted-fg);line-height:1.55">Verrà rimborsato l\'intero importo di '+
+        '<b style="color:var(--fg)">'+eur(o.total)+'</b> al cliente, sullo stesso metodo di pagamento. '+
+        'Come Admin non hai limiti di soglia. L\'operazione è tracciata nei Pagamenti e nel Log &amp; audit.</p>'+
+      '<div class="modal-f" style="padding:0;border:none">'+
+        '<button class="btn btn-ghost" data-act="ord-refund-cancel">Annulla</button>'+
+        '<button class="btn btn-root" data-act="ord-refund-confirm" data-id="'+o.id+'">Rimborsa '+eur(o.total)+'</button></div>'+
+    '</div></div>';
+}
+function destroyModal(){
+  const o=S.orders.find(x=>x.id===S.ord.destroy); if(!o) return "";
+  return '<div class="overlay"><div class="scrim" data-act="ord-destroy-cancel"></div>'+
+    '<div class="confirm">'+
+      '<div class="row" style="gap:12px"><span class="ico">'+ic("alert",22)+'</span>'+
+        '<div><h2 style="font-size:16px;font-weight:600">Cancellazione definitiva</h2>'+
+        '<p style="font-size:12px;color:var(--muted-fg)">Ordine '+esc(o.id)+' · '+eur(o.total)+'</p></div></div>'+
+      '<p style="font-size:13px;color:var(--muted-fg);line-height:1.55">L\'ordine viene rimosso dagli elenchi operativi e dalle statistiche. '+
+        'È un\'azione irreversibile riservata all\'Admin: usala solo per ordini creati per errore o in test. '+
+        '<b style="color:var(--fg)">I documenti fiscali già emessi restano conservati per legge.</b></p>'+
+      '<div class="modal-f" style="padding:0;border:none">'+
+        '<button class="btn btn-ghost" data-act="ord-destroy-cancel">Annulla</button>'+
+        '<button class="btn btn-danger" data-act="ord-destroy-confirm" data-id="'+o.id+'">'+ic("trash",15)+' Cancella definitivamente</button></div>'+
+    '</div></div>';
+}
+</script>
+<script>
+/* ═══ PAGAMENTI ═════════════════════════════════════════════ */
+function viewPagamenti(){
+  const tab=S.pay.tab;
+  const sum=k=>PAYMENTS.filter(t=>t.kind===k).reduce((s,t)=>s+Math.abs(t.amount),0);
+  const list=PAYMENTS.filter(t=>tab==="all"||t.kind===tab);
+  const tabs=[["all","Tutte"],["incasso","Incassi"],["payout","Payout"],["commissione","Commissioni"],["rimborso","Rimborsi"]];
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="grid4">'+
+      statTile("Incassi periodo",eurK(sum("incasso")),"","download","#10b981")+
+      statTile("Payout cantine",eurK(sum("payout")),"","upload","#3b82f6")+
+      statTile("Commissioni",eurK(Math.round(sum("commissione"))),"","percent",GOLD)+
+      statTile("Rimborsi",eurK(sum("rimborso")),"","rotate","#ef4444")+
+    '</div>'+
+    '<div class="card" style="padding:16px 20px"><div class="spread" style="flex-wrap:wrap"><div class="row" style="gap:10px">'+ic("checkCircle",18,"color:#10b981")+
+      '<div><p style="font-size:13px;font-weight:600">Riconciliazione</p><p style="font-size:12px;color:var(--muted-fg)">Ultima esecuzione: 17 lug 2026, 09:12 · 3 movimenti da verificare</p></div></div>'+
+      '<button class="btn btn-ghost" data-act="toast" data-msg="Riconciliazione avviata">'+ic("refresh",14)+' Avvia riconciliazione</button></div></div>'+
+    '<div class="periods">'+tabs.map(t=>'<button class="'+(tab===t[0]?"on":"")+'" data-act="pay-tab" data-id="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Transazione</th><th>Data</th><th>Tipo</th><th>Controparte</th><th style="text-align:right">Importo</th><th>Stato</th></tr></thead><tbody>'+
+      list.map(t=>{const k=PAY_KIND[t.kind];return '<tr><td><b style="font-weight:700;color:var(--muted-fg)">'+t.id+'</b></td><td>'+t.date+'</td>'+
+        '<td><span class="pill" style="background:'+k.color+'1a;color:'+k.color+'">'+k.label+'</span></td><td>'+esc(t.party)+'</td>'+
+        '<td style="text-align:right;font-weight:700;color:'+(t.amount<0?"#ef4444":"#10b981")+'">'+(t.amount<0?"−":"+")+eur(Math.abs(t.amount)).replace("€ ","€")+'</td>'+
+        '<td>'+(t.status==="completato"?'<span class="pill p-attivo">Completato</span>':'<span class="pill p-bozza">In corso</span>')+'</td></tr>';}).join("")+
+    '</tbody></table></div>'+
+    '<div class="readonly">'+ic("info",13)+'Fatturazione elettronica e flussi SDI sono generati automaticamente per ogni transazione completata. Le chiavi dei provider si gestiscono in Integrazioni / API.</div>'+
+  '</div>';
+}
+
+/* ═══ WINE CLUB ═════════════════════════════════════════════ */
+function viewWineClub(){
+  const tab=S.wc.tab;
+  const active=WINECLUB_SUBS.filter(s=>s.status==="attivo").length;
+  const mrr=active*35;
+  const tabs=[["abbonati","Abbonati"],["box","Box del mese"],["rinnovi","Rinnovi"]];
+  let content="";
+  if(tab==="abbonati"){
+    content='<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Abbonato</th><th>Piano</th><th>Iscritto da</th><th>Prossimo rinnovo</th><th>Stato</th></tr></thead><tbody>'+
+      WINECLUB_SUBS.map(s=>'<tr><td><b style="font-weight:600">'+esc(s.name)+'</b></td><td>'+s.plan+'</td><td>'+s.since+'</td><td>'+s.renew+'</td>'+
+        '<td>'+(s.status==="attivo"?'<span class="pill p-attivo">Attivo</span>':'<span class="pill p-bozza">In pausa</span>')+'</td></tr>').join("")+'</tbody></table></div>';
+  } else if(tab==="box"){
+    content='<div class="card" style="padding:20px"><div class="spread" style="margin-bottom:16px;flex-wrap:wrap"><div><h3 style="font-size:15px;font-weight:600">Box di Luglio 2026</h3>'+
+      '<p style="font-size:12px;color:var(--muted-fg)">2 bottiglie · svelate agli abbonati alla spedizione</p></div><span class="pill p-attivo">In preparazione</span></div>'+
+      '<div class="grid2">'+WINECLUB_BOX.map(b=>'<div class="row" style="gap:12px;padding:12px;border:1px solid var(--border);border-radius:var(--r)"><span class="thumb" style="width:44px;height:56px"><img src="'+b.img+'" alt=""></span>'+
+        '<div><b style="font-weight:600">'+esc(b.name)+'</b><p style="font-size:12px;color:var(--muted-fg)">'+esc(b.vendor)+'</p></div></div>').join("")+'</div></div>';
+  } else {
+    content='<div class="card"><div class="card-h"><h3>Rinnovi in arrivo (7 giorni)</h3></div>'+
+      WINECLUB_SUBS.filter(s=>s.status==="attivo").map(s=>'<div class="ord-mini"><span class="avatar" style="background:var(--primary)">'+initials(s.name)+'</span>'+
+        '<div style="flex:1"><b style="font-weight:600;font-size:13px">'+esc(s.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+s.plan+' · 35 €/mese</p></div>'+
+        '<span class="pill p-bozza">'+s.renew+'</span></div>').join("")+'</div>';
+  }
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="grid4">'+
+      statTile("Abbonati attivi",String(active),"","users",TEAL)+
+      statTile("MRR","€ "+mrr.toLocaleString("it-IT"),"","euro",GREEN)+
+      statTile("Rinnovi settimana","5","","refresh",GOLD)+
+      statTile("Box spediti (mese)","1.240","","package","#7f1d1d")+
+    '</div>'+
+    '<div class="periods">'+tabs.map(t=>'<button class="'+(tab===t[0]?"on":"")+'" data-act="wc-tab" data-id="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>'+
+    content+
+  '</div>';
+}
+
+/* ═══ PROMOZIONI & CODICI GLOBALI ═══════════════════════════ */
+function viewPromozioni(){
+  const pr=S.promo;
+  const active=S.promos.filter(c=>c.status==="attivo").length;
+  const totUses=S.promos.reduce((s,c)=>s+c.uses,0);
+  const desc=c=> c.type==="perc"? c.value+"% di sconto" : c.type==="fisso"? eur(c.value)+" di sconto" : "Spedizione gratuita";
+  const statusPill=st=> st==="attivo"?'<span class="pill p-attivo">Attivo</span>':st==="scaduto"?'<span class="pill p-esaurito">Scaduto</span>':'<span class="pill p-bozza">Bozza</span>';
+  const rows=S.promos.map(c=>'<div class="prow" style="flex-wrap:wrap">'+
+    '<span class="codechip">'+esc(c.code)+'</span>'+
+    '<button class="iconbtn" data-act="promo-copy" data-id="'+c.id+'" title="Copia codice">'+(pr.copied===c.id?ic("check",15,"color:#059669"):ic("copy",15))+'</button>'+
+    '<div style="flex:1;min-width:130px"><p style="font-size:13px;font-weight:600">'+desc(c)+'</p>'+
+      '<p style="font-size:11px;color:var(--muted-fg)">'+(c.min>0?"Spesa min. "+eur(c.min)+" · ":"")+c.uses+' utilizzi · scade '+c.expires+'</p></div>'+
+    statusPill(c.status)+
+    '<div class="row" style="gap:4px;flex:none">'+
+      (c.status!=="scaduto"?'<button class="btn btn-ghost" style="padding:8px 12px" data-act="promo-toggle" data-id="'+c.id+'">'+(c.status==="attivo"?"Disattiva":"Attiva")+'</button>':'')+
+      '<button class="iconbtn" data-act="promo-del" data-id="'+c.id+'" title="Elimina">'+ic("trash",15)+'</button>'+
+    '</div></div>').join("");
+  const f=pr.form||EMPTY_PROMO();
+  const canCreate=f.code.trim()&&(f.type==="spedizione"||+f.value>0);
+  const createCard = pr.creating
+    ? '<div class="card" style="padding:20px;display:flex;flex-direction:column;gap:16px">'+
+        '<div class="spread"><span class="eyebrow">Nuovo codice globale</span>'+
+          '<button class="iconbtn" data-act="promo-cancel" aria-label="Chiudi">'+ic("x",16)+'</button></div>'+
+        '<div class="grid2">'+
+          '<div class="field"><label class="eyebrow">Codice *</label><input class="input" data-input="promo-code" data-focus-key="promocode" placeholder="ES. AUTUNNO25" value="'+esc(f.code)+'" style="text-transform:uppercase"></div>'+
+          '<div class="field"><label class="eyebrow">Tipo sconto</label><div class="row" style="gap:6px">'+
+            [["perc","%"],["fisso","€"],["spedizione","Spediz."]].map(t=>'<button class="chip '+(f.type===t[0]?"on":"")+'" data-act="promo-type" data-id="'+t[0]+'">'+t[1]+'</button>').join("")+'</div></div>'+
+        '</div>'+
+        '<div class="grid2">'+
+          (f.type!=="spedizione"
+            ? '<div class="field"><label class="eyebrow">Valore *</label><input class="input" type="number" min="0" data-input="promo-value" data-focus-key="promoval" placeholder="'+(f.type==="perc"?"es. 15":"es. 10")+'" value="'+esc(f.value)+'"></div>'
+            : '<div class="field"><label class="eyebrow">Valore</label><div class="input" style="background:var(--muted);color:var(--muted-fg);border-color:transparent">Spedizione gratuita</div></div>')+
+          '<div class="field"><label class="eyebrow">Spesa minima (€)</label><input class="input" type="number" min="0" data-input="promo-min" data-focus-key="promomin" placeholder="0" value="'+esc(f.min)+'"></div>'+
+        '</div>'+
+        '<button class="btn btn-primary" data-act="promo-create" style="align-self:flex-start" '+(canCreate?"":"disabled")+'>'+ic("plus",15)+' Crea codice</button>'+
+      '</div>'
+    : '<button class="btn btn-primary" data-act="promo-new" style="align-self:flex-start">'+ic("plus",15)+' Nuovo codice globale</button>';
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Codici attivi</span><b>'+active+'</b></div>'+
+      '<div class="ministat"><span>Utilizzi totali</span><b>'+totUses.toLocaleString("it-IT")+'</b></div>'+
+      '<div class="ministat"><span>Codici totali</span><b>'+S.promos.length+'</b></div>'+
+    '</div>'+
+    '<div class="infobox" style="padding:14px 18px;font-size:13px;align-items:center">'+ic("ticket",15)+'&nbsp;Questi codici valgono su tutta la piattaforma. Le promozioni delle singole cantine restano gestite dai vendor.</div>'+
+    createCard+
+    (S.promos.length? '<div class="stack-sm" style="gap:8px">'+rows+'</div>' : '<div class="empty">'+ic("ticket",36,"opacity:.4")+'<p>Nessun codice sconto</p></div>')+
+  '</div>';
+}
+
+/* ═══ SPEDIZIONI & CORRIERI ═════════════════════════════════ */
+function viewSpedizioni(){
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="infobox" style="padding:14px 18px;font-size:13px;align-items:center">'+ic("truck",15)+'&nbsp;I corrieri abilitati diventano selezionabili dai clienti al checkout e come corriere preferito nel loro account.</div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Corriere</th><th>Italia</th><th>Isole</th><th>Stato</th><th style="text-align:right">Abilitato</th></tr></thead><tbody>'+
+      S.carriers.map(c=>'<tr><td><b style="font-weight:600">'+esc(c.name)+'</b></td>'+
+        '<td>'+eur(c.italia)+'</td><td>'+eur(c.isole)+'</td>'+
+        '<td>'+(c.enabled?'<span class="pill p-attivo">Selezionabile</span>':'<span class="pill p-bozza">Disabilitato</span>')+'</td>'+
+        '<td style="text-align:right"><button class="btn '+(c.enabled?"btn-ghost":"btn-primary")+'" style="padding:8px 14px" data-act="ship-toggle" data-id="'+c.id+'">'+(c.enabled?"Disabilita":"Abilita")+'</button></td></tr>').join("")+
+    '</tbody></table></div>'+
+    '<div class="card" style="padding:16px 20px"><div class="spread" style="flex-wrap:wrap"><div><p style="font-size:13px;font-weight:600">Listini di spedizione</p>'+
+      '<p style="font-size:12px;color:var(--muted-fg)">Zone: Italia continentale · Isole maggiori · Estero (su richiesta) · soglia spedizione gratuita 79 €</p></div>'+
+      '<button class="btn btn-ghost" data-act="toast" data-msg="Editor listini (demo)">'+ic("pencil",14)+' Modifica listini</button></div></div>'+
+  '</div>';
+}
+
+/* ═══ CONTENUTI (CMS interno) ═══════════════════════════════ */
+function viewContenuti(){
+  const tab=S.cms.tab;
+  const tabs=[["home","Home"],["pagine","Pagine"],["banner","Banner"],["menu","Menu"]];
+  let content="";
+  if(tab==="home"){
+    content='<div class="card"><div class="card-h"><h3>Sezioni della homepage</h3><span class="muted" style="font-size:12px">Riordina con le frecce</span></div>'+
+      S.cmsHome.map((h,i)=>'<div class="ord-mini"><span style="width:30px;height:30px;border-radius:8px;background:var(--muted);display:flex;align-items:center;justify-content:center;color:var(--muted-fg);font-size:11px;font-weight:700">'+(i+1)+'</span>'+
+        '<div style="flex:1"><b style="font-weight:600;font-size:13px">'+esc(h.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(h.type)+'</p></div>'+
+        '<div class="row" style="gap:2px">'+
+          '<button class="iconbtn" data-act="cms-move" data-id="'+h.id+'" data-dir="-1"'+(i===0?' disabled style="opacity:.3"':'')+'>'+ic("up",15)+'</button>'+
+          '<button class="iconbtn" data-act="cms-move" data-id="'+h.id+'" data-dir="1"'+(i===S.cmsHome.length-1?' disabled style="opacity:.3"':'')+'>'+ic("down",15)+'</button></div>'+
+        '<button class="btn '+(h.visible?"btn-ghost":"btn-primary")+'" style="padding:7px 12px" data-act="cms-toggle" data-id="'+h.id+'">'+(h.visible?"Visibile":"Nascosta")+'</button></div>').join("")+'</div>';
+  } else if(tab==="pagine"){
+    content='<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Pagina</th><th>URL</th><th>Aggiornata</th><th style="text-align:right">Azione</th></tr></thead><tbody>'+
+      CMS_PAGES.map(p=>'<tr><td><b style="font-weight:600">'+esc(p.title)+'</b></td><td><span class="mono" style="color:var(--muted-fg)">'+esc(p.slug)+'</span></td>'+
+        '<td>'+p.updated+'</td><td style="text-align:right"><button class="btn btn-ghost" style="padding:7px 12px" data-act="toast" data-msg="Editor pagina: '+esc(p.title)+'">'+ic("pencil",14)+' Modifica</button></td></tr>').join("")+'</tbody></table></div>';
+  } else if(tab==="banner"){
+    content='<div class="grid2">'+["Banner Home — Wine Club","Banner Promo — Estate 2026","Banner Categoria — Bollicine","Banner Footer — Gift card"].map(b=>
+      '<div class="card" style="padding:0;overflow:hidden"><div style="height:90px;background:linear-gradient(135deg,#003d4d,#005f73)"></div>'+
+        '<div class="spread" style="padding:14px 16px"><b style="font-weight:600;font-size:13px">'+esc(b)+'</b>'+
+        '<button class="iconbtn" data-act="toast" data-msg="Editor banner (demo)">'+ic("pencil",15)+'</button></div></div>').join("")+'</div>';
+  } else {
+    content='<div class="card" style="padding:20px"><p style="font-size:13px;font-weight:600;margin-bottom:12px">Menu principale del sito</p>'+
+      '<div class="chiprow" style="flex-wrap:wrap;overflow:visible">'+["Vini","Distillati","Cantine / Vendor","Regioni","Promozioni","Wine Club","Blog"].map(m=>'<span class="chip">'+m+'</span>').join("")+'</div>'+
+      '<p class="muted" style="font-size:12px;margin-top:14px">Il menu pubblico è identico per tutti i ruoli, Guest incluso. Le modifiche si riflettono sull\'header del sito.</p></div>';
+  }
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="periods">'+tabs.map(t=>'<button class="'+(tab===t[0]?"on":"")+'" data-act="cms-tab" data-id="'+t[0]+'">'+t[1]+'</button>').join("")+'</div>'+
+    content+
+  '</div>';
+}
+
+/* ═══ BLOG ══════════════════════════════════════════════════ */
+function viewBlog(){
+  const st=S.blog.status;
+  const list=S.posts.filter(p=>st==="all"||p.status===st);
+  const chips=[["all","Tutti"],["pubblicato","Pubblicati"],["bozza","Bozze"]];
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="toolbar"><div class="chiprow">'+chips.map(c=>'<button class="chip '+(st===c[0]?"on":"")+'" data-act="blog-status" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div>'+
+      '<button class="btn btn-primary" style="margin-left:auto" data-act="blog-new">'+ic("plus",15)+' <span>Nuovo articolo</span></button></div>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Titolo</th><th>Autore</th><th>Categoria</th><th>Data</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+      list.map(p=>'<tr><td><b style="font-weight:600">'+esc(p.title)+'</b></td><td>'+esc(p.author)+'</td><td><span class="chip" style="padding:3px 9px">'+esc(p.category)+'</span></td>'+
+        '<td>'+p.date+'</td><td>'+pill(BLOG_STATUS[p.status])+'</td>'+
+        '<td><div class="row" style="gap:6px;justify-content:flex-end">'+
+          '<button class="btn btn-ghost" style="padding:7px 12px" data-act="blog-toggle" data-id="'+p.id+'">'+(p.status==="pubblicato"?"Ritira":"Pubblica")+'</button>'+
+          '<button class="iconbtn" data-act="blog-del" data-id="'+p.id+'" title="Elimina">'+ic("trash",15)+'</button></div></td></tr>').join("")+
+    '</tbody></table></div>'+
+  '</div>';
+}
+
+/* ═══ MARKETING ═════════════════════════════════════════════ */
+function viewMarketing(){
+  const mc=S.intg.find(i=>i.id==="i4")||{on:false};
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="card" style="padding:16px 20px"><div class="spread" style="flex-wrap:wrap"><div class="row" style="gap:12px">'+
+      '<span style="width:40px;height:40px;border-radius:10px;background:#ffe01b33;color:#7a6a00;display:flex;align-items:center;justify-content:center">'+ic("mail",20)+'</span>'+
+      '<div><p style="font-size:13px;font-weight:600">Mailchimp</p><p style="font-size:12px;color:var(--muted-fg)">'+
+        (mc.on?"Connesso · lista 12.480 iscritti · sincronizzato 2 ore fa":"Integrazione disattivata da Integrazioni / API")+'</p></div></div>'+
+      (mc.on?'<span class="pill p-attivo">'+ic("check",12)+' Connesso':'<span class="pill p-esaurito">'+ic("ban",12)+' Disconnesso')+'</span></div></div>'+
+    '<p class="eyebrow">Campagne</p>'+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Campagna</th><th>Canale</th><th>Inviate</th><th>Aperture</th><th>Stato</th><th style="text-align:right">Azione</th></tr></thead><tbody>'+
+      S.campaigns.map(c=>'<tr><td><b style="font-weight:600">'+esc(c.name)+'</b></td><td>'+esc(c.channel)+'</td>'+
+        '<td>'+(c.sent?c.sent.toLocaleString("it-IT"):"—")+'</td><td>'+(c.openRate?c.openRate+"%":"—")+'</td>'+
+        '<td>'+pill(CAMP_STATUS[c.status])+'</td>'+
+        '<td style="text-align:right">'+((c.status==="attiva"||c.status==="pausa")?'<button class="btn btn-ghost" style="padding:7px 12px" data-act="mkt-toggle" data-id="'+c.id+'">'+(c.status==="attiva"?"Pausa":"Riattiva")+'</button>':'<span style="color:var(--muted-fg);font-size:12px">—</span>')+'</td></tr>').join("")+
+    '</tbody></table></div>'+
+  '</div>';
+}
+
+/* ═══ RECENSIONI (moderazione) ══════════════════════════════ */
+function viewRecensioni(){
+  const st=S.rev.status;
+  const list=S.reviews.filter(r=>st==="all"||r.status===st);
+  const chips=[["all","Tutte"],["in_review","Da moderare"],["segnalata","Segnalate"],["pubblicata","Pubblicate"]];
+  const cnt=k=>S.reviews.filter(r=>r.status===k).length;
+  const cards=list.map(r=>'<div class="review">'+
+    '<div class="spread" style="flex-wrap:wrap"><div class="row" style="gap:12px"><span class="avatar" style="background:'+(r.status==="segnalata"?"#ef4444":"var(--primary)")+'">'+initials(r.customer)+'</span>'+
+      '<div><b style="font-weight:600">'+esc(r.customer)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(r.product)+' · '+esc(r.vendor)+' · '+r.date+'</p></div></div>'+
+      '<div class="row" style="gap:10px">'+stars(r.rating)+pill(REV_STATUS[r.status])+'</div></div>'+
+    '<p style="font-size:13px;line-height:1.5;color:#3a3a3a">'+esc(r.text)+'</p>'+
+    (r.status==="pubblicata"?'':'<div class="row" style="gap:8px;flex-wrap:wrap">'+
+      '<button class="btn btn-primary" style="padding:8px 14px" data-act="rev-approve" data-id="'+r.id+'">'+ic("check",14)+' Approva e pubblica</button>'+
+      '<button class="btn btn-ghost" style="padding:8px 14px" data-act="rev-reject" data-id="'+r.id+'">'+ic("ban",14)+' Rifiuta</button></div>')+
+  '</div>').join("");
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Da moderare</span><b>'+cnt("in_review")+'</b></div>'+
+      '<div class="ministat"><span>Segnalate</span><b class="zero">'+cnt("segnalata")+'</b></div>'+
+      '<div class="ministat"><span>Pubblicate</span><b>'+cnt("pubblicata")+'</b></div>'+
+    '</div>'+
+    '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(st===c[0]?"on":"")+'" data-act="rev-status" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div>'+
+    (list.length?'<div class="stack">'+cards+'</div>':'<div class="empty">'+ic("star",36,"opacity:.4")+'<p>Nessuna recensione in questa vista</p></div>')+
+  '</div>';
+}
+
+/* ═══ REPORT & ANALYTICS ════════════════════════════════════ */
+function viewReport(){
+  const p=S.report.period;
+  let data=GMV_MONTHLY;
+  if(p==="30g") data=GMV_MONTHLY.slice(-1);
+  else if(p==="3m") data=GMV_MONTHLY.slice(-3);
+  const topV=S.vendors.slice().sort((a,b)=>b.gmv-a.gmv).slice(0,5).map(v=>({name:v.name,val:Math.round(v.gmv/1000)}));
+  const tot=ORDER_STATUS_PIE.reduce((a,b)=>a+b.value,0);
+  const kpi=(l,v,s,i,c)=>'<div class="kpi"><span class="kpi-ic" style="background:'+c+'1a;color:'+c+'">'+ic(i,16)+'</span>'+
+    '<div style="flex:1;min-width:0"><p class="l">'+l+'</p><p class="v">'+v+'</p><p class="s">'+ic("up",11)+s+'</p></div></div>';
+  return '<div class="wrap-lg stack">'+
+    '<div class="spread" style="flex-wrap:wrap"><p style="font-size:14px;color:var(--muted-fg)">Analytics di piattaforma · aggiornato al 17 luglio 2026</p>'+
+      '<div class="periods">'+[["30g","30 giorni"],["3m","3 mesi"],["6m","6 mesi"]].map(x=>'<button class="'+(p===x[0]?"on":"")+'" data-act="rep-period" data-id="'+x[0]+'">'+x[1]+'</button>').join("")+'</div></div>'+
+    '<div class="grid4">'+
+      kpi("GMV","€ 381k","+15,8% vs mese scorso","euro",TEAL)+
+      kpi("Ordini","4.080","+15,3% vs mese scorso","cart",GREEN)+
+      kpi("Valore medio ordine","€ 93,40","+2,1% vs mese scorso","up",GOLD)+
+      kpi("Nuovi utenti","742","+9,4% vs mese scorso","users","#7f1d1d")+
+    '</div>'+
+    '<div class="chartbox"><h3>Andamento GMV</h3><p class="csub" style="margin-bottom:16px">Valore lordo delle vendite in euro</p>'+areaChart(data)+'</div>'+
+    '<div class="grid-2col">'+
+      '<div class="chartbox"><h3>Top cantine per GMV</h3><p class="csub" style="margin-bottom:16px">Migliaia di euro nel periodo</p>'+barsH2(topV,"k€")+'</div>'+
+      '<div class="chartbox"><h3>Distribuzione ordini</h3><p class="csub" style="margin-bottom:16px">Per stato di evasione</p>'+
+        '<div class="row" style="gap:16px;flex-wrap:wrap">'+donut(ORDER_STATUS_PIE)+
+        '<div class="legend">'+ORDER_STATUS_PIE.map(s=>'<div><span class="row" style="gap:6px"><i style="background:'+s.color+'"></i>'+
+          '<span style="font-size:12px;color:var(--muted-fg)">'+s.name+'</span></span>'+
+          '<span class="row" style="gap:6px"><b style="font-size:12px">'+Math.round(s.value/tot*100)+'%</b></span></div>').join("")+'</div></div></div>'+
+    '</div>'+
+    '<div class="chartbox"><div class="spread" style="margin-bottom:16px;flex-wrap:wrap"><div><h3>Traffico settimanale</h3>'+
+      '<p class="csub">Visitatori unici sulla piattaforma</p></div>'+
+      '<div style="text-align:right"><p style="font-size:12px;color:var(--muted-fg)">Totale settimana</p>'+
+      '<p style="font-size:16px;font-weight:700">42.880</p></div></div>'+barsV(WEEKLY_VISITS)+'</div>'+
+    '<div class="readonly">'+ic("eye",13)+'Sezione di sola lettura. I dati sono aggregati automaticamente su tutta la piattaforma.</div>'+
+  '</div>';
+}
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   IMPOSTAZIONI SISTEMA — visibili solo all'Admin super/owner
+   ═══════════════════════════════════════════════════════════ */
+
+/* ═══ RUOLI & PERMESSI (RBAC) ═══════════════════════════════ */
+function viewRbac(){
+  const dot=v=> v===2?'<span class="d-full" title="Consentito"></span>'
+              : v===1?'<span class="d-part" title="Parziale o con limiti"></span>'
+              :       '<span class="d-none" title="Non consentito"></span>';
+  const gruppi = S.rbac.grp==="all" ? RBAC : RBAC.filter(g=>g.grp===S.rbac.grp);
+
+  const head='<thead><tr><th class="lbl">Azione</th>'+
+    ROLES.map(r=>'<th style="color:'+r.color+'">'+r.short+'<span>'+r.sub+'</span></th>').join("")+'</tr></thead>';
+
+  const body='<tbody>'+gruppi.map(g=>
+    '<tr class="grp"><td colspan="'+(ROLES.length+1)+'">'+g.grp+'</td></tr>'+
+    g.rows.map(r=>'<tr><td class="lbl"><b>'+esc(r.t)+'</b>'+(r.s?'<p>'+esc(r.s)+'</p>':'')+'</td>'+
+      r.v.map(v=>'<td>'+dot(v)+'</td>').join("")+'</tr>').join("")
+  ).join("")+'</tbody>';
+
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Ruoli &amp; permessi (RBAC)",
+      "La mappa di chi può fare cosa nel back-office e sul sito. Modello a cascata: ogni livello vede tutto ciò che vede quello sotto, più il proprio. Solo l'Admin può leggerla e modificarla.")+
+
+    '<div class="grid4" style="grid-template-columns:repeat(4,1fr)">'+
+      ROLES.slice(0,4).map(r=>'<div class="rolecard"><div class="rt"><span class="rdot" style="background:'+r.color+'"></span>'+
+        '<b>'+r.label+'</b></div><p class="n">'+r.n+'</p><p>'+r.desc+'</p></div>').join("")+
+    '</div>'+
+    '<div class="grid3">'+
+      ROLES.slice(4).map(r=>'<div class="rolecard"><div class="rt"><span class="rdot" style="background:'+r.color+'"></span>'+
+        '<b>'+r.label+'</b>'+(r.id==="admin"?'<span class="pill p-root" style="margin-left:auto">tu</span>':'')+'</div>'+
+        '<p class="n">'+r.n+'</p><p>'+r.desc+'</p></div>').join("")+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Matrice dei permessi</h3>'+
+        '<div class="mxlegend">'+
+          '<span><span class="d-full"></span> consentito</span>'+
+          '<span><span class="d-part"></span> parziale / con limiti</span>'+
+          '<span><span class="d-none"></span> non consentito</span></div></div>'+
+      '<div style="padding:14px 20px;border-bottom:1px solid var(--border)"><div class="chiprow">'+
+        [["all","Tutte le aree"]].concat(RBAC.map(g=>[g.grp,g.grp])).map(c=>
+          '<button class="chip '+(S.rbac.grp===c[0]?"on":"")+'" data-act="rbac-grp" data-id="'+esc(c[0])+'">'+esc(c[1])+'</button>').join("")+
+      '</div></div>'+
+      '<div class="mxwrap"><table class="mx">'+head+body+'</table></div>'+
+    '</div>'+
+
+    '<div class="infobox">'+ic("info",15)+'<span>La matrice è la base di configurazione dell\'RBAC: ogni modifica ha effetto immediato su tutti gli account del livello interessato '+
+      'e viene registrata come azione critica in <b>Log &amp; audit</b>.</span></div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Regole di sistema non modificabili</h3><span class="pill p-bozza">'+ic("lock",11)+' Vincolate</span></div>'+
+      [["Il menu pubblico è identico per tutti i ruoli","Cambia solo la zona utility a destra dell\'header: account, carrello e scorciatoia alla dashboard."],
+       ["Il checkout ospite resta sempre attivo","Un Guest può concludere un ordine senza registrarsi: è una scelta di prodotto, non un permesso disattivabile."],
+       ["Si recensisce solo ciò che si è acquistato","Il legame fra recensione e ordine consegnato non è aggirabile da nessun livello."],
+       ["Il Vendor Owner è l\'unico responsabile legale della cantina","Dati fiscali, IBAN e contratto restano suoi anche se delega l\'operatività ai Manager."],
+       ["L\'Admin richiede 2FA obbligatoria","Non è possibile assegnare il livello Admin a un account senza verifica in due passaggi attiva."]]
+      .map(r=>'<div class="ord-mini"><span class="quick-ic" style="width:32px;height:32px;background:var(--muted);color:var(--muted-fg)">'+ic("lock",15)+'</span>'+
+        '<div style="flex:1;min-width:0"><b style="font-size:13px;font-weight:600">'+r[0]+'</b>'+
+        '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.45">'+r[1]+'</p></div></div>').join("")+
+    '</div>'+
+  '</div>';
+}
+
+/* ═══ INTEGRAZIONI / API ════════════════════════════════════ */
+function viewIntegrazioni(){
+  const attive=S.intg.filter(i=>i.on).length;
+  const cats=Array.from(new Set(S.intg.map(i=>i.cat)));
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Integrazioni e chiavi API",
+      "Provider di pagamento, fatturazione elettronica, marketing e spedizioni. Le chiavi di produzione sono visibili e rigenerabili solo da questo pannello: nessun altro ruolo vi accede.")+
+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Integrazioni attive</span><b>'+attive+' / '+S.intg.length+'</b></div>'+
+      '<div class="ministat"><span>Aree coperte</span><b>'+cats.length+'</b></div>'+
+      '<div class="ministat"><span>Ambiente</span><b style="color:var(--root)">Produzione</b></div>'+
+    '</div>'+
+
+    '<div class="note">'+ic("alert",13)+' Stai operando sull\'ambiente di <b>produzione</b>. Disattivare un provider di pagamento blocca immediatamente i nuovi ordini sul sito.</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Provider collegati</h3>'+
+        '<button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" data-act="toast" data-msg="Catalogo integrazioni (demo)">'+ic("plus",13)+' Collega provider</button></div>'+
+      S.intg.map(i=>'<div class="intg">'+
+        '<span class="ii" style="background:'+i.color+'1a;color:'+i.color+'">'+ic(i.icon,20)+'</span>'+
+        '<div style="flex:1;min-width:0">'+
+          '<h4>'+esc(i.name)+'<span class="pill p-bozza">'+esc(i.cat)+'</span>'+
+            (i.on?'<span class="pill p-attivo">'+ic("check",11)+' Attiva</span>':'<span class="pill p-esaurito">Disattivata</span>')+'</h4>'+
+          '<p>'+esc(i.desc)+'</p>'+
+          (i.on?'<div class="keyline">'+ic("key",14,"color:var(--muted-fg)")+
+            '<code>'+(S.intgShow===i.id?esc(i.key.replace(/•+/g,"9f4c2ba71e05")):esc(i.key))+'</code>'+
+            '<button class="iconbtn" data-act="intg-show" data-id="'+i.id+'" title="Mostra/nascondi">'+ic(S.intgShow===i.id?"eyeoff":"eye",15)+'</button>'+
+            '<button class="iconbtn" data-act="intg-key" data-id="'+i.id+'" title="Rigenera chiave">'+ic("refresh",15)+'</button></div>'
+            :'')+
+          '<p style="margin-top:6px;font-size:11px">Ultimo aggiornamento: '+esc(i.updated)+'</p>'+
+        '</div>'+
+        '<button class="switch '+(i.on?"on":"")+'" data-act="intg-toggle" data-id="'+i.id+'" aria-label="Attiva o disattiva '+esc(i.name)+'"><i></i></button>'+
+      '</div>').join("")+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>API pubblica Stappando</h3><span class="pill p-attivo">v2 · stabile</span></div>'+
+      '<div style="padding:20px"><dl class="dl">'+
+        '<dt>Endpoint base</dt><dd class="mono">https://api.stappando.it/v2</dd>'+
+        '<dt>Autenticazione</dt><dd>Bearer token · rotazione consigliata ogni 90 giorni</dd>'+
+        '<dt>Rate limit</dt><dd>600 richieste al minuto per chiave</dd>'+
+        '<dt>Webhook attivi</dt><dd>ordine.creato · ordine.spedito · rimborso.emesso · vendor.attivato</dd>'+
+      '</dl></div>'+
+      '<div style="padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap">'+
+        '<button class="btn btn-ghost" data-act="toast" data-msg="Documentazione API (demo)">'+ic("file",15)+' Documentazione</button>'+
+        '<button class="btn btn-ghost" data-act="toast" data-msg="Log dei webhook (demo)">'+ic("clipboard",15)+' Log webhook</button></div>'+
+    '</div>'+
+  '</div>';
+}
+
+/* ═══ LOG & AUDIT ═══════════════════════════════════════════ */
+function viewAudit(){
+  const q=S.audit.q.toLowerCase(), sv=S.audit.sev;
+  const list=AUDIT.filter(l=>(sv==="all"||l.sev===sv)&&
+    (!q||l.actor.toLowerCase().includes(q)||l.action.toLowerCase().includes(q)||l.target.toLowerCase().includes(q)));
+  const chips=[["all","Tutte"],["crit","Azioni critiche"],["warn","Da verificare"],["info","Informative"]];
+  const cnt=k=>AUDIT.filter(l=>l.sev===k).length;
+
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Log &amp; audit del back-office",
+      "Ogni azione amministrativa è tracciata con autore, ruolo, oggetto, data e indirizzo IP. Il registro è in sola lettura: non è modificabile né cancellabile, nemmeno dall'Admin.")+
+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Azioni critiche (7 gg)</span><b class="zero">'+cnt("crit")+'</b></div>'+
+      '<div class="ministat"><span>Da verificare</span><b class="low">'+cnt("warn")+'</b></div>'+
+      '<div class="ministat"><span>Eventi totali</span><b>'+AUDIT.length+'</b></div>'+
+    '</div>'+
+
+    '<div class="toolbar"><div class="search">'+ic("search",16)+
+      '<input class="input" data-input="audit-q" data-focus-key="auditq" placeholder="Cerca autore, azione o oggetto…" value="'+esc(S.audit.q)+'"></div>'+
+      '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(sv===c[0]?"on":"")+'" data-act="audit-sev" data-id="'+c[0]+'">'+c[1]+
+        ((cnt(c[0])||0)>0?'<b>'+cnt(c[0])+'</b>':'')+'</button>').join("")+'</div>'+
+      '<button class="btn btn-ghost" data-act="toast" data-msg="Esportazione registro avviata">'+ic("download",14)+' Esporta</button></div>'+
+
+    '<div class="card">'+
+      (list.length? list.map(l=>{
+        const s=SEV_CFG[l.sev];
+        return '<div class="logline">'+
+          '<span class="lts">'+l.ts+'</span>'+
+          '<span class="lic '+s.cls+'">'+ic(s.icon,15)+'</span>'+
+          '<div style="flex:1;min-width:0"><h4>'+esc(l.action)+'</h4>'+
+          '<p>'+esc(l.target)+'</p>'+
+          '<p style="margin-top:4px">'+esc(l.actor)+' · '+esc(l.role)+' · IP '+esc(l.ip)+'</p></div>'+
+          '<span class="pill '+(l.sev==="crit"?"p-root":l.sev==="warn"?"p-bozza":"p-attivo")+'" style="flex:none">'+s.label+'</span>'+
+        '</div>';
+      }).join("")
+      : emptyBox("clipboard","Nessun evento in questa vista","Cambia filtro o azzera la ricerca per vedere il resto del registro."))+
+    '</div>'+
+
+    '<div class="readonly">'+ic("lock",13)+'Registro immutabile, conservato 24 mesi. L\'esportazione è tracciata a sua volta come evento.</div>'+
+  '</div>';
+}
+function emptyBox(icon,t,s){
+  return '<div class="empty" style="padding:48px 0">'+ic(icon,32,"opacity:.4")+'<p>'+t+'</p>'+
+    (s?'<p style="font-size:12px;font-weight:400;max-width:340px">'+s+'</p>':'')+'</div>';
+}
+
+/* ═══ FEATURE FLAG ══════════════════════════════════════════ */
+function viewFlags(){
+  const on=S.flags.filter(f=>f.on).length;
+  const parziali=S.flags.filter(f=>f.on&&f.rollout<100).length;
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Feature flag e rilasci progressivi",
+      "Accendi una funzione per una quota di utenti e allarga il rilascio solo quando i numeri convincono. Nessun altro ruolo vede questo pannello, né sa quali funzioni sono in prova.")+
+
+    '<div class="grid3">'+
+      '<div class="ministat"><span>Flag attivi</span><b>'+on+' / '+S.flags.length+'</b></div>'+
+      '<div class="ministat"><span>Rilasci parziali</span><b>'+parziali+'</b></div>'+
+      '<div class="ministat"><span>Non rilasciate</span><b>'+S.flags.filter(f=>!f.on).length+'</b></div>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Funzioni</h3>'+
+        '<button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" data-act="toast" data-msg="Nuovo feature flag (demo)">'+ic("plus",13)+' Nuovo flag</button></div>'+
+      S.flags.map(f=>'<div class="flagrow">'+
+        '<div style="flex:1;min-width:220px">'+
+          '<h4>'+esc(f.name)+
+            (f.on
+              ? (f.rollout>=100?'<span class="pill p-attivo">Rilasciata a tutti</span>':'<span class="pill p-bozza">Rilascio parziale</span>')
+              : '<span class="pill p-esaurito">Spenta</span>')+'</h4>'+
+          '<p class="fkey">'+esc(f.key)+' · '+esc(f.scope)+'</p>'+
+          '<p>'+esc(f.desc)+'</p></div>'+
+        '<div class="rollout">'+
+          '<div class="rlbl"><span>Rollout</span><b style="color:var(--fg)">'+f.rollout+'%</b></div>'+
+          '<div class="rtrack"><span class="rfill" style="width:'+f.rollout+'%;'+(f.on?"":"background:#d6d0c6")+'"></span></div></div>'+
+        '<div class="stepbtns">'+
+          '<button data-act="flag-step" data-id="'+f.id+'" data-dir="-1"'+(!f.on||f.rollout<=0?" disabled":"")+' aria-label="Riduci rollout">'+ic("minus",14)+'</button>'+
+          '<button data-act="flag-step" data-id="'+f.id+'" data-dir="1"'+(!f.on||f.rollout>=100?" disabled":"")+' aria-label="Aumenta rollout">'+ic("plus",14)+'</button></div>'+
+        '<button class="switch '+(f.on?"on":"")+'" data-act="flag-toggle" data-id="'+f.id+'" aria-label="Attiva o spegni '+esc(f.name)+'"><i></i></button>'+
+      '</div>').join("")+
+    '</div>'+
+
+    '<div class="infobox">'+ic("info",15)+'<span>Il rollout si muove a scatti del 25%. Spegnendo un flag la funzione sparisce subito dal sito per tutti, '+
+      'senza rilasciare una nuova versione: è la via più rapida per annullare un cambiamento andato storto.</span></div>'+
+  '</div>';
+}
+
+/* ═══ COMMISSIONI & CONTRATTI ═══════════════════════════════ */
+function viewCommissioni(){
+  const media=(S.vendors.reduce((s,v)=>s+v.commission,0)/S.vendors.length).toFixed(1).replace(".",",");
+  const ricavo=S.vendors.reduce((s,v)=>s+v.gmv*v.commission/100,0);
+  const daFirmare=S.vendors.filter(v=>v.contratto!=="firmato");
+
+  return '<div class="wrap-lg stack">'+
+    toastBar()+
+    rootBar("Commissioni marketplace e contratti vendor",
+      "La percentuale trattenuta su ogni ordine e lo stato contrattuale di ogni cantina. Il Manager Admin le vede in sola lettura: fissarle è una prerogativa esclusiva dell'Admin.")+
+
+    '<div class="grid4">'+
+      statTile("Commissione media",media+" %","","percent",GOLD)+
+      statTile("Ricavo da commissioni",eurK(Math.round(ricavo)),"","euro",TEAL)+
+      statTile("Cantine a contratto",S.vendors.filter(v=>v.contratto==="firmato").length+" / "+S.vendors.length,"","file",GREEN)+
+      statTile("Contratti aperti",String(daFirmare.length),"","alert","#d97706")+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Scaglioni standard</h3><span class="packnote muted" style="font-size:12px">applicati alle nuove cantine</span></div>'+
+      '<div style="overflow-x:auto"><table class="dt"><thead><tr><th>GMV annuo della cantina</th><th>Commissione</th><th>Note</th></tr></thead><tbody>'+
+        SCAGLIONI.map(s=>'<tr><td><b style="font-weight:600">'+(s.a?"€ "+s.da+" — € "+s.a:"€ "+s.da)+'</b></td>'+
+          '<td><b style="font-size:15px;color:var(--primary)">'+s.perc+'%</b></td>'+
+          '<td class="muted">'+(s.perc===10?"Condizione riservata ai partner storici":"Scaglione automatico, rivisto ogni trimestre")+'</td></tr>').join("")+
+      '</tbody></table></div>'+
+      '<div style="padding:16px 20px;border-top:1px solid var(--border)">'+
+        '<div class="infobox">'+ic("info",15)+'<span>Una cantina può avere una percentuale fuori scaglione come condizione contrattuale dedicata: '+
+        'la modifichi dalla scheda della cantina e resta tracciata nel log.</span></div></div>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Contratti per cantina</h3>'+
+        '<button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" data-act="toast" data-msg="Esportazione contratti avviata">'+ic("download",13)+' Esporta</button></div>'+
+      '<div style="overflow-x:auto"><table class="dt"><thead><tr><th>Cantina</th><th>Titolare</th><th>GMV</th><th>Commissione</th><th>Contratto</th><th>Scadenza</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+        S.vendors.map(v=>{
+          const std=scaglionePer(v.gmv);
+          const fuori=v.commission!==std;
+          return '<tr><td><div class="row" style="gap:10px"><span class="thumb" style="width:32px;height:32px;border-radius:9px"><img src="'+v.img+'" alt="" loading="lazy"></span>'+
+            '<div><b style="font-weight:600">'+esc(v.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(v.region)+'</p></div></div></td>'+
+            '<td>'+esc(v.owner)+'</td><td>'+eurK(v.gmv)+'</td>'+
+            '<td><b style="font-size:14px">'+v.commission+'%</b>'+
+              (fuori?'<p style="font-size:10px;color:#b45309">fuori scaglione ('+std+'%)</p>':'<p style="font-size:10px;color:var(--muted-fg)">da scaglione</p>')+'</td>'+
+            '<td>'+pill(CONTRATTO_CFG[v.contratto])+'</td>'+
+            '<td class="muted">'+v.scadenza+'</td>'+
+            '<td style="text-align:right"><div class="row" style="gap:6px;justify-content:flex-end">'+
+              '<button class="btn btn-root" style="padding:7px 12px;font-size:12px" data-act="ven-comm" data-id="'+v.id+'">'+ic("percent",13)+' Modifica</button>'+
+              '<button class="iconbtn" data-act="toast" data-msg="Contratto di '+esc(v.name)+' (demo)" title="Apri contratto">'+ic("file",15)+'</button>'+
+            '</div></td></tr>';
+        }).join("")+
+      '</tbody></table></div>'+
+    '</div>'+
+
+    (daFirmare.length
+      ? '<div class="card danger"><div class="card-h"><h3>Contratti da chiudere</h3><span class="pill p-esaurito">'+daFirmare.length+'</span></div>'+
+        daFirmare.map(v=>'<div class="dngrow">'+
+          '<span class="quick-ic" style="width:34px;height:34px;background:#fef2f2;color:#dc2626">'+ic("file",16)+'</span>'+
+          '<div style="flex:1;min-width:0"><h4>'+esc(v.name)+' — contratto '+CONTRATTO_CFG[v.contratto].label.toLowerCase()+'</h4>'+
+          '<p>'+(v.contratto==="da_firmare"
+            ? "La cantina non può essere attivata finché il contratto non è firmato dal titolare "+esc(v.owner)+"."
+            : "Contratto in verifica: la cantina resta sospesa fino al completamento dei controlli.")+'</p></div>'+
+          '<button class="btn btn-ghost" style="flex:none" data-act="nav" data-id="vendor">Apri la cantina</button></div>').join("")+
+        '</div>'
+      : '')+
+  '</div>';
+}
+</script>
+<script>
+/* ═══ SHELL ═════════════════════════════════════════════════ */
+function logo(){
+  return '<div class="logo">STAPPAND<em>Ò</em><div class="logo-sub">ENOCULTURA</div></div>';
+}
+function sidebar(){
+  const item=(n,root)=>{
+    const c = n.id==="ordini" ? pendingRefunds().length
+            : n.id==="vendor" ? S.vendors.filter(v=>v.status==="in_review").length : 0;
+    return '<li><button class="sb-item '+(root?"root ":"")+(S.section===n.id?"on":"")+'" data-act="nav" data-id="'+n.id+'">'+
+      ic(n.icon,18)+'<span style="flex:1;min-width:0">'+n.label+'</span>'+
+      (c>0?'<span class="cnt">'+c+'</span>':(S.section===n.id?ic("chevR",14,"","chev"):""))+'</button></li>';
+  };
+  return '<aside class="sidebar">'+
+    '<div class="sb-logo">'+logo()+'</div>'+
+    '<div class="sb-cantina"><span class="sb-avatar" style="background:var(--root)">'+ic("shield",16)+'</span>'+
+      '<div style="min-width:0"><p>'+esc(ADMIN.nome)+'</p>'+
+      '<span class="role-chip root">Admin · super/owner</span></div></div>'+
+    '<nav class="sb-nav">'+
+      '<p class="sb-label">Back-office</p><ul>'+NAV_BACKOFFICE.map(n=>item(n,false)).join("")+'</ul>'+
+      '<div class="sb-sep"><p class="sb-label root">Impostazioni sistema</p>'+
+        '<ul>'+NAV_SISTEMA.map(n=>item(n,true)).join("")+'</ul></div>'+
+    '</nav>'+
+    '<div class="sb-foot"><button class="sb-logout" data-act="noop">'+ic("logout",18)+'Esci</button></div>'+
+  '</aside>';
+}
+function header(){
+  const n=ALL_NAV.find(x=>x.id===S.section)||{};
+  const isRoot=NAV_SISTEMA.some(x=>x.id===S.section);
+  const pend=pendingRefunds().length;
+  return '<header class="header">'+
+    '<div class="mob-logo">'+logo()+'</div>'+
+    '<h1>'+(n.label||"")+(isRoot?' <span class="pill p-root" style="vertical-align:middle;margin-left:6px">'+ic("shield",11)+' Solo Admin</span>':'')+'</h1>'+
+    '<div class="roleswitch"><button class="rs-btn" data-act="role-toggle">'+
+      '<span class="rs-badge" style="background:var(--root)">'+ADMIN.iniziali+'</span>'+
+      '<span class="rs-txt"><p>'+esc(ADMIN.nome)+'</p><p>Admin super / owner</p></span>'+ic("chevD",13)+'</button>'+
+      (S.roleMenu?'<div class="rs-menu">'+
+        '<div class="rs-menu-h">Il tuo livello</div>'+
+        '<div class="rs-opt on"><span class="rs-opt-ic" style="background:var(--root)">'+ADMIN.iniziali+'</span>'+
+          '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Admin</p><span style="background:var(--root)">radice</span></span>'+
+          '<span class="rs-opt-s">'+esc(ADMIN.email)+' · nessuno può assegnare o revocare questo livello dall\'esterno.</span></span></div>'+
+        '<div class="rs-menu-h">Sicurezza</div>'+
+        '<div class="rs-opt" style="cursor:default"><span class="rs-opt-ic" style="background:#047857">'+ic("smartphone",15)+'</span>'+
+          '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>2FA obbligatoria</p><span style="background:#047857">attiva</span></span>'+
+          '<span class="rs-opt-s">Ultimo accesso: '+esc(ADMIN.accesso)+'</span></span></div>'+
+        '<button class="rs-opt" data-act="nav" data-id="audit"><span class="rs-opt-ic" style="background:var(--primary)">'+ic("clipboard",15)+'</span>'+
+          '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Le mie azioni</p></span>'+
+          '<span class="rs-opt-s">Rivedi cosa hai modificato nel back-office</span></span></button>'+
+        '<button class="rs-opt" data-act="noop"><span class="rs-opt-ic" style="background:#b91c1c">'+ic("logout",15)+'</span>'+
+          '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Esci</p></span>'+
+          '<span class="rs-opt-s">Chiudi la sessione su questo dispositivo</span></span></button>'+
+      '</div>':'')+
+    '</div>'+
+    '<button class="bell" aria-label="Notifiche" data-act="nav" data-id="ordini">'+ic("bell",20)+(pend>0?'<b>'+pend+'</b>':'')+'</button>'+
+  '</header>';
+}
+function mobileNav(){
+  const prim=ALL_NAV.filter(n=>MOBILE_NAV.indexOf(n.id)>=0);
+  const overflow=ALL_NAV.filter(n=>MOBILE_NAV.indexOf(n.id)<0);
+  return '<nav class="mobnav">'+
+    prim.map(n=>'<button class="'+(S.section===n.id?"on":"")+'" data-act="nav" data-id="'+n.id+'">'+ic(n.icon,20)+n.label.split(" ")[0]+'</button>').join("")+
+    '<button data-act="mob-open">'+ic("menu",20)+'Altro</button></nav>'+
+    (S.mobMenu?'<div class="mobsheet"><div class="scrim" data-act="mob-close"></div><div class="sheet">'+
+      '<div class="sheet-h"><div><p>Menu Admin</p><span>'+esc(ADMIN.nome)+' · super/owner</span></div>'+
+      '<button class="iconbtn" style="color:rgba(255,255,255,.6)" data-act="mob-close">'+ic("x",20)+'</button></div>'+
+      '<ul>'+overflow.map(n=>'<li><button class="sb-item '+(NAV_SISTEMA.some(x=>x.id===n.id)?"root ":"")+(S.section===n.id?"on":"")+'" data-act="nav" data-id="'+n.id+'">'+ic(n.icon,18)+n.label+'</button></li>').join("")+
+      '<li><button class="sb-logout" style="margin-top:4px" data-act="noop">'+ic("logout",18)+'Esci</button></li></ul></div></div>':'');
+}
+
+/* ═══ ROUTER ════════════════════════════════════════════════ */
+function view(){
+  if(SECTIONS.indexOf(S.section)<0) S.section="panoramica";
+  let body;
+  switch(S.section){
+    case "panoramica":   body=viewPanoramica(); break;
+    case "catalogo":     body=viewCatalogo(); break;
+    case "vendor":       body=viewVendor(); break;
+    case "utenti":       body=viewUtenti(); break;
+    case "ordini":       body=viewOrdini(); break;
+    case "pagamenti":    body=viewPagamenti(); break;
+    case "wineclub":     body=viewWineClub(); break;
+    case "promozioni":   body=viewPromozioni(); break;
+    case "spedizioni":   body=viewSpedizioni(); break;
+    case "contenuti":    body=viewContenuti(); break;
+    case "blog":         body=viewBlog(); break;
+    case "marketing":    body=viewMarketing(); break;
+    case "recensioni":   body=viewRecensioni(); break;
+    case "report":       body=viewReport(); break;
+    case "rbac":         body=viewRbac(); break;
+    case "integrazioni": body=viewIntegrazioni(); break;
+    case "audit":        body=viewAudit(); break;
+    case "flags":        body=viewFlags(); break;
+    case "commissioni":  body=viewCommissioni(); break;
+    default:             body=viewPanoramica();
+  }
+  return sidebar()+
+    '<div class="main">'+header()+'<main class="content">'+body+'</main></div>'+
+    mobileNav()+
+    (S.ord.refund?refundModal():"")+
+    (S.ord.destroy?destroyModal():"")+
+    (S.usr.roleModal?roleModal():"")+
+    (S.ven.comm?commModal():"");
+}
+
+/* ── Render con conservazione del focus ─────────────────────── */
+const root=document.getElementById("root");
+function render(){
+  const a=document.activeElement;
+  const key=a&&a.dataset?a.dataset.focusKey:null;
+  let pos=null; try{pos=a?a.selectionStart:null}catch(e){}
+  root.innerHTML=view();
+  if(key){
+    const el=root.querySelector('[data-focus-key="'+key+'"]');
+    if(el){el.focus(); if(pos!=null){try{el.setSelectionRange(pos,pos)}catch(e){}}}
+  }
+}
+
+/* ── Eventi ─────────────────────────────────────────────────── */
+root.addEventListener("click",e=>{
+  const el=e.target.closest("[data-act]");
+  if(!el){ if(S.roleMenu){S.roleMenu=false;render();} return; }
+  const act=el.dataset.act, id=el.dataset.id;
+  if(act!=="toast") S.toast=null;
+
+  switch(act){
+    case "nav": S.section=id; S.mobMenu=false; S.roleMenu=false; break;
+    case "role-toggle": S.roleMenu=!S.roleMenu; break;
+    case "mob-open": S.mobMenu=true; break;
+    case "mob-close": S.mobMenu=false; break;
+    case "toast": S.toast=el.dataset.msg||""; break;
+
+    /* catalogo */
+    case "cat-type": S.cat.type=id; break;
+
+    /* vendor · commissioni e attivazione (solo Admin) */
+    case "ven-status": S.ven.status=id; break;
+    case "ven-toggle": { const v=S.vendors.find(x=>x.id===id);
+      if(v){ v.status=(v.status==="attiva"?"sospesa":"attiva"); S.toast="Cantina "+v.name+(v.status==="sospesa"?" sospesa":" riattivata"); } break; }
+    case "ven-activate": { const v=S.vendors.find(x=>x.id===id);
+      if(v){ v.status="attiva"; v.contratto="firmato"; v.scadenza="31 lug 2029";
+        S.toast="Cantina "+v.name+" attivata e contratto registrato"; } break; }
+    case "ven-comm": S.ven.comm=id; break;
+    case "ven-comm-close": S.ven.comm=null; break;
+    case "ven-comm-set": { const v=S.vendors.find(x=>x.id===id);
+      if(v){ v.commission=parseInt(el.dataset.val,10); S.toast="Commissione di "+v.name+" impostata al "+v.commission+"%"; } break; }
+
+    /* utenti · cambio ruolo (solo Admin) */
+    case "usr-role-filter": S.usr.role=id; break;
+    case "usr-toggle": { const u=S.users.find(x=>x.id===id);
+      if(u){ u.status=(u.status==="attivo"?"sospeso":"attivo"); S.toast="Utente "+u.name+(u.status==="sospeso"?" sospeso":" riattivato"); } break; }
+    case "usr-role": S.usr.roleModal=id; S.usr.pick=null; break;
+    case "usr-role-close": S.usr.roleModal=null; S.usr.pick=null; break;
+    case "usr-role-pick": S.usr.pick=id; break;
+    case "usr-role-save": { const u=S.users.find(x=>x.id===id);
+      if(u&&S.usr.pick&&S.usr.pick!==u.role){
+        const prima=roleById(u.role).label; u.role=S.usr.pick;
+        S.toast="Ruolo di "+u.name+" cambiato da "+prima+" a "+roleById(u.role).label;
+      }
+      S.usr.roleModal=null; S.usr.pick=null; break; }
+
+    /* ordini · rimborsi senza soglia e cancellazioni */
+    case "ord-status": S.ord.status=id; break;
+    case "ord-refund": S.ord.refund=id; break;
+    case "ord-refund-cancel": S.ord.refund=null; break;
+    case "ord-refund-confirm": { const o=S.orders.find(x=>x.id===id);
+      if(o){ o.status="rimborsato"; delete o.motivo; S.toast="Rimborso di "+eur(o.total)+" emesso per "+o.id; }
+      S.ord.refund=null; break; }
+    case "ord-reject": { const o=S.orders.find(x=>x.id===id);
+      if(o){ o.status="consegnato"; delete o.motivo; S.toast="Richiesta di rimborso negata per "+o.id; } break; }
+    case "ord-destroy": S.ord.destroy=id; break;
+    case "ord-destroy-cancel": S.ord.destroy=null; break;
+    case "ord-destroy-confirm": { const o=S.orders.find(x=>x.id===id);
+      if(o){ o.status="cancellato"; S.toast="Ordine "+o.id+" cancellato definitivamente"; }
+      S.ord.destroy=null; break; }
+
+    /* pagamenti · wine club */
+    case "pay-tab": S.pay.tab=id; break;
+    case "wc-tab": S.wc.tab=id; break;
+
+    /* promozioni globali */
+    case "promo-new": S.promo.creating=true; S.promo.form=EMPTY_PROMO(); break;
+    case "promo-cancel": S.promo.creating=false; S.promo.form=null; break;
+    case "promo-type": if(S.promo.form) S.promo.form.type=id; break;
+    case "promo-create": {
+      const f=S.promo.form;
+      if(f&&f.code.trim()&&(f.type==="spedizione"||+f.value>0)){
+        S.promos.unshift({id:"gp"+(nextId++),code:f.code.trim().toUpperCase(),type:f.type,
+          value:f.type==="spedizione"?0:(+f.value),min:(+f.min||0),uses:0,expires:f.expires||"—",status:"attivo"});
+        S.promo.creating=false; S.promo.form=null; S.toast="Codice sconto creato";
+      }
+      break;
+    }
+    case "promo-toggle": { const c=S.promos.find(x=>x.id===id); if(c) c.status=(c.status==="attivo"?"bozza":"attivo"); break; }
+    case "promo-del": S.promos=S.promos.filter(x=>x.id!==id); break;
+    case "promo-copy": { const c=S.promos.find(x=>x.id===id);
+      if(c){ try{navigator.clipboard&&navigator.clipboard.writeText(c.code);}catch(err){} S.promo.copied=id; } break; }
+
+    /* spedizioni */
+    case "ship-toggle": { const c=S.carriers.find(x=>x.id===id);
+      if(c){ c.enabled=!c.enabled; S.toast=c.name+(c.enabled?" abilitato":" disabilitato"); } break; }
+
+    /* CMS */
+    case "cms-tab": S.cms.tab=id; break;
+    case "cms-toggle": { const h=S.cmsHome.find(x=>x.id===id); if(h) h.visible=!h.visible; break; }
+    case "cms-move": {
+      const dir=parseInt(el.dataset.dir,10)||0, i=S.cmsHome.findIndex(x=>x.id===id), j=i+dir;
+      if(i>=0&&j>=0&&j<S.cmsHome.length){ const t=S.cmsHome[i]; S.cmsHome[i]=S.cmsHome[j]; S.cmsHome[j]=t; }
+      break;
+    }
+
+    /* blog · marketing */
+    case "blog-status": S.blog.status=id; break;
+    case "blog-new": S.posts.unshift({id:"b"+(nextId++),title:"Nuovo articolo senza titolo",author:"Redazione Stappando",category:"News",date:"—",status:"bozza"}); S.toast="Bozza creata"; break;
+    case "blog-toggle": { const p=S.posts.find(x=>x.id===id);
+      if(p){ p.status=(p.status==="pubblicato"?"bozza":"pubblicato"); if(p.status==="pubblicato"&&p.date==="—") p.date="17 lug 2026"; } break; }
+    case "blog-del": S.posts=S.posts.filter(x=>x.id!==id); S.toast="Articolo eliminato"; break;
+    case "mkt-toggle": { const c=S.campaigns.find(x=>x.id===id); if(c) c.status=(c.status==="attiva"?"pausa":"attiva"); break; }
+
+    /* recensioni */
+    case "rev-status": S.rev.status=id; break;
+    case "rev-approve": { const r=S.reviews.find(x=>x.id===id); if(r){ r.status="pubblicata"; S.toast="Recensione pubblicata"; } break; }
+    case "rev-reject": { const r=S.reviews.find(x=>x.id===id); if(r){ r.status="rifiutata"; S.toast="Recensione rifiutata"; } break; }
+
+    /* report */
+    case "rep-period": S.report.period=id; break;
+
+    /* ── SISTEMA ── */
+    case "rbac-grp": S.rbac.grp=id; break;
+    case "intg-toggle": { const i=S.intg.find(x=>x.id===id);
+      if(i){ i.on=!i.on; if(!i.on&&S.intgShow===id) S.intgShow=null;
+        S.toast=i.name+(i.on?" riattivata":" disattivata"); } break; }
+    case "intg-show": S.intgShow = S.intgShow===id ? null : id; break;
+    case "intg-key": { const i=S.intg.find(x=>x.id===id);
+      if(i){ i.updated="oggi"; S.intgShow=null; S.toast="Chiave di "+i.name+" rigenerata — aggiorna i sistemi collegati"; } break; }
+    case "audit-sev": S.audit.sev=id; break;
+    case "flag-toggle": { const f=S.flags.find(x=>x.id===id);
+      if(f){ f.on=!f.on; if(!f.on) f.rollout=0; else if(f.rollout===0) f.rollout=25;
+        S.toast=f.name+(f.on?" attivata al "+f.rollout+"%":" spenta per tutti"); } break; }
+    case "flag-step": { const f=S.flags.find(x=>x.id===id), dir=parseInt(el.dataset.dir,10)||0;
+      if(f&&f.on){ f.rollout=Math.max(0,Math.min(100,f.rollout+dir*25));
+        if(f.rollout===0) f.on=false;
+        S.toast=f.name+": rollout al "+f.rollout+"%"; } break; }
+
+    case "noop": break;
+  }
+  if(act!=="role-toggle") S.roleMenu=false;
+  if(act!=="promo-copy") S.promo.copied=null;
+  render();
+});
+
+root.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.input){
+    const map={
+      "cat-q":()=>S.cat.q=t.value,
+      "ven-q":()=>S.ven.q=t.value,
+      "usr-q":()=>S.usr.q=t.value,
+      "ord-q":()=>S.ord.q=t.value,
+      "audit-q":()=>S.audit.q=t.value,
+      "promo-code":()=>{if(S.promo.form)S.promo.form.code=t.value.toUpperCase();},
+      "promo-value":()=>{if(S.promo.form)S.promo.form.value=t.value;},
+      "promo-min":()=>{if(S.promo.form)S.promo.form.min=t.value;},
+    };
+    if(map[t.dataset.input]){ S.toast=null; map[t.dataset.input](); render(); }
+  }
+});
+
+root.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    if(S.ord.refund||S.ord.destroy||S.usr.roleModal||S.ven.comm||S.mobMenu||S.roleMenu||S.promo.creating){
+      S.ord.refund=null;S.ord.destroy=null;S.usr.roleModal=null;S.usr.pick=null;S.ven.comm=null;
+      S.mobMenu=false;S.roleMenu=false;S.promo.creating=false;S.promo.form=null;render();
+    }
+  }
+});
+
+render();
+</script>
+
+
+
+
+
+
+</body>
+</html>
