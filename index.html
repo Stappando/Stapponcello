@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Mockup e prototipi</title>
+<meta name="description" content="Indice dei mockup e prototipi HTML di Stappando." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --accent:#c9a87c;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --border:rgba(0,0,0,.09);
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);
+  font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ── hero ─────────────────────────────────────────────── */
+.hero{
+  background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 100%);
+  color:#fff;padding:56px 24px 72px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-120px;top:-140px;
+  width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
+}
+.hero-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.logo{font-weight:800;letter-spacing:.14em;font-size:17px;line-height:1}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:9px;letter-spacing:.34em;color:rgba(255,255,255,.5);margin-top:6px;font-weight:500;text-transform:uppercase}
+.hero h1{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(30px,5vw,44px);font-weight:700;line-height:1.15;
+  margin-top:36px;max-width:18ch;
+}
+.hero p{margin-top:14px;color:rgba(255,255,255,.72);max-width:56ch;font-size:16px}
+
+/* ── layout ───────────────────────────────────────────── */
+main{max-width:1080px;margin:0 auto;padding:0 24px 64px;width:100%;flex:1}
+section{margin-top:-32px}
+section + section{margin-top:52px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+section + section .sec-head{margin-bottom:18px}
+.sec-head h2{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:24px;font-weight:600;
+}
+.count{
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted-fg);background:var(--card);border:1px solid var(--border);
+  padding:3px 10px;border-radius:999px;
+}
+section:first-of-type .sec-head{display:none}
+
+/* ── cards ────────────────────────────────────────────── */
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:24px;box-shadow:var(--shadow-md);
+  display:flex;flex-direction:column;gap:10px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.card:hover,.card:focus-visible{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lg);
+  border-color:rgba(201,168,124,.55);
+}
+.card-top{display:flex;align-items:center;gap:12px}
+.badge{
+  width:40px;height:40px;flex:none;border-radius:var(--r-sm);
+  background:rgba(0,95,115,.09);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;
+}
+.card h3{font-size:16px;font-weight:600;line-height:1.25}
+.card p{font-size:13.5px;color:var(--muted-fg);flex:1}
+.go{
+  margin-top:2px;font-size:13px;font-weight:600;color:var(--primary);
+  display:flex;align-items:center;gap:6px;
+}
+.go svg{transition:transform .18s ease}
+.card:hover .go svg{transform:translateX(3px)}
+
+/* ── empty state ──────────────────────────────────────── */
+.empty{
+  background:rgba(255,255,255,.5);border:1px dashed rgba(0,0,0,.14);
+  border-radius:var(--r-lg);padding:28px;text-align:center;color:var(--muted-fg);font-size:14px;
+}
+
+/* ── footer ───────────────────────────────────────────── */
+footer{
+  border-top:1px solid var(--border);padding:24px;
+  text-align:center;font-size:12.5px;color:var(--muted-fg);
+}
+footer a{color:var(--primary);font-weight:500}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:640px){
+  .hero{padding:40px 20px 60px}
+  main{padding:0 20px 48px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="logo">STAPP<em>ANDO</em></div>
+    <div class="logo-sub">Mockup &amp; prototipi</div>
+    <h1>Le dashboard del progetto</h1>
+    <p>Prototipi HTML navigabili. Seleziona una dashboard per aprirla direttamente nel browser — nessuna installazione richiesta.</p>
+  </div>
+</header>
+
+<main>
+
+  <section aria-labelledby="dash-title">
+    <div class="sec-head">
+      <h2 id="dash-title">Dashboards</h2>
+      <span class="count">4 mockup</span>
+    </div>
+    <ul class="grid">
+      <li>
+        <a class="card" href="Dashboards/dashboard-manager-admin.html">
+          <div class="card-top">
+            <span class="badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            </span>
+            <h3>Manager Admin</h3>
+          </div>
+          <p>Vista di amministrazione completa: gestione utenti, cantine e metriche di piattaforma.</p>
+          <span class="go">Apri la dashboard
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="Dashboards/dashboard-vendor-owner.html">
+          <div class="card-top">
+            <span class="badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/></svg>
+            </span>
+            <h3>Vendor Owner</h3>
+          </div>
+          <p>Il pannello del titolare della cantina: fatturato, ordini e andamento delle vendite.</p>
+          <span class="go">Apri la dashboard
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="Dashboards/dashboard-vendor-manager.html">
+          <div class="card-top">
+            <span class="badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <h3>Vendor Manager</h3>
+          </div>
+          <p>La versione operativa per lo staff della cantina, con permessi ridotti rispetto al titolare.</p>
+          <span class="go">Apri la dashboard
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="card" href="Dashboards/dashboard-horeca.html">
+          <div class="card-top">
+            <span class="badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/><path d="M15 3c0 1.5-2 1.5-2 3"/></svg>
+            </span>
+            <h3>Area Horeca</h3>
+          </div>
+          <p>L'area dedicata ai clienti Horeca: catalogo, riordini e storico degli acquisti.</p>
+          <span class="go">Apri la dashboard
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="pag-title">
+    <div class="sec-head">
+      <h2 id="pag-title">Pagine</h2>
+      <span class="count">In arrivo</span>
+    </div>
+    <div class="empty">I mockup delle pagine non sono ancora pubblicati. Compariranno qui non appena caricati nella cartella <strong>Pagine/</strong>.</div>
+  </section>
+
+</main>
+
+<footer>
+  Stappando · mockup interni — codice su <a href="https://github.com/Stappando/Stapponcello">GitHub</a>
+</footer>
+
+</body>
+</html>
