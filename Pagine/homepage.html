@@ -149,8 +149,8 @@ img,svg{display:block}
 .hero-copy .eyebrow{color:var(--accent)}
 .hero h1{
   font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
-  font-size:clamp(32px,4.4vw,52px);font-weight:700;line-height:1.08;
-  margin-top:16px;max-width:15ch;
+  font-size:clamp(30px,3.8vw,46px);font-weight:600;line-height:1.1;
+  letter-spacing:-.035em;margin-top:16px;max-width:19ch;
 }
 .hero-lead{margin-top:18px;color:rgba(255,255,255,.78);font-size:16px;line-height:1.6;max-width:46ch}
 .hero-lead strong{color:#fff;font-weight:600}
@@ -180,69 +180,76 @@ img,svg{display:block}
 .btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
 .btn-ghost:hover{background:var(--muted)}
 
-/* ── carousel ─────────────────────────────────────────── */
-.carousel{position:relative}
-.track{
-  display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
-  scrollbar-width:none;-ms-overflow-style:none;cursor:grab;
-  border-radius:var(--r-lg);
+/* ── barra di servizio ────────────────────────────────── */
+.utilbar{
+  background:var(--primary-dark);color:rgba(255,255,255,.72);flex:none;
+  font-size:11.5px;font-weight:500;
 }
-.track::-webkit-scrollbar{display:none}
-.track.dragging{cursor:grabbing;scroll-snap-type:none}
-.slide{
-  flex:0 0 100%;scroll-snap-align:center;
+.utilbar-in{
+  max-width:1240px;margin:0 auto;padding:9px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.utilbar span{display:inline-flex;align-items:center;gap:7px}
+.utilbar svg{color:var(--accent);flex:none}
+.utilbar b{color:#fff;font-weight:600}
+
+/* ── consiglio di stasera ─────────────────────────────── */
+.pick{
   background:var(--card);border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--shadow-lg);color:var(--fg);
-  display:flex;flex-direction:column;user-select:none;
+  box-shadow:var(--shadow-lg);color:var(--fg);display:flex;flex-direction:column;
 }
-.slide-art{
-  position:relative;height:236px;flex:none;
+.pick-art{
+  position:relative;height:250px;flex:none;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.slide-art .btl{height:186px;filter:drop-shadow(0 14px 22px rgba(0,0,0,.28))}
-.slide-art .crest{width:96px;height:96px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.25))}
-.slide-art .scene{position:absolute;inset:0;width:100%;height:100%}
-.slide-badge{
+.pick-art .btl{height:196px;filter:drop-shadow(0 14px 22px rgba(0,0,0,.28));position:relative}
+.pick-art .scene{position:absolute;inset:0;width:100%;height:100%}
+.pick-badge{
   position:absolute;top:14px;left:14px;z-index:2;
-  display:inline-flex;align-items:center;gap:6px;
+  display:inline-flex;align-items:center;gap:7px;
   background:rgba(255,255,255,.94);backdrop-filter:blur(4px);
-  padding:6px 12px;border-radius:999px;
+  padding:7px 13px;border-radius:999px;
   font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--primary-dark);
 }
-.slide-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent-dark);flex:none}
-.slide-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
-.slide-kicker{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-fg)}
-.slide-body h3{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:22px;font-weight:600;line-height:1.18;margin-top:7px}
-.slide-body p{font-size:13px;color:var(--muted-fg);margin-top:8px;line-height:1.5}
-.slide-foot{
+.pick-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent-dark);flex:none}
+.pick-body{padding:20px 22px 22px}
+.pick-kicker{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-fg)}
+.pick-body h3{
+  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-size:21px;font-weight:600;line-height:1.16;margin-top:7px;letter-spacing:-.025em;
+}
+.pick-body p{font-size:13.5px;color:var(--muted-fg);margin-top:8px;line-height:1.55}
+.pick-foot{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);
 }
 .price{font-size:19px;font-weight:700;color:var(--primary)}
 .price s{font-size:12.5px;font-weight:500;color:var(--muted-fg);margin-right:7px}
-.slide-link{font-size:12.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:6px}
-.slide:hover .slide-link svg{transform:translateX(3px)}
-.slide-link svg{transition:transform .18s ease}
+.pick-link{font-size:12.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:6px}
+.pick-link svg{transition:transform .18s ease}
+.pick:hover .pick-link svg{transform:translateX(3px)}
 
-.car-nav{
-  position:absolute;top:118px;transform:translateY(-50%);z-index:3;
-  width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.94);
-  box-shadow:0 4px 14px rgba(0,0,0,.18);color:var(--primary-dark);
-  display:flex;align-items:center;justify-content:center;transition:.15s;
+/* cantina del mese, sotto il consiglio */
+.wmonth{
+  display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px 16px;
+  border:1px solid rgba(255,255,255,.18);border-radius:var(--r);
+  background:rgba(255,255,255,.07);backdrop-filter:blur(6px);transition:.18s;
 }
-.car-nav:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
-.car-prev{left:-14px}
-.car-next{right:-14px}
-.car-foot{display:flex;align-items:center;gap:14px;margin-top:18px}
-.dots{display:flex;gap:7px;flex:1}
-.dot{width:7px;height:7px;border-radius:999px;background:rgba(255,255,255,.32);transition:.25s;padding:0}
-.dot.on{width:24px;background:var(--accent)}
-.car-pause{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-  color:rgba(255,255,255,.62);transition:.15s;
+.wmonth:hover{border-color:rgba(201,168,124,.55);background:rgba(255,255,255,.1)}
+.wmonth .crest{
+  width:44px;height:44px;border-radius:50%;flex:none;
+  background:linear-gradient(150deg,var(--accent),var(--accent-dark));color:var(--primary-dark);
+  display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;
 }
-.car-pause:hover{color:#fff}
+.wmonth .txt{flex:1;min-width:0;color:#fff}
+.wmonth .txt em{
+  font-style:normal;display:block;font-size:9.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.wmonth .txt b{display:block;font-size:14.5px;font-weight:600;margin-top:3px}
+.wmonth .txt span{font-size:11.5px;color:rgba(255,255,255,.6)}
+.wmonth > svg{color:rgba(255,255,255,.6);flex:none;transition:transform .18s ease}
+.wmonth:hover > svg{transform:translateX(3px);color:var(--accent)}
 
 /* ── sections ─────────────────────────────────────────── */
 main{flex:1}
@@ -252,38 +259,65 @@ main{flex:1}
 .sec-head p{margin-top:12px;font-size:15px;color:var(--muted-fg);line-height:1.6}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
-/* ── perché stappando ─────────────────────────────────── */
+/* ── la nostra idea ───────────────────────────────────── */
 .why{background:#fff;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
-.why-in{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:56px;align-items:center}
+.idea-head{max-width:56ch}
 .claim{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(24px,2.9vw,34px);
-  font-weight:700;line-height:1.24;margin-top:14px;
+  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-size:clamp(24px,3vw,36px);font-weight:600;line-height:1.16;
+  letter-spacing:-.035em;margin-top:14px;
 }
 .claim em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
 .claim em::after{
-  content:"";position:absolute;left:0;right:0;bottom:2px;height:8px;
-  background:rgba(201,168,124,.36);border-radius:3px;z-index:-1;
+  content:"";position:absolute;left:0;right:0;bottom:2px;height:9px;
+  background:rgba(201,168,124,.4);border-radius:3px;z-index:-1;
 }
-.why p{margin-top:16px;font-size:15px;color:var(--muted-fg);line-height:1.65;max-width:44ch}
-.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.pillar{
-  background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r-lg);
-  padding:24px 22px;transition:.18s;
+.idea-lead{margin-top:16px;font-size:15px;color:var(--muted-fg);line-height:1.7;max-width:56ch}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px}
+.step{
+  position:relative;background:var(--bg);border:1px solid var(--border-soft);
+  border-radius:var(--r-lg);padding:26px 24px;transition:.18s;
 }
-.pillar:hover{border-color:rgba(201,168,124,.6);box-shadow:var(--shadow-md);transform:translateY(-3px)}
-.pillar .ic{
+.step.on{
+  background:linear-gradient(165deg,var(--primary-dark),var(--primary));border-color:transparent;
+  box-shadow:var(--shadow-lg);color:#fff;
+}
+.step:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.step.on:hover{box-shadow:var(--shadow-lg)}
+.step .ic{
   width:44px;height:44px;border-radius:var(--r-sm);
   background:var(--primary-soft);color:var(--primary);
-  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
 }
-.pillar h3{font-size:15px;font-weight:700;line-height:1.25}
-.pillar p{margin-top:8px;font-size:13px;color:var(--muted-fg);line-height:1.55}
-.why-note{
-  margin-top:28px;padding:18px 22px;border-left:3px solid var(--accent);
-  background:rgba(201,168,124,.1);border-radius:0 var(--r-sm) var(--r-sm) 0;
-  font-size:14px;color:var(--fg);line-height:1.55;
+.step.on .ic{background:rgba(201,168,124,.22);color:var(--accent)}
+.step .lbl{
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-fg);
 }
-.why-note b{font-weight:700}
+.step.on .lbl{color:var(--accent)}
+.step h3{
+  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-size:19px;font-weight:600;line-height:1.22;margin-top:9px;letter-spacing:-.03em;
+}
+.step p{margin-top:9px;font-size:13.5px;color:var(--muted-fg);line-height:1.6}
+.step.on p{color:rgba(255,255,255,.76)}
+
+/* firma dei fondatori */
+.founders{
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start;
+  margin-top:34px;padding:26px 28px;
+  background:var(--bg);border-left:3px solid var(--accent);border-radius:0 var(--r-lg) var(--r-lg) 0;
+}
+.founders .avatar{
+  width:54px;height:54px;border-radius:50%;flex:none;
+  background:linear-gradient(150deg,var(--primary),var(--primary-dark));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;letter-spacing:.02em;
+}
+.founders q{font-size:15px;line-height:1.7;display:block;quotes:none;max-width:74ch}
+.founders .who{max-width:74ch}
+.founders q::before,.founders q::after{content:""}
+.founders .who{margin-top:12px;font-size:12.5px;color:var(--muted-fg)}
+.founders .who b{color:var(--fg);font-weight:600}
 
 /* ── prodotti ─────────────────────────────────────────── */
 .prod-grid{
@@ -462,9 +496,9 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 
 /* ── responsive ───────────────────────────────────────── */
 @media(max-width:1080px){
-  .hero-in{grid-template-columns:1fr;gap:44px}
+  .hero-in{grid-template-columns:1fr;gap:40px}
   .hero h1{max-width:20ch}
-  .why-in{grid-template-columns:1fr;gap:36px}
+  .steps{grid-template-columns:1fr}
   .prod-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .exp-grid{grid-template-columns:1fr}
   .exp{min-height:260px}
@@ -476,26 +510,40 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   .search{max-width:none}
 }
 @media(max-width:720px){
-  .wrap,.topbar-in{padding:0 18px}
+  .wrap,.topbar-in,.utilbar-in{padding-left:18px;padding-right:18px}
   .sec{padding:56px 0}
   .hero{padding:44px 0 60px}
   .prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .foot-in{grid-template-columns:1fr}
-  .car-prev{left:6px}
-  .car-next{right:6px}
   .search{order:3;flex-basis:100%;max-width:none;margin:0}
   .topbar-in{height:auto;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;gap:12px}
   .hero-trust{gap:18px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
-  .track{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
 
 <!-- ══ HEADER ═══════════════════════════════════════════ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Corriere a scelta: BRT, TNT, Poste
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
 <header class="topbar">
   <div class="topbar-in">
     <a href="homepage.html" aria-label="Stappando, home">
@@ -504,11 +552,11 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     </a>
 
     <nav class="topnav" aria-label="Navigazione principale">
-      <a href="catalogo.html">Prodotti</a>
+      <a href="catalogo.html">Vini</a>
+      <a href="javascript:void(0)">Distillati</a>
       <a href="cantina.html">Cantine</a>
-      <a href="javascript:void(0)">Storie</a>
       <a href="javascript:void(0)">Wine Club</a>
-      <a href="javascript:void(0)">Eventi</a>
+      <a href="javascript:void(0)">Racconti</a>
     </nav>
 
     <div class="search" id="search">
@@ -544,11 +592,11 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   </div>
 
   <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
-    <a href="catalogo.html">Prodotti <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="catalogo.html">Vini <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="cantina.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Storie <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="javascript:void(0)">Racconti <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="javascript:void(0)">Wine Club <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Eventi <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="javascript:void(0)">Distillati <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="regioni.html">Regioni del vino <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
   </nav>
 </header>
@@ -560,91 +608,110 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   <div class="wrap hero-in">
 
     <div class="hero-copy">
-      <p class="eyebrow">Selezione curata da sommelier</p>
-      <h1>Il vino giusto, scelto con chi se ne intende</h1>
+      <p class="eyebrow">Vino? Facciamola facile</p>
+      <h1>Scegliere cosa bere non dovrebbe essere così complicato</h1>
       <p class="hero-lead">
-        Ogni etichetta è scelta e degustata dal nostro team di sommelier.
-        <strong>Se non lo berremmo noi, non lo troveresti qui.</strong>
+        Troppa scelta e ti perdi. Troppe parole difficili e ti senti fuori posto.
+        Alla fine prendi quella che conosci, o quella con l'etichetta più bella, e speri
+        di aver indovinato. <strong>Stappando nasce per far sparire quell'ansia.</strong>
       </p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="catalogo.html">
-          Esplora i prodotti
+        <a class="btn btn-primary" href="cantina.html">
+          Dai un'occhiata a chi abbiamo selezionato
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
         </a>
-        <a class="btn btn-outline" href="javascript:void(0)">Scopri il Wine Club</a>
+        <a class="btn btn-outline" href="javascript:void(0)">Chiedici un consiglio</a>
       </div>
       <div class="hero-trust">
-        <div><b>640+</b><span>Etichette assaggiate</span></div>
-        <div><b>128</b><span>Cantine indipendenti</span></div>
-        <div><b>4,8/5</b><span>Su 1.284 recensioni</span></div>
+        <div><b>320</b><span>Cantine indipendenti</span></div>
+        <div><b>20</b><span>Regioni</span></div>
+        <div><b>4,7/5</b><span>Su 3.482 recensioni</span></div>
       </div>
     </div>
 
-    <div class="carousel" aria-roledescription="carosello" aria-label="In evidenza su Stappando">
-      <button class="car-nav car-prev" id="prevBtn" aria-label="Elemento precedente">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
-      </button>
-      <div class="track" id="track" tabindex="0" aria-live="polite"></div>
-      <button class="car-nav car-next" id="nextBtn" aria-label="Elemento successivo">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
-      </button>
-      <div class="car-foot">
-        <div class="dots" id="dots"></div>
-        <button class="car-pause" id="pauseBtn" aria-label="Metti in pausa lo scorrimento automatico">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="pauseIc"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-          <span id="pauseTxt">Pausa</span>
-        </button>
-      </div>
+    <div>
+      <a class="pick" href="prodotto.html">
+        <div class="pick-art" id="pickArt">
+          <span class="pick-badge"><i></i>Il consiglio di stasera</span>
+        </div>
+        <div class="pick-body">
+          <span class="pick-kicker">Rosso · Puglia · 14,5% vol</span>
+          <h3>Primitivo ‘Èja’ 2022</h3>
+          <p>Il rosso della domenica: caldo, schietto, senza giri di parole. Antonio Buccoliero lo fa così da vent'anni.</p>
+          <div class="pick-foot">
+            <span class="price">€ 16,90</span>
+            <span class="pick-link">Vedi il vino
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <a class="wmonth" href="cantina.html">
+        <span class="crest" aria-hidden="true">CR</span>
+        <span class="txt">
+          <em>Cantina del mese</em>
+          <b>Cascina Rivetto</b>
+          <span>Piemonte · Langhe · dal 1919 — Nebbiolo da una collina sola</span>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
 
   </div>
 </section>
 
-<!-- ══ PERCHÉ STAPPANDO ═════════════════════════════════ -->
+<!-- ══ LA NOSTRA IDEA ═══════════════════════════════════ -->
 <section class="sec why">
-  <div class="wrap why-in">
-    <div>
-      <p class="eyebrow">Perché Stappando</p>
-      <p class="claim">Non siamo il catalogo più grande. Siamo <em>quello scelto meglio</em>.</p>
-      <p>
-        Su un'enoteca online trovi diecimila etichette e nessuno che ti dica quale aprire stasera.
-        Qui trovi meno bottiglie, ma ognuna è passata dal bicchiere di qualcuno prima di arrivare
-        nella tua cantina.
+  <div class="wrap">
+    <div class="idea-head">
+      <p class="eyebrow">— 01 · La nostra idea</p>
+      <p class="claim">Tra lo scaffale e la cattedra, <em>c'è la tavola</em>.</p>
+      <p class="idea-lead">
+        Non siamo uno scaffale digitale che ti mette davanti mille bottiglie e ti lascia solo.
+        E non siamo nemmeno la lezione dall'alto, quella che per capirla devi già saperne.
       </p>
-      <div class="why-note">
-        Dietro ogni bottiglia c'è <b>una scelta ragionata, non un algoritmo</b>.
-        Assaggiato, non solo elencato.
-      </div>
     </div>
 
-    <div class="pillars">
-      <div class="pillar">
+    <div class="steps">
+      <article class="step">
+        <span class="ic" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18M3 10h18M3 16h18"/><path d="M6 4v6M10 4v6M14 10v6M18 10v6"/></svg>
+        </span>
+        <p class="lbl">Lo scaffale</p>
+        <h3>Più scelta, più smarrimento</h3>
+        <p>L'abbondanza lasciata sola non orienta: disorienta. Mille etichette e nessuno che ti dica quale aprire stasera.</p>
+      </article>
+
+      <article class="step">
+        <span class="ic" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z"/><path d="M8 20h8M12 16v4"/><path d="M8 9h8M8 12h5"/></svg>
+        </span>
+        <p class="lbl">La cattedra</p>
+        <h3>Per capire devi già sapere</h3>
+        <p>La competenza esibita alza un muro invece di aprire una porta. Le parole difficili non ti fanno bere meglio.</p>
+      </article>
+
+      <article class="step on">
         <span class="ic" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/></svg>
         </span>
-        <h3>Assaggiato, non elencato</h3>
-        <p>Ogni etichetta entra in catalogo solo dopo una degustazione alla cieca del nostro team. Nessuna eccezione, nemmeno per i grandi nomi.</p>
-      </div>
-      <div class="pillar">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 1.6.6 2.7 1.2 3.4L12 22l5.8-9.6c.6-.7 1.2-1.8 1.2-3.4a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.4"/></svg>
-        </span>
-        <h3>Cantine, non fornitori</h3>
-        <p>Compriamo direttamente da 128 produttori indipendenti. Conosciamo i loro vigneti, le annate difficili e chi lavora in cantina.</p>
-      </div>
-      <div class="pillar">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M7 21h10"/><circle cx="12" cy="6" r="3"/></svg>
-        </span>
-        <h3>Una scelta, non un algoritmo</h3>
-        <p>Nessuna vetrina a pagamento travestita da consiglio. Se un vino è in evidenza è perché ci abbiamo messo la faccia.</p>
-      </div>
-      <div class="pillar">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-        </span>
-        <h3>Arriva integra, o la rifacciamo</h3>
-        <p>Imballo antiurto, spedizione in 48 ore e bottiglia rotta sostituita senza discussioni. Sopra 79 € la consegna è gratuita.</p>
+        <p class="lbl">La tavola · Stappando</p>
+        <h3>Qualcuno si siede accanto a te</h3>
+        <p>Ti mette a tuo agio e ti apre un mondo, senza mai farti pesare quanto sa. È il posto che volevamo trovare noi.</p>
+      </article>
+    </div>
+
+    <div class="founders">
+      <span class="avatar" aria-hidden="true">RC</span>
+      <div>
+        <q>Non ci siamo mai innamorati di un vino leggendo una scheda tecnica. È successo mentre
+        qualcuno — spesso un produttore, le mani ancora sporche di terra — ci spiegava perché
+        aveva fatto una certa scelta e non un'altra. Dietro ogni bottiglia, prima del vino,
+        ci sono un luogo e delle mani.</q>
+        <p class="who"><b>Roberto e Claudio</b> — fondatori di Stappando. Ci siamo conosciuti grazie
+        ai nostri genitori, entrambi nel mondo del vino, e volevamo la stessa cosa: aprire questo
+        mondo a tutti, senza filtri e senza soggezione.</p>
       </div>
     </div>
   </div>
@@ -966,29 +1033,6 @@ const PRODUCTS = [
    price:24.00, old:null,  rating:4.6, votes:29,  ribbon:'Ultimo arrivato', gold:true},
 ];
 
-/* ── slide del carosello ──────────────────────────────── */
-const SLIDES = [
-  {kind:'prodotto', product:PRODUCTS[0], badge:'1° · Best seller'},
-  {kind:'prodotto', product:PRODUCTS[1], badge:'2° · Best seller'},
-  {kind:'prodotto', product:PRODUCTS[2], badge:'3° · Best seller'},
-  {kind:'evento', badge:'Prossimo evento', kicker:'Evento · sabato 8 agosto',
-   title:'Verticale di Etna Rosso, cinque annate',
-   text:'Palmento Nero porta a Milano le annate dal 2016 al 2021. Venti posti, guidati dal nostro capo sommelier.',
-   meta:'Milano · 20:30 · 12 posti rimasti', cta:'Prenota il posto', price:35},
-  {kind:'storia', badge:'Dal blog', kicker:'Storie · 24 luglio 2026',
-   title:'Cosa vuol dire davvero “vino naturale”',
-   text:'Tre produttori, tre definizioni diverse e nessun disciplinare. Abbiamo provato a fare ordine, bicchiere alla mano.',
-   meta:'Lettura da 6 minuti', cta:'Leggi la storia'},
-  {kind:'cantina', badge:'Nuova cantina', kicker:'Cantine · appena arrivata',
-   title:'Vigne di Ronco', initials:'VR', accent:'#2d6a4f',
-   text:'Sei ettari sul Collio friulano, macerazioni lunghe e anfore interrate. Da noi con quattro etichette.',
-   meta:'Friuli Venezia Giulia · 4 etichette', cta:'Scopri la cantina'},
-  {kind:'cantina', badge:'Nuova cantina', kicker:'Cantine · appena arrivata',
-   title:'Podere Fontesecca', initials:'PF', accent:'#8b2635',
-   text:'Maremma toscana, vigne a 300 metri e nessun diserbante dal 2009. Un Ciliegiolo che ci ha convinto subito.',
-   meta:'Toscana · 3 etichette', cta:'Scopri la cantina'},
-];
-
 /* ── indice di ricerca ────────────────────────────────── */
 const SEARCH_INDEX = [
   /* i vini in catalogo ereditano lo stile come parola chiave, così "rosso" li trova tutti */
@@ -1065,87 +1109,7 @@ function bottleSVG(style){
   </svg>`;
 }
 
-/* ── SVG: stemma cantina ──────────────────────────────── */
-function crestSVG(initials, accent){
-  const id = nextId('crest');
-  return `<svg class="crest" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <radialGradient id="${id}" cx="50%" cy="36%" r="72%">
-        <stop offset="0%" stop-color="${accent}"/>
-        <stop offset="100%" stop-color="#003d4d"/>
-      </radialGradient>
-    </defs>
-    <circle cx="50" cy="50" r="47" fill="url(#${id})" stroke="#c9a87c" stroke-width="1.6"/>
-    <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(201,168,124,.5)" stroke-width=".8"/>
-    <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
-      font-family="Bricolage Grotesque, Montserrat, sans-serif" font-weight="700" font-size="32" fill="#f7f3ee" letter-spacing="1">${esc(initials)}</text>
-    <path d="M28 71 Q50 79 72 71" stroke="rgba(201,168,124,.55)" stroke-width=".8" fill="none"/>
-  </svg>`;
-}
-
-/* ── SVG: sfondi delle slide ──────────────────────────── */
-function sceneEvento(){
-  const id = nextId('ev');
-  return `<svg class="scene" viewBox="0 0 520 236" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a3d4a"/><stop offset="100%" stop-color="#001d26"/></linearGradient></defs>
-    <rect width="520" height="236" fill="url(#${id})"/>
-    <circle cx="430" cy="52" r="58" fill="rgba(201,168,124,.16)"/>
-    <g stroke="rgba(201,168,124,.85)" stroke-width="2.6" fill="none" stroke-linecap="round">
-      <g transform="translate(150 62)">
-        <path d="M-26 0h52c0 26-14 40-26 44-12-4-26-18-26-44z" fill="rgba(143,34,34,.55)"/>
-        <path d="M0 44v46M-18 92h36"/>
-      </g>
-      <g transform="translate(260 76)">
-        <path d="M-30 0h60c0 30-16 46-30 50-14-4-30-20-30-50z" fill="rgba(211,193,121,.42)"/>
-        <path d="M0 50v52M-20 104h40"/>
-      </g>
-      <g transform="translate(370 62)">
-        <path d="M-26 0h52c0 26-14 40-26 44-12-4-26-18-26-44z" fill="rgba(92,125,146,.5)"/>
-        <path d="M0 44v46M-18 92h36"/>
-      </g>
-    </g>
-    <path d="M0 190h520v46H0z" fill="rgba(0,0,0,.3)"/>
-    <path d="M0 190h520" stroke="rgba(201,168,124,.5)" stroke-width="2"/>
-  </svg>`;
-}
-
-function sceneStoria(){
-  const id = nextId('st');
-  return `<svg class="scene" viewBox="0 0 520 236" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a6c7e"/><stop offset="100%" stop-color="#003d4d"/></linearGradient></defs>
-    <rect width="520" height="236" fill="url(#${id})"/>
-    <circle cx="82" cy="46" r="52" fill="rgba(201,168,124,.16)"/>
-    <g transform="translate(150 44)">
-      <path d="M0 16h108v128H0z" fill="rgba(255,255,255,.08)"/>
-      <path d="M112 16h108v128H112z" fill="rgba(255,255,255,.055)"/>
-      <path d="M110 8v144" stroke="rgba(201,168,124,.55)" stroke-width="3"/>
-      <g stroke="rgba(255,255,255,.24)" stroke-width="4" stroke-linecap="round">
-        <path d="M18 44h72"/><path d="M18 62h72"/><path d="M18 80h48"/><path d="M18 110h72"/>
-        <path d="M130 44h72"/><path d="M130 62h54"/><path d="M130 80h72"/><path d="M130 110h40"/>
-      </g>
-    </g>
-    <circle cx="420" cy="168" r="26" fill="rgba(139,38,53,.5)"/>
-    <circle cx="450" cy="196" r="13" fill="rgba(139,38,53,.32)"/>
-  </svg>`;
-}
-
-function sceneCantina(accent){
-  const id = nextId('ct');
-  return `<svg class="scene" viewBox="0 0 520 236" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${accent}"/><stop offset="100%" stop-color="#00252e"/></linearGradient></defs>
-    <rect width="520" height="236" fill="url(#${id})"/>
-    <circle cx="440" cy="46" r="36" fill="rgba(201,168,124,.3)"/>
-    <path d="M0 132c92-40 156 14 258-16s160 8 262-22v142H0z" fill="rgba(0,0,0,.24)"/>
-    <path d="M0 176c112-34 168 12 274-14s140 4 246-16v90H0z" fill="rgba(0,0,0,.34)"/>
-    <g stroke="rgba(201,168,124,.32)" stroke-width="2.2">
-      <path d="M40 188v48M100 182v54M160 178v58M220 176v60M280 178v58M340 180v56M400 182v54M460 184v52"/>
-    </g>
-  </svg>`;
-}
-
+/* ── SVG: sfondo prodotto ─────────────────────────────── */
 function sceneProdotto(style){
   const m = STYLE_META[style];
   const id = nextId('pr');
@@ -1173,161 +1137,9 @@ function styleTag(style){
   return `<span class="style-tag" style="color:${m.tag};border-color:${m.tag}33;background:${m.tag}12">${m.label}</span>`;
 }
 
-const ARROW = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
-
-/* ══ CAROSELLO ════════════════════════════════════════ */
-const track = document.getElementById('track');
-const dotsEl = document.getElementById('dots');
-
-function slideHTML(s, i){
-  let art, kicker, title, text, foot;
-
-  if(s.kind === 'prodotto'){
-    const p = s.product;
-    art = sceneProdotto(p.style) + bottleSVG(p.style);
-    kicker = `${STYLE_META[p.style].label} · ${p.region}`;
-    title = p.name;
-    text = `${p.winery} — ${p.votes} recensioni, media ${p.rating.toLocaleString('it-IT',{minimumFractionDigits:1})}.`;
-    foot = `<span class="price">${p.old ? `<s>${eur(p.old)}</s>` : ''}${eur(p.price)}</span>
-            <span class="slide-link">Vedi il vino ${ARROW}</span>`;
-  } else if(s.kind === 'evento'){
-    art = sceneEvento();
-    kicker = s.kicker; title = s.title; text = s.text;
-    foot = `<span class="price">${eur(s.price)}</span><span class="slide-link">${s.cta} ${ARROW}</span>`;
-  } else if(s.kind === 'storia'){
-    art = sceneStoria();
-    kicker = s.kicker; title = s.title; text = s.text;
-    foot = `<span style="font-size:12px;color:var(--muted-fg);font-weight:600">${esc(s.meta)}</span>
-            <span class="slide-link">${s.cta} ${ARROW}</span>`;
-  } else {
-    art = sceneCantina(s.accent) + crestSVG(s.initials, s.accent);
-    kicker = s.kicker; title = s.title; text = s.text;
-    foot = `<span style="font-size:12px;color:var(--muted-fg);font-weight:600">${esc(s.meta)}</span>
-            <span class="slide-link">${s.cta} ${ARROW}</span>`;
-  }
-
-  return `<a class="slide" href="javascript:void(0)" role="group"
-             aria-roledescription="slide" aria-label="${i+1} di ${SLIDES.length}: ${esc(title)}">
-    <div class="slide-art">
-      <span class="slide-badge"><i></i>${esc(s.badge)}</span>
-      ${art}
-    </div>
-    <div class="slide-body">
-      <span class="slide-kicker">${esc(kicker)}</span>
-      <h3>${esc(title)}</h3>
-      <p>${esc(text)}</p>
-      <div class="slide-foot">${foot}</div>
-    </div>
-  </a>`;
-}
-
-track.innerHTML = SLIDES.map(slideHTML).join('');
-dotsEl.innerHTML = SLIDES.map((s,i) =>
-  `<button class="dot${i===0?' on':''}" data-i="${i}" aria-label="Vai alla slide ${i+1}"></button>`).join('');
-
-let current = 0;
-let playing = true;
-let autoTimer = null;
-const DELAY = 4800;
-
-function slideLeft(i){
-  const el = track.children[i];
-  return el ? el.offsetLeft - track.offsetLeft : 0;
-}
-
-function goTo(i, smooth = true){
-  current = (i + SLIDES.length) % SLIDES.length;
-  track.scrollTo({left: slideLeft(current), behavior: smooth ? 'smooth' : 'auto'});
-  syncDots();
-}
-
-function syncDots(){
-  [...dotsEl.children].forEach((d, i) => d.classList.toggle('on', i === current));
-}
-
-function startAuto(){
-  stopAuto();
-  if(!playing) return;
-  autoTimer = setInterval(() => goTo(current + 1), DELAY);
-}
-function stopAuto(){ if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
-
-/* Lo scroll manuale dell'utente aggiorna la slide corrente e rimanda l'autoplay */
-let scrollIdle;
-track.addEventListener('scroll', () => {
-  clearTimeout(scrollIdle);
-  scrollIdle = setTimeout(() => {
-    let best = 0, min = Infinity;
-    [...track.children].forEach((el, i) => {
-      const d = Math.abs(el.offsetLeft - track.offsetLeft - track.scrollLeft);
-      if(d < min){ min = d; best = i; }
-    });
-    current = best;
-    syncDots();
-  }, 90);
-}, {passive:true});
-
-document.getElementById('prevBtn').onclick = () => { goTo(current - 1); startAuto(); };
-document.getElementById('nextBtn').onclick = () => { goTo(current + 1); startAuto(); };
-dotsEl.onclick = e => {
-  const b = e.target.closest('.dot');
-  if(b){ goTo(+b.dataset.i); startAuto(); }
-};
-
-const pauseBtn = document.getElementById('pauseBtn');
-pauseBtn.onclick = () => {
-  playing = !playing;
-  document.getElementById('pauseTxt').textContent = playing ? 'Pausa' : 'Riprendi';
-  document.getElementById('pauseIc').innerHTML = playing
-    ? '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>'
-    : '<path d="M8 5.5v13l11-6.5z"/>';
-  pauseBtn.setAttribute('aria-label', playing ? 'Metti in pausa lo scorrimento automatico' : 'Riprendi lo scorrimento automatico');
-  playing ? startAuto() : stopAuto();
-};
-
-/* Pausa al passaggio del mouse, alla messa a fuoco e a scheda nascosta */
-const carousel = track.parentElement;
-carousel.addEventListener('mouseenter', stopAuto);
-carousel.addEventListener('mouseleave', startAuto);
-carousel.addEventListener('focusin', stopAuto);
-carousel.addEventListener('focusout', startAuto);
-document.addEventListener('visibilitychange', () => document.hidden ? stopAuto() : startAuto());
-
-/* Trascinamento con il mouse */
-let dragging = false, startX = 0, startScroll = 0, moved = 0;
-track.addEventListener('pointerdown', e => {
-  if(e.pointerType === 'touch') return;          /* il touch usa lo scroll nativo */
-  dragging = true; moved = 0;
-  startX = e.clientX; startScroll = track.scrollLeft;
-  track.classList.add('dragging'); stopAuto();
-});
-track.addEventListener('pointermove', e => {
-  if(!dragging) return;
-  const dx = e.clientX - startX;
-  moved = Math.abs(dx);
-  track.scrollLeft = startScroll - dx;
-});
-function endDrag(){
-  if(!dragging) return;
-  dragging = false;
-  track.classList.remove('dragging');
-  const w = track.clientWidth || 1;
-  goTo(Math.round(track.scrollLeft / w));
-  startAuto();
-}
-track.addEventListener('pointerup', endDrag);
-track.addEventListener('pointercancel', endDrag);
-track.addEventListener('pointerleave', endDrag);
-track.addEventListener('click', e => { if(moved > 6) e.preventDefault(); });
-
-/* Frecce da tastiera */
-track.addEventListener('keydown', e => {
-  if(e.key === 'ArrowRight'){ e.preventDefault(); goTo(current + 1); }
-  if(e.key === 'ArrowLeft'){ e.preventDefault(); goTo(current - 1); }
-});
-
-window.addEventListener('resize', () => goTo(current, false));
-startAuto();
+/* ══ CONSIGLIO DI STASERA ═════════════════════════════ */
+document.getElementById('pickArt').insertAdjacentHTML(
+  'afterbegin', sceneProdotto('rosso') + bottleSVG('rosso'));
 
 /* ══ GRIGLIA PRODOTTI ═════════════════════════════════ */
 document.getElementById('prodGrid').innerHTML = PRODUCTS.map(p => `
