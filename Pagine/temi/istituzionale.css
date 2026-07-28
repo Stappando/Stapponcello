@@ -27,8 +27,8 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.06);
   --shadow:0 4px 14px rgba(0,0,0,.08);
   --shadow-lg:0 12px 32px rgba(0,0,0,.12);
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --serif:Georgia,Cambria,"Times New Roman",Times,serif;
+  --sans:"Montserrat",system-ui,-apple-system,sans-serif;
+  --serif:"Bricolage Grotesque","Montserrat",system-ui,sans-serif;   /* nome storico: ora è il carattere dei titoli */
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -99,7 +99,7 @@ svg{display:block}
 }
 .hero h1{
   font-family:var(--serif);
-  font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.14;margin-top:20px;color:var(--primary-dark);
+  font-size:clamp(31px,4.2vw,47px);font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:20px;color:var(--primary-dark);
 }
 .hero h1 em{font-style:normal;color:var(--gold)}
 .lead{margin-top:16px;color:var(--muted);font-size:16px;line-height:1.7;max-width:48ch}
@@ -121,7 +121,7 @@ svg{display:block}
 }
 .stats li{flex:1;min-width:130px;padding:16px 22px;border-right:1px solid var(--line)}
 .stats li:last-child{border-right:none}
-.stats b{display:block;font-family:var(--serif);font-size:27px;font-weight:700;color:var(--primary);line-height:1}
+.stats b{display:block;font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:-.03em;color:var(--primary);line-height:1}
 .stats span{font-size:11.5px;color:var(--muted);margin-top:5px;display:block}
 
 .hero-art{
@@ -135,7 +135,7 @@ svg{display:block}
   position:absolute;left:0;right:0;bottom:0;background:var(--primary);color:#fff;
   padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;
 }
-.hero-art .tagline b{display:block;font-family:var(--serif);font-size:18px;font-weight:700}
+.hero-art .tagline b{display:block;font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.022em}
 .hero-art .tagline span{font-size:11.5px;color:rgba(255,255,255,.72)}
 .hero-art .tagline .price{
   background:var(--gold);color:#fff;font-weight:700;padding:9px 15px;border-radius:var(--r-sm);white-space:nowrap;
@@ -144,7 +144,7 @@ svg{display:block}
 /* ── scaffale ─────────────────────────────────────────── */
 .shelf{padding:52px 0 68px}
 .shelf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;flex-wrap:wrap;margin-bottom:24px}
-.shelf-head h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,34px);font-weight:700;color:var(--primary-dark);line-height:1.2}
+.shelf-head h2{font-family:var(--serif);font-size:clamp(24px,3vw,32px);font-weight:600;letter-spacing:-.03em;color:var(--primary-dark);line-height:1.22}
 .shelf-head p{color:var(--muted);margin-top:8px;font-size:14.5px}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chips button{
@@ -182,7 +182,7 @@ svg{display:block}
   align-self:flex-start;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
   color:var(--primary);background:rgba(5,86,103,.08);padding:4px 10px;border-radius:var(--r-sm);
 }
-.card h3{font-family:var(--serif);font-size:17px;font-weight:700;line-height:1.3;margin-top:11px;color:var(--primary-dark)}
+.card h3{font-family:var(--serif);font-size:16px;font-weight:600;line-height:1.34;letter-spacing:-.022em;margin-top:11px;color:var(--primary-dark)}
 .meta{font-size:12.5px;color:var(--muted);margin-top:6px}
 .rating{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:var(--muted)}
 .rating .s{display:flex;gap:1px;color:var(--gold)}
@@ -217,7 +217,7 @@ svg{display:block}
 }
 .band > *{position:relative;z-index:1}
 .band .kicker{background:rgba(255,255,255,.14);color:#fff;border-left-color:var(--gold)}
-.band h2{font-family:var(--serif);font-size:clamp(26px,3.2vw,36px);font-weight:700;line-height:1.16;margin-top:16px}
+.band h2{font-family:var(--serif);font-size:clamp(24px,3vw,33px);font-weight:600;letter-spacing:-.03em;line-height:1.2;margin-top:16px}
 .band p{color:rgba(255,255,255,.76);margin-top:12px;font-size:15px;line-height:1.65;max-width:46ch}
 .band form{display:flex;gap:10px;flex-wrap:wrap}
 .band input{
