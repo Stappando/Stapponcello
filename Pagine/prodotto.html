@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Barolo Bussia 2019</title>
+<meta name="description" content="Scheda prodotto: Barolo Bussia 2019 di Cascina Vergne — note di degustazione, abbinamenti, recensioni verificate." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);
+  font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
+.h2{font-family:"Playfair Display",Georgia,serif;font-size:clamp(21px,2.4vw,27px);font-weight:700;line-height:1.14}
+
+/* ── topbar ───────────────────────────────────────────── */
+.topbar{position:sticky;top:0;z-index:40;flex:none;background:#fff;border-bottom:1px solid var(--border)}
+.topbar-in{height:72px;display:flex;align-items:center;gap:24px;max-width:1240px;margin:0 auto;padding:0 28px}
+.logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:8px;letter-spacing:.34em;color:var(--muted-fg);margin-top:5px;font-weight:500;text-transform:uppercase}
+.topnav{display:flex;gap:24px;flex:none;margin-left:auto}
+.topnav a{
+  font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted-fg);padding:6px 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;
+}
+.topnav a:hover{color:var(--fg)}
+.topnav a.on{color:var(--primary);border-color:var(--accent)}
+.top-icons{display:flex;align-items:center;gap:4px;flex:none;margin-left:auto}
+.topnav + .top-icons{margin-left:0}
+.iconbtn{padding:9px;border-radius:var(--r-sm);color:rgba(26,26,26,.7);transition:.15s;position:relative;display:block}
+.iconbtn:hover{background:var(--muted);color:var(--fg)}
+.iconbtn b{
+  position:absolute;top:3px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;
+  background:var(--primary);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.iconbtn.heart b{background:var(--accent-dark)}
+.burger{display:none}
+.mobnav{display:none;border-top:1px solid var(--border);background:#fff;padding:8px 28px 16px}
+.mobnav.open{display:block}
+.mobnav a{
+  display:flex;align-items:center;justify-content:space-between;padding:13px 2px;
+  border-bottom:1px solid var(--border-soft);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+}
+.mobnav a:last-child{border-bottom:none}
+.mobnav a svg{color:var(--muted-fg)}
+
+/* ── breadcrumb ───────────────────────────────────────── */
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted-fg);flex-wrap:wrap;padding:18px 0}
+.crumbs a:hover{color:var(--primary);text-decoration:underline}
+.crumbs span[aria-current]{color:var(--fg);font-weight:600}
+
+/* ── vetrina prodotto ─────────────────────────────────── */
+main{flex:1;padding-bottom:72px}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:44px;align-items:start}
+
+.gallery{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:22px;position:sticky;top:92px;
+}
+.stage{
+  position:relative;border-radius:var(--r);overflow:hidden;height:420px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(165deg,#f3e6e6,#e2cccc);
+}
+.stage .btl{height:330px;filter:drop-shadow(0 22px 30px rgba(0,0,0,.28));transition:transform .3s ease}
+.stage:hover .btl{transform:translateY(-6px) scale(1.02)}
+.stage .glass,.stage .vine{display:none}
+.stage.view-calice .btl{display:none}
+.stage.view-calice .glass{display:block;height:300px;filter:drop-shadow(0 20px 26px rgba(0,0,0,.24))}
+.stage.view-vigna .btl{display:none}
+.stage.view-vigna .vine{display:block;position:absolute;inset:0;width:100%;height:100%}
+.stage-badge{
+  position:absolute;top:16px;left:16px;
+  display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.94);
+  padding:7px 13px;border-radius:999px;
+  font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--primary-dark);
+}
+.stage-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent-dark)}
+.thumbs{display:flex;gap:10px;margin-top:14px}
+.thumb{
+  flex:1;height:74px;border-radius:var(--r-sm);border:1.5px solid var(--border);
+  background:var(--muted);display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:.15s;position:relative;
+}
+.thumb:hover{border-color:rgba(201,168,124,.7)}
+.thumb.on{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,95,115,.1)}
+.thumb svg{height:52px;width:auto}
+.thumb .mini-scene{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── colonna acquisto ─────────────────────────────────── */
+.buy{display:flex;flex-direction:column;gap:18px}
+.tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.style-tag{
+  display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 10px;border-radius:999px;border:1px solid;
+  color:#7f1d1d;border-color:#7f1d1d33;background:#7f1d1d12;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+  color:var(--primary);background:var(--primary-soft);border:1px solid rgba(0,95,115,.16);
+}
+.pill.green{color:#2d6a4f;background:rgba(45,106,79,.1);border-color:rgba(45,106,79,.22)}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1}
+.byline{font-size:13.5px;color:var(--muted-fg);margin-top:8px}
+.byline a{color:var(--primary);font-weight:600}
+.byline a:hover{text-decoration:underline}
+.rate{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.stars{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted-fg);font-weight:600}
+.stars .s{display:flex;gap:1px;color:var(--accent-dark)}
+.rate a{font-size:12.5px;color:var(--primary);text-decoration:underline}
+
+.pricebox{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:24px;
+}
+.pricerow{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.price{font-family:"Playfair Display",Georgia,serif;font-size:34px;font-weight:700;color:var(--primary);line-height:1}
+.price-old{font-size:15px;color:var(--muted-fg);text-decoration:line-through}
+.save{
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:#8b2635;color:#fff;padding:4px 9px;border-radius:999px;
+}
+.vat{font-size:11.5px;color:var(--muted-fg);margin-top:8px}
+.stock{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#2d6a4f;margin-top:14px}
+.stock i{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.stock.low{color:#8b2635}
+
+.qtyrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:#fff;flex:none}
+.qty button{width:42px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.14s}
+.qty button:hover{color:var(--primary)}
+.qty button[disabled]{opacity:.35;cursor:default}
+.qty input{
+  width:44px;height:48px;text-align:center;border:none;outline:none;background:none;
+  font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;border-radius:999px;font-size:13px;font-weight:600;transition:.16s;cursor:pointer;
+}
+.btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9);flex:1;min-width:180px;height:48px}
+.btn-dark:hover{background:var(--primary-dark)}
+.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost:hover{background:var(--muted)}
+.btn-gold{background:var(--accent);color:var(--primary-dark)}
+.btn-gold:hover{background:#d8bb94}
+.wishrow{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.wishrow .btn{flex:1;min-width:150px;height:44px}
+.wishrow .btn.on{color:#8b2635;border-color:rgba(139,38,53,.4);background:rgba(139,38,53,.06)}
+.wishrow .btn.on svg{fill:currentColor}
+.added{
+  display:none;align-items:center;gap:9px;margin-top:14px;padding:11px 14px;
+  background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.22);border-radius:var(--r-sm);
+  font-size:12.5px;font-weight:600;color:#2d6a4f;
+}
+.added.on{display:flex}
+.added a{color:var(--primary);text-decoration:underline;margin-left:auto;white-space:nowrap}
+
+.perks{display:flex;flex-direction:column;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border-soft)}
+.perk{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:var(--muted-fg);line-height:1.5}
+.perk svg{flex:none;color:var(--primary);margin-top:1px}
+.perk b{color:var(--fg);font-weight:600}
+
+/* scheda tecnica compatta */
+.specs{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);padding:6px 22px;
+}
+.spec{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border-soft);font-size:13px}
+.spec:last-child{border-bottom:none}
+.spec span{color:var(--muted-fg);width:44%;flex:none}
+.spec b{font-weight:600}
+
+/* ── sezioni ──────────────────────────────────────────── */
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.panel{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:32px;
+}
+.tasting{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px}
+.tasting p{font-size:14.5px;line-height:1.7;color:var(--fg)}
+.tasting p + p{margin-top:14px}
+.signature{
+  display:flex;align-items:center;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--border-soft);
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex:none;
+  background:linear-gradient(150deg,var(--primary),var(--primary-dark));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+}
+.signature b{display:block;font-size:13px}
+.signature span{font-size:11.5px;color:var(--muted-fg)}
+
+.meters{display:flex;flex-direction:column;gap:16px}
+.meter b{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+.meter-bar{height:6px;border-radius:999px;background:var(--muted);margin-top:8px;overflow:hidden}
+.meter-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-dark))}
+.meter-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted-fg);margin-top:6px}
+.serve{
+  margin-top:24px;padding:16px 18px;border-radius:var(--r-sm);
+  background:var(--bg);border:1px solid var(--border-soft);
+  display:flex;gap:22px;flex-wrap:wrap;
+}
+.serve div b{display:block;font-family:"Playfair Display",Georgia,serif;font-size:20px;color:var(--primary)}
+.serve div span{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg)}
+
+.pairs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pair{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:20px;box-shadow:var(--shadow-sm);transition:.18s;
+}
+.pair:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(201,168,124,.6)}
+.pair .ic{
+  width:42px;height:42px;border-radius:var(--r-sm);background:var(--primary-soft);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+}
+.pair h3{font-size:14px;font-weight:700}
+.pair p{font-size:12.5px;color:var(--muted-fg);margin-top:6px;line-height:1.5}
+
+/* cantina */
+.winery{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:center}
+.crest-wrap{display:flex;align-items:center;justify-content:center}
+.winery h3{font-family:"Playfair Display",Georgia,serif;font-size:24px;font-weight:600}
+.winery p{font-size:14px;color:var(--muted-fg);line-height:1.65;margin-top:12px;max-width:62ch}
+.winery-meta{display:flex;gap:26px;margin-top:20px;flex-wrap:wrap}
+.winery-meta b{display:block;font-family:"Playfair Display",Georgia,serif;font-size:19px;color:var(--primary)}
+.winery-meta span{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg)}
+
+/* recensioni */
+.rev-top{display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.rating-big{display:flex;align-items:center;gap:16px}
+.rating-big b{font-family:"Playfair Display",Georgia,serif;font-size:44px;font-weight:700;line-height:1;color:var(--primary)}
+.bars{flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px}
+.bar{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--muted-fg)}
+.bar-t{height:6px;border-radius:999px;background:var(--muted);flex:1;overflow:hidden}
+.bar-t i{display:block;height:100%;background:var(--accent-dark);border-radius:999px}
+.revs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rev{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow-sm)}
+.rev .s{display:flex;gap:1px;color:var(--accent-dark)}
+.rev h4{font-size:13.5px;font-weight:700;margin-top:10px}
+.rev p{font-size:13px;line-height:1.6;color:var(--muted-fg);margin-top:8px}
+.rev-who{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft)}
+.rev-who .avatar{width:34px;height:34px;font-size:12px}
+.rev-who b{display:block;font-size:12.5px}
+.rev-who span{font-size:11px;color:var(--muted-fg);display:flex;align-items:center;gap:5px}
+
+/* correlati */
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.prod{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;transition:.18s;
+}
+.prod:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,124,.6)}
+.prod-art{position:relative;height:190px;flex:none;display:flex;align-items:center;justify-content:center}
+.prod-art .btl{height:150px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22))}
+.prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.prod-body .bn{font-family:"Playfair Display",Georgia,serif;font-size:15.5px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft)}
+.prod-foot .price{font-size:18px}
+.addbtn{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;
+}
+.addbtn:hover{background:var(--primary-dark);transform:scale(1.08)}
+
+/* barra acquisto sticky su mobile */
+.stickybuy{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
+  background:#fff;border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.1);
+  padding:12px 18px;align-items:center;gap:14px;
+}
+.stickybuy .price{font-size:22px}
+.stickybuy .btn{flex:1;height:44px}
+
+/* ── footer ───────────────────────────────────────────── */
+footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
+.foot-in{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-top:52px;padding-bottom:40px}
+.foot-brand .logo{color:#fff}
+.foot-brand p{margin-top:16px;font-size:13px;line-height:1.65;max-width:34ch}
+.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.foot-col li + li{margin-top:9px}
+.foot-col a{font-size:13px;transition:.15s}
+.foot-col a:hover{color:var(--accent)}
+.foot-legal{
+  border-top:1px solid rgba(255,255,255,.1);padding:22px 0 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.6;
+}
+.foot-legal a{text-decoration:underline}
+.age{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-weight:600}
+.age i{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;font-weight:700;flex:none;
+}
+
+/* ── responsive ───────────────────────────────────────── */
+@media(max-width:1080px){
+  .topnav{display:none}
+  .burger{display:block}
+  .hero{grid-template-columns:1fr;gap:28px}
+  .gallery{position:static}
+  .stage{height:340px}
+  .stage .btl{height:270px}
+  .tasting{grid-template-columns:1fr;gap:28px}
+  .pairs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .revs{grid-template-columns:1fr}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .winery{grid-template-columns:1fr;gap:22px;text-align:center}
+  .winery-meta{justify-content:center}
+  .foot-in{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .wrap,.topbar-in{padding:0 18px}
+  .panel{padding:22px}
+  .stage{height:280px}
+  .stage .btl{height:220px}
+  .pairs{grid-template-columns:1fr}
+  .grid4{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr}
+  main{padding-bottom:96px}
+  .stickybuy{display:flex}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+    <nav class="topnav" aria-label="Navigazione principale">
+      <a href="catalogo.html" class="on">Prodotti</a>
+      <a href="cantina.html">Cantine</a>
+      <a href="regioni.html">Regioni</a>
+      <a href="javascript:void(0)">Storie</a>
+      <a href="javascript:void(0)">Wine Club</a>
+    </nav>
+    <div class="top-icons">
+      <button class="iconbtn burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="iconbtn" aria-label="Cerca">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="iconbtn" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="iconbtn heart" aria-label="Preferiti">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
+        <b id="favCount">2</b>
+      </button>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
+    <a href="catalogo.html">Prodotti <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="cantina.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="regioni.html">Regioni del vino <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="carrello.html">Carrello <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+  </nav>
+</header>
+
+<main>
+<div class="wrap">
+
+  <nav class="crumbs" aria-label="Percorso di navigazione">
+    <a href="homepage.html">Home</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+    <a href="catalogo.html">Catalogo</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+    <a href="regioni.html">Piemonte</a>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+    <span aria-current="page">Barolo Bussia 2019</span>
+  </nav>
+
+  <!-- ══ VETRINA ════════════════════════════════════════ -->
+  <div class="hero">
+
+    <div class="gallery">
+      <div class="stage" id="stage">
+        <span class="stage-badge"><i></i>Assaggiato dal nostro team</span>
+
+        <svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bottiglia di Barolo Bussia 2019">
+          <defs>
+            <linearGradient id="gBtl" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5c1717"/><stop offset="42%" stop-color="#8f2222"/>
+              <stop offset="58%" stop-color="#8f2222"/><stop offset="100%" stop-color="#5c1717"/>
+            </linearGradient>
+          </defs>
+          <path d="M22 6 h12 v20 h-12 z" fill="#7f1d1d"/>
+          <rect x="21" y="4" width="14" height="5" rx="1.5" fill="#7f1d1d"/>
+          <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
+                fill="url(#gBtl)" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+          <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
+          <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+          <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
+          <rect x="12" y="92" width="32" height="2.4" fill="#7f1d1d"/>
+          <rect x="12" y="133" width="32" height="2.4" fill="#7f1d1d"/>
+          <text x="28" y="108" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="7" fill="#3a2a2a">BAROLO</text>
+          <text x="28" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="4.6" fill="#7a7060">BUSSIA</text>
+          <text x="28" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="5" fill="#7f1d1d">2019</text>
+        </svg>
+
+        <svg class="glass" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Il vino nel calice">
+          <path d="M22 16h76c0 52-24 74-34 82v78h26v8H30v-8h26v-78C46 90 22 68 22 16Z"
+                fill="rgba(255,255,255,.55)" stroke="rgba(0,0,0,.16)" stroke-width="1.6"/>
+          <path d="M27 40h66c-3 34-22 52-33 58-11-6-30-24-33-58Z" fill="#8f2222" opacity=".85"/>
+          <ellipse cx="60" cy="41" rx="33" ry="5" fill="#a83030" opacity=".9"/>
+          <path d="M38 30c4 24 14 38 22 44" stroke="rgba(255,255,255,.5)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+
+        <svg class="vine" viewBox="0 0 460 420" preserveAspectRatio="xMidYMid slice" aria-label="Il vigneto della Bussia">
+          <defs>
+            <linearGradient id="gVine" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8fb3a0"/><stop offset="55%" stop-color="#4d7a5f"/><stop offset="100%" stop-color="#2d4a38"/>
+            </linearGradient>
+          </defs>
+          <rect width="460" height="420" fill="url(#gVine)"/>
+          <circle cx="368" cy="72" r="42" fill="rgba(255,255,255,.3)"/>
+          <path d="M0 210c86-52 150 16 246-22s142 10 214-24v256H0z" fill="rgba(0,0,0,.16)"/>
+          <path d="M0 264c104-44 164 14 260-18s122 6 200-16v190H0z" fill="rgba(0,0,0,.26)"/>
+          <g stroke="rgba(255,255,255,.28)" stroke-width="3">
+            <path d="M30 300v110M90 292v118M150 286v124M210 282v128M270 286v124M330 290v120M390 296v114"/>
+          </g>
+          <g fill="rgba(92,23,23,.7)">
+            <circle cx="150" cy="336" r="9"/><circle cx="212" cy="330" r="8"/><circle cx="272" cy="340" r="7"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="thumbs" role="tablist" aria-label="Immagini del prodotto">
+        <button class="thumb on" data-view="" role="tab" aria-selected="true" aria-label="La bottiglia">
+          <svg viewBox="0 0 56 172" fill="none" aria-hidden="true">
+            <path d="M22 6 h12 v20 h-12 z" fill="#7f1d1d"/>
+            <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z" fill="#8f2222"/>
+            <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+          </svg>
+        </button>
+        <button class="thumb" data-view="view-calice" role="tab" aria-selected="false" aria-label="Il vino nel calice">
+          <svg viewBox="0 0 120 220" fill="none" aria-hidden="true">
+            <path d="M22 16h76c0 52-24 74-34 82v78h26v8H30v-8h26v-78C46 90 22 68 22 16Z" fill="#fff" stroke="rgba(0,0,0,.2)" stroke-width="2"/>
+            <path d="M27 40h66c-3 34-22 52-33 58-11-6-30-24-33-58Z" fill="#8f2222"/>
+          </svg>
+        </button>
+        <button class="thumb" data-view="view-vigna" role="tab" aria-selected="false" aria-label="Il vigneto">
+          <svg class="mini-scene" viewBox="0 0 100 74" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="100" height="74" fill="#4d7a5f"/>
+            <circle cx="80" cy="16" r="10" fill="rgba(255,255,255,.35)"/>
+            <path d="M0 40c20-12 34 4 56-6s28 2 44-6v46H0z" fill="rgba(0,0,0,.22)"/>
+            <g stroke="rgba(255,255,255,.3)" stroke-width="2"><path d="M14 52v22M34 48v26M54 46v28M74 48v26"/></g>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="buy">
+      <div class="tags">
+        <span class="style-tag">Rosso</span>
+        <span class="pill">Barolo DOCG</span>
+        <span class="pill green">Vendemmia manuale</span>
+      </div>
+
+      <div>
+        <h1>Barolo Bussia 2019</h1>
+        <p class="byline">Cascina Vergne · <a href="cantina.html">La Morra, Piemonte</a> · Nebbiolo 100%</p>
+      </div>
+
+      <div class="rate">
+        <span class="stars">
+          <span class="s" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+          </span>
+          4,9
+        </span>
+        <a href="#recensioni">212 recensioni verificate</a>
+      </div>
+
+      <div class="pricebox">
+        <div class="pricerow">
+          <span class="price">€ 48,00</span>
+          <span class="price-old">€ 56,00</span>
+          <span class="save">-14%</span>
+        </div>
+        <p class="vat">IVA inclusa · € 64,00 al litro · spedizione calcolata al checkout</p>
+
+        <p class="stock low"><i></i>Ultime 24 bottiglie in cantina</p>
+
+        <div class="qtyrow">
+          <div class="qty">
+            <button id="minus" aria-label="Riduci la quantità" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+            </button>
+            <input id="qty" type="text" inputmode="numeric" value="1" aria-label="Quantità">
+            <button id="plus" aria-label="Aumenta la quantità">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <button class="btn btn-dark" id="addBtn">
+            Aggiungi al carrello · <span id="lineTotal">€ 48,00</span>
+          </button>
+        </div>
+
+        <p class="added" id="added">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span id="addedTxt">Aggiunto al carrello.</span>
+          <a href="carrello.html">Vai al carrello</a>
+        </p>
+
+        <div class="wishrow">
+          <button class="btn btn-ghost" id="wishBtn" aria-pressed="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
+            <span id="wishTxt">Salva nei preferiti</span>
+          </button>
+          <button class="btn btn-gold" id="giftBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M3 13h18M12 9v12"/><path d="M12 9c-3-4-7-3-6 0 .8 2.4 4 2 6 0Zm0 0c3-4 7-3 6 0-.8 2.4-4 2-6 0Z"/></svg>
+            <span id="giftTxt">Confezione regalo</span>
+          </button>
+        </div>
+
+        <div class="perks">
+          <p class="perk">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+            <span><b>Consegna in 48 ore</b> con imballo antiurto. Gratuita sopra € 79.</span>
+          </p>
+          <p class="perk">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            <span><b>Bottiglia rotta sostituita</b> senza moduli da compilare: basta una foto.</span>
+          </p>
+          <p class="perk">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8h14"/><circle cx="12" cy="6" r="3"/></svg>
+            <span><b>Conservato a 14 °C</b> nel nostro magazzino climatizzato fino alla spedizione.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="specs">
+        <p class="spec"><span>Denominazione</span><b>Barolo DOCG</b></p>
+        <p class="spec"><span>Annata</span><b>2019</b></p>
+        <p class="spec"><span>Vitigno</span><b>Nebbiolo 100%</b></p>
+        <p class="spec"><span>Gradazione</span><b>14,5% vol</b></p>
+        <p class="spec"><span>Affinamento</span><b>30 mesi in botte grande di rovere</b></p>
+        <p class="spec"><span>Formato</span><b>0,75 L · disponibile anche in magnum</b></p>
+        <p class="spec"><span>Solfiti</span><b>Contiene solfiti · 48 mg/L totali</b></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ NOTE DI DEGUSTAZIONE ═══════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">La nostra degustazione</p>
+        <h2 class="h2">Com'è nel bicchiere</h2>
+      </div>
+      <span style="font-size:12px;color:var(--muted-fg)">Assaggiato alla cieca il 14 marzo 2026</span>
+    </div>
+
+    <div class="panel tasting">
+      <div>
+        <p>
+          Rubino scarico con unghia già granata, come deve essere un Barolo di questa età.
+          Al naso parte chiuso e poi si apre su rosa appassita, arancia sanguinella, catrame
+          e un ricordo di sottobosco umido: nessuna traccia di legno nuovo, che è esattamente
+          quello che cerchiamo qui.
+        </p>
+        <p>
+          In bocca il tannino c'è tutto ma è già pettinato, sostenuto da un'acidità che tiene
+          il sorso dritto fino a un finale lungo e amaricante. La 2019 in Bussia ha dato vini
+          più immediati del solito: <b>si beve bene adesso, ma ha vent'anni davanti</b>.
+        </p>
+        <div class="signature">
+          <span class="avatar">MC</span>
+          <div>
+            <b>Marco C. — capo sommelier</b>
+            <span>Ha selezionato 212 delle 640 etichette in catalogo</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="meters">
+          <div class="meter">
+            <b>Corpo</b>
+            <div class="meter-bar"><i style="width:84%"></i></div>
+            <div class="meter-ends"><span>Leggero</span><span>Strutturato</span></div>
+          </div>
+          <div class="meter">
+            <b>Tannino</b>
+            <div class="meter-bar"><i style="width:78%"></i></div>
+            <div class="meter-ends"><span>Setoso</span><span>Deciso</span></div>
+          </div>
+          <div class="meter">
+            <b>Acidità</b>
+            <div class="meter-bar"><i style="width:72%"></i></div>
+            <div class="meter-ends"><span>Morbida</span><span>Tesa</span></div>
+          </div>
+          <div class="meter">
+            <b>Dolcezza</b>
+            <div class="meter-bar"><i style="width:8%"></i></div>
+            <div class="meter-ends"><span>Secco</span><span>Dolce</span></div>
+          </div>
+        </div>
+
+        <div class="serve">
+          <div><b>16-18 °C</b><span>Temperatura</span></div>
+          <div><b>60 min</b><span>Decantazione</span></div>
+          <div><b>2026-2045</b><span>Finestra di beva</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABBINAMENTI ════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">A tavola</p>
+        <h2 class="h2">Con cosa lo apriamo</h2>
+      </div>
+    </div>
+    <div class="pairs">
+      <article class="pair">
+        <span class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v7a4 4 0 0 0 8 0V4"/><path d="M8 11v9"/><path d="M18 4c-1.5 2-2 4-2 6s.5 3 2 3 2-1 2-3-.5-4-2-6Z"/><path d="M18 13v7"/></svg>
+        </span>
+        <h3>Brasato al Barolo</h3>
+        <p>L'abbinamento di casa: la stessa bottiglia in pentola e nel bicchiere.</p>
+      </article>
+      <article class="pair">
+        <span class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-4 4-7 9-7s9 3 9 7-4 7-9 7-9-3-9-7Z"/><path d="M8 12h8"/></svg>
+        </span>
+        <h3>Tajarin al tartufo</h3>
+        <p>Burro, tuorlo e tartufo bianco: il piatto che questo vino aspetta da tre anni.</p>
+      </article>
+      <article class="pair">
+        <span class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18 19 6"/><path d="M7 6h12v12"/></svg>
+        </span>
+        <h3>Formaggi stagionati</h3>
+        <p>Castelmagno d'alpeggio o un toma di 24 mesi, senza confetture.</p>
+      </article>
+      <article class="pair">
+        <span class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.5 1.5 6.5 1.5 8 0"/><path d="M9 9h.01M15 9h.01"/></svg>
+        </span>
+        <h3>Da solo, con calma</h3>
+        <p>Dopo un'ora di caraffa regge benissimo anche senza niente intorno.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ CANTINA ════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Chi lo fa</p>
+        <h2 class="h2">La cantina</h2>
+      </div>
+      <a class="btn btn-ghost" href="cantina.html">
+        Vedi tutte le etichette
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="panel winery">
+      <div class="crest-wrap">
+        <svg viewBox="0 0 100 100" width="140" height="140" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="crest" cx="50%" cy="36%" r="72%">
+              <stop offset="0%" stop-color="#8b2635"/><stop offset="100%" stop-color="#003d4d"/>
+            </radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="47" fill="url(#crest)" stroke="#c9a87c" stroke-width="1.6"/>
+          <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(201,168,124,.5)" stroke-width=".8"/>
+          <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+                font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="32" fill="#f7f3ee">CV</text>
+          <path d="M28 71 Q50 79 72 71" stroke="rgba(201,168,124,.55)" stroke-width=".8" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <h3>Cascina Vergne</h3>
+        <p>
+          Quattro ettari sulla collina di La Morra, tre generazioni e una scelta netta:
+          nessun legno nuovo, solo botti grandi da 25 ettolitri. Giulia e Pietro Vergne
+          lavorano da soli in vigna e la vendemmia si fa ancora chiamando i vicini.
+          Da noi sono la cantina più acquistata dal 2024.
+        </p>
+        <div class="winery-meta">
+          <div><b>4 ha</b><span>Vigneto</span></div>
+          <div><b>1961</b><span>Prima annata</span></div>
+          <div><b>6</b><span>Etichette da noi</span></div>
+          <div><b>18.000</b><span>Bottiglie l'anno</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RECENSIONI ═════════════════════════════════════ -->
+  <section class="sec" id="recensioni">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Recensioni verificate</p>
+        <h2 class="h2">Cosa dice chi l'ha bevuto</h2>
+      </div>
+      <button class="btn btn-ghost">Scrivi una recensione</button>
+    </div>
+
+    <div class="panel">
+      <div class="rev-top">
+        <div class="rating-big">
+          <b>4,9</b>
+          <div>
+            <span class="s" aria-hidden="true" style="display:flex;gap:2px;color:var(--accent-dark)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            </span>
+            <span style="font-size:12px;color:var(--muted-fg)">su 212 recensioni</span>
+          </div>
+        </div>
+        <div class="bars">
+          <p class="bar">5<span class="bar-t"><i style="width:88%"></i></span>186</p>
+          <p class="bar">4<span class="bar-t"><i style="width:9%"></i></span>19</p>
+          <p class="bar">3<span class="bar-t"><i style="width:3%"></i></span>5</p>
+          <p class="bar">2<span class="bar-t"><i style="width:1%"></i></span>2</p>
+          <p class="bar">1<span class="bar-t"><i style="width:0%"></i></span>0</p>
+        </div>
+      </div>
+
+      <div class="revs">
+        <article class="rev">
+          <span class="s" aria-label="5 stelle su 5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+          </span>
+          <h4>Aperto con un'ora di anticipo, come consigliato</h4>
+          <p>Ho seguito la scheda: caraffa un'ora prima e temperatura sui 17 gradi. Al terzo bicchiere era un altro vino. Ne ho ordinate altre due per il 2030.</p>
+          <div class="rev-who">
+            <span class="avatar">GM</span>
+            <div>
+              <b>Giulia M.</b>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Acquisto verificato · Torino</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rev">
+          <span class="s" aria-label="5 stelle su 5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+          </span>
+          <h4>Il regalo che ha funzionato</h4>
+          <p>Preso con la confezione regalo per mio suocero, che di Barolo se ne intende parecchio. Non ha fatto commenti: l'ha solo aperto subito. Direi che è andata bene.</p>
+          <div class="rev-who">
+            <span class="avatar">AR</span>
+            <div>
+              <b>Andrea R.</b>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Acquisto verificato · Bologna</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="rev">
+          <span class="s" aria-label="4 stelle su 5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+          </span>
+          <h4>Ottimo, ma ancora giovane</h4>
+          <p>Bottiglia impeccabile e arrivata in un giorno. Personalmente lo lascerei riposare altri due o tre anni: il tannino a fine pasto si fa ancora sentire.</p>
+          <div class="rev-who">
+            <span class="avatar">SL</span>
+            <div>
+              <b>Sara L.</b>
+              <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Abbonata Wine Club · Milano</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CORRELATI ══════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Se ti piace questo</p>
+        <h2 class="h2">Chi compra il Bussia prende anche</h2>
+      </div>
+      <a class="btn btn-ghost" href="catalogo.html">Vai al catalogo</a>
+    </div>
+    <div class="grid4" id="related"></div>
+  </section>
+
+</div>
+</main>
+
+<!-- barra acquisto su mobile -->
+<div class="stickybuy">
+  <div>
+    <span class="price" id="stickyPrice">€ 48,00</span>
+  </div>
+  <button class="btn btn-dark" id="stickyAdd">Aggiungi al carrello</button>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Enoteca online di vini italiani da cantine indipendenti. Ogni etichetta in catalogo è stata degustata dal nostro team prima di essere messa in vendita.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Tutti i prodotti</a></li>
+        <li><a href="cantina.html">Cantine</a></li>
+        <li><a href="regioni.html">Regioni del vino</a></li>
+        <li><a href="carrello.html">Carrello</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="javascript:void(0)">Spedizioni e consegne</a></li>
+        <li><a href="javascript:void(0)">Resi e rimborsi</a></li>
+        <li><a href="javascript:void(0)">Domande frequenti</a></li>
+        <li><a href="javascript:void(0)">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · scheda prodotto — interazioni del mockup
+   ══════════════════════════════════════════════════════════ */
+
+const PREZZO = 48.00;
+const SCORTE = 24;
+const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ── galleria ─────────────────────────────────────────── */
+const stage = document.getElementById('stage');
+document.querySelectorAll('.thumb').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.thumb').forEach(x => {
+      x.classList.remove('on');
+      x.setAttribute('aria-selected','false');
+    });
+    t.classList.add('on');
+    t.setAttribute('aria-selected','true');
+    stage.className = 'stage' + (t.dataset.view ? ' ' + t.dataset.view : '');
+  });
+});
+
+/* ── quantità ─────────────────────────────────────────── */
+const qtyEl = document.getElementById('qty');
+const minus = document.getElementById('minus');
+const plus  = document.getElementById('plus');
+const lineTotal = document.getElementById('lineTotal');
+
+function qty(){ return Math.min(SCORTE, Math.max(1, parseInt(qtyEl.value, 10) || 1)); }
+function syncQty(){
+  const n = qty();
+  qtyEl.value = n;
+  minus.disabled = n <= 1;
+  plus.disabled = n >= SCORTE;
+  lineTotal.textContent = eur(PREZZO * n);
+  document.getElementById('stickyPrice').textContent = eur(PREZZO * n);
+}
+minus.onclick = () => { qtyEl.value = qty() - 1; syncQty(); };
+plus.onclick  = () => { qtyEl.value = qty() + 1; syncQty(); };
+qtyEl.addEventListener('input', () => { qtyEl.value = qtyEl.value.replace(/\D/g,''); });
+qtyEl.addEventListener('blur', syncQty);
+
+/* ── carrello e preferiti ─────────────────────────────── */
+const cartCount = document.getElementById('cartCount');
+const favCount  = document.getElementById('favCount');
+const added = document.getElementById('added');
+
+function addToCart(){
+  const n = qty();
+  cartCount.textContent = +cartCount.textContent + n;
+  document.getElementById('addedTxt').textContent =
+    n === 1 ? '1 bottiglia aggiunta al carrello.' : `${n} bottiglie aggiunte al carrello.`;
+  added.classList.add('on');
+  const btn = document.getElementById('addBtn');
+  btn.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:240});
+}
+document.getElementById('addBtn').onclick = addToCart;
+document.getElementById('stickyAdd').onclick = addToCart;
+
+const wishBtn = document.getElementById('wishBtn');
+wishBtn.onclick = () => {
+  const on = wishBtn.classList.toggle('on');
+  wishBtn.setAttribute('aria-pressed', String(on));
+  document.getElementById('wishTxt').textContent = on ? 'Salvato nei preferiti' : 'Salva nei preferiti';
+  favCount.textContent = Math.max(0, +favCount.textContent + (on ? 1 : -1));
+};
+
+const giftBtn = document.getElementById('giftBtn');
+giftBtn.setAttribute('aria-pressed','false');
+giftBtn.onclick = () => {
+  const on = giftBtn.getAttribute('aria-pressed') !== 'true';
+  giftBtn.setAttribute('aria-pressed', String(on));
+  giftBtn.style.opacity = on ? '.78' : '';
+  document.getElementById('giftTxt').textContent =
+    on ? 'Confezione regalo aggiunta' : 'Confezione regalo';
+};
+
+/* ── vini correlati ───────────────────────────────────── */
+const STYLE_META = {
+  rosso:  {label:'Rosso',  tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
+  bianco: {label:'Bianco', tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
+};
+
+const RELATED = [
+  {id:'r1', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso', price:54.00},
+  {id:'r2', name:'Etna Rosso Contrada 2021',  winery:'Palmento Nero',  region:'Sicilia',  style:'rosso', price:27.00},
+  {id:'r3', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso', price:39.00},
+  {id:'r4', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli', style:'bianco', price:24.00},
+];
+
+let uid = 0;
+function bottleSVG(style){
+  const m = STYLE_META[style];
+  const id = 'b' + (++uid);
+  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${m.glass}"/><stop offset="42%" stop-color="${m.wine}"/>
+      <stop offset="58%" stop-color="${m.wine}"/><stop offset="100%" stop-color="${m.glass}"/>
+    </linearGradient></defs>
+    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
+    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
+    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
+      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
+    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
+    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
+  </svg>`;
+}
+function sceneSVG(style){
+  const m = STYLE_META[style];
+  const id = 's' + (++uid);
+  return `<svg viewBox="0 0 320 190" preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
+    <rect width="320" height="190" fill="url(#${id})"/>
+    <circle cx="160" cy="106" r="74" fill="rgba(255,255,255,.42)"/>
+    <ellipse cx="160" cy="168" rx="64" ry="9" fill="rgba(0,0,0,.1)"/>
+  </svg>`;
+}
+
+document.getElementById('related').innerHTML = RELATED.map(p => `
+  <article class="prod">
+    <div class="prod-art">
+      ${sceneSVG(p.style)}
+      ${bottleSVG(p.style)}
+    </div>
+    <div class="prod-body">
+      <a class="bn" href="prodotto.html">${esc(p.name)}</a>
+      <span class="bc">${esc(p.winery)} · ${esc(p.region)}</span>
+      <div class="prod-foot">
+        <span class="price">${eur(p.price)}</span>
+        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>`).join('');
+
+document.getElementById('related').addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if(!add) return;
+  cartCount.textContent = +cartCount.textContent + 1;
+  add.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
+});
+
+/* ── menu mobile ──────────────────────────────────────── */
+const burger = document.getElementById('burger');
+const mobnav = document.getElementById('mobnav');
+burger.addEventListener('click', () => {
+  const open = mobnav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', String(open));
+});
+
+syncQty();
+</script>
+
+</body>
+</html>

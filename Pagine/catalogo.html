@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Catalogo vini</title>
+<meta name="description" content="Tutti i vini in catalogo su Stappando: filtra per tipologia, regione, prezzo, formato e certificazioni." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);
+  font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
+
+/* ── topbar ───────────────────────────────────────────── */
+.topbar{
+  position:sticky;top:0;z-index:40;flex:none;
+  background:#fff;border-bottom:1px solid var(--border);
+}
+.topbar-in{
+  height:72px;display:flex;align-items:center;gap:24px;
+  max-width:1240px;margin:0 auto;padding:0 28px;
+}
+.logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:8px;letter-spacing:.34em;color:var(--muted-fg);margin-top:5px;font-weight:500;text-transform:uppercase}
+.topnav{display:flex;gap:24px;flex:none}
+.topnav a{
+  font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted-fg);padding:6px 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;
+}
+.topnav a:hover{color:var(--fg)}
+.topnav a.on{color:var(--primary);border-color:var(--accent)}
+
+.search{position:relative;flex:1;min-width:0;max-width:420px;margin-left:auto}
+.search-box{
+  display:flex;align-items:center;gap:9px;height:42px;padding:0 14px;
+  background:var(--muted);border:1px solid transparent;border-radius:999px;transition:.16s;
+}
+.search-box:focus-within{background:#fff;border-color:rgba(0,95,115,.32);box-shadow:0 0 0 3px rgba(0,95,115,.08)}
+.search-box svg{flex:none;color:var(--muted-fg)}
+.search-box input{border:none;background:none;outline:none;flex:1;min-width:0;font-size:13.5px}
+.search-box input::placeholder{color:var(--muted-fg)}
+.search-clear{display:none;color:var(--muted-fg);padding:2px;border-radius:50%}
+.search-box.filled .search-clear{display:block}
+.search-clear:hover{color:var(--fg)}
+
+.top-icons{display:flex;align-items:center;gap:4px;flex:none}
+.iconbtn{padding:9px;border-radius:var(--r-sm);color:rgba(26,26,26,.7);transition:.15s;position:relative;display:block}
+.iconbtn:hover{background:var(--muted);color:var(--fg)}
+.iconbtn b{
+  position:absolute;top:3px;right:2px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:999px;background:var(--primary);color:#fff;
+  font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.iconbtn.heart b{background:var(--accent-dark)}
+.burger{display:none}
+
+.mobnav{display:none;border-top:1px solid var(--border);background:#fff;padding:8px 28px 16px}
+.mobnav.open{display:block}
+.mobnav a{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 2px;border-bottom:1px solid var(--border-soft);
+  font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);
+}
+.mobnav a:last-child{border-bottom:none}
+.mobnav a svg{color:var(--muted-fg)}
+
+/* ── testata di pagina ────────────────────────────────── */
+.pagehead{
+  background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 100%);
+  color:#fff;position:relative;overflow:hidden;flex:none;padding:34px 0 76px;
+}
+.pagehead::after{
+  content:"";position:absolute;right:-140px;top:-200px;
+  width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,124,.24),transparent 70%);
+}
+.pagehead .wrap{position:relative;z-index:1}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.55);flex-wrap:wrap}
+.crumbs a:hover{color:#fff;text-decoration:underline}
+.crumbs span[aria-current]{color:rgba(255,255,255,.9);font-weight:600}
+.ph-in{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-top:26px}
+.pagehead .eyebrow{color:var(--accent)}
+.pagehead h1{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:clamp(30px,4vw,44px);font-weight:700;line-height:1.1;margin-top:12px;
+}
+.ph-lead{margin-top:14px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.6;max-width:52ch}
+.ph-stats{display:flex;gap:26px;flex-wrap:wrap}
+.ph-stats div{min-width:0}
+.ph-stats b{display:block;font-family:"Playfair Display",Georgia,serif;font-size:22px;font-weight:700}
+.ph-stats span{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+
+/* ── buttons ──────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 22px;border-radius:999px;font-size:13px;font-weight:600;
+  transition:.16s;flex:none;cursor:pointer;
+}
+.btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9)}
+.btn-dark:hover{background:var(--primary-dark)}
+.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost:hover{background:var(--muted)}
+
+/* ── layout negozio ───────────────────────────────────── */
+main{flex:1}
+.shop{
+  display:grid;grid-template-columns:264px minmax(0,1fr);gap:28px;
+  align-items:start;margin-top:-44px;padding-bottom:72px;
+}
+
+/* ── filtri ───────────────────────────────────────────── */
+.filters{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);position:sticky;top:92px;
+  max-height:calc(100vh - 116px);display:flex;flex-direction:column;
+}
+.filters-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:20px 22px 14px;border-bottom:1px solid var(--border-soft);flex:none;
+}
+.filters-head h2{font-size:14px;font-weight:700;letter-spacing:.04em}
+.reset{font-size:11.5px;font-weight:600;color:var(--primary);text-decoration:underline}
+.reset:hover{color:var(--primary-dark)}
+.reset[disabled]{color:var(--muted-fg);text-decoration:none;cursor:default}
+.filters-body{overflow:auto;padding:4px 22px 20px;flex:1}
+.fgroup{border-bottom:1px solid var(--border-soft);padding:16px 0}
+.fgroup:last-child{border-bottom:none}
+.fgroup > summary{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  cursor:pointer;list-style:none;
+  font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-fg);
+}
+.fgroup > summary::-webkit-details-marker{display:none}
+.fgroup > summary svg{transition:transform .18s ease;color:var(--muted-fg);flex:none}
+.fgroup[open] > summary svg{transform:rotate(180deg)}
+.fgroup > summary b{
+  font-size:9.5px;font-weight:700;color:var(--primary);
+  background:var(--primary-soft);border-radius:999px;padding:2px 7px;margin-left:auto;
+}
+.fbody{margin-top:12px;display:flex;flex-direction:column;gap:2px}
+
+.opt{
+  display:flex;align-items:center;gap:10px;padding:6px 8px;margin:0 -8px;
+  border-radius:9px;cursor:pointer;transition:background .13s;
+}
+.opt:hover{background:var(--muted)}
+.opt input{
+  appearance:none;width:17px;height:17px;flex:none;border-radius:5px;
+  border:1.6px solid rgba(0,0,0,.24);background:#fff;transition:.14s;position:relative;cursor:pointer;
+}
+.opt input[type=radio]{border-radius:50%}
+.opt input:checked{background:var(--primary);border-color:var(--primary)}
+.opt input[type=checkbox]:checked::after{
+  content:"";position:absolute;left:5px;top:1.5px;width:5px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.opt input[type=radio]:checked::after{
+  content:"";position:absolute;inset:3.5px;border-radius:50%;background:#fff;
+}
+.opt span{font-size:13px;flex:1;min-width:0}
+.opt em{font-style:normal;font-size:11.5px;color:var(--muted-fg);font-variant-numeric:tabular-nums}
+.opt .dot{width:9px;height:9px;border-radius:50%;flex:none}
+
+/* prezzo */
+.price-val{display:flex;align-items:baseline;justify-content:space-between;font-size:13px;font-weight:600}
+.price-val b{color:var(--primary);font-size:15px}
+.price-val span{font-size:11.5px;color:var(--muted-fg);font-weight:500}
+.range{
+  appearance:none;width:100%;height:4px;margin-top:14px;border-radius:999px;
+  background:linear-gradient(to right,var(--primary) 0%,var(--primary) var(--fill,100%),var(--muted) var(--fill,100%),var(--muted) 100%);
+  cursor:pointer;
+}
+.range::-webkit-slider-thumb{
+  appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;
+  border:2px solid var(--primary);box-shadow:var(--shadow-sm);cursor:grab;
+}
+.range::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;background:#fff;
+  border:2px solid var(--primary);box-shadow:var(--shadow-sm);cursor:grab;
+}
+.range-ends{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted-fg)}
+
+/* ── toolbar ──────────────────────────────────────────── */
+.content{min-width:0}
+.toolbar{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:14px 20px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.tb-count{font-size:13.5px;color:var(--muted-fg);flex:1;min-width:140px}
+.tb-count b{color:var(--fg);font-weight:700}
+.sortwrap{display:flex;align-items:center;gap:8px}
+.sortwrap label{font-size:11.5px;font-weight:600;color:var(--muted-fg);white-space:nowrap}
+select{
+  appearance:none;border:1px solid var(--border);background:#fff;border-radius:999px;
+  padding:8px 34px 8px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a7060' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+}
+select:hover{border-color:rgba(0,95,115,.4)}
+.viewtoggle{display:flex;gap:2px;background:var(--muted);border-radius:999px;padding:3px}
+.viewtoggle button{
+  padding:7px 10px;border-radius:999px;color:var(--muted-fg);display:flex;transition:.15s;
+}
+.viewtoggle button.on{background:#fff;color:var(--primary);box-shadow:var(--shadow-sm)}
+.filter-open{display:none}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;padding:6px 8px 6px 13px;
+  background:var(--card);border:1px solid var(--border);border-radius:999px;
+  font-size:12px;font-weight:600;box-shadow:var(--shadow-sm);
+}
+.chip button{display:flex;color:var(--muted-fg);padding:2px;border-radius:50%;transition:.14s}
+.chip button:hover{color:#8b2635;background:var(--muted)}
+.chip-clear{
+  font-size:12px;font-weight:600;color:var(--primary);text-decoration:underline;padding:6px 4px;
+}
+
+/* ── griglia prodotti ─────────────────────────────────── */
+.grid{display:grid;gap:18px;margin-top:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.prod{
+  position:relative;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.prod-link::after{content:"";position:absolute;inset:0;z-index:1}
+.prod .fav,.prod .addbtn{position:relative;z-index:2}
+.prod:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,124,.6)}
+.prod-art{position:relative;height:210px;flex:none;display:flex;align-items:center;justify-content:center}
+.prod-art .btl{height:168px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22));transition:transform .25s ease}
+.prod:hover .prod-art .btl{transform:translateY(-5px) scale(1.03)}
+.ribbon{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;background:var(--primary-dark);color:#fff;
+}
+.ribbon.gold{background:var(--accent);color:var(--primary-dark)}
+.ribbon.sale{background:#8b2635}
+.fav{
+  position:absolute;top:10px;right:10px;padding:7px;border-radius:50%;
+  background:rgba(255,255,255,.9);color:var(--muted-fg);transition:.15s;
+}
+.fav:hover{color:#8b2635;background:#fff}
+.fav.on{color:#8b2635}
+.fav.on svg{fill:currentColor}
+.prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.prod-body .bn{display:block;font-family:"Playfair Display",Georgia,serif;font-size:16px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
+.tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.style-tag{
+  display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;border:1px solid;
+}
+.bio-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;color:#2d6a4f;background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.22);
+}
+.stars{display:flex;align-items:center;gap:5px;margin-top:9px;font-size:11px;color:var(--muted-fg);font-weight:600}
+.stars .s{display:flex;gap:1px;color:var(--accent-dark)}
+.prod-desc{display:none}
+.prod-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft);
+}
+.price{font-size:19px;font-weight:700;color:var(--primary)}
+.price s{font-size:12.5px;font-weight:500;color:var(--muted-fg);margin-right:7px}
+.stock{font-size:10.5px;font-weight:600;color:var(--muted-fg);margin-top:6px;display:flex;align-items:center;gap:5px}
+.stock i{width:6px;height:6px;border-radius:50%;background:#2d6a4f;flex:none}
+.stock.low{color:#8b2635}
+.stock.low i{background:#8b2635}
+.addbtn{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;
+}
+.addbtn:hover{background:var(--primary-dark);transform:scale(1.08)}
+
+/* vista elenco */
+.grid.list{grid-template-columns:1fr;gap:14px}
+.grid.list .prod{flex-direction:row}
+.grid.list .prod-art{width:190px;height:auto;min-height:180px;flex:none}
+.grid.list .prod-art .btl{height:140px}
+.grid.list .prod-body{padding:20px 24px}
+.grid.list .prod-body .bn{font-size:19px}
+.grid.list .prod-desc{display:block;font-size:13px;color:var(--muted-fg);line-height:1.55;margin-top:10px;max-width:64ch}
+.grid.list .prod-foot{padding-top:16px}
+
+/* stato vuoto + paginazione */
+.empty{
+  display:none;text-align:center;padding:64px 24px;margin-top:20px;
+  background:var(--card);border:1px dashed rgba(0,0,0,.14);border-radius:var(--r-lg);
+}
+.empty.on{display:block}
+.empty svg{margin:0 auto 16px;color:var(--muted-fg)}
+.empty h3{font-family:"Playfair Display",Georgia,serif;font-size:20px;font-weight:600}
+.empty p{font-size:13.5px;color:var(--muted-fg);margin-top:8px;max-width:44ch;margin-inline:auto;line-height:1.55}
+.empty .btn{margin-top:20px}
+.more{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:36px}
+.more-info{font-size:12.5px;color:var(--muted-fg)}
+.more-bar{width:180px;height:3px;border-radius:999px;background:var(--muted);overflow:hidden}
+.more-bar i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s ease}
+
+/* drawer filtri su mobile */
+.backdrop{
+  position:fixed;inset:0;z-index:60;background:rgba(0,29,38,.45);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.backdrop.on{opacity:1;pointer-events:auto}
+
+/* ── footer ───────────────────────────────────────────── */
+footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
+.foot-in{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;padding-top:56px;padding-bottom:44px}
+.foot-brand .logo{color:#fff}
+.foot-brand p{margin-top:16px;font-size:13px;line-height:1.65;max-width:34ch}
+.foot-col h4{
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;margin-bottom:16px;
+}
+.foot-col li + li{margin-top:9px}
+.foot-col a{font-size:13px;transition:.15s}
+.foot-col a:hover{color:var(--accent)}
+.foot-pay{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.pay{
+  height:26px;padding:0 9px;border-radius:5px;background:rgba(255,255,255,.08);
+  display:flex;align-items:center;font-size:9.5px;font-weight:700;letter-spacing:.08em;
+  color:rgba(255,255,255,.72);
+}
+.foot-legal{
+  border-top:1px solid rgba(255,255,255,.1);padding:22px 0 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.6;
+}
+.foot-legal a{text-decoration:underline}
+.foot-legal .age{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-weight:600}
+.age i{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;font-weight:700;flex:none;
+}
+
+/* ── responsive ───────────────────────────────────────── */
+@media(max-width:1080px){
+  .topnav{display:none}
+  .burger{display:block}
+  .search{max-width:none}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-in{grid-template-columns:1fr 1fr;gap:32px}
+
+  .shop{grid-template-columns:1fr}
+  .filter-open{display:inline-flex}
+  .filters{
+    position:fixed;top:0;left:0;bottom:0;z-index:70;width:min(340px,88vw);
+    max-height:none;border-radius:0 var(--r-lg) var(--r-lg) 0;border-left:none;
+    transform:translateX(-102%);transition:transform .24s ease;
+  }
+  .filters.open{transform:none}
+  .filters-head{padding-top:24px}
+}
+@media(max-width:720px){
+  .wrap,.topbar-in{padding:0 18px}
+  .pagehead{padding:26px 0 66px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .prod-art{height:170px}
+  .prod-art .btl{height:132px}
+  .foot-in{grid-template-columns:1fr}
+  .search{order:3;flex-basis:100%;max-width:none;margin:0}
+  .topbar-in{height:auto;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;gap:12px}
+  .toolbar{padding:12px 14px;gap:10px}
+  .tb-count{flex-basis:100%}
+  .grid.list .prod{flex-direction:column}
+  .grid.list .prod-art{width:auto;min-height:0;height:170px}
+}
+@media(max-width:420px){
+  .grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale">
+      <a href="catalogo.html" class="on" aria-current="page">Prodotti</a>
+      <a href="javascript:void(0)">Cantine</a>
+      <a href="regioni.html">Regioni</a>
+      <a href="javascript:void(0)">Storie</a>
+      <a href="javascript:void(0)">Wine Club</a>
+    </nav>
+
+    <div class="search" id="search">
+      <div class="search-box" id="searchBox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" autocomplete="off" aria-label="Cerca nel catalogo"
+               placeholder="Cerca nel catalogo: vino, cantina, vitigno…">
+        <button class="search-clear" id="clearBtn" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="iconbtn" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="iconbtn heart" aria-label="Preferiti">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
+        <b id="favCount">2</b>
+      </button>
+      <button class="iconbtn" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
+    <a href="catalogo.html">Prodotti <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="javascript:void(0)">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="regioni.html">Regioni del vino <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="javascript:void(0)">Storie <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="javascript:void(0)">Wine Club <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ══ TESTATA ══════════════════════════════════════════ -->
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Catalogo</span>
+    </nav>
+
+    <div class="ph-in">
+      <div>
+        <p class="eyebrow">Tutte le etichette assaggiate</p>
+        <h1>Il catalogo</h1>
+        <p class="ph-lead">
+          Ogni bottiglia qui dentro è passata da una degustazione alla cieca del nostro team.
+          Filtra per tipologia, territorio o budget: quello che resta lo berremmo tutti.
+        </p>
+      </div>
+      <div class="ph-stats">
+        <div><b id="statTot">24</b><span>Etichette</span></div>
+        <div><b id="statCantine">16</b><span>Cantine</span></div>
+        <div><b id="statRegioni">14</b><span>Regioni</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEGOZIO ══════════════════════════════════════════ -->
+<div class="wrap shop">
+
+  <!-- filtri -->
+  <aside class="filters" id="filters" aria-label="Filtri del catalogo">
+    <div class="filters-head">
+      <h2>Filtri</h2>
+      <button class="reset" id="resetBtn" disabled>Azzera tutto</button>
+      <button class="iconbtn filter-open" id="closeFilters" aria-label="Chiudi i filtri" style="margin-right:-8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="filters-body">
+      <details class="fgroup" open>
+        <summary>
+          Tipologia
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fStyle"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>
+          Regione
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fRegion"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>
+          Prezzo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody">
+          <div class="price-val">
+            <span>Fino a</span>
+            <b id="priceOut">€ 120</b>
+          </div>
+          <input class="range" id="priceRange" type="range" min="8" max="120" step="1" value="120"
+                 aria-label="Prezzo massimo in euro">
+          <div class="range-ends"><span>€ 8</span><span>€ 120+</span></div>
+        </div>
+      </details>
+
+      <details class="fgroup">
+        <summary>
+          Formato
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fFormat"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>
+          Valutazione minima
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fRating"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>
+          Altro
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fFlags"></div>
+      </details>
+    </div>
+  </aside>
+
+  <!-- risultati -->
+  <section class="content" aria-label="Risultati del catalogo">
+    <div class="toolbar">
+      <button class="btn btn-ghost filter-open" id="openFilters" style="padding:9px 16px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        Filtri
+        <b id="filterCount" style="display:none;background:var(--primary);color:#fff;border-radius:999px;font-size:10px;padding:1px 6px"></b>
+      </button>
+
+      <p class="tb-count" id="count" aria-live="polite"></p>
+
+      <div class="sortwrap">
+        <label for="sort">Ordina per</label>
+        <select id="sort">
+          <option value="consigliati">Consigliati</option>
+          <option value="prezzo-asc">Prezzo crescente</option>
+          <option value="prezzo-desc">Prezzo decrescente</option>
+          <option value="rating">Più apprezzati</option>
+          <option value="novita">Ultimi arrivati</option>
+        </select>
+      </div>
+
+      <div class="viewtoggle" role="group" aria-label="Vista dei risultati">
+        <button id="viewGrid" class="on" aria-pressed="true" aria-label="Vista a griglia">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </button>
+        <button id="viewList" aria-pressed="false" aria-label="Vista a elenco">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="empty" id="empty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8.5 11h5"/></svg>
+      <h3>Nessuna bottiglia con questi filtri</h3>
+      <p>Prova ad alzare il tetto di prezzo o a togliere una regione: il catalogo è selezionato, non infinito.</p>
+      <button class="btn btn-dark" id="emptyReset">Azzera i filtri</button>
+    </div>
+
+    <div class="more" id="more">
+      <div class="more-bar"><i id="moreBar"></i></div>
+      <p class="more-info" id="moreInfo"></p>
+      <button class="btn btn-ghost" id="moreBtn">
+        Carica altre bottiglie
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v13M6 13l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+</div>
+
+</main>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Enoteca online di vini italiani da cantine indipendenti. Ogni etichetta in catalogo è stata degustata dal nostro team prima di essere messa in vendita.</p>
+      <div class="foot-pay" aria-label="Metodi di pagamento accettati">
+        <span class="pay">VISA</span>
+        <span class="pay">MASTERCARD</span>
+        <span class="pay">AMEX</span>
+        <span class="pay">PAYPAL</span>
+        <span class="pay">SATISPAY</span>
+        <span class="pay">BONIFICO</span>
+      </div>
+    </div>
+
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Tutti i prodotti</a></li>
+        <li><a href="javascript:void(0)">Cantine</a></li>
+        <li><a href="regioni.html">Regioni del vino</a></li>
+        <li><a href="javascript:void(0)">Storie</a></li>
+        <li><a href="javascript:void(0)">Eventi</a></li>
+        <li><a href="javascript:void(0)">Wine Club</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="javascript:void(0)">Contatti</a></li>
+        <li><a href="javascript:void(0)">Spedizioni e consegne</a></li>
+        <li><a href="javascript:void(0)">Resi e rimborsi</a></li>
+        <li><a href="javascript:void(0)">Traccia il tuo ordine</a></li>
+        <li><a href="javascript:void(0)">Domande frequenti</a></li>
+        <li><a href="javascript:void(0)">Area Horeca</a></li>
+      </ul>
+    </nav>
+
+    <nav class="foot-col" aria-label="Azienda e note legali">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="javascript:void(0)">Chi siamo</a></li>
+        <li><a href="javascript:void(0)">Il nostro metodo di selezione</a></li>
+        <li><a href="javascript:void(0)">Vendi su Stappando</a></li>
+        <li><a href="javascript:void(0)">Termini e condizioni</a></li>
+        <li><a href="javascript:void(0)">Privacy policy</a></li>
+        <li><a href="javascript:void(0)">Cookie policy</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA e C.F. 12345678901 ·
+        REA MI-2345678 · Capitale sociale 50.000 € i.v. · Licenza UTF n. 4521/2024<br>
+        © 2026 Stappando S.r.l. — Tutti i diritti riservati. ·
+        <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · catalogo — dati mockup, filtri, ordinamento
+   ══════════════════════════════════════════════════════════ */
+
+/* Palette per stile di vino, coerente con homepage e pagina Regioni */
+const STYLE_META = {
+  rosso:   {label:'Rosso',    tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
+  bianco:  {label:'Bianco',   tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
+  rosato:  {label:'Rosato',   tag:'#9d174d', glass:'#a8546a', wine:'#dd97a8', foil:'#9d174d', bg1:'#fae9ee', bg2:'#f0d0da'},
+  spumante:{label:'Spumante', tag:'#1e3a5f', glass:'#2b4a63', wine:'#5c7d92', foil:'#c9a87c', bg1:'#e6eef3', bg2:'#cddbe5'},
+  dolce:   {label:'Dolce',    tag:'#a16207', glass:'#7a5321', wine:'#c39a4a', foil:'#a8814f', bg1:'#f7eeda', bg2:'#ecd9b3'},
+};
+
+/* ── catalogo ─────────────────────────────────────────────
+   `nuovo` ordina gli ultimi arrivati (numero più alto = più recente),
+   `stock` alimenta l'indicatore di disponibilità della card. */
+const CATALOGO = [
+  {id:'c01', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+   grape:'Nebbiolo', format:'0,75 L', price:48.00, old:null, rating:4.9, votes:212, bio:false, stock:24, nuovo:6,
+   ribbon:'Best seller', desc:'Tre anni di botte grande e una tannicità già composta. Il rosso che da noi finisce sempre per primo.'},
+  {id:'c02', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
+   grape:'Verdicchio', format:'0,75 L', price:16.50, old:null, rating:4.7, votes:168, bio:true, stock:61, nuovo:5,
+   ribbon:'Best seller', desc:'Mandorla, agrume e una salinità che chiama il secondo bicchiere. Rapporto qualità-prezzo difficile da battere.'},
+  {id:'c03', name:'Franciacorta Brut Millesimato 2020', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
+   grape:'Chardonnay', format:'0,75 L', price:32.00, old:38.00, rating:4.8, votes:141, bio:false, stock:18, nuovo:4,
+   ribbon:'-16%', sale:true, desc:'Trentasei mesi sui lieviti, perlage fine e chiusura secca. Le bollicine da tenere sempre in frigo.'},
+  {id:'c04', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
+   grape:'Nerello Mascalese', format:'0,75 L', price:27.00, old:null, rating:4.8, votes:63, bio:true, stock:9, nuovo:9,
+   ribbon:'Sponsorizzato', gold:true, desc:'Vigne a 800 metri sul versante nord. Frutto rosso croccante, cenere vulcanica e tanta beva.'},
+  {id:'c05', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli Venezia Giulia', style:'bianco',
+   grape:'Ribolla Gialla', format:'0,75 L', price:24.00, old:null, rating:4.6, votes:29, bio:true, stock:12, nuovo:10,
+   ribbon:'Ultimo arrivato', gold:true, desc:'Trenta giorni di macerazione in anfora interrata. Buccia d’arancia, camomilla e un tannino gentile.'},
+  {id:'c06', name:'Chianti Classico Riserva 2020', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
+   grape:'Sangiovese', format:'0,75 L', price:29.50, old:null, rating:4.7, votes:97, bio:true, stock:33, nuovo:3,
+   desc:'Maremma a 300 metri, nessun diserbante dal 2009. Amarena, tabacco dolce e la spina acida giusta.'},
+  {id:'c07', name:'Lambrusco di Sorbara 2023', winery:'Corte Rossa', region:'Emilia-Romagna', style:'rosato',
+   grape:'Lambrusco', format:'0,75 L', price:13.00, old:null, rating:4.5, votes:88, bio:false, stock:74, nuovo:7,
+   desc:'Rosa tenue, bolla fine e acidità tagliente. Da bere freddo su tutto quello che è fritto.'},
+  {id:'c08', name:'Amarone della Valpolicella 2018', winery:'Villa Grezzana', region:'Veneto', style:'rosso',
+   grape:'Corvina', format:'0,75 L', price:62.00, old:null, rating:4.8, votes:74, bio:false, stock:11, nuovo:2,
+   desc:'Appassimento di 110 giorni e quattro anni di legno. Potente ma mai stucchevole, con un finale amaricante.'},
+  {id:'c09', name:'Vermentino di Gallura 2023', winery:'Nuraghe Bianco', region:'Sardegna', style:'bianco',
+   grape:'Vermentino', format:'0,75 L', price:15.00, old:null, rating:4.4, votes:52, bio:false, stock:48, nuovo:8,
+   desc:'Granito, macchia mediterranea e un sorso teso. Il bianco che regge il pesce crudo senza coprirlo.'},
+  {id:'c10', name:'Trentodoc Riserva 2017', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'spumante',
+   grape:'Chardonnay', format:'0,75 L', price:44.00, old:null, rating:4.9, votes:41, bio:true, stock:7, nuovo:5,
+   desc:'Sessanta mesi in cantina a 600 metri. Crosta di pane, nocciola e una lunghezza che sorprende.'},
+  {id:'c11', name:'Primitivo di Manduria 2021', winery:'Masseria Trulla', region:'Puglia', style:'rosso',
+   grape:'Primitivo', format:'0,75 L', price:18.50, old:22.00, rating:4.5, votes:130, bio:false, stock:55, nuovo:3,
+   ribbon:'-16%', sale:true, desc:'Prugna matura, liquirizia e un alcol ben portato. Il rosso da tavola imbandita.'},
+  {id:'c12', name:'Cerasuolo d’Abruzzo 2023', winery:'Colle Fiorito', region:'Abruzzo', style:'rosato',
+   grape:'Montepulciano', format:'0,75 L', price:14.50, old:null, rating:4.6, votes:64, bio:true, stock:39, nuovo:8,
+   desc:'Rosa intenso, ciliegia e una struttura che regge anche i piatti di terra. Il rosato meno banale che abbiamo.'},
+  {id:'c13', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+   grape:'Nebbiolo', format:'0,75 L', price:54.00, old:null, rating:4.8, votes:58, bio:false, stock:14, nuovo:4,
+   desc:'Il fratello più agile del Barolo di casa: rosa appassita, arancia sanguinella e tannino di seta.'},
+  {id:'c14', name:'Greco di Tufo 2022', winery:'Antico Palmento', region:'Campania', style:'bianco',
+   grape:'Greco', format:'0,75 L', price:19.00, old:null, rating:4.6, votes:71, bio:false, stock:27, nuovo:6,
+   desc:'Zolfo, pesca gialla e una spalla acida importante. Uno dei pochi bianchi del Sud che invecchia bene.'},
+  {id:'c15', name:'Passito di Pantelleria 2019', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
+   grape:'Zibibbo', format:'0,50 L', price:34.00, old:null, rating:4.9, votes:36, bio:true, stock:6, nuovo:2,
+   desc:'Uva appassita al sole su graticci. Albicocca secca, miele di corbezzolo e una dolcezza mai pesante.'},
+  {id:'c16', name:'Prosecco Superiore Extra Brut', winery:'Rive di Sant’Anna', region:'Veneto', style:'spumante',
+   grape:'Glera', format:'0,75 L', price:17.50, old:null, rating:4.4, votes:154, bio:false, stock:82, nuovo:7,
+   desc:'Cartizze in miniatura: mela verde, fiori bianchi e un residuo zuccherino quasi assente.'},
+  {id:'c17', name:'Nero d’Avola Riserva 2020', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
+   grape:'Nero d’Avola', format:'0,75 L', price:23.00, old:null, rating:4.5, votes:83, bio:true, stock:31, nuovo:5,
+   desc:'Vecchie vigne ad alberello e sole in bottiglia, senza le durezze del legno nuovo.'},
+  {id:'c18', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso',
+   grape:'Sagrantino', format:'0,75 L', price:39.00, old:null, rating:4.7, votes:45, bio:false, stock:16, nuovo:1,
+   desc:'Il tannino più muscolare d’Italia, addomesticato da cinque anni di attesa. Da carne e da pazienza.'},
+  {id:'c19', name:'Gewürztraminer 2022', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'bianco',
+   grape:'Gewürztraminer', format:'0,75 L', price:21.00, old:null, rating:4.5, votes:59, bio:true, stock:22, nuovo:6,
+   desc:'Litchi, rosa e zenzero candito. Aromatico ma asciutto: funziona meglio a tavola di quanto si creda.'},
+  {id:'c20', name:'Bolgheri Superiore 2019', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
+   grape:'Cabernet Sauvignon', format:'0,75 L', price:78.00, old:null, rating:4.9, votes:38, bio:false, stock:5, nuovo:3,
+   desc:'Cassis, grafite e cedro. Il taglio bordolese di casa nostra, con il mare a due chilometri.'},
+  {id:'c21', name:'Barolo Bussia 2019 · Magnum', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+   grape:'Nebbiolo', format:'1,5 L', price:104.00, old:null, rating:4.9, votes:19, bio:false, stock:4, nuovo:4,
+   ribbon:'Formato regalo', gold:true, desc:'La stessa annata in magnum: evolve più lentamente e fa un’altra figura in tavola.'},
+  {id:'c22', name:'Falanghina del Sannio 2023', winery:'Antico Palmento', region:'Campania', style:'bianco',
+   grape:'Falanghina', format:'0,75 L', price:12.50, old:null, rating:4.3, votes:112, bio:false, stock:90, nuovo:7,
+   desc:'Il bianco quotidiano: agrume, erbe e nessuna pretesa. Sotto i 13 euro non troviamo di meglio.'},
+  {id:'c23', name:'Chiaretto di Bardolino 2023', winery:'Villa Grezzana', region:'Veneto', style:'rosato',
+   grape:'Corvina', format:'0,75 L', price:15.50, old:null, rating:4.4, votes:47, bio:false, stock:36, nuovo:8,
+   desc:'Buccia di pesca, lampone e una chiusura salina. Rosato da aperitivo lungo, non da foto.'},
+  {id:'c24', name:'Recioto della Valpolicella 2019', winery:'Villa Grezzana', region:'Veneto', style:'dolce',
+   grape:'Corvina', format:'0,50 L', price:28.00, old:null, rating:4.6, votes:24, bio:false, stock:8, nuovo:1,
+   desc:'Le stesse uve dell’Amarone, fermate prima. Ciliegia sotto spirito e cioccolato: sul dolce non sbaglia.'},
+];
+
+/* ── utility ──────────────────────────────────────────── */
+const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+/* Confronto "tollerante": senza accenti e con gli apostrofi trattati come spazi,
+   così "sant urbano" trova "Sant’Urbano" e "ca del lago" trova "Ca’ del Lago". */
+const norm = s => String(s).toLowerCase().normalize('NFD')
+  .replace(/[\u0300-\u036f]/g,'')
+  .replace(/[’'`]/g,' ')
+  .replace(/\s+/g,' ')
+  .trim();
+
+let uid = 0;
+const nextId = p => p + (++uid);
+
+/* ── SVG: bottiglia (stessa forma di homepage e Regioni) ─ */
+function bottleSVG(style){
+  const m = STYLE_META[style];
+  const id = nextId('btl');
+  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="${m.glass}"/>
+        <stop offset="42%" stop-color="${m.wine}"/>
+        <stop offset="58%" stop-color="${m.wine}"/>
+        <stop offset="100%" stop-color="${m.glass}"/>
+      </linearGradient>
+    </defs>
+    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
+    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
+    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
+      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+    <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
+    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
+    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
+  </svg>`;
+}
+
+function sceneProdotto(style){
+  const m = STYLE_META[style];
+  const id = nextId('pr');
+  return `<svg class="scene" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid slice"
+               style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
+    <rect width="320" height="210" fill="url(#${id})"/>
+    <circle cx="160" cy="118" r="82" fill="rgba(255,255,255,.42)"/>
+    <ellipse cx="160" cy="186" rx="70" ry="10" fill="rgba(0,0,0,.1)"/>
+  </svg>`;
+}
+
+function starsSVG(rating, votes){
+  const full = Math.round(rating);
+  let s = '';
+  for(let i=1;i<=5;i++){
+    s += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${i<=full?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
+  }
+  return `<div class="stars"><span class="s">${s}</span>${rating.toLocaleString('it-IT',{minimumFractionDigits:1})} <span style="font-weight:500">(${votes})</span></div>`;
+}
+
+function styleTag(style){
+  const m = STYLE_META[style];
+  return `<span class="style-tag" style="color:${m.tag};border-color:${m.tag}33;background:${m.tag}12">${m.label}</span>`;
+}
+
+/* ══ STATO DEI FILTRI ═════════════════════════════════ */
+const PRICE_MAX = 120;
+const PAGE = 9;
+
+const state = {
+  q: '',
+  styles: new Set(),
+  regions: new Set(),
+  formats: new Set(),
+  flags: new Set(),      /* bio · offerta */
+  rating: 0,
+  price: PRICE_MAX,
+  sort: 'consigliati',
+  shown: PAGE,
+};
+
+/* ── costruzione dei filtri dai dati ──────────────────── */
+const countBy = key => CATALOGO.reduce((acc,p) => {
+  const k = typeof key === 'function' ? key(p) : p[key];
+  acc[k] = (acc[k] || 0) + 1;
+  return acc;
+}, {});
+
+function optionHTML({group, value, label, count, type = 'checkbox', dot}){
+  return `<label class="opt">
+    <input type="${type}" name="${group}" value="${esc(value)}">
+    ${dot ? `<span class="dot" style="background:${dot}"></span>` : ''}
+    <span>${label}</span>
+    ${count != null ? `<em>${count}</em>` : ''}
+  </label>`;
+}
+
+const styleCounts = countBy('style');
+document.getElementById('fStyle').innerHTML = Object.keys(STYLE_META)
+  .filter(s => styleCounts[s])
+  .map(s => optionHTML({group:'style', value:s, label:esc(STYLE_META[s].label),
+                        count:styleCounts[s], dot:STYLE_META[s].tag}))
+  .join('');
+
+const regionCounts = countBy('region');
+document.getElementById('fRegion').innerHTML = Object.keys(regionCounts)
+  .sort((a,b) => regionCounts[b] - regionCounts[a] || a.localeCompare(b,'it'))
+  .map(r => optionHTML({group:'region', value:r, label:esc(r), count:regionCounts[r]}))
+  .join('');
+
+const formatCounts = countBy('format');
+document.getElementById('fFormat').innerHTML = Object.keys(formatCounts)
+  .sort((a,b) => parseFloat(a.replace(',','.')) - parseFloat(b.replace(',','.')))
+  .map(f => optionHTML({group:'format', value:f, label:esc(f), count:formatCounts[f]}))
+  .join('');
+
+document.getElementById('fRating').innerHTML = [
+  {v:0,   l:'Tutte le valutazioni'},
+  {v:4.5, l:'Da 4,5 in su'},
+  {v:4.7, l:'Da 4,7 in su'},
+].map(o => optionHTML({group:'rating', value:o.v, label:o.l, type:'radio'})).join('');
+document.querySelector('#fRating input[value="0"]').checked = true;
+
+document.getElementById('fFlags').innerHTML = [
+  {v:'bio',     l:'Bio o biodinamico', c:CATALOGO.filter(p => p.bio).length},
+  {v:'offerta', l:'In offerta',        c:CATALOGO.filter(p => p.old).length},
+].map(o => optionHTML({group:'flag', value:o.v, label:o.l, count:o.c})).join('');
+
+/* statistiche di testata */
+document.getElementById('statTot').textContent = CATALOGO.length;
+document.getElementById('statCantine').textContent = new Set(CATALOGO.map(p => p.winery)).size;
+document.getElementById('statRegioni').textContent = Object.keys(regionCounts).length;
+
+/* ══ FILTRO + ORDINAMENTO ═════════════════════════════ */
+function filtered(){
+  const t = norm(state.q);
+  let out = CATALOGO.filter(p => {
+    if(state.styles.size  && !state.styles.has(p.style))   return false;
+    if(state.regions.size && !state.regions.has(p.region)) return false;
+    if(state.formats.size && !state.formats.has(p.format)) return false;
+    if(state.flags.has('bio') && !p.bio)                   return false;
+    if(state.flags.has('offerta') && !p.old)               return false;
+    if(p.rating < state.rating)                            return false;
+    /* il massimo dello slider vale "nessun tetto" */
+    if(state.price < PRICE_MAX && p.price > state.price)   return false;
+    if(t){
+      const hay = norm(`${p.name} ${p.winery} ${p.region} ${p.grape} ${STYLE_META[p.style].label}`);
+      if(!hay.includes(t)) return false;
+    }
+    return true;
+  });
+
+  const by = {
+    'prezzo-asc':  (a,b) => a.price - b.price,
+    'prezzo-desc': (a,b) => b.price - a.price,
+    'rating':      (a,b) => b.rating - a.rating || b.votes - a.votes,
+    'novita':      (a,b) => b.nuovo - a.nuovo || b.rating - a.rating,
+    /* "consigliati": prima chi ha più voti a parità di giudizio alto */
+    'consigliati': (a,b) => (b.rating * 20 + Math.min(b.votes,200) / 20)
+                          - (a.rating * 20 + Math.min(a.votes,200) / 20),
+  };
+  return out.sort(by[state.sort]);
+}
+
+/* ══ RENDER ═══════════════════════════════════════════ */
+const gridEl  = document.getElementById('grid');
+const emptyEl = document.getElementById('empty');
+const moreEl  = document.getElementById('more');
+const countEl = document.getElementById('count');
+
+function cardHTML(p){
+  const ribbon = p.ribbon
+    ? `<span class="ribbon${p.gold ? ' gold' : ''}${p.sale ? ' sale' : ''}">${esc(p.ribbon)}</span>`
+    : '';
+  const stock = p.stock <= 10
+    ? `<span class="stock low"><i></i>Ultime ${p.stock} bottiglie</span>`
+    : `<span class="stock"><i></i>Disponibile</span>`;
+
+  return `<article class="prod">
+    <div class="prod-art">
+      ${sceneProdotto(p.style)}
+      ${ribbon}
+      <button class="fav" data-fav="${p.id}" aria-label="Aggiungi ${esc(p.name)} ai preferiti" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
+      </button>
+      ${bottleSVG(p.style)}
+    </div>
+    <div class="prod-body">
+      <div class="tags">
+        ${styleTag(p.style)}
+        ${p.bio ? `<span class="bio-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bio</span>` : ''}
+      </div>
+      <a class="bn prod-link" href="javascript:void(0)">${esc(p.name)}</a>
+      <span class="bc">${esc(p.winery)} · ${esc(p.region)} · ${esc(p.grape)}</span>
+      ${starsSVG(p.rating, p.votes)}
+      <p class="prod-desc">${esc(p.desc)}</p>
+      ${stock}
+      <div class="prod-foot">
+        <span class="price">${p.old ? `<s>${eur(p.old)}</s>` : ''}${eur(p.price)}</span>
+        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* etichette dei chip dei filtri attivi */
+function activeChips(){
+  const chips = [];
+  if(state.q) chips.push({k:'q', label:`“${state.q}”`});
+  state.styles.forEach(s  => chips.push({k:'style',  v:s, label:STYLE_META[s].label}));
+  state.regions.forEach(r => chips.push({k:'region', v:r, label:r}));
+  state.formats.forEach(f => chips.push({k:'format', v:f, label:f}));
+  state.flags.forEach(f   => chips.push({k:'flag',   v:f, label:f === 'bio' ? 'Bio o biodinamico' : 'In offerta'}));
+  if(state.rating)             chips.push({k:'rating', label:`Da ${state.rating.toLocaleString('it-IT',{minimumFractionDigits:1})} in su`});
+  if(state.price < PRICE_MAX)  chips.push({k:'price',  label:`Fino a € ${state.price}`});
+  return chips;
+}
+
+function render(){
+  const list = filtered();
+  const page = list.slice(0, state.shown);
+
+  gridEl.innerHTML = page.map(cardHTML).join('');
+  emptyEl.classList.toggle('on', list.length === 0);
+
+  countEl.innerHTML = list.length
+    ? `<b>${list.length}</b> ${list.length === 1 ? 'etichetta trovata' : 'etichette trovate'} su ${CATALOGO.length}`
+    : 'Nessuna etichetta trovata';
+
+  /* chip dei filtri attivi */
+  const chips = activeChips();
+  const chipsEl = document.getElementById('chips');
+  chipsEl.innerHTML = chips.length
+    ? chips.map(c => `<span class="chip">${esc(c.label)}
+        <button data-chip="${c.k}" data-val="${esc(c.v || '')}" aria-label="Rimuovi il filtro ${esc(c.label)}">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button></span>`).join('') + `<button class="chip-clear" id="chipClear">Azzera tutto</button>`
+    : '';
+
+  /* pulsante "azzera" e contatore sul bottone dei filtri (mobile) */
+  const resetBtn = document.getElementById('resetBtn');
+  resetBtn.disabled = chips.length === 0;
+  const fc = document.getElementById('filterCount');
+  fc.textContent = chips.length;
+  fc.style.display = chips.length ? 'inline-flex' : 'none';
+
+  /* paginazione */
+  const shown = page.length;
+  moreEl.style.display = list.length ? 'flex' : 'none';
+  document.getElementById('moreInfo').textContent =
+    `Mostrate ${shown} bottiglie su ${list.length}`;
+  document.getElementById('moreBar').style.width =
+    (list.length ? Math.round(shown / list.length * 100) : 0) + '%';
+  document.getElementById('moreBtn').style.display = shown < list.length ? 'inline-flex' : 'none';
+}
+
+/* ══ EVENTI DEI FILTRI ════════════════════════════════ */
+const SET_OF = {style:'styles', region:'regions', format:'formats', flag:'flags'};
+
+document.getElementById('filters').addEventListener('change', e => {
+  const el = e.target;
+  if(el.name === 'rating'){
+    state.rating = parseFloat(el.value);
+  } else if(SET_OF[el.name]){
+    const set = state[SET_OF[el.name]];
+    el.checked ? set.add(el.value) : set.delete(el.value);
+  } else {
+    return;
+  }
+  state.shown = PAGE;
+  render();
+});
+
+const priceRange = document.getElementById('priceRange');
+const priceOut = document.getElementById('priceOut');
+function syncPrice(){
+  const v = +priceRange.value;
+  state.price = v;
+  priceOut.textContent = v >= PRICE_MAX ? `€ ${PRICE_MAX}+` : `€ ${v}`;
+  const min = +priceRange.min, max = +priceRange.max;
+  priceRange.style.setProperty('--fill', ((v - min) / (max - min) * 100) + '%');
+}
+priceRange.addEventListener('input', () => { syncPrice(); state.shown = PAGE; render(); });
+
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  state.shown = PAGE;
+  render();
+});
+
+/* ricerca nel catalogo */
+const qEl = document.getElementById('q');
+const boxEl = document.getElementById('searchBox');
+qEl.addEventListener('input', () => {
+  state.q = qEl.value.trim();
+  boxEl.classList.toggle('filled', qEl.value.length > 0);
+  state.shown = PAGE;
+  render();
+});
+document.getElementById('clearBtn').onclick = () => {
+  qEl.value = ''; state.q = '';
+  boxEl.classList.remove('filled');
+  state.shown = PAGE;
+  render();
+  qEl.focus();
+};
+
+/* rimozione di un singolo filtro dal chip */
+document.getElementById('chips').addEventListener('click', e => {
+  if(e.target.closest('#chipClear')){ resetAll(); return; }
+  const btn = e.target.closest('[data-chip]');
+  if(!btn) return;
+  const {chip, val} = btn.dataset;
+
+  if(chip === 'q'){
+    qEl.value = ''; state.q = ''; boxEl.classList.remove('filled');
+  } else if(chip === 'rating'){
+    state.rating = 0;
+    document.querySelector('#fRating input[value="0"]').checked = true;
+  } else if(chip === 'price'){
+    priceRange.value = PRICE_MAX; syncPrice();
+  } else if(SET_OF[chip]){
+    state[SET_OF[chip]].delete(val);
+    const input = document.querySelector(`input[name="${chip}"][value="${CSS.escape(val)}"]`);
+    if(input) input.checked = false;
+  }
+  state.shown = PAGE;
+  render();
+});
+
+function resetAll(){
+  state.q = '';
+  state.styles.clear(); state.regions.clear(); state.formats.clear(); state.flags.clear();
+  state.rating = 0;
+  state.shown = PAGE;
+
+  qEl.value = '';
+  boxEl.classList.remove('filled');
+  document.querySelectorAll('#filters input[type=checkbox]').forEach(i => i.checked = false);
+  document.querySelector('#fRating input[value="0"]').checked = true;
+  priceRange.value = PRICE_MAX;
+  syncPrice();
+  render();
+}
+document.getElementById('resetBtn').onclick = resetAll;
+document.getElementById('emptyReset').onclick = resetAll;
+
+/* paginazione */
+document.getElementById('moreBtn').onclick = () => {
+  state.shown += PAGE;
+  render();
+};
+
+/* ══ VISTA GRIGLIA / ELENCO ═══════════════════════════ */
+const viewGrid = document.getElementById('viewGrid');
+const viewList = document.getElementById('viewList');
+function setView(list){
+  gridEl.classList.toggle('list', list);
+  viewList.classList.toggle('on', list);
+  viewGrid.classList.toggle('on', !list);
+  viewList.setAttribute('aria-pressed', String(list));
+  viewGrid.setAttribute('aria-pressed', String(!list));
+}
+viewGrid.onclick = () => setView(false);
+viewList.onclick = () => setView(true);
+
+/* ══ PREFERITI E CARRELLO (contatori del mockup) ══════ */
+const favCount = document.getElementById('favCount');
+const cartCount = document.getElementById('cartCount');
+const liked = new Set();
+
+gridEl.addEventListener('click', e => {
+  const fav = e.target.closest('[data-fav]');
+  const add = e.target.closest('[data-add]');
+  if(!fav && !add) return;
+  e.preventDefault();
+
+  if(fav){
+    const id = fav.dataset.fav;
+    const on = !liked.has(id);
+    on ? liked.add(id) : liked.delete(id);
+    fav.classList.toggle('on', on);
+    fav.setAttribute('aria-pressed', String(on));
+    favCount.textContent = Math.max(0, +favCount.textContent + (on ? 1 : -1));
+  }
+  if(add){
+    cartCount.textContent = +cartCount.textContent + 1;
+    add.animate(
+      [{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],
+      {duration:280, easing:'ease-out'}
+    );
+  }
+});
+
+/* i preferiti restano segnati anche dopo un nuovo render */
+const paint = new MutationObserver(() => {
+  liked.forEach(id => {
+    const b = gridEl.querySelector(`[data-fav="${id}"]`);
+    if(b){ b.classList.add('on'); b.setAttribute('aria-pressed','true'); }
+  });
+});
+paint.observe(gridEl, {childList:true});
+
+/* ══ MENU MOBILE E DRAWER DEI FILTRI ══════════════════ */
+const burger = document.getElementById('burger');
+const mobnav = document.getElementById('mobnav');
+burger.addEventListener('click', () => {
+  const open = mobnav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', String(open));
+  burger.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
+});
+
+const filtersEl = document.getElementById('filters');
+const backdrop = document.getElementById('backdrop');
+function openDrawer(){
+  filtersEl.classList.add('open');
+  backdrop.hidden = false;
+  requestAnimationFrame(() => backdrop.classList.add('on'));
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer(){
+  filtersEl.classList.remove('open');
+  backdrop.classList.remove('on');
+  setTimeout(() => { backdrop.hidden = true; }, 200);
+  document.body.style.overflow = '';
+}
+document.getElementById('openFilters').onclick = openDrawer;
+document.getElementById('closeFilters').onclick = closeDrawer;
+backdrop.onclick = closeDrawer;
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && filtersEl.classList.contains('open')) closeDrawer();
+});
+window.addEventListener('resize', () => {
+  if(window.innerWidth > 1080){
+    if(filtersEl.classList.contains('open')) closeDrawer();
+    if(mobnav.classList.contains('open')){
+      mobnav.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+      burger.setAttribute('aria-label','Apri il menu');
+    }
+  }
+});
+
+/* ══ AVVIO ════════════════════════════════════════════ */
+syncPrice();
+render();
+</script>
+
+</body>
+</html>
