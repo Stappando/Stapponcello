@@ -26,6 +26,12 @@ direttamente tutte le dashboard, senza scaricare nulla.
   `istituzionale.css` riprende i colori reali di shop.stappando.it (teal `#055667`,
   oro `#b8973f`, fondo `#f8f7f5`).
 
+## Caratteri
+
+Niente caratteri con grazie. Il progetto usa **Bricolage Grotesque** per i titoli,
+**Montserrat** per corpo e interfaccia e **Poppins** nei temi dal tono più morbido
+(Soft e Pastello). Le dashboard in `Dashboards/` usano ancora Playfair Display.
+
 ## Struttura dei branch
 
 - **`main`** — branch pubblicato da GitHub Pages. Deve contenere `index.html` e i mockup da mostrare online.

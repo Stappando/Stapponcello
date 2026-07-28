@@ -20,8 +20,8 @@
   --shadow-sm:0 1px 2px rgba(25,24,23,.05);
   --shadow:0 4px 24px -6px rgba(25,24,23,.1);
   --shadow-lg:0 30px 60px -24px rgba(25,24,23,.22);
-  --sans:"Inter",system-ui,-apple-system,sans-serif;
-  --display:"Inter",system-ui,-apple-system,sans-serif;
+  --sans:"Poppins","Montserrat",system-ui,sans-serif;
+  --display:"Poppins","Montserrat",system-ui,sans-serif;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -29,7 +29,7 @@ html{scroll-behavior:smooth}
 body{
   font-family:var(--sans);
   background:var(--paper);color:var(--ink);
-  font-size:15px;line-height:1.55;letter-spacing:-.011em;
+  font-size:14.5px;line-height:1.6;letter-spacing:-.004em;
   -webkit-font-smoothing:antialiased;
   min-height:100vh;display:flex;flex-direction:column;
 }
@@ -50,7 +50,7 @@ svg{display:block}
   backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
   border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);
 }
-.brand{font-weight:650;letter-spacing:-.02em;font-size:16px;flex:none}
+.brand{font-weight:600;letter-spacing:-.01em;font-size:16px;flex:none}
 .brand em{font-style:normal;color:var(--accent)}
 .brand small{display:none}
 .links{display:flex;gap:2px;margin-left:auto}
@@ -84,7 +84,7 @@ svg{display:block}
   background:var(--accent-soft);padding:7px 15px;border-radius:999px;letter-spacing:-.005em;
 }
 .hero h1{
-  font-size:clamp(42px,5.6vw,66px);font-weight:640;line-height:1.03;letter-spacing:-.042em;margin-top:24px;
+  font-size:clamp(38px,5.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.035em;margin-top:24px;
 }
 .hero h1 em{font-style:normal;color:var(--accent)}
 .lead{margin-top:20px;color:var(--ink-dim);font-size:17px;line-height:1.62;max-width:42ch;letter-spacing:-.005em}
@@ -102,7 +102,7 @@ svg{display:block}
 .btn.ghost{background:var(--paper-2);border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow-sm)}
 .btn.ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .stats{display:flex;gap:40px;margin-top:52px;flex-wrap:wrap}
-.stats b{display:block;font-size:30px;font-weight:640;letter-spacing:-.035em;line-height:1}
+.stats b{display:block;font-size:28px;font-weight:600;letter-spacing:-.03em;line-height:1}
 .stats span{font-size:12.5px;color:var(--ink-faint);margin-top:6px;display:block;letter-spacing:-.005em}
 
 .hero-art{
@@ -128,7 +128,7 @@ svg{display:block}
 /* ── scaffale ─────────────────────────────────────────── */
 .shelf{padding:64px 0 84px}
 .shelf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
-.shelf-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:640;letter-spacing:-.04em;line-height:1.08}
+.shelf-head h2{font-size:clamp(26px,3.4vw,36px);font-weight:600;letter-spacing:-.03em;line-height:1.14}
 .shelf-head p{color:var(--ink-dim);margin-top:8px;font-size:15px}
 .chips{display:flex;gap:7px;flex-wrap:wrap;background:rgba(25,24,23,.045);padding:5px;border-radius:999px}
 .chips button{
@@ -166,7 +166,7 @@ svg{display:block}
   align-self:flex-start;font-size:11.5px;font-weight:550;
   color:var(--ink-dim);background:rgba(25,24,23,.05);padding:4px 11px;border-radius:999px;
 }
-.card h3{font-size:18px;font-weight:600;line-height:1.24;margin-top:12px;letter-spacing:-.025em}
+.card h3{font-size:17px;font-weight:600;line-height:1.3;margin-top:12px;letter-spacing:-.022em}
 .meta{font-size:13px;color:var(--ink-faint);margin-top:5px}
 .rating{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;color:var(--ink-dim)}
 .rating .s{display:flex;gap:1.5px;color:var(--accent)}
@@ -174,7 +174,7 @@ svg{display:block}
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   margin-top:auto;padding-top:18px;
 }
-.price{font-size:20px;font-weight:640;letter-spacing:-.03em}
+.price{font-size:19px;font-weight:600;letter-spacing:-.025em}
 .price s{font-size:13px;color:var(--ink-faint);margin-right:8px;font-weight:400}
 .add{
   width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
@@ -190,7 +190,7 @@ svg{display:block}
   box-shadow:var(--shadow-lg);
 }
 .band .kicker{background:rgba(255,255,255,.1);color:#f6f4f1}
-.band h2{font-size:clamp(26px,3.4vw,38px);font-weight:640;line-height:1.1;letter-spacing:-.038em;margin-top:16px}
+.band h2{font-size:clamp(25px,3.2vw,34px);font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:16px}
 .band p{color:rgba(246,244,241,.6);margin-top:12px;font-size:15px;line-height:1.6;max-width:44ch}
 .band form{display:flex;gap:10px;flex-wrap:wrap}
 .band input{

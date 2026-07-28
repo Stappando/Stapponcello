@@ -24,8 +24,8 @@
   --r-xl:36px;
   --shadow:0 10px 30px -14px rgba(120,90,110,.4);
   --shadow-lg:0 26px 60px -22px rgba(120,90,110,.5);
-  --sans:"Nunito","Inter",system-ui,sans-serif;
-  --display:"Nunito","Inter",system-ui,sans-serif;
+  --sans:"Poppins","Montserrat",system-ui,sans-serif;
+  --display:"Poppins","Montserrat",system-ui,sans-serif;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -59,7 +59,7 @@ svg{display:block}
   background:rgba(255,255,255,.76);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   border-radius:var(--r-xl);box-shadow:var(--shadow);
 }
-.brand{font-size:17px;font-weight:800;letter-spacing:-.01em;flex:none}
+.brand{font-size:16px;font-weight:700;letter-spacing:-.01em;flex:none}
 .brand em{font-style:normal;color:var(--accent)}
 .brand small{display:none}
 .links{display:flex;gap:3px;margin-left:auto}
@@ -91,7 +91,7 @@ svg{display:block}
   display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
   color:var(--accent-deep);background:#fff;padding:9px 18px;border-radius:999px;box-shadow:var(--shadow);
 }
-.hero h1{font-size:clamp(40px,5.4vw,64px);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-top:26px}
+.hero h1{font-size:clamp(36px,4.9vw,56px);font-weight:700;line-height:1.14;letter-spacing:-.03em;margin-top:26px}
 .hero h1 em{
   font-style:normal;color:var(--accent);position:relative;white-space:nowrap;
 }
@@ -120,7 +120,7 @@ svg{display:block}
 .stats li:nth-child(1){background:var(--pesca)}
 .stats li:nth-child(2){background:var(--salvia)}
 .stats li:nth-child(3){background:var(--lilla)}
-.stats b{display:block;font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.stats b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
 .stats span{font-size:12px;color:var(--ink-dim);margin-top:5px;display:block;font-weight:600}
 
 .hero-art{
@@ -142,7 +142,7 @@ svg{display:block}
   position:absolute;left:20px;right:20px;bottom:20px;background:#fff;border-radius:var(--r-lg);
   padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--shadow);
 }
-.hero-art .tagline b{display:block;font-size:17px;font-weight:800;letter-spacing:-.02em}
+.hero-art .tagline b{display:block;font-size:16px;font-weight:600;letter-spacing:-.02em}
 .hero-art .tagline span{font-size:12.5px;color:var(--ink-faint);font-weight:600}
 .hero-art .tagline .price{
   font-size:15px;font-weight:800;color:#fff;background:var(--accent);
@@ -152,7 +152,7 @@ svg{display:block}
 /* ── scaffale ─────────────────────────────────────────── */
 .shelf{padding:56px 0 80px}
 .shelf-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:30px}
-.shelf-head h2{font-size:clamp(30px,3.8vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.08}
+.shelf-head h2{font-size:clamp(27px,3.4vw,37px);font-weight:700;letter-spacing:-.03em;line-height:1.14}
 .shelf-head p{color:var(--ink-dim);margin-top:8px;font-size:15px;font-weight:500}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chips button{
@@ -193,12 +193,12 @@ svg{display:block}
   align-self:flex-start;font-size:11.5px;font-weight:700;color:var(--ink-dim);
   background:color-mix(in srgb,var(--hue) 14%,#fff);padding:5px 13px;border-radius:999px;
 }
-.card h3{font-size:19px;font-weight:800;line-height:1.22;margin-top:13px;letter-spacing:-.025em}
+.card h3{font-size:17px;font-weight:600;line-height:1.32;margin-top:13px;letter-spacing:-.02em}
 .meta{font-size:13px;color:var(--ink-faint);margin-top:5px;font-weight:600}
 .rating{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;color:var(--ink-dim);font-weight:600}
 .rating .s{display:flex;gap:1.5px;color:#e8b04b}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:18px}
-.price{font-size:22px;font-weight:800;letter-spacing:-.03em}
+.price{font-size:20px;font-weight:700;letter-spacing:-.025em}
 .price s{font-size:13px;color:var(--ink-faint);margin-right:8px;font-weight:600}
 .add{
   width:46px;height:46px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
@@ -215,7 +215,7 @@ svg{display:block}
   box-shadow:var(--shadow-lg);
 }
 .band .kicker{background:#fff}
-.band h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-top:18px}
+.band h2{font-size:clamp(25px,3.2vw,35px);font-weight:700;line-height:1.18;letter-spacing:-.03em;margin-top:18px}
 .band p{color:var(--ink-dim);margin-top:12px;font-size:15.5px;line-height:1.65;max-width:44ch;font-weight:500}
 .band form{display:flex;gap:10px;flex-wrap:wrap}
 .band input{
