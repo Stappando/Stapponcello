@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Carrello e checkout</title>
+<meta name="description" content="Carrello Stappando: riepilogo bottiglie, spedizione, buono sconto e pagamento." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --ok:#2d6a4f;
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font:inherit;color:inherit}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{max-width:1180px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
+
+/* ── topbar ───────────────────────────────────────────── */
+.topbar{position:sticky;top:0;z-index:40;flex:none;background:#fff;border-bottom:1px solid var(--border)}
+.topbar-in{height:72px;display:flex;align-items:center;gap:24px;max-width:1180px;margin:0 auto;padding:0 28px}
+.logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:8px;letter-spacing:.34em;color:var(--muted-fg);margin-top:5px;font-weight:500;text-transform:uppercase}
+.secure{
+  margin-left:auto;display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:600;color:var(--muted-fg);
+}
+.secure svg{color:var(--ok)}
+.iconbtn{padding:9px;border-radius:var(--r-sm);color:rgba(26,26,26,.7);transition:.15s;position:relative;display:block}
+.iconbtn:hover{background:var(--muted);color:var(--fg)}
+
+/* ── testata ──────────────────────────────────────────── */
+.head{padding:34px 0 26px}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted-fg);flex-wrap:wrap}
+.crumbs a:hover{color:var(--primary);text-decoration:underline}
+.crumbs span[aria-current]{color:var(--fg);font-weight:600}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1;margin-top:14px}
+.head p.lead{font-size:14px;color:var(--muted-fg);margin-top:8px}
+
+/* passi del checkout */
+.steps{display:flex;align-items:center;gap:10px;margin-top:24px;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:var(--muted-fg)}
+.step i{
+  width:24px;height:24px;border-radius:50%;flex:none;font-style:normal;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;background:var(--muted);color:var(--muted-fg);
+}
+.step.on{color:var(--fg)}
+.step.on i{background:var(--primary);color:#fff}
+.step.done i{background:rgba(45,106,79,.14);color:var(--ok)}
+.steps .sep{flex:1;min-width:20px;height:1px;background:var(--border);max-width:60px}
+
+/* ── layout ───────────────────────────────────────────── */
+main{flex:1;padding-bottom:72px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;align-items:start}
+
+.panel{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);
+}
+.panel + .panel{margin-top:20px}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:20px 24px;border-bottom:1px solid var(--border-soft);
+}
+.panel-head h2{font-size:15px;font-weight:700}
+.panel-head span{font-size:12.5px;color:var(--muted-fg)}
+
+/* ── righe del carrello ───────────────────────────────── */
+.line{display:flex;gap:18px;padding:20px 24px;border-bottom:1px solid var(--border-soft);align-items:flex-start}
+.line:last-child{border-bottom:none}
+.line-art{
+  width:88px;height:112px;flex:none;border-radius:var(--r-sm);overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.line-art .btl{height:92px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}
+.line-main{flex:1;min-width:0}
+.style-tag{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid;
+}
+.line-main .bn{
+  display:block;font-family:"Playfair Display",Georgia,serif;font-size:17px;font-weight:600;line-height:1.2;margin-top:7px;
+}
+.line-main .bn:hover{color:var(--primary)}
+.line-main .bc{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
+.line-note{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--ok);margin-top:9px}
+.line-note.warn{color:#8b2635}
+.line-note i{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.line-actions{display:flex;gap:14px;margin-top:12px}
+.linkbtn{font-size:12px;font-weight:600;color:var(--muted-fg);text-decoration:underline;transition:.14s}
+.linkbtn:hover{color:#8b2635}
+.linkbtn.save:hover{color:var(--primary)}
+
+.line-side{display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex:none}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:#fff}
+.qty button{width:34px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.14s}
+.qty button:hover{color:var(--primary)}
+.qty button[disabled]{opacity:.35;cursor:default}
+.qty input{
+  width:36px;height:38px;text-align:center;border:none;outline:none;background:none;
+  font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.line-price{text-align:right}
+.line-price b{font-size:17px;font-weight:700;color:var(--primary);display:block}
+.line-price s{font-size:11.5px;color:var(--muted-fg)}
+.line-price span{font-size:11px;color:var(--muted-fg);display:block;margin-top:2px}
+
+/* carrello vuoto */
+.empty{display:none;padding:64px 24px;text-align:center}
+.empty.on{display:block}
+.empty svg{margin:0 auto 16px;color:var(--muted-fg)}
+.empty h3{font-family:"Playfair Display",Georgia,serif;font-size:21px;font-weight:600}
+.empty p{font-size:13.5px;color:var(--muted-fg);margin-top:8px}
+
+/* ── spedizione ───────────────────────────────────────── */
+.ship{padding:8px 24px 22px}
+.shipopt{
+  display:flex;align-items:center;gap:14px;padding:15px 16px;margin-top:12px;
+  border:1.5px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:.15s;
+}
+.shipopt:hover{border-color:rgba(0,95,115,.35)}
+.shipopt.on{border-color:var(--primary);background:var(--primary-soft)}
+.shipopt input{
+  appearance:none;width:18px;height:18px;flex:none;border-radius:50%;
+  border:1.6px solid rgba(0,0,0,.24);background:#fff;position:relative;cursor:pointer;transition:.14s;
+}
+.shipopt input:checked{background:var(--primary);border-color:var(--primary)}
+.shipopt input:checked::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
+.shipopt .txt{flex:1;min-width:0}
+.shipopt .txt b{display:block;font-size:13.5px}
+.shipopt .txt span{font-size:12px;color:var(--muted-fg)}
+.shipopt .cost{font-size:14px;font-weight:700;color:var(--primary);flex:none}
+.shipopt .cost.free{color:var(--ok)}
+
+/* ── pagamento ────────────────────────────────────────── */
+.paylist{display:flex;flex-wrap:wrap;gap:10px;padding:20px 24px}
+.paybtn{
+  display:flex;align-items:center;gap:9px;padding:12px 16px;border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-size:12.5px;font-weight:600;transition:.15s;background:#fff;
+}
+.paybtn:hover{border-color:rgba(0,95,115,.35)}
+.paybtn.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
+.paybtn svg{flex:none}
+
+/* ── riepilogo ────────────────────────────────────────── */
+.summary{position:sticky;top:92px}
+.sum-body{padding:22px 24px}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13.5px;padding:7px 0}
+.row span{color:var(--muted-fg)}
+.row b{font-weight:600;font-variant-numeric:tabular-nums}
+.row.disc b{color:var(--ok)}
+.row.total{
+  margin-top:12px;padding-top:16px;border-top:1px solid var(--border-soft);
+  font-size:15px;align-items:center;
+}
+.row.total span{color:var(--fg);font-weight:700}
+.row.total b{font-family:"Playfair Display",Georgia,serif;font-size:28px;color:var(--primary);font-weight:700}
+.vat{font-size:11px;color:var(--muted-fg);margin-top:4px;text-align:right}
+
+/* soglia spedizione gratuita */
+.freeship{margin:16px 0 4px;padding:14px 16px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--border-soft)}
+.freeship p{font-size:12px;color:var(--muted-fg);line-height:1.5}
+.freeship p b{color:var(--fg)}
+.freeship .track{height:6px;border-radius:999px;background:var(--muted);margin-top:10px;overflow:hidden}
+.freeship .track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-dark));transition:width .3s ease}
+.freeship.done{background:rgba(45,106,79,.08);border-color:rgba(45,106,79,.2)}
+.freeship.done .track i{background:var(--ok)}
+
+/* buono sconto */
+.coupon{display:flex;gap:8px;margin-top:16px}
+.coupon input{
+  flex:1;min-width:0;height:44px;padding:0 16px;border:1px solid var(--border);
+  border-radius:999px;background:#fff;outline:none;font-size:13px;transition:.15s;
+}
+.coupon input:focus{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.08)}
+.coupon .btn{height:44px;flex:none}
+.coupon-msg{font-size:11.5px;margin-top:8px;display:none}
+.coupon-msg.on{display:block}
+.coupon-msg.ok{color:var(--ok);font-weight:600}
+.coupon-msg.ko{color:#8b2635;font-weight:600}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;
+  border-radius:999px;font-size:13px;font-weight:600;transition:.16s;cursor:pointer;
+}
+.btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9)}
+.btn-dark:hover{background:var(--primary-dark)}
+.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost:hover{background:var(--muted)}
+.btn-gold{background:var(--accent);color:var(--primary-dark)}
+.btn-gold:hover{background:#d8bb94}
+.btn-block{width:100%;height:52px;margin-top:18px;font-size:14px}
+.btn svg{transition:transform .18s ease}
+.btn-block:hover svg{transform:translateX(3px)}
+
+.trust{display:flex;flex-direction:column;gap:11px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft)}
+.trust p{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted-fg);line-height:1.5}
+.trust svg{flex:none;color:var(--primary);margin-top:1px}
+.paylogos{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.pay{
+  height:24px;padding:0 8px;border-radius:5px;background:var(--muted);display:flex;align-items:center;
+  font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--muted-fg);
+}
+
+/* conferma ordine */
+.done-msg{
+  display:none;align-items:center;gap:11px;margin-top:16px;padding:14px 16px;
+  background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.24);border-radius:var(--r-sm);
+  font-size:12.5px;font-weight:600;color:var(--ok);line-height:1.45;
+}
+.done-msg.on{display:flex}
+
+/* consigliati */
+.cross{margin-top:44px}
+.cross h2{font-family:"Playfair Display",Georgia,serif;font-size:24px;font-weight:700}
+.cross p.sub{font-size:13.5px;color:var(--muted-fg);margin-top:6px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:22px}
+.prod{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;transition:.18s;
+}
+.prod:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,124,.6)}
+.prod-art{position:relative;height:180px;flex:none;display:flex;align-items:center;justify-content:center}
+.prod-art .btl{height:142px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22))}
+.prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.prod-body .bn{font-family:"Playfair Display",Georgia,serif;font-size:15px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft)}
+.prod-foot b{font-size:17px;font-weight:700;color:var(--primary)}
+.addbtn{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;
+}
+.addbtn:hover{background:var(--primary-dark);transform:scale(1.08)}
+
+/* ── footer ───────────────────────────────────────────── */
+footer{background:#12181a;color:rgba(255,255,255,.62);flex:none;padding:34px 0}
+.foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11.5px;line-height:1.6}
+.foot-in a{text-decoration:underline}
+.age{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.age i{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;font-weight:700;flex:none;
+}
+
+/* ── responsive ───────────────────────────────────────── */
+@media(max-width:960px){
+  .cols{grid-template-columns:1fr}
+  .summary{position:static}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  .wrap,.topbar-in{padding:0 18px}
+  .line{flex-wrap:wrap;gap:14px}
+  .line-side{flex-direction:row;align-items:center;justify-content:space-between;width:100%}
+  .line-art{width:70px;height:92px}
+  .line-art .btl{height:76px}
+  .grid4{grid-template-columns:1fr}
+  .secure span{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+    <p class="secure">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <span>Pagamento sicuro · connessione cifrata</span>
+    </p>
+    <a class="iconbtn" href="catalogo.html" aria-label="Torna al catalogo">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11 18l-6-6 6-6"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="head">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="catalogo.html">Catalogo</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Carrello</span>
+    </nav>
+
+    <h1>Il tuo carrello</h1>
+    <p class="lead" id="lead">Tre bottiglie pronte a partire. Le teniamo da parte per 60 minuti.</p>
+
+    <div class="steps" aria-label="Fasi dell'ordine">
+      <span class="step on"><i>1</i>Carrello</span>
+      <span class="sep"></span>
+      <span class="step"><i>2</i>Indirizzo</span>
+      <span class="sep"></span>
+      <span class="step"><i>3</i>Pagamento</span>
+      <span class="sep"></span>
+      <span class="step"><i>4</i>Conferma</span>
+    </div>
+  </div>
+
+  <div class="cols">
+
+    <!-- ══ COLONNA SINISTRA ═══════════════════════════ -->
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Bottiglie nel carrello</h2>
+          <span id="lineCount">3 articoli</span>
+        </div>
+        <div id="lines"></div>
+        <div class="empty" id="empty">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+          <h3>Il carrello è vuoto</h3>
+          <p>Rimettici dentro qualcosa: il catalogo è di là.</p>
+          <a class="btn btn-dark" href="catalogo.html" style="margin-top:20px">Torna al catalogo</a>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Spedizione</h2>
+          <span>Consegna stimata: 30 luglio – 1 agosto</span>
+        </div>
+        <div class="ship">
+          <label class="shipopt on">
+            <input type="radio" name="ship" value="6.9" data-free-over="1" checked>
+            <span class="txt">
+              <b>Corriere espresso · 48 ore</b>
+              <span>Imballo antiurto a sei scomparti, tracciabile · gratis sopra € 79</span>
+            </span>
+            <span class="cost" id="costStd">€ 6,90</span>
+          </label>
+          <label class="shipopt">
+            <input type="radio" name="ship" value="12.9">
+            <span class="txt">
+              <b>Consegna su appuntamento</b>
+              <span>Scegli tu giorno e fascia oraria, anche il sabato</span>
+            </span>
+            <span class="cost">€ 12,90</span>
+          </label>
+          <label class="shipopt">
+            <input type="radio" name="ship" value="0">
+            <span class="txt">
+              <b>Ritiro in enoteca · Milano</b>
+              <span>Via della Vite 12 · pronto in 3 ore</span>
+            </span>
+            <span class="cost free">Gratis</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Pagamento</h2>
+          <span>Nessun dato viene salvato in questo mockup</span>
+        </div>
+        <div class="paylist" id="paylist">
+          <button class="paybtn on" data-pay="carta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            Carta di credito
+          </button>
+          <button class="paybtn" data-pay="paypal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 20 9.5 4h5.5a3.5 3.5 0 0 1 0 7H10"/><path d="M10 20l1-6h3.5a3 3 0 0 0 0-6"/></svg>
+            PayPal
+          </button>
+          <button class="paybtn" data-pay="satispay">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 14l4-4 4 4"/></svg>
+            Satispay
+          </button>
+          <button class="paybtn" data-pay="bonifico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10 12 4l9 6"/><path d="M5 10v9h14v-9"/><path d="M9 19v-5h6v5"/></svg>
+            Bonifico
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ══ RIEPILOGO ══════════════════════════════════ -->
+    <aside class="panel summary" aria-label="Riepilogo dell'ordine">
+      <div class="panel-head">
+        <h2>Riepilogo</h2>
+      </div>
+      <div class="sum-body">
+        <p class="row"><span>Subtotale (<b id="sumQty">3</b> bottiglie)</span><b id="sumSub">€ 0,00</b></p>
+        <p class="row disc" id="rowDisc" hidden><span>Sconto <em style="font-style:normal;font-weight:600" id="discCode"></em></span><b id="sumDisc">– € 0,00</b></p>
+        <p class="row"><span>Spedizione</span><b id="sumShip">Gratis</b></p>
+
+        <div class="freeship" id="freeship">
+          <p id="freeshipTxt"></p>
+          <div class="track"><i id="freeshipBar"></i></div>
+        </div>
+
+        <p class="row total"><span>Totale</span><b id="sumTotal">€ 0,00</b></p>
+        <p class="vat">IVA inclusa</p>
+
+        <div class="coupon">
+          <input id="coupon" type="text" placeholder="Hai un buono sconto?" aria-label="Codice del buono sconto">
+          <button class="btn btn-ghost" id="couponBtn">Applica</button>
+        </div>
+        <p class="coupon-msg" id="couponMsg"></p>
+
+        <button class="btn btn-dark btn-block" id="payBtn">
+          Vai al pagamento
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+
+        <p class="done-msg" id="doneMsg">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Mockup: qui partirebbe il checkout con il metodo <b id="doneMethod">carta di credito</b>.</span>
+        </p>
+
+        <div class="trust">
+          <p>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            Bottiglia arrivata rotta? La rispediamo senza moduli: basta una foto.
+          </p>
+          <p>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/><circle cx="12" cy="6" r="3"/></svg>
+            Conservazione a 14 °C fino al momento della spedizione.
+          </p>
+          <p>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            Reso entro 14 giorni sulle bottiglie integre.
+          </p>
+        </div>
+
+        <div class="paylogos" aria-label="Metodi di pagamento accettati">
+          <span class="pay">VISA</span><span class="pay">MASTERCARD</span><span class="pay">AMEX</span>
+          <span class="pay">PAYPAL</span><span class="pay">SATISPAY</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ══ CROSS-SELL ═══════════════════════════════════ -->
+  <section class="cross">
+    <h2>Completa la cassa da sei</h2>
+    <p class="sub">Con sei bottiglie l'imballo è lo stesso e la spedizione resta gratuita.</p>
+    <div class="grid4" id="cross"></div>
+  </section>
+
+</div>
+</main>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap foot-in">
+    <div>
+      Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+      © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+    </div>
+    <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · carrello — calcolo totali e interazioni
+   ══════════════════════════════════════════════════════════ */
+
+const STYLE_META = {
+  rosso:   {label:'Rosso',    tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
+  bianco:  {label:'Bianco',   tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
+  spumante:{label:'Spumante', tag:'#1e3a5f', glass:'#2b4a63', wine:'#5c7d92', foil:'#c9a87c', bg1:'#e6eef3', bg2:'#cddbe5'},
+  dolce:   {label:'Dolce',    tag:'#a16207', glass:'#7a5321', wine:'#c39a4a', foil:'#a8814f', bg1:'#f7eeda', bg2:'#ecd9b3'},
+};
+
+const SOGLIA = 79;           /* soglia per la spedizione gratuita */
+const BUONI = {              /* buoni validi nel mockup */
+  BENVENUTO10: {tipo:'perc', valore:10, label:'BENVENUTO10'},
+  STAPP5:      {tipo:'fisso', valore:5, label:'STAPP5'},
+};
+
+let CART = [
+  {id:'k1', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+   price:48.00, old:56.00, qty:1, stock:24, link:'prodotto.html',
+   note:'Spedito dal nostro magazzino climatizzato'},
+  {id:'k2', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
+   price:16.50, old:null, qty:2, stock:61,
+   note:'Disponibile, pronto per la spedizione'},
+  {id:'k3', name:'Franciacorta Brut Millesimato 2020', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
+   price:32.00, old:38.00, qty:1, stock:4,
+   note:'Ultime 4 bottiglie in cantina', warn:true},
+];
+
+const CROSS = [
+  {id:'x1', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', style:'rosso', price:27.00},
+  {id:'x2', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', style:'bianco', price:24.00},
+  {id:'x3', name:'Passito di Pantelleria 2019', winery:'Isola Ventosa', style:'dolce', price:34.00},
+  {id:'x4', name:'Prosecco Superiore Extra Brut', winery:'Rive di Sant’Anna', style:'spumante', price:17.50},
+];
+
+let buono = null;
+/* costo base della spedizione scelta; `freeOver` marca l'opzione che
+   diventa gratuita superata la soglia (solo il corriere standard) */
+let spedizione = 6.9;
+let spedizioneFreeOver = true;
+
+const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+let uid = 0;
+function bottleSVG(style, cls){
+  const m = STYLE_META[style];
+  const id = 'b' + (++uid);
+  return `<svg class="${cls || 'btl'}" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${m.glass}"/><stop offset="42%" stop-color="${m.wine}"/>
+      <stop offset="58%" stop-color="${m.wine}"/><stop offset="100%" stop-color="${m.glass}"/>
+    </linearGradient></defs>
+    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
+    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
+    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
+      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
+    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
+    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
+  </svg>`;
+}
+function sceneSVG(style, h){
+  const m = STYLE_META[style];
+  const id = 's' + (++uid);
+  return `<svg viewBox="0 0 200 ${h}" preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
+    <rect width="200" height="${h}" fill="url(#${id})"/>
+    <circle cx="100" cy="${h*0.52}" r="${h*0.36}" fill="rgba(255,255,255,.4)"/>
+  </svg>`;
+}
+
+/* ── righe del carrello ───────────────────────────────── */
+const linesEl = document.getElementById('lines');
+
+function lineHTML(it){
+  const m = STYLE_META[it.style];
+  return `<div class="line" data-id="${it.id}">
+    <div class="line-art">
+      ${sceneSVG(it.style, 112)}
+      ${bottleSVG(it.style)}
+    </div>
+    <div class="line-main">
+      <span class="style-tag" style="color:${m.tag};border-color:${m.tag}33;background:${m.tag}12">${m.label}</span>
+      <a class="bn" href="${it.link || 'prodotto.html'}">${esc(it.name)}</a>
+      <span class="bc">${esc(it.winery)} · ${esc(it.region)}</span>
+      <p class="line-note${it.warn ? ' warn' : ''}"><i></i>${esc(it.note)}</p>
+      <div class="line-actions">
+        <button class="linkbtn save" data-save="${it.id}">Sposta nei preferiti</button>
+        <button class="linkbtn" data-del="${it.id}">Rimuovi</button>
+      </div>
+    </div>
+    <div class="line-side">
+      <div class="qty">
+        <button data-minus="${it.id}" aria-label="Riduci la quantità di ${esc(it.name)}"${it.qty <= 1 ? ' disabled' : ''}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+        </button>
+        <input type="text" inputmode="numeric" value="${it.qty}" data-qty="${it.id}" aria-label="Quantità di ${esc(it.name)}">
+        <button data-plus="${it.id}" aria-label="Aumenta la quantità di ${esc(it.name)}"${it.qty >= it.stock ? ' disabled' : ''}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+      <div class="line-price">
+        <b>${eur(it.price * it.qty)}</b>
+        ${it.old ? `<s>${eur(it.old * it.qty)}</s>` : ''}
+        <span>${eur(it.price)} a bottiglia</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── totali ───────────────────────────────────────────── */
+function bottiglie(){ return CART.reduce((n,i) => n + i.qty, 0); }
+function subtotale(){ return CART.reduce((s,i) => s + i.price * i.qty, 0); }
+function sconto(sub){
+  if(!buono) return 0;
+  return buono.tipo === 'perc' ? sub * buono.valore / 100 : Math.min(buono.valore, sub);
+}
+
+function render(){
+  const vuoto = CART.length === 0;
+  linesEl.innerHTML = CART.map(lineHTML).join('');
+  document.getElementById('empty').classList.toggle('on', vuoto);
+
+  const n = bottiglie();
+  const sub = subtotale();
+  const disc = sconto(sub);
+  const gratis = sub - disc >= SOGLIA;
+  const ship = vuoto ? 0 : (spedizioneFreeOver && gratis ? 0 : spedizione);
+
+  /* il prezzo mostrato sull'opzione standard segue la soglia */
+  const costStd = document.getElementById('costStd');
+  costStd.textContent = gratis ? 'Gratis' : '€ 6,90';
+  costStd.classList.toggle('free', gratis);
+
+  document.getElementById('lineCount').textContent =
+    CART.length === 1 ? '1 articolo' : `${CART.length} articoli`;
+  document.getElementById('lead').textContent = vuoto
+    ? 'Non c’è ancora niente qui dentro.'
+    : `${n === 1 ? 'Una bottiglia pronta' : n + ' bottiglie pronte'} a partire. Le teniamo da parte per 60 minuti.`;
+
+  document.getElementById('sumQty').textContent = n;
+  document.getElementById('sumSub').textContent = eur(sub);
+  document.getElementById('sumShip').textContent = ship === 0 ? 'Gratis' : eur(ship);
+  document.getElementById('sumShip').style.color = ship === 0 ? 'var(--ok)' : '';
+
+  const rowDisc = document.getElementById('rowDisc');
+  rowDisc.hidden = !buono;
+  if(buono){
+    document.getElementById('discCode').textContent = buono.label;
+    document.getElementById('sumDisc').textContent = '– ' + eur(disc);
+  }
+
+  document.getElementById('sumTotal').textContent = eur(Math.max(0, sub - disc + ship));
+
+  /* soglia spedizione gratuita */
+  const fs = document.getElementById('freeship');
+  const manca = Math.max(0, SOGLIA - (sub - disc));
+  fs.classList.toggle('done', manca === 0);
+  document.getElementById('freeshipTxt').innerHTML = manca === 0
+    ? 'Spedizione gratuita <b>sbloccata</b>. Le bottiglie viaggiano nell’imballo a sei scomparti.'
+    : `Ti mancano <b>${eur(manca)}</b> alla spedizione gratuita.`;
+  document.getElementById('freeshipBar').style.width =
+    Math.min(100, Math.round((sub - disc) / SOGLIA * 100)) + '%';
+  fs.style.display = vuoto ? 'none' : '';
+
+  document.getElementById('payBtn').disabled = vuoto;
+  document.getElementById('payBtn').style.opacity = vuoto ? '.5' : '';
+}
+
+/* ── azioni sulle righe ───────────────────────────────── */
+function trova(id){ return CART.find(i => i.id === id); }
+
+linesEl.addEventListener('click', e => {
+  const plus  = e.target.closest('[data-plus]');
+  const minus = e.target.closest('[data-minus]');
+  const del   = e.target.closest('[data-del]');
+  const save  = e.target.closest('[data-save]');
+
+  if(plus){
+    const it = trova(plus.dataset.plus);
+    if(it && it.qty < it.stock) it.qty++;
+  } else if(minus){
+    const it = trova(minus.dataset.minus);
+    if(it && it.qty > 1) it.qty--;
+  } else if(del || save){
+    const id = (del || save).dataset.del || (del || save).dataset.save;
+    CART = CART.filter(i => i.id !== id);
+  } else {
+    return;
+  }
+  document.getElementById('doneMsg').classList.remove('on');
+  render();
+});
+
+linesEl.addEventListener('change', e => {
+  const inp = e.target.closest('[data-qty]');
+  if(!inp) return;
+  const it = trova(inp.dataset.qty);
+  if(!it) return;
+  const v = parseInt(String(inp.value).replace(/\D/g,''), 10);
+  it.qty = Math.min(it.stock, Math.max(1, v || 1));
+  render();
+});
+
+/* ── spedizione ───────────────────────────────────────── */
+document.querySelectorAll('.shipopt').forEach(opt => {
+  opt.addEventListener('change', () => {
+    document.querySelectorAll('.shipopt').forEach(o => o.classList.remove('on'));
+    opt.classList.add('on');
+    const inp = opt.querySelector('input');
+    spedizione = parseFloat(inp.value) || 0;
+    spedizioneFreeOver = inp.dataset.freeOver === '1';
+    render();
+  });
+});
+
+/* ── metodo di pagamento ──────────────────────────────── */
+const NOME_PAGAMENTO = {carta:'carta di credito', paypal:'PayPal', satispay:'Satispay', bonifico:'bonifico bancario'};
+let pagamento = 'carta';
+document.getElementById('paylist').addEventListener('click', e => {
+  const b = e.target.closest('[data-pay]');
+  if(!b) return;
+  document.querySelectorAll('.paybtn').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  pagamento = b.dataset.pay;
+  document.getElementById('doneMethod').textContent = NOME_PAGAMENTO[pagamento];
+});
+
+/* ── buono sconto ─────────────────────────────────────── */
+const couponMsg = document.getElementById('couponMsg');
+document.getElementById('couponBtn').onclick = () => {
+  const code = document.getElementById('coupon').value.trim().toUpperCase();
+  couponMsg.className = 'coupon-msg on';
+
+  if(buono && !code){
+    buono = null;
+    couponMsg.classList.add('ko');
+    couponMsg.textContent = 'Buono rimosso.';
+  } else if(BUONI[code]){
+    buono = BUONI[code];
+    couponMsg.classList.add('ok');
+    couponMsg.textContent = buono.tipo === 'perc'
+      ? `Buono ${buono.label} applicato: ${buono.valore}% sul subtotale.`
+      : `Buono ${buono.label} applicato: ${eur(buono.valore)} di sconto.`;
+  } else {
+    buono = null;
+    couponMsg.classList.add('ko');
+    couponMsg.textContent = code
+      ? `Il codice “${code}” non è valido. Prova con BENVENUTO10.`
+      : 'Inserisci un codice: nel mockup funzionano BENVENUTO10 e STAPP5.';
+  }
+  render();
+};
+document.getElementById('coupon').addEventListener('keydown', e => {
+  if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('couponBtn').click(); }
+});
+
+/* ── checkout (mockup) ────────────────────────────────── */
+document.getElementById('payBtn').onclick = () => {
+  if(!CART.length) return;
+  document.getElementById('doneMsg').classList.add('on');
+  document.querySelectorAll('.step').forEach((s,i) => {
+    s.classList.toggle('done', i < 2);
+    s.classList.toggle('on', i === 2);
+  });
+};
+
+/* ── cross-sell ───────────────────────────────────────── */
+document.getElementById('cross').innerHTML = CROSS.map(p => `
+  <article class="prod">
+    <div class="prod-art">
+      ${sceneSVG(p.style, 180)}
+      ${bottleSVG(p.style)}
+    </div>
+    <div class="prod-body">
+      <a class="bn" href="prodotto.html">${esc(p.name)}</a>
+      <span class="bc">${esc(p.winery)}</span>
+      <div class="prod-foot">
+        <b>${eur(p.price)}</b>
+        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>`).join('');
+
+document.getElementById('cross').addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if(!add) return;
+  const p = CROSS.find(x => x.id === add.dataset.add);
+  const esistente = CART.find(i => i.name === p.name);
+  if(esistente){
+    esistente.qty = Math.min(esistente.stock, esistente.qty + 1);
+  } else {
+    CART.push({id:p.id, name:p.name, winery:p.winery, region:'Italia', style:p.style,
+               price:p.price, old:null, qty:1, stock:24,
+               note:'Disponibile, pronto per la spedizione'});
+  }
+  add.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
+  render();
+});
+
+render();
+</script>
+
+</body>
+</html>

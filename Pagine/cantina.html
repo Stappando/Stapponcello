@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Cascina Vergne</title>
+<meta name="description" content="Scheda cantina: Cascina Vergne, La Morra (Piemonte). Storia, vigneti, etichette in catalogo e visite." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --r:16px;
+  --r-sm:12px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg);color:var(--fg);font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
+.h2{font-family:"Playfair Display",Georgia,serif;font-size:clamp(21px,2.4vw,28px);font-weight:700;line-height:1.14}
+
+/* ── topbar ───────────────────────────────────────────── */
+.topbar{position:sticky;top:0;z-index:40;flex:none;background:#fff;border-bottom:1px solid var(--border)}
+.topbar-in{height:72px;display:flex;align-items:center;gap:24px;max-width:1240px;margin:0 auto;padding:0 28px}
+.logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
+.logo em{font-style:normal;color:var(--accent)}
+.logo-sub{font-size:8px;letter-spacing:.34em;color:var(--muted-fg);margin-top:5px;font-weight:500;text-transform:uppercase}
+.topnav{display:flex;gap:24px;flex:none;margin-left:auto}
+.topnav a{
+  font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted-fg);
+  padding:6px 0;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap;
+}
+.topnav a:hover{color:var(--fg)}
+.topnav a.on{color:var(--primary);border-color:var(--accent)}
+.top-icons{display:flex;align-items:center;gap:4px;flex:none}
+.iconbtn{padding:9px;border-radius:var(--r-sm);color:rgba(26,26,26,.7);transition:.15s;position:relative;display:block}
+.iconbtn:hover{background:var(--muted);color:var(--fg)}
+.iconbtn b{
+  position:absolute;top:3px;right:2px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;
+  background:var(--primary);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.burger{display:none}
+.mobnav{display:none;border-top:1px solid var(--border);background:#fff;padding:8px 28px 16px}
+.mobnav.open{display:block}
+.mobnav a{
+  display:flex;align-items:center;justify-content:space-between;padding:13px 2px;
+  border-bottom:1px solid var(--border-soft);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+}
+.mobnav a:last-child{border-bottom:none}
+.mobnav a svg{color:var(--muted-fg)}
+
+/* ── copertina ────────────────────────────────────────── */
+.cover{position:relative;height:400px;overflow:hidden;flex:none;isolation:isolate;display:flex;align-items:flex-end}
+.cover .scene{position:absolute;inset:0;z-index:-2;width:100%;height:100%}
+.cover::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(0,29,38,.92) 8%,rgba(0,29,38,.5) 52%,rgba(0,29,38,.2) 100%);
+}
+.cover-in{color:#fff;padding-bottom:34px;width:100%}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.6);flex-wrap:wrap;margin-bottom:20px}
+.crumbs a:hover{color:#fff;text-decoration:underline}
+.crumbs span[aria-current]{color:rgba(255,255,255,.9);font-weight:600}
+.cover .eyebrow{color:var(--accent)}
+.cover h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(32px,4.6vw,50px);font-weight:700;line-height:1.06;margin-top:12px}
+.cover-sub{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap;font-size:13.5px;color:rgba(255,255,255,.8)}
+.cover-sub span{display:inline-flex;align-items:center;gap:7px}
+.pillrow{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;font-size:9.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);color:#fff;
+}
+.pill.gold{background:rgba(201,168,124,.9);border-color:transparent;color:var(--primary-dark)}
+
+/* stemma sovrapposto */
+.crest-float{
+  position:absolute;right:28px;bottom:34px;z-index:1;
+  width:130px;height:130px;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4));
+}
+
+/* ── barra dei numeri ─────────────────────────────────── */
+.statbar{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);margin-top:-38px;position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+}
+.statbar div{padding:22px 20px;border-right:1px solid var(--border-soft);text-align:center}
+.statbar div:last-child{border-right:none}
+.statbar b{display:block;font-family:"Playfair Display",Georgia,serif;font-size:26px;font-weight:700;color:var(--primary)}
+.statbar span{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+
+/* ── contenuto ────────────────────────────────────────── */
+main{flex:1;padding-bottom:76px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.panel{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:34px;
+}
+.story{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px}
+.story p{font-size:14.5px;line-height:1.72}
+.story p + p{margin-top:14px}
+.story .claim{
+  font-family:"Playfair Display",Georgia,serif;font-size:clamp(20px,2.2vw,25px);
+  font-weight:700;line-height:1.3;margin-bottom:16px;
+}
+.story .claim em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
+.story .claim em::after{
+  content:"";position:absolute;left:0;right:0;bottom:1px;height:8px;
+  background:rgba(201,168,124,.36);border-radius:3px;z-index:-1;
+}
+.quote{
+  margin-top:24px;padding:18px 22px;border-left:3px solid var(--accent);
+  background:rgba(201,168,124,.1);border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:14px;line-height:1.6;
+}
+.quote b{display:block;margin-top:10px;font-size:12.5px;color:var(--muted-fg);font-weight:600}
+
+.facts{display:flex;flex-direction:column;gap:2px}
+.fact{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border-soft)}
+.fact:last-child{border-bottom:none}
+.fact .ic{
+  width:36px;height:36px;flex:none;border-radius:10px;background:var(--primary-soft);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;
+}
+.fact b{display:block;font-size:13px;font-weight:700}
+.fact span{font-size:12.5px;color:var(--muted-fg);line-height:1.5}
+
+/* vigneti */
+.plots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.plot{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:250px;
+  display:flex;flex-direction:column;justify-content:flex-end;color:#fff;padding:24px;isolation:isolate;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.plot:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.plot .scene{position:absolute;inset:0;z-index:-2;width:100%;height:100%}
+.plot::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(0,29,38,.88) 10%,rgba(0,29,38,.36) 60%,rgba(0,29,38,.1) 100%);
+}
+.plot .eyebrow{color:var(--accent)}
+.plot h3{font-family:"Playfair Display",Georgia,serif;font-size:21px;font-weight:600;margin-top:8px}
+.plot p{font-size:12.5px;color:rgba(255,255,255,.78);margin-top:8px;line-height:1.55}
+.plot ul{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:11px;color:rgba(255,255,255,.7)}
+.plot li{display:flex;align-items:center;gap:6px}
+
+/* etichette */
+.tabs{display:flex;gap:4px;background:var(--muted);border-radius:999px;padding:4px;flex-wrap:wrap}
+.tabs button{
+  padding:8px 16px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--muted-fg);transition:.15s;
+}
+.tabs button.on{background:#fff;color:var(--primary);box-shadow:var(--shadow-sm)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.prod{
+  position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;transition:.18s;
+}
+.prod:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,124,.6)}
+.prod-art{position:relative;height:200px;flex:none;display:flex;align-items:center;justify-content:center}
+.prod-art .btl{height:158px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22));transition:transform .25s ease}
+.prod:hover .prod-art .btl{transform:translateY(-4px) scale(1.03)}
+.ribbon{
+  position:absolute;top:12px;left:12px;z-index:2;font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;
+  background:var(--primary-dark);color:#fff;
+}
+.ribbon.gold{background:var(--accent);color:var(--primary-dark)}
+.prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.style-tag{
+  align-self:flex-start;display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid;
+}
+.prod-body .bn{font-family:"Playfair Display",Georgia,serif;font-size:15.5px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
+.stars{display:flex;align-items:center;gap:5px;margin-top:9px;font-size:11px;color:var(--muted-fg);font-weight:600}
+.stars .s{display:flex;gap:1px;color:var(--accent-dark)}
+.prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft)}
+.price{font-size:18px;font-weight:700;color:var(--primary)}
+.price s{font-size:12px;font-weight:500;color:var(--muted-fg);margin-right:6px}
+.addbtn{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;flex:none;transition:.15s;
+}
+.addbtn:hover{background:var(--primary-dark);transform:scale(1.08)}
+
+/* mappa + visita */
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;overflow:hidden;padding:0}
+.map{position:relative;min-height:340px;background:#e8e2d7}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map-pin{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.map-pin span{
+  background:#fff;border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:700;
+  box-shadow:var(--shadow-md);white-space:nowrap;
+}
+.map-pin i{
+  width:16px;height:16px;border-radius:50%;background:var(--primary);border:3px solid #fff;
+  box-shadow:0 3px 10px rgba(0,0,0,.3);
+}
+.visit-body{padding:34px}
+.visit-body h3{font-family:"Playfair Display",Georgia,serif;font-size:24px;font-weight:600}
+.visit-body > p{font-size:14px;color:var(--muted-fg);line-height:1.65;margin-top:12px}
+.slotlist{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.slot{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);
+  border-radius:var(--r-sm);background:var(--bg);transition:.15s;
+}
+.slot:hover{border-color:rgba(0,95,115,.35);background:#fff}
+.slot .day{
+  width:52px;flex:none;text-align:center;border-right:1px solid var(--border-soft);padding-right:12px;
+}
+.slot .day b{display:block;font-family:"Playfair Display",Georgia,serif;font-size:19px;color:var(--primary);line-height:1}
+.slot .day span{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg)}
+.slot .info{flex:1;min-width:0}
+.slot .info b{display:block;font-size:13px}
+.slot .info span{font-size:11.5px;color:var(--muted-fg)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;
+  border-radius:999px;font-size:12.5px;font-weight:600;transition:.16s;cursor:pointer;
+}
+.btn-dark{background:var(--primary);color:#fff}
+.btn-dark:hover{background:var(--primary-dark)}
+.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost:hover{background:var(--muted)}
+.btn-gold{background:var(--accent);color:var(--primary-dark)}
+.btn-gold:hover{background:#d8bb94}
+.btn.small{padding:8px 14px;font-size:11.5px}
+.btn.booked{background:rgba(45,106,79,.12);color:#2d6a4f;border:1px solid rgba(45,106,79,.3)}
+
+/* ── footer ───────────────────────────────────────────── */
+footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
+.foot-in{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;padding-top:52px;padding-bottom:40px}
+.foot-brand .logo{color:#fff}
+.foot-brand p{margin-top:16px;font-size:13px;line-height:1.65;max-width:34ch}
+.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.foot-col li + li{margin-top:9px}
+.foot-col a{font-size:13px;transition:.15s}
+.foot-col a:hover{color:var(--accent)}
+.foot-legal{
+  border-top:1px solid rgba(255,255,255,.1);padding:22px 0 32px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.6;
+}
+.foot-legal a{text-decoration:underline}
+.age{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-weight:600}
+.age i{
+  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;font-weight:700;flex:none;
+}
+
+/* ── responsive ───────────────────────────────────────── */
+@media(max-width:1080px){
+  .topnav{display:none}
+  .burger{display:block}
+  .top-icons{margin-left:auto}
+  .cover{height:340px}
+  .crest-float{width:96px;height:96px;right:18px;bottom:auto;top:96px}
+  .statbar{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .statbar div:nth-child(3){border-right:none}
+  .statbar div:nth-child(n+4){border-top:1px solid var(--border-soft)}
+  .story{grid-template-columns:1fr;gap:28px}
+  .plots{grid-template-columns:1fr}
+  .plot{min-height:210px}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .visit{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .wrap,.topbar-in{padding:0 18px}
+  .panel{padding:22px}
+  .visit-body{padding:24px}
+  .statbar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .statbar div:nth-child(2n){border-right:none}
+  .statbar div:nth-child(n+3){border-top:1px solid var(--border-soft)}
+  .grid4{grid-template-columns:1fr}
+  .crest-float{display:none}
+  .foot-in{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+    <nav class="topnav" aria-label="Navigazione principale">
+      <a href="catalogo.html">Prodotti</a>
+      <a href="cantina.html" class="on" aria-current="page">Cantine</a>
+      <a href="regioni.html">Regioni</a>
+      <a href="javascript:void(0)">Storie</a>
+      <a href="javascript:void(0)">Wine Club</a>
+    </nav>
+    <div class="top-icons">
+      <button class="iconbtn burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <button class="iconbtn" aria-label="Cerca">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="iconbtn" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
+    <a href="catalogo.html">Prodotti <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="cantina.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="regioni.html">Regioni del vino <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="carrello.html">Carrello <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+  </nav>
+</header>
+
+<!-- ══ COPERTINA ════════════════════════════════════════ -->
+<header class="cover">
+  <svg class="scene" viewBox="0 0 1400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7ea88f"/><stop offset="46%" stop-color="#436b53"/><stop offset="100%" stop-color="#22402f"/>
+      </linearGradient>
+    </defs>
+    <rect width="1400" height="400" fill="url(#sky)"/>
+    <circle cx="1140" cy="76" r="52" fill="rgba(255,255,255,.28)"/>
+    <path d="M0 196c150-64 268 22 430-24s246 26 380-18 300 20 590-30v276H0z" fill="rgba(0,0,0,.16)"/>
+    <path d="M0 250c180-54 292 24 470-16s232 22 396-14 330 14 534-22v202H0z" fill="rgba(0,0,0,.26)"/>
+    <g stroke="rgba(255,255,255,.22)" stroke-width="3">
+      <path d="M60 290v110M160 282v118M260 276v124M360 272v128M460 270v130M560 272v128M660 276v124M760 280v120M860 286v114M960 292v108M1060 298v102M1160 304v96M1260 310v90M1340 316v84"/>
+    </g>
+    <g fill="rgba(92,23,23,.55)">
+      <circle cx="360" cy="330" r="10"/><circle cx="462" cy="326" r="9"/><circle cx="562" cy="334" r="8"/>
+      <circle cx="760" cy="336" r="9"/><circle cx="962" cy="342" r="7"/>
+    </g>
+    <g transform="translate(1010 152)">
+      <path d="M0 60h150l-10 60H10z" fill="rgba(255,255,255,.14)"/>
+      <path d="M-6 60 75 16l81 44z" fill="rgba(255,255,255,.2)"/>
+      <rect x="64" y="82" width="22" height="38" fill="rgba(0,0,0,.35)"/>
+    </g>
+  </svg>
+
+  <svg class="crest-float" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="crest" cx="50%" cy="36%" r="72%">
+        <stop offset="0%" stop-color="#8b2635"/><stop offset="100%" stop-color="#003d4d"/>
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="47" fill="url(#crest)" stroke="#c9a87c" stroke-width="1.6"/>
+    <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(201,168,124,.5)" stroke-width=".8"/>
+    <text x="50" y="47" text-anchor="middle" dominant-baseline="central"
+          font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="30" fill="#f7f3ee">CV</text>
+    <text x="50" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="6.4"
+          letter-spacing="1.4" fill="rgba(247,243,238,.75)">1961</text>
+    <path d="M26 76 Q50 84 74 76" stroke="rgba(201,168,124,.55)" stroke-width=".8" fill="none"/>
+  </svg>
+
+  <div class="wrap cover-in">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="javascript:void(0)">Cantine</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="regioni.html">Piemonte</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Cascina Vergne</span>
+    </nav>
+
+    <p class="eyebrow">Cantina indipendente · dal 1961</p>
+    <h1>Cascina Vergne</h1>
+    <p class="cover-sub">
+      <span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 1.6.6 2.7 1.2 3.4L12 22l5.8-9.6c.6-.7 1.2-1.8 1.2-3.4a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+        La Morra, Piemonte
+      </span>
+      <span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+        4,9 su 486 recensioni
+      </span>
+      <span>Giulia e Pietro Vergne, terza generazione</span>
+    </p>
+    <div class="pillrow">
+      <span class="pill gold">Cantina più acquistata 2025</span>
+      <span class="pill">Vendemmia manuale</span>
+      <span class="pill">Solo botti grandi</span>
+      <span class="pill">Visite su prenotazione</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- numeri -->
+  <div class="statbar">
+    <div><b>4 ha</b><span>Vigneto</span></div>
+    <div><b>1961</b><span>Prima annata</span></div>
+    <div><b>18.000</b><span>Bottiglie l'anno</span></div>
+    <div><b>6</b><span>Etichette da noi</span></div>
+    <div><b>380 m</b><span>Altitudine media</span></div>
+  </div>
+
+  <!-- ══ STORIA ═══════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">La cantina</p>
+        <h2 class="h2">Quattro ettari e nessuna fretta</h2>
+      </div>
+      <span style="font-size:12px;color:var(--muted-fg)">Visitata dal nostro team a settembre 2025</span>
+    </div>
+
+    <div class="panel story">
+      <div>
+        <p class="claim">Qui il legno nuovo <em>non è mai entrato</em>, e non entrerà.</p>
+        <p>
+          Cascina Vergne sta a mezza collina sopra La Morra, dove il Nebbiolo matura una
+          settimana prima che in Bussia. Il nonno Giovanni comprò il primo ettaro nel 1961
+          conferendo l'uva alla cooperativa; la prima bottiglia con l'etichetta di famiglia
+          è del 1979.
+        </p>
+        <p>
+          Oggi Giulia sta in vigna e Pietro in cantina, e sono soli: la vendemmia si fa
+          ancora chiamando i vicini, a mano, in due passaggi. In cantina niente lieviti
+          selezionati, fermentazioni lunghe in cemento e trenta mesi in botte grande da
+          25 ettolitri. Il risultato sono vini che al primo anno sembrano scontrosi e
+          poi non smettono più di crescere.
+        </p>
+        <div class="quote">
+          «Se un'annata non ci convince, il Barolo non lo facciamo e finisce nel Langhe
+          Nebbiolo. È successo nel 2014 e rifaremmo la stessa cosa domani.»
+          <b>— Pietro Vergne, cantiniere</b>
+        </div>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 1.6.6 2.7 1.2 3.4L12 22l5.8-9.6c.6-.7 1.2-1.8 1.2-3.4a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          </span>
+          <div><b>Dove</b><span>La Morra (CN), con parcelle in Bussia e Roncaglie</span></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+          </span>
+          <div><b>Cantina</b><span>Cemento per la fermentazione, botti grandi di rovere di Slavonia</span></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/><circle cx="12" cy="6" r="3"/></svg>
+          </span>
+          <div><b>In vigna</b><span>Inerbimento permanente, rame e zolfo, nessun diserbo dal 2011</span></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+          </span>
+          <div><b>Da noi</b><span>Acquisto diretto in cantina, spedizione dal nostro magazzino a 14 °C</span></div>
+        </div>
+        <div class="fact">
+          <span class="ic" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </span>
+          <div><b>Tempi</b><span>Barolo in commercio dopo 38 mesi, Riserva dopo 62</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VIGNETI ══════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Le parcelle</p>
+        <h2 class="h2">Tre vigne, tre caratteri</h2>
+      </div>
+    </div>
+
+    <div class="plots">
+      <article class="plot">
+        <svg class="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><linearGradient id="p1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8d6f4a"/><stop offset="100%" stop-color="#3d2f20"/></linearGradient></defs>
+          <rect width="400" height="300" fill="url(#p1)"/>
+          <circle cx="330" cy="52" r="38" fill="rgba(255,255,255,.24)"/>
+          <path d="M0 150c90-40 150 16 230-14s110 8 170-16v180H0z" fill="rgba(0,0,0,.24)"/>
+          <g stroke="rgba(255,255,255,.26)" stroke-width="3"><path d="M40 190v110M100 182v118M160 176v124M220 174v126M280 178v122M340 184v116"/></g>
+        </svg>
+        <p class="eyebrow">Bussia · 1,4 ha</p>
+        <h3>Bussia</h3>
+        <p>Marne di Sant'Agata, esposizione sud-est. Dà il vino più severo e longevo della cantina.</p>
+        <ul>
+          <li>Nebbiolo</li><li>1968</li><li>380 m</li>
+        </ul>
+      </article>
+
+      <article class="plot">
+        <svg class="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><linearGradient id="p2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7ea88f"/><stop offset="100%" stop-color="#2f4b39"/></linearGradient></defs>
+          <rect width="400" height="300" fill="url(#p2)"/>
+          <circle cx="70" cy="48" r="34" fill="rgba(255,255,255,.24)"/>
+          <path d="M0 168c110-44 160 12 244-18s96 6 156-14v164H0z" fill="rgba(0,0,0,.22)"/>
+          <g stroke="rgba(255,255,255,.28)" stroke-width="3"><path d="M30 200v100M90 194v106M150 190v110M210 188v112M270 192v108M330 196v104"/></g>
+        </svg>
+        <p class="eyebrow">Roncaglie · 1,6 ha</p>
+        <h3>Roncaglie</h3>
+        <p>Sabbie più sciolte e ventilazione costante: qui nasce il Barbaresco, più agile e profumato.</p>
+        <ul>
+          <li>Nebbiolo</li><li>1974</li><li>340 m</li>
+        </ul>
+      </article>
+
+      <article class="plot">
+        <svg class="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs><linearGradient id="p3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b08a6a"/><stop offset="100%" stop-color="#4a3624"/></linearGradient></defs>
+          <rect width="400" height="300" fill="url(#p3)"/>
+          <circle cx="200" cy="58" r="42" fill="rgba(255,255,255,.2)"/>
+          <path d="M0 160c80-34 140 22 214-8s126 4 186-20v168H0z" fill="rgba(0,0,0,.26)"/>
+          <g stroke="rgba(255,255,255,.24)" stroke-width="3"><path d="M50 196v104M110 190v110M170 186v114M230 188v112M290 192v108M350 198v102"/></g>
+        </svg>
+        <p class="eyebrow">Ciabot · 1 ha</p>
+        <h3>Ciabot Vecchio</h3>
+        <p>La parcella più giovane, a Dolcetto e Barbera. Il vino di tutti i giorni, quello che bevono loro.</p>
+        <ul>
+          <li>Dolcetto e Barbera</li><li>1996</li><li>310 m</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ ETICHETTE ════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">In catalogo</p>
+        <h2 class="h2">Le etichette che teniamo</h2>
+      </div>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Filtra le etichette">
+        <button class="on" data-f="tutte" role="tab" aria-selected="true">Tutte</button>
+        <button data-f="rosso" role="tab" aria-selected="false">Rossi</button>
+        <button data-f="bianco" role="tab" aria-selected="false">Bianchi</button>
+        <button data-f="disp" role="tab" aria-selected="false">Disponibili</button>
+      </div>
+    </div>
+
+    <div class="grid4" id="labels"></div>
+  </section>
+
+  <!-- ══ VISITA ═══════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">In cantina</p>
+        <h2 class="h2">Andare a trovarli</h2>
+      </div>
+    </div>
+
+    <div class="panel visit">
+      <div class="map">
+        <svg viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" aria-label="Mappa di La Morra">
+          <rect width="400" height="340" fill="#e6e0d3"/>
+          <g stroke="#d3ccbb" stroke-width="14" fill="none">
+            <path d="M-20 90h440M-20 230h440M120 -20v380M300 -20v380"/>
+          </g>
+          <g stroke="#cfc6b2" stroke-width="6" fill="none">
+            <path d="M-20 160h440M40 -20v380M220 -20v380M370 -20v380"/>
+          </g>
+          <path d="M0 250q120-60 200-10t200-30v130H0z" fill="#cfe0cd"/>
+          <path d="M40 40h60v40H40zM250 130h70v50h-70zM130 250h80v44h-80z" fill="#ddd6c6"/>
+          <path d="M-20 190q140 40 220-10t200 6" stroke="#c9a87c" stroke-width="8" fill="none"/>
+          <text x="24" y="316" font-family="Inter, sans-serif" font-size="11" fill="#8b8272">La Morra (CN)</text>
+        </svg>
+        <div class="map-pin">
+          <span>Cascina Vergne</span>
+          <i></i>
+        </div>
+      </div>
+
+      <div class="visit-body">
+        <h3>Visite e degustazioni</h3>
+        <p>
+          Si visita su prenotazione, massimo otto persone per volta: si gira la vigna,
+          si scende in cantina e si assaggiano quattro vini con Giulia o Pietro.
+          Dura circa novanta minuti e costa 25 € a persona, scalati se acquisti in cantina.
+        </p>
+
+        <div class="slotlist" id="slots">
+          <div class="slot">
+            <div class="day"><b>08</b><span>Ago</span></div>
+            <div class="info"><b>Visita guidata + 4 assaggi</b><span>Sabato · 10:30 · 6 posti liberi</span></div>
+            <button class="btn btn-dark small" data-slot="1">Prenota</button>
+          </div>
+          <div class="slot">
+            <div class="day"><b>08</b><span>Ago</span></div>
+            <div class="info"><b>Verticale di Barolo, 5 annate</b><span>Sabato · 17:00 · 2 posti liberi</span></div>
+            <button class="btn btn-dark small" data-slot="2">Prenota</button>
+          </div>
+          <div class="slot">
+            <div class="day"><b>15</b><span>Ago</span></div>
+            <div class="info"><b>Vendemmia aperta (mezza giornata)</b><span>Sabato · 08:00 · lista d'attesa</span></div>
+            <button class="btn btn-ghost small" disabled style="opacity:.55;cursor:default">Esaurita</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap">
+          <a class="btn btn-gold" href="catalogo.html">
+            Vedi le etichette in catalogo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="btn btn-ghost">Scrivi alla cantina</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Enoteca online di vini italiani da cantine indipendenti. Compriamo direttamente da 128 produttori, senza intermediari.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Tutti i prodotti</a></li>
+        <li><a href="cantina.html">Cantine</a></li>
+        <li><a href="regioni.html">Regioni del vino</a></li>
+        <li><a href="prodotto.html">Barolo Bussia 2019</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="javascript:void(0)">Spedizioni e consegne</a></li>
+        <li><a href="javascript:void(0)">Resi e rimborsi</a></li>
+        <li><a href="javascript:void(0)">Domande frequenti</a></li>
+        <li><a href="javascript:void(0)">Vendi su Stappando</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · scheda cantina — etichette e interazioni
+   ══════════════════════════════════════════════════════════ */
+
+const STYLE_META = {
+  rosso:  {label:'Rosso',  tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
+  bianco: {label:'Bianco', tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
+};
+
+const ETICHETTE = [
+  {id:'e1', name:'Barolo Bussia 2019', style:'rosso', grape:'Nebbiolo', price:48.00, old:56.00,
+   rating:4.9, votes:212, stock:24, ribbon:'Best seller', link:'prodotto.html'},
+  {id:'e2', name:'Barbaresco Roncaglie 2020', style:'rosso', grape:'Nebbiolo', price:54.00, old:null,
+   rating:4.8, votes:58, stock:14},
+  {id:'e3', name:'Barolo Riserva Bussia 2016', style:'rosso', grape:'Nebbiolo', price:96.00, old:null,
+   rating:5.0, votes:31, stock:6, ribbon:'Solo 6 bottiglie', gold:true},
+  {id:'e4', name:'Langhe Nebbiolo 2022', style:'rosso', grape:'Nebbiolo', price:19.00, old:null,
+   rating:4.6, votes:143, stock:58},
+  {id:'e5', name:'Dolcetto d\'Alba 2023', style:'rosso', grape:'Dolcetto', price:14.00, old:null,
+   rating:4.4, votes:87, stock:0, ribbon:'Esaurito'},
+  {id:'e6', name:'Langhe Bianco Ciabot 2023', style:'bianco', grape:'Arneis', price:17.50, old:null,
+   rating:4.5, votes:36, stock:22, ribbon:'Novità', gold:true},
+];
+
+const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+let uid = 0;
+function bottleSVG(style){
+  const m = STYLE_META[style];
+  const id = 'b' + (++uid);
+  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${m.glass}"/><stop offset="42%" stop-color="${m.wine}"/>
+      <stop offset="58%" stop-color="${m.wine}"/><stop offset="100%" stop-color="${m.glass}"/>
+    </linearGradient></defs>
+    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
+    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
+    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
+      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
+    <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
+    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
+    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
+    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
+    <text x="28" y="112" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="6" fill="#3a2a2a">CASCINA</text>
+    <text x="28" y="121" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="6" fill="#3a2a2a">VERGNE</text>
+  </svg>`;
+}
+function sceneSVG(style){
+  const m = STYLE_META[style];
+  const id = 's' + (++uid);
+  return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice"
+    style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
+    <rect width="320" height="200" fill="url(#${id})"/>
+    <circle cx="160" cy="112" r="78" fill="rgba(255,255,255,.42)"/>
+    <ellipse cx="160" cy="178" rx="68" ry="10" fill="rgba(0,0,0,.1)"/>
+  </svg>`;
+}
+function starsSVG(rating, votes){
+  const full = Math.round(rating);
+  let s = '';
+  for(let i=1;i<=5;i++){
+    s += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${i<=full?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
+  }
+  return `<div class="stars"><span class="s">${s}</span>${rating.toLocaleString('it-IT',{minimumFractionDigits:1})} <span style="font-weight:500">(${votes})</span></div>`;
+}
+
+const labelsEl = document.getElementById('labels');
+
+function cardHTML(p){
+  const m = STYLE_META[p.style];
+  const esaurito = p.stock === 0;
+  return `<article class="prod"${esaurito ? ' style="opacity:.72"' : ''}>
+    <div class="prod-art">
+      ${sceneSVG(p.style)}
+      ${p.ribbon ? `<span class="ribbon${p.gold ? ' gold' : ''}">${esc(p.ribbon)}</span>` : ''}
+      ${bottleSVG(p.style)}
+    </div>
+    <div class="prod-body">
+      <span class="style-tag" style="color:${m.tag};border-color:${m.tag}33;background:${m.tag}12">${m.label}</span>
+      <a class="bn" href="${p.link || 'prodotto.html'}">${esc(p.name)}</a>
+      <span class="bc">${esc(p.grape)} · Cascina Vergne</span>
+      ${starsSVG(p.rating, p.votes)}
+      <div class="prod-foot">
+        <span class="price">${p.old ? `<s>${eur(p.old)}</s>` : ''}${eur(p.price)}</span>
+        ${esaurito
+          ? `<span style="font-size:11px;font-weight:700;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.1em">Esaurito</span>`
+          : `<button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+             </button>`}
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(filter){
+  const list = ETICHETTE.filter(p =>
+    filter === 'tutte' ? true :
+    filter === 'disp'  ? p.stock > 0 :
+    p.style === filter);
+  labelsEl.innerHTML = list.map(cardHTML).join('');
+}
+render('tutte');
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if(!b) return;
+  document.querySelectorAll('#tabs button').forEach(x => {
+    x.classList.remove('on');
+    x.setAttribute('aria-selected','false');
+  });
+  b.classList.add('on');
+  b.setAttribute('aria-selected','true');
+  render(b.dataset.f);
+});
+
+/* carrello */
+const cartCount = document.getElementById('cartCount');
+labelsEl.addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if(!add) return;
+  cartCount.textContent = +cartCount.textContent + 1;
+  add.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
+});
+
+/* prenotazione visite */
+document.getElementById('slots').addEventListener('click', e => {
+  const b = e.target.closest('[data-slot]');
+  if(!b) return;
+  const booked = b.classList.toggle('booked');
+  b.classList.toggle('btn-dark', !booked);
+  b.textContent = booked ? 'Posto richiesto' : 'Prenota';
+});
+
+/* menu mobile */
+const burger = document.getElementById('burger');
+const mobnav = document.getElementById('mobnav');
+burger.addEventListener('click', () => {
+  const open = mobnav.classList.toggle('open');
+  burger.setAttribute('aria-expanded', String(open));
+});
+</script>
+
+</body>
+</html>
