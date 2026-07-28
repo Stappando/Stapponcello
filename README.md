@@ -13,7 +13,7 @@ direttamente tutte le dashboard, senza scaricare nulla.
 
 - **`index.html`** — homepage con i link a tutti i mockup.
 - **`Dashboards/`** — mockup delle dashboard (Manager Admin, Vendor Owner, Vendor Manager, Horeca).
-- **`Pagine/`** — mockup delle pagine (in arrivo).
+- **`Pagine/`** — mockup delle pagine (Regioni del vino).
 
 ## Struttura dei branch
 
