@@ -208,9 +208,21 @@ textarea.input{min-height:96px;resize:vertical;line-height:1.5;padding:12px 16px
 .ord-list-col{display:flex;flex-direction:column;min-width:0;flex:1}
 .ord-list-col.split{flex:0 0 360px;width:360px}
 .ord-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-right:2px}
-.ord-card{width:100%;text-align:left;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:.15s}
+.ord-card{width:100%;flex:none;text-align:left;background:#fff;border:1px solid var(--border);border-radius:var(--r);transition:.15s;overflow:hidden}
 .ord-card:hover{box-shadow:var(--shadow-md)}
 .ord-card.on{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.1)}
+.ord-main{width:100%;text-align:left;display:block;padding:16px}
+.ord-acts{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--border-soft);background:rgba(240,235,227,.35)}
+.ord-acts .btn{flex:0 0 auto;padding:8px 12px;font-size:12px;gap:6px}
+@media (max-width:768px){.ord-acts .btn{flex:1 1 auto;min-width:120px}}
+.ord-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px;flex:none}
+.ord-filters .search{margin:0}
+.selwrap{position:relative;flex:0 1 auto;min-width:172px}
+.selwrap select{width:100%;appearance:none;padding:10px 34px 10px 34px;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;font-size:13px;outline:none;cursor:pointer;transition:.15s}
+.selwrap select:focus{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.12)}
+.selwrap .ic{position:absolute;top:50%;transform:translateY(-50%);color:var(--muted-fg);pointer-events:none}
+.selwrap .ic:first-of-type{left:12px}
+.selwrap .ic.caret{left:auto;right:12px}
 .ord-card .code{font-size:12px;font-weight:700;color:var(--muted-fg)}
 .ord-card .cust{font-size:14px;font-weight:600;margin-top:2px}
 .stackimgs{display:flex}
@@ -228,6 +240,41 @@ textarea.input{min-height:96px;resize:vertical;line-height:1.5;padding:12px 16px
 .oi:last-child{border-bottom:none}
 .totrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted-fg)}
 .totrow.big{font-size:14px;font-weight:600;color:var(--fg);padding-top:8px;border-top:1px solid var(--border)}
+
+/* ── wizard: opzioni, passi, conferme ────────────────── */
+.opt{width:100%;display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;text-align:left;transition:.15s}
+.opt:hover{border-color:rgba(0,95,115,.35);background:rgba(0,95,115,.03)}
+.opt.on{border-color:var(--primary);background:rgba(0,95,115,.06);box-shadow:0 0 0 2px rgba(0,95,115,.12)}
+.opt h4{font-size:13px;font-weight:600}
+.opt p{font-size:12px;color:var(--muted-fg);margin-top:3px;line-height:1.45}
+.opt-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(0,95,115,.1);color:var(--primary)}
+.steps{display:flex;align-items:center;gap:6px}
+.steps i{flex:1;height:4px;border-radius:999px;background:var(--muted);display:block;transition:.2s}
+.steps i.on{background:var(--primary)}
+.chk{width:100%;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r-sm);text-align:left;background:#fff;transition:.15s}
+.chk:hover{border-color:rgba(0,95,115,.35)}
+.chk.on{border-color:var(--primary);background:rgba(0,95,115,.05)}
+.chk .box{width:20px;height:20px;border-radius:6px;border:2px solid rgba(0,0,0,.2);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;transition:.15s}
+.chk.on .box{background:var(--primary);border-color:var(--primary)}
+.chk h4{font-size:13px;font-weight:600}
+.chk p{font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.45}
+.warn{display:flex;gap:10px;padding:12px 14px;border-radius:var(--r-sm);background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:12px;line-height:1.5}
+.warn b{font-weight:700}
+.recap{display:flex;flex-direction:column;gap:8px;padding:14px 16px;border-radius:var(--r-sm);background:rgba(240,235,227,.6)}
+.recap .rr{display:flex;gap:12px;font-size:12px}
+.recap .rr span:first-child{color:var(--muted-fg);min-width:96px;flex:none}
+.recap .rr span:last-child{font-weight:600}
+
+/* ── punti di ritiro ─────────────────────────────────── */
+.ritdist{font-size:11px;font-weight:700;color:var(--primary);white-space:nowrap;flex:none}
+.rittags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.rittag{padding:2px 7px;border-radius:6px;font-size:10px;font-weight:600;background:var(--muted);color:var(--muted-fg)}
+.ritmap{position:relative;height:120px;border-radius:var(--r-sm);overflow:hidden;background:
+  linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px) 0 0/28px 28px,
+  linear-gradient(180deg,rgba(0,0,0,.05) 1px,transparent 1px) 0 0/28px 28px,
+  linear-gradient(135deg,#eef4f4,#f7f3ee)}
+.ritmap .mk{position:absolute;transform:translate(-50%,-100%);color:var(--primary)}
+.ritmap .me{position:absolute;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:999px;background:var(--accent);border:2px solid #fff;box-shadow:var(--shadow-sm)}
 
 /* ── prodotti / wishlist ─────────────────────────────── */
 .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -382,6 +429,40 @@ textarea.input{min-height:96px;resize:vertical;line-height:1.5;padding:12px 16px
 .vcode{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px dashed rgba(0,0,0,.18);border-radius:var(--r-sm);background:rgba(240,235,227,.5)}
 .vcode span{flex:1;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:14px;font-weight:700;letter-spacing:.08em}
 .vmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted-fg);padding-top:12px;border-top:1px solid var(--border-soft)}
+
+/* ── punti pop (programma fedeltà) ───────────────────── */
+.pop{position:relative;border-radius:var(--r-lg);overflow:hidden;padding:24px 28px;color:#fff;
+  background:linear-gradient(135deg,#5c4526 0%,#8a6a3b 55%,#c9a87c 100%);
+  display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.pop .glow{position:absolute;inset:0;opacity:.18;background:radial-gradient(circle at 88% 12%,#fff 0,transparent 45%),radial-gradient(circle at 6% 90%,#003d4d 0,transparent 55%)}
+.pop .pin{position:relative;flex:1;min-width:210px}
+.pop .lbl{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:600}
+.pop .amt{font-family:"Playfair Display",Georgia,serif;font-size:42px;font-weight:700;line-height:1.05;margin-top:6px}
+.pop .amt small{font-family:Inter,sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;margin-left:6px;opacity:.8}
+.pop .sub{font-size:12px;color:rgba(255,255,255,.82);margin-top:6px;max-width:430px;line-height:1.5}
+.pop .lvl{position:relative;flex:1;min-width:230px;display:flex;flex-direction:column;gap:8px}
+.pop .lvlrow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;font-weight:600}
+.popbar{height:8px;border-radius:999px;background:rgba(255,255,255,.25);overflow:hidden}
+.popbar i{display:block;height:100%;border-radius:999px;background:#fff}
+.pop .pact{position:relative;flex:none;display:flex;gap:8px;flex-wrap:wrap}
+.pop .btn-ghost{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.pop .btn-ghost:hover{background:rgba(255,255,255,.26)}
+.poptier{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.22);color:#fff}
+.prize{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-sm)}
+.prize.off{opacity:.6}
+.prize .pcost{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#8a6a3b;
+  background:rgba(201,168,124,.2);padding:3px 9px;border-radius:999px;align-self:flex-start}
+.prize h4{font-size:14px;font-weight:600}
+.prize p{font-size:12px;color:var(--muted-fg);line-height:1.45}
+.earn{display:flex;gap:12px;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--border-soft)}
+.earn:last-child{border-bottom:none}
+.earn .ei{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:rgba(201,168,124,.2);color:#8a6a3b}
+.earn h4{font-size:13px;font-weight:600}
+.earn p{font-size:12px;color:var(--muted-fg);margin-top:2px;line-height:1.45}
+.popflash{display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:var(--r-sm);
+  background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;font-size:12px;font-weight:600}
 
 /* ── banner / info ───────────────────────────────────── */
 .banner{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-radius:var(--r);border:1px solid rgba(0,95,115,.18);background:linear-gradient(135deg,rgba(0,95,115,.06),rgba(201,168,124,.08))}
@@ -707,6 +788,104 @@ const CORRIERI = [
   {id:"poste",nome:"Poste Italiane",desc:"Consegna in 3/5 giorni, la più economica. Giacenza nei Punto Poste per 10 giorni.",icon:"home"},
 ];
 
+/* ── Punti Pop: il programma fedeltà del cliente ────────────── */
+const POP = {
+  saldo:1840,          /* punti spendibili ora */
+  totali:2140,         /* accumulati nel 2026: determinano il livello */
+  cent:100,            /* 100 punti = € 1,00 di credito */
+  minRiscatto:500,
+  scadenza:{punti:180,data:"31 dic 2026"},
+  livelli:[
+    {id:"bottiglia",nome:"Bottiglia",da:0,mult:1,vantaggi:"1 punto per ogni euro speso"},
+    {id:"magnum",nome:"Magnum",da:1000,mult:1.25,vantaggi:"1,25 punti per euro · spedizione gratuita da € 59"},
+    {id:"jeroboam",nome:"Jéroboam",da:2500,mult:1.5,vantaggi:"1,5 punti per euro · anteprime e allocazioni riservate"},
+  ],
+  come:[
+    {icon:"bag",label:"Ogni acquisto",desc:"1 punto per ogni euro speso, IVA inclusa. Accreditati alla consegna dell'ordine."},
+    {icon:"star",label:"Le tue recensioni",desc:"50 punti per ogni recensione pubblicata dopo la moderazione."},
+    {icon:"wine",label:"Box Wine Club",desc:"100 punti bonus per ogni box ricevuto, se non salti il mese."},
+    {icon:"users",label:"Invita un amico",desc:"250 punti quando chi inviti completa il primo ordine."},
+    {icon:"cal",label:"Compleanno",desc:"200 punti in regalo nel mese del tuo compleanno."},
+  ],
+  premi:[
+    {id:"pop5",punti:500,tipo:"euro",val:5,label:"Buono € 5",desc:"Credito immediato, si applica al prossimo ordine."},
+    {id:"pop10",punti:900,tipo:"euro",val:10,label:"Buono € 10",desc:"Il taglio più conveniente: 90 punti per euro."},
+    {id:"popship",punti:700,tipo:"ship",val:0,label:"Spedizione gratuita",desc:"Su un ordine a tua scelta, senza soglia minima."},
+    {id:"popwine",punti:1500,tipo:"wine",val:0,label:"Bottiglia sorpresa",desc:"Scelta dai nostri sommelier tra i vini del mese."},
+    {id:"popclub",punti:2600,tipo:"club",val:0,label:"Un box Wine Club in regalo",desc:"Salta un addebito mensile senza saltare il box."},
+  ],
+  movimenti:[
+    {data:"22 lug 2026",desc:"Ordine #ORD-91284",punti:170},
+    {data:"11 lug 2026",desc:"Ordine #ORD-90917",punti:299},
+    {data:"5 lug 2026",desc:"Box Wine Club di luglio",punti:100},
+    {data:"3 lug 2026",desc:"Recensione “La sorpresa dell'estate”",punti:50},
+    {data:"28 giu 2026",desc:"Ordine #ORD-90455",punti:118},
+    {data:"14 giu 2026",desc:"Buono € 10 riscattato",punti:-900},
+    {data:"9 giu 2026",desc:"Ordine #ORD-89902",punti:239},
+    {data:"18 mag 2026",desc:"Ordine #ORD-89340",punti:239},
+  ],
+};
+
+/* ── Punti di ritiro e consegna resi ────────────────────────── */
+const PUNTI_RITIRO = [
+  {id:"pr1",nome:"Tabaccheria Melzi",tipo:"Punto di ritiro",gestore:"Poste Italiane",via:"Via Melzo 12 — 20129 Milano",
+   dist:"350 m",orari:"lun–sab 7:30–19:30",servizi:["Ritiro pacchi","Consegna resi","Stampa LDV"],icon:"home",x:24,y:62},
+  {id:"pr2",nome:"Ufficio Poste Milano 12",tipo:"Ufficio postale",gestore:"Poste Italiane",via:"Via Palermo 3 — 20121 Milano",
+   dist:"600 m",orari:"lun–ven 8:20–13:35 · sab 8:20–12:35",servizi:["Ritiro pacchi","Consegna resi","Contrassegno"],icon:"building",x:47,y:38},
+  {id:"pr3",nome:"Edicola Garibaldi",tipo:"Fermopoint",gestore:"BRT Fermopoint",via:"Corso Garibaldi 88 — 20121 Milano",
+   dist:"900 m",orari:"lun–sab 6:30–20:00",servizi:["Ritiro pacchi","Consegna resi"],icon:"cart",x:68,y:70},
+  {id:"pr4",nome:"Locker Stazione Garibaldi",tipo:"Locker 24 ore",gestore:"Poste Italiane",via:"Piazza Sigmund Freud 1 — 20154 Milano",
+   dist:"1,4 km",orari:"sempre aperto, 24 ore",servizi:["Ritiro pacchi","Consegna resi","Self-service"],icon:"box",x:84,y:30},
+];
+
+/* ── Wizard “Segnala un problema” ───────────────────────────── */
+const SUPPORT_MAIL = "assistenza@stappando.it";
+const PROB_CAT = {
+  prodotto:{label:"Problema con il prodotto",icon:"wine",
+    desc:"Quello che c'è nel pacco non corrisponde a quello che volevi.",
+    tipi:[
+      {id:"annata",label:"Annata errata",desc:"Ho ricevuto un'annata diversa da quella indicata sull'ordine."},
+      {id:"sbagliato",label:"Acquisto sbagliato",desc:"Ho ordinato il vino sbagliato e vorrei correggerlo o restituirlo."},
+      {id:"diverso",label:"Prodotto diverso da quello ordinato",desc:"Nel pacco c'è un'etichetta che non ho mai ordinato."},
+      {id:"difetto",label:"Vino difettoso",desc:"Tappo rovinato, vino ossidato o sentore di tappo."},
+    ]},
+  spedizione:{label:"Problema con la spedizione",icon:"truck",
+    desc:"Il pacco è in viaggio, in ritardo o non è mai arrivato.",
+    tipi:[
+      {id:"danno",label:"Danno",desc:"Il pacco è arrivato bagnato o con una o più bottiglie rotte."},
+      {id:"smarrimento",label:"Smarrimento",desc:"Il corriere lo dà per consegnato ma non l'ho ricevuto."},
+      {id:"ritardo",label:"Ritardo",desc:"La consegna ha superato la data prevista."},
+      {id:"dove",label:"Dove è il mio pacco?",desc:"Il tracking non si aggiorna da giorni e non ho notizie."},
+    ]},
+};
+const probTipo = (cat,id) => ((PROB_CAT[cat]||{}).tipi||[]).find(t=>t.id===id)||null;
+
+/* ── Motivi di reso ─────────────────────────────────────────── */
+const RESO_GIORNI = 14;
+const RESO_MOTIVI = [
+  {id:"recesso",label:"Ho cambiato idea (diritto di recesso)",desc:"Entro "+RESO_GIORNI+" giorni dalla consegna, bottiglie ancora chiuse."},
+  {id:"danneggiata",label:"Bottiglia danneggiata o difettosa",desc:"Allega una foto: in questo caso il reso è a nostro carico."},
+  {id:"diverso",label:"Ho ricevuto un vino diverso da quello ordinato",desc:"Ci occupiamo noi del ritiro e della sostituzione."},
+  {id:"altro",label:"Altro",desc:"Raccontacelo nel dettaglio qui sotto."},
+];
+
+/* ── Periodi per il filtro ordini ───────────────────────────── */
+const OGGI = new Date(2026,6,28); /* demo statica: 28 luglio 2026 */
+const MESI_IT = {gen:0,feb:1,mar:2,apr:3,mag:4,giu:5,lug:6,ago:7,set:8,ott:9,nov:10,dic:11};
+function parseData(s){
+  const p=String(s).trim().split(/\s+/);
+  return new Date(parseInt(p[2],10), MESI_IT[(p[1]||"").toLowerCase()]||0, parseInt(p[0],10));
+}
+const PERIODI = [
+  {id:"all",label:"Tutti i periodi",test:()=>true},
+  {id:"30",label:"Ultimi 30 giorni",test:d=>(OGGI-d)/864e5<=30},
+  {id:"90",label:"Ultimi 3 mesi",test:d=>(OGGI-d)/864e5<=90},
+  {id:"180",label:"Ultimi 6 mesi",test:d=>(OGGI-d)/864e5<=180},
+  {id:"y2026",label:"Anno 2026",test:d=>d.getFullYear()===2026},
+  {id:"y2025",label:"Anno 2025",test:d=>d.getFullYear()===2025},
+];
+const periodoTest = id => (PERIODI.find(p=>p.id===id)||PERIODI[0]).test;
+
 /* ── Comunicazioni e consensi ───────────────────────────────── */
 const PREFS = [
   {id:"ordini",icon:"bag",label:"Stato dei miei ordini",desc:"Conferma d'ordine, spedizione e consegna via email e SMS",on:true,fisso:true},
@@ -724,7 +903,6 @@ const eurK = n => "€ " + n.toLocaleString("it-IT",{minimumFractionDigits:2,max
 const pct = (old,now) => Math.round((1-now/old)*100);
 const FREE_SHIP = 79;
 const SHIP_COST = 6.90;
-const RESO_GIORNI = 14;
 </script>
 <script>
 /* ── Navigazione del ruolo User ─────────────────────────────── */
@@ -752,18 +930,23 @@ const S = {
   accMenu:false, mobMenu:false, cartOpen:false,
   cart:{},
   wishlist:["p2","p7","p10","p1"],
-  ord:{tab:"all",search:"",selected:null,mobile:false},
+  ord:{tab:"all",periodo:"all",search:"",selected:null,mobile:false},
   club:{saltato:CLUB.saltato},
   buoni:{tab:"attivo",copied:null},
+  punti:{msg:null},
   rev:{tab:"scritte",modal:null,voto:5,titolo:"",testo:""},
   recensioni:JSON.parse(JSON.stringify(RECENSIONI)),
   prefs:JSON.parse(JSON.stringify(PREFS)),
   corriere:"brt",
   addrDef:"a1",
   payDef:"m1",
+  ritiroDef:"pr1",
   fa2:UTENTE.fa2,
-  reso:null,
+  /* reso: wizard di richiesta */
+  reso:{order:null,step:1,motivo:"recesso",ritiro:"pr1",chiuse:false,testo:"",inviato:false},
   resoFatto:{},
+  /* segnala un problema: wizard che apre una mail all'assistenza */
+  prob:{order:null,step:1,cat:null,tipo:null,prod:null,testo:"",inviato:false},
 };
 
 /* ── Carrello (bottiglie singole, prezzi IVA inclusa) ───────── */
@@ -829,6 +1012,40 @@ function ordTot(o){
   return sub - (o.sconto||0) + o.shipping;
 }
 
+/* ── Punti Pop: livello, valore in euro, punti per ordine ───── */
+/* separatore delle migliaia scritto a mano: non dipende dalla locale del browser */
+const popNum = n => String(Math.abs(Math.round(n))).replace(/\B(?=(\d{3})+(?!\d))/g,".");
+const popEuro = p => p/POP.cent;
+function popLivello(){
+  let cur=POP.livelli[0];
+  POP.livelli.forEach(l=>{ if(POP.totali>=l.da) cur=l; });
+  const next=POP.livelli[POP.livelli.indexOf(cur)+1]||null;
+  const prog=next?Math.max(2,Math.min(100,Math.round((POP.totali-cur.da)/(next.da-cur.da)*100))):100;
+  return {cur,next,prog,mancanti:next?next.da-POP.totali:0};
+}
+const popOrdine = o => Math.round(ordTot(o)*popLivello().cur.mult);
+const popPremio = id => POP.premi.find(p=>p.id===id)||null;
+
+/* card dei punti, usata in Panoramica e in Codici sconto & Buoni */
+function popCard(conAzioni){
+  const L=popLivello();
+  return '<div class="pop"><div class="glow"></div>'+
+    '<div class="pin"><p class="lbl">'+ic("sparkles",13)+'Punti Pop</p>'+
+      '<p class="amt">'+popNum(POP.saldo)+'<small>punti</small></p>'+
+      '<p class="sub">Valgono <b>'+eurK(popEuro(POP.saldo))+'</b> di credito. Li accumuli con ogni acquisto '+
+      'e li trasformi in buoni quando vuoi'+(POP.scadenza.punti>0?': '+popNum(POP.scadenza.punti)+
+      ' punti scadono il '+POP.scadenza.data:'')+'.</p></div>'+
+    '<div class="lvl">'+
+      '<div class="lvlrow"><span class="poptier">'+ic("wine",11)+'Livello '+L.cur.nome+'</span>'+
+        (L.next?'<span>'+popNum(L.mancanti)+' punti al livello '+L.next.nome+'</span>':'<span>livello massimo</span>')+'</div>'+
+      '<div class="popbar"><i style="width:'+L.prog+'%"></i></div>'+
+      '<p style="font-size:11px;color:rgba(255,255,255,.8);line-height:1.45">'+esc(L.cur.vantaggi)+'</p></div>'+
+    (conAzioni?'<div class="pact">'+
+      '<button class="btn btn-ghost" data-act="nav-punti">'+ic("gift",15)+' Usa i punti</button>'+
+      '<button class="btn btn-ghost" data-act="nav-punti">'+ic("info",15)+' Come funziona</button></div>':'')+
+  '</div>';
+}
+
 /* ═══ PANORAMICA ════════════════════════════════════════════ */
 function viewPanoramica(){
   const recenti = ORDINI.slice(0,3);
@@ -836,12 +1053,13 @@ function viewPanoramica(){
   const daRec = daRecensire();
   const resoAperto = ORDINI.find(o=>o.reso&&o.reso.stato==="in_corso");
   const codiciAttivi = CODICI.filter(c=>c.stato==="attivo");
+  const riscattabili = POP.premi.filter(p=>p.punti<=POP.saldo);
 
   const stat=(l,v,s,icona)=>'<div class="stat"><span class="lbl">'+l+'</span><span class="val">'+v+'</span>'+
     '<span class="sub">'+ic(icona||"up",13)+s+'</span></div>';
   const quick=(l,i,c,sec)=>'<button class="quick" data-act="nav" data-id="'+sec+'">'+
     '<span class="quick-ic" style="background:'+c+'1a;color:'+c+'">'+ic(i,20)+'</span><span>'+l+'</span></button>';
-  const todo=(icona,color,titolo,desc,sec)=>'<button class="todo" data-act="nav" data-id="'+sec+'">'+
+  const todo=(icona,color,titolo,desc,sec,act)=>'<button class="todo" data-act="'+(act||"nav")+'" data-id="'+sec+'">'+
     '<span class="ti" style="background:'+color+'1a;color:'+color+'">'+ic(icona,16)+'</span>'+
     '<span style="flex:1;min-width:0"><h4>'+titolo+'</h4><p>'+desc+'</p></span>'+
     ic("chevR",15,"color:var(--muted-fg)")+'</button>';
@@ -852,11 +1070,13 @@ function viewPanoramica(){
       (UTENTE.emailVerificata?'<span class="verif">'+ic("check",12)+'Email verificata</span>':'')+'</div>'+
       '<p>Cliente Stappando dal '+UTENTE.iscrizione+'. Tutti i prezzi che vedi sono IVA inclusa.</p></div>'+
 
+    popCard(true)+
+
     '<div class="grid4">'+
       stat("Ordini nel 2026",UTENTE.ordini2026+"",inArrivo.length+" in arrivo","truck")+
       stat("Spesa nel 2026",eurK(UTENTE.spesa2026),"Risparmiati "+eurK(UTENTE.risparmio2026)+" con promo e buoni","percent")+
+      stat("Punti Pop",popNum(POP.saldo),"Livello "+popLivello().cur.nome+" · valgono "+eurK(popEuro(POP.saldo)),"sparkles")+
       stat("Credito e buoni",eurK(UTENTE.credito),codiciAttivi.length+" codici sconto attivi","ticket")+
-      stat("Wine Club","2 bottiglie","Prossimo box il "+CLUB.rinnovo,"cal")+
     '</div>'+
 
     '<div class="dash-grid">'+
@@ -876,8 +1096,15 @@ function viewPanoramica(){
 
       '<div class="card">'+
         '<div class="card-h"><h3>Da fare</h3></div>'+
+        (POP.scadenza.punti>0
+          ? todo("sparkles",ROSE,popNum(POP.scadenza.punti)+" Punti Pop scadono il "+POP.scadenza.data,
+              "Hai "+popNum(POP.saldo)+" punti in tutto: "+riscattabili.length+" premi sono già alla tua portata","buoni","nav-punti")
+          : (POP.saldo>=POP.minRiscatto
+              ? todo("sparkles",GOLD,"Hai "+popNum(POP.saldo)+" Punti Pop da usare",
+                  riscattabili.length+" premi alla tua portata, dal buono da "+eurK(popEuro(POP.minRiscatto))+" in su","buoni","nav-punti")
+              : ""))+
         (daRec.length>0?todo("star",GOLD,daRec.length+" "+(daRec.length===1?"vino da recensire":"vini da recensire"),
-          "Puoi recensire solo ciò che hai acquistato","recensioni"):"")+
+          "Ogni recensione pubblicata ti vale 50 Punti Pop","recensioni"):"")+
         (resoAperto?todo("undo",ROSE,"Reso in corso su "+resoAperto.id,
           esc(resoAperto.reso.motivo),"ordini"):"")+
         todo("wine",TEAL,"Box di agosto in preparazione","Puoi saltarlo o cambiare indirizzo entro il "+CLUB.chiusura,"club")+
@@ -890,7 +1117,8 @@ function viewPanoramica(){
       '<div style="flex:1"><h4>Spedizione gratuita sopra '+eurK(FREE_SHIP)+'</h4>'+
       '<p>Sotto soglia il trasporto costa '+eurK(SHIP_COST)+'. Il tuo corriere preferito è '+
       esc((CORRIERI.find(c=>c.id===S.corriere)||{}).nome)+', consegna all\'indirizzo “'+
-      esc((INDIRIZZI.find(a=>a.id===S.addrDef)||{}).label)+'”.</p></div>'+
+      esc((INDIRIZZI.find(a=>a.id===S.addrDef)||{}).label)+'”. Se non sei in casa il pacco ti aspetta al punto di ritiro '+
+      esc((PUNTI_RITIRO.find(p=>p.id===S.ritiroDef)||{}).nome||"più vicino")+'.</p></div>'+
       '<button class="btn btn-ghost" style="flex:none" data-act="nav" data-id="indirizzi">Cambia</button>'+
     '</div>'+
 
@@ -924,37 +1152,58 @@ const STATUS_TABS=[{id:"all",label:"Tutti"},{id:"in_lavorazione",label:"In prepa
 
 function viewOrdini(){
   const q=S.ord.search.toLowerCase();
-  const list=ORDINI.filter(o=>(S.ord.tab==="all"||o.status===S.ord.tab) &&
+  const inPeriodo=periodoTest(S.ord.periodo);
+  /* il periodo filtra prima di tutto: anche i contatori dei chip lo rispettano */
+  const base=ORDINI.filter(o=>inPeriodo(parseData(o.date)));
+  const list=base.filter(o=>(S.ord.tab==="all"||o.status===S.ord.tab) &&
     (!q||o.id.toLowerCase().includes(q)||
       o.items.some(i=>byId(i.id).name.toLowerCase().includes(q)||byId(i.id).cantina.toLowerCase().includes(q))));
-  const counts={all:ORDINI.length};
-  ORDINI.forEach(o=>counts[o.status]=(counts[o.status]||0)+1);
+  const counts={all:base.length};
+  base.forEach(o=>counts[o.status]=(counts[o.status]||0)+1);
   const sel=ORDINI.find(o=>o.id===S.ord.selected)||null;
+  const periodoLbl=(PERIODI.find(p=>p.id===S.ord.periodo)||PERIODI[0]).label;
 
   const cards = list.length===0
-    ? emptyState("bag","Nessun ordine trovato","Cambia filtro oppure cerca un altro codice, vino o cantina.")
+    ? emptyState("bag","Nessun ordine trovato","Cambia periodo o filtro, oppure cerca un altro codice, vino o cantina.")
     : list.map(o=>{
       const n=o.items.reduce((s,i)=>s+i.qty,0);
-      return '<button class="ord-card '+(S.ord.selected===o.id?"on":"")+'" data-act="ord-open" data-id="'+o.id+'">'+
-        '<div class="spread" style="align-items:flex-start;margin-bottom:8px"><div><p class="code">'+o.id+'</p>'+
-        '<p class="cust">'+n+' bottiglie'+(o.regalo?' · confezione regalo':'')+'</p></div>'+statusBadge(o.status)+'</div>'+
-        '<div class="row" style="gap:8px"><div class="stackimgs">'+
-          o.items.slice(0,3).map(i=>'<div class="thumb"><img src="'+byId(i.id).img+'" alt="" loading="lazy"></div>').join("")+
-        '</div><p style="font-size:12px;color:var(--muted-fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+
-          o.items.map(i=>esc(byId(i.id).name)).join(", ")+'</p></div>'+
-        (o.reso&&o.reso.stato==="in_corso"?'<div class="note" style="margin-top:10px">'+ic("undo",12)+' Reso in corso</div>':'')+
-        '<div class="ord-foot"><span class="row" style="gap:4px">'+ic("cal",11)+o.date+'</span>'+
-        '<span class="ord-total">'+eur(ordTot(o))+'</span></div></button>';
+      const resoChiesto=o.reso||S.resoFatto[o.id];
+      const puoiRendere=o.status==="consegnato"&&!resoChiesto;
+      return '<div class="ord-card '+(S.ord.selected===o.id?"on":"")+'">'+
+        '<button class="ord-main" data-act="ord-open" data-id="'+o.id+'">'+
+          '<div class="spread" style="align-items:flex-start;margin-bottom:8px"><div><p class="code">'+o.id+'</p>'+
+          '<p class="cust">'+n+' bottiglie'+(o.regalo?' · confezione regalo':'')+'</p></div>'+statusBadge(o.status)+'</div>'+
+          '<div class="row" style="gap:8px"><div class="stackimgs">'+
+            o.items.slice(0,3).map(i=>'<div class="thumb"><img src="'+byId(i.id).img+'" alt="" loading="lazy"></div>').join("")+
+          '</div><p style="font-size:12px;color:var(--muted-fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+
+            o.items.map(i=>esc(byId(i.id).name)).join(", ")+'</p></div>'+
+          (resoChiesto?'<div class="note" style="margin-top:10px">'+ic("undo",12)+' Reso '+(o.reso?'in corso':'richiesto')+'</div>':'')+
+          '<div class="ord-foot"><span class="row" style="gap:4px">'+ic("cal",11)+o.date+'</span>'+
+          '<span class="ord-total">'+eur(ordTot(o))+'</span></div></button>'+
+        '<div class="ord-acts">'+
+          '<button class="btn btn-primary" data-act="reorder" data-id="'+o.id+'">'+ic("rotate",14)+' Riordina</button>'+
+          (puoiRendere?'<button class="btn btn-ghost" data-act="reso-open" data-id="'+o.id+'">'+ic("undo",14)+' Fai un reso</button>':'')+
+          '<button class="btn btn-ghost" data-act="prob-open" data-id="'+o.id+'">'+ic("msg",14)+' Segnala un problema</button>'+
+        '</div></div>';
     }).join("");
 
   return '<div class="ord-layout wrap-lg" style="height:100%">'+
     '<div class="ord-list-col '+(sel?"split":"")+'">'+
-      '<div class="search" style="margin-bottom:16px;flex:none">'+ic("search",15)+
-        '<input class="input" data-input="ord-search" data-focus-key="ordsearch" placeholder="Cerca ordine, vino o cantina..." value="'+esc(S.ord.search)+'"></div>'+
-      '<div class="chiprow" style="margin-bottom:16px;flex:none">'+
+      '<div class="ord-filters">'+
+        '<div class="search">'+ic("search",15)+
+          '<input class="input" data-input="ord-search" data-focus-key="ordsearch" placeholder="Cerca ordine, vino o cantina..." value="'+esc(S.ord.search)+'"></div>'+
+        '<div class="selwrap">'+ic("cal",15)+
+          '<select data-input="ord-periodo" data-focus-key="ordperiodo" aria-label="Periodo">'+
+            PERIODI.map(p=>'<option value="'+p.id+'"'+(S.ord.periodo===p.id?" selected":"")+'>'+p.label+'</option>').join("")+
+          '</select>'+ic("chevD",14,"","caret")+'</div>'+
+      '</div>'+
+      '<div class="chiprow" style="margin-bottom:12px;flex:none">'+
         STATUS_TABS.map(t=>'<button class="chip '+(S.ord.tab===t.id?"on":"")+'" data-act="ord-tab" data-id="'+t.id+'">'+t.label+
           ((counts[t.id]||0)>0?'<b>'+counts[t.id]+'</b>':'')+'</button>').join("")+
       '</div>'+
+      '<p class="packnote" style="margin-bottom:12px;flex:none;white-space:normal">'+
+        list.length+' '+(list.length===1?"ordine":"ordini")+' · '+esc(periodoLbl).toLowerCase()+
+        (S.ord.periodo!=="all"?' <button class="link" data-act="ord-periodo-reset">azzera il periodo</button>':'')+'</p>'+
       '<div class="ord-list">'+cards+'</div>'+
     '</div>'+
     (sel?'<div class="detail-col">'+orderDetail(sel)+'</div>':'')+
@@ -995,9 +1244,13 @@ function orderDetail(o){
         '<div style="flex:1"><p style="font-size:13px;font-weight:600">Confezione regalo</p>'+
         '<p style="font-size:12px;color:var(--muted-fg);margin-top:4px">Biglietto: “'+esc(o.messaggio)+'”</p></div></div>':'')+
 
-      (resoChiesto?'<div class="note">'+ic("undo",12)+' Reso '+(o.reso?'aperto il '+o.reso.aperto:'richiesto oggi')+
-        ' — '+esc(o.reso?o.reso.motivo:"Richiesta inviata, ti scriviamo entro 24 ore con l'etichetta di ritiro.")+
-        '. Ti aggiorniamo via email.</div>':'')+
+      (o.reso
+        ? '<div class="note">'+ic("undo",12)+' Reso aperto il '+o.reso.aperto+' — '+esc(o.reso.motivo)+'. Ti aggiorniamo via email.</div>'
+        : (S.resoFatto[o.id]
+          ? '<div class="note">'+ic("undo",12)+' Reso richiesto oggi — '+esc((RESO_MOTIVI.find(m=>m.id===S.resoFatto[o.id].motivo)||{}).label||"")+
+            '. Ti inviamo la LDV via email entro 24 ore: stampala, applicala sul pacco e consegnalo a '+
+            esc((PUNTI_RITIRO.find(p=>p.id===S.resoFatto[o.id].ritiro)||{}).nome||"un punto di ritiro")+'.</div>'
+          : ''))+
 
       '<div class="card" style="overflow:hidden">'+
         '<div style="padding:12px 16px;border-bottom:1px solid var(--border)"><span class="eyebrow">Bottiglie ordinate</span></div>'+
@@ -1014,6 +1267,11 @@ function orderDetail(o){
           '<div class="totrow"><span>Spedizione · '+esc(o.corriere)+'</span><span>'+(o.shipping===0?"Gratuita":eur(o.shipping))+'</span></div>'+
           '<div class="totrow big"><span>Totale <span style="font-weight:400;color:var(--muted-fg)">IVA inclusa</span></span>'+
             '<span style="color:var(--primary)">'+eur(tot)+'</span></div>'+
+          (o.status!=="annullato"
+            ? '<div class="totrow"><span class="row" style="gap:5px">'+ic("sparkles",12)+'Punti Pop '+
+              (o.status==="consegnato"?"accreditati":"in arrivo alla consegna")+'</span>'+
+              '<span style="color:#8a6a3b;font-weight:700">+ '+popNum(popOrdine(o))+'</span></div>'
+            : '')+
         '</div></div>'+
 
       '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px">'+
@@ -1027,10 +1285,12 @@ function orderDetail(o){
         '<div class="row" style="gap:8px;flex-wrap:wrap">'+
           '<button class="btn btn-primary" style="flex:1;min-width:150px" data-act="reorder" data-id="'+o.id+'">'+ic("rotate",15)+' Riordina</button>'+
           (o.status==="consegnato"&&!resoChiesto
-            ? '<button class="btn btn-ghost" style="flex:1;min-width:150px" data-act="reso-open" data-id="'+o.id+'">'+ic("undo",15)+' Richiedi un reso</button>'
-            : '<button class="btn btn-ghost" style="flex:1;min-width:150px" data-act="nav" data-id="supporto">'+ic("msg",15)+' Segnala un problema</button>')+
+            ? '<button class="btn btn-ghost" style="flex:1;min-width:150px" data-act="reso-open" data-id="'+o.id+'">'+ic("undo",15)+' Fai un reso</button>'
+            : '')+
+          '<button class="btn btn-ghost" style="flex:1;min-width:150px" data-act="prob-open" data-id="'+o.id+'">'+ic("msg",15)+' Segnala un problema</button>'+
         '</div>'+
-        (o.status==="consegnato"&&!resoChiesto?'<p class="packnote" style="white-space:normal">Hai '+RESO_GIORNI+' giorni dalla consegna per esercitare il diritto di recesso.</p>':'')+
+        (o.status==="consegnato"&&!resoChiesto?'<p class="packnote" style="white-space:normal">Hai '+RESO_GIORNI+' giorni dalla consegna per esercitare il diritto di recesso. '+
+          'Le bottiglie devono essere ancora chiuse e integre.</p>':'')+
       '</div>'+
     '</div></div>';
 }
@@ -1138,7 +1398,60 @@ function viewWishlist(){
 }
 
 /* ═══ CODICI SCONTO & BUONI ═════════════════════════════════ */
-const BUONI_TABS=[{id:"attivo",label:"Attivi"},{id:"usato",label:"Usati"},{id:"scaduto",label:"Scaduti"},{id:"movimenti",label:"Movimenti credito"}];
+const BUONI_TABS=[{id:"punti",label:"Punti Pop"},{id:"attivo",label:"Attivi"},{id:"usato",label:"Usati"},
+  {id:"scaduto",label:"Scaduti"},{id:"movimenti",label:"Movimenti credito"}];
+
+/* pannello punti: premi da riscattare, come si guadagnano, storico */
+function puntiPanel(){
+  const L=popLivello();
+  const prezzo=p=>'<div class="prize'+(p.punti>POP.saldo?" off":"")+'">'+
+    '<span class="pcost">'+ic("sparkles",11)+popNum(p.punti)+' punti</span>'+
+    '<div><h4>'+p.label+'</h4><p style="margin-top:3px">'+esc(p.desc)+'</p></div>'+
+    (p.punti<=POP.saldo
+      ? '<button class="btn btn-primary" style="width:100%;padding:9px" data-act="punti-riscatta" data-id="'+p.id+'">'+
+        ic("gift",14)+' Riscatta</button>'
+      : '<button class="btn btn-ghost" style="width:100%;padding:9px" disabled>Ti mancano '+popNum(p.punti-POP.saldo)+' punti</button>')+
+  '</div>';
+
+  return (S.punti.msg?'<div class="popflash">'+ic("checkCircle",15)+'<span>'+esc(S.punti.msg)+'</span></div>':'')+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Riscatta i tuoi punti</h3>'+
+        '<span class="packnote">'+popNum(POP.cent)+' punti = '+eurK(1)+' di credito</span></div>'+
+      '<div style="padding:20px"><div class="grid3">'+POP.premi.map(prezzo).join("")+'</div></div>'+
+      '<div style="padding:0 20px 20px"><div class="infobox">'+ic("info",15)+
+        '<span>Il riscatto minimo è di '+popNum(POP.minRiscatto)+' punti. I buoni in euro diventano subito credito sul tuo account '+
+        'e si sommano a qualsiasi promozione; gli altri premi arrivano via email entro 24 ore.</span></div></div>'+
+    '</div>'+
+
+    '<div class="grid-2col">'+
+      '<div class="card">'+
+        '<div class="card-h"><h3>Come guadagni punti</h3></div>'+
+        POP.come.map(c=>'<div class="earn"><span class="ei">'+ic(c.icon,16)+'</span>'+
+          '<div style="flex:1;min-width:0"><h4>'+c.label+'</h4><p>'+esc(c.desc)+'</p></div></div>').join("")+
+      '</div>'+
+      '<div class="card">'+
+        '<div class="card-h"><h3>I livelli</h3><span class="hbadge gold">'+ic("wine",10)+'Sei '+L.cur.nome+'</span></div>'+
+        POP.livelli.map(l=>'<div class="earn"><span class="ei"'+(l.id===L.cur.id?' style="background:rgba(0,95,115,.12);color:var(--primary)"':'')+'>'+
+          ic(l.id===L.cur.id?"check":"wine",16)+'</span>'+
+          '<div style="flex:1;min-width:0"><h4>'+l.nome+
+            (l.id===L.cur.id?' <span class="deftag">attuale</span>':'')+'</h4>'+
+            '<p>Da '+popNum(l.da)+' punti accumulati · '+esc(l.vantaggi)+'</p></div></div>').join("")+
+        '<div style="padding:14px 20px;border-top:1px solid var(--border)">'+
+          '<p style="font-size:12px;color:var(--muted-fg)">Nel 2026 hai accumulato <b>'+popNum(POP.totali)+'</b> punti. '+
+          (L.next?'Ti mancano '+popNum(L.mancanti)+' punti per diventare '+L.next.nome+'.':'Hai raggiunto il livello massimo.')+'</p></div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="card tblwrap">'+
+      '<div class="card-h"><h3>Storico punti</h3>'+
+        '<button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" data-act="download" data-id="punti-pop-2026.csv">'+
+          ic("download",13)+' Esporta CSV</button></div>'+
+      '<table class="tbl"><thead><tr><th>Data</th><th>Descrizione</th><th class="num">Punti</th></tr></thead><tbody>'+
+      POP.movimenti.map(m=>'<tr><td class="muted">'+m.data+'</td><td>'+esc(m.desc)+'</td>'+
+        '<td class="num '+(m.punti>0?"pos":"neg")+'">'+(m.punti>0?"+ ":"− ")+popNum(m.punti)+'</td></tr>').join("")+
+      '</tbody></table></div>';
+}
 
 function viewBuoni(){
   const counts={};
@@ -1167,25 +1480,32 @@ function viewBuoni(){
       '<td class="num '+(m.imp>0?"pos":"neg")+'">'+(m.imp>0?"+ ":"")+eur(m.imp)+'</td></tr>').join("")+
     '</tbody></table></div>';
 
+  counts.punti = POP.premi.filter(p=>p.punti<=POP.saldo).length;
+
   return '<div class="wrap stack">'+
-    '<div class="credit"><div class="glow"></div>'+
-      '<div class="cin"><p class="lbl">Credito disponibile</p>'+
-        '<p class="amt">'+eurK(UTENTE.credito)+'</p>'+
-        '<p class="sub">Il credito si applica automaticamente al prossimo ordine, prima del pagamento. '+
-        'Nasce da rimborsi, gift card ricevute e bonus fedeltà.</p></div>'+
-      '<div class="cact">'+
-        '<button class="btn btn-ghost" data-act="noop">'+ic("gift",15)+' Riscatta una gift card</button>'+
-        '<button class="btn btn-ghost" data-act="buoni-tab" data-id="movimenti">'+ic("file",15)+' Movimenti</button></div>'+
-    '</div>'+
+    (S.buoni.tab==="punti"
+      ? popCard(false)
+      : '<div class="credit"><div class="glow"></div>'+
+        '<div class="cin"><p class="lbl">Credito disponibile</p>'+
+          '<p class="amt">'+eurK(UTENTE.credito)+'</p>'+
+          '<p class="sub">Il credito si applica automaticamente al prossimo ordine, prima del pagamento. '+
+          'Nasce da rimborsi, gift card ricevute, punti riscattati e bonus fedeltà.</p></div>'+
+        '<div class="cact">'+
+          '<button class="btn btn-ghost" data-act="buoni-tab" data-id="punti">'+ic("sparkles",15)+' '+popNum(POP.saldo)+' Punti Pop</button>'+
+          '<button class="btn btn-ghost" data-act="noop">'+ic("gift",15)+' Riscatta una gift card</button>'+
+          '<button class="btn btn-ghost" data-act="buoni-tab" data-id="movimenti">'+ic("file",15)+' Movimenti</button></div>'+
+      '</div>')+
 
     '<div class="chiprow">'+BUONI_TABS.map(t=>'<button class="chip '+(S.buoni.tab===t.id?"on":"")+'" data-act="buoni-tab" data-id="'+t.id+'">'+
       t.label+((counts[t.id]||0)>0?'<b>'+counts[t.id]+'</b>':'')+'</button>').join("")+'</div>'+
 
-    (S.buoni.tab==="movimenti"
-      ? movimenti
-      : (list.length===0
-          ? '<div class="card">'+emptyState("ticket","Nessun codice in questa vista","I codici sconto attivi compaiono qui e si applicano al carrello prima del pagamento.")+'</div>'
-          : '<div class="vgrid">'+list.map(voucher).join("")+'</div>'))+
+    (S.buoni.tab==="punti"
+      ? puntiPanel()
+      : (S.buoni.tab==="movimenti"
+        ? movimenti
+        : (list.length===0
+            ? '<div class="card">'+emptyState("ticket","Nessun codice in questa vista","I codici sconto attivi compaiono qui e si applicano al carrello prima del pagamento.")+'</div>'
+            : '<div class="vgrid">'+list.map(voucher).join("")+'</div>')))+
 
     '<div class="card">'+
       '<div class="card-h"><h3>Hai un codice o una gift card?</h3></div>'+
@@ -1385,6 +1705,23 @@ function viewIndirizzi(){
       '<div style="padding:16px 20px;border-top:1px solid var(--border)">'+
         '<div class="infobox">'+ic("truck",15)+'<span>Spedizione gratuita sopra '+eurK(FREE_SHIP)+' di spesa, '+
         'altrimenti '+eurK(SHIP_COST)+' qualunque corriere scegli. Puoi comunque cambiarlo ordine per ordine.</span></div></div>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Punti di ritiro e consegna</h3>'+
+        '<span class="packnote">'+PUNTI_RITIRO.length+' vicino a te</span></div>'+
+      '<div style="padding:20px 20px 0">'+ritiroMap(S.ritiroDef)+'</div>'+
+      '<div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px">'+
+        PUNTI_RITIRO.map(p=>ritiroRow(p,S.ritiroDef===p.id,"ritiro-def")).join("")+
+      '</div>'+
+      '<div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px">'+
+        '<div class="infobox">'+ic("pin",15)+'<span>Il punto di ritiro predefinito è <b>'+
+          esc((PUNTI_RITIRO.find(p=>p.id===S.ritiroDef)||{}).nome||"—")+'</b>: lo usiamo se non sei in casa alla consegna '+
+          'e te lo proponiamo per lasciare i pacchi di reso. La giacenza dura 10 giorni.</span></div>'+
+        '<div class="row" style="gap:8px;flex-wrap:wrap">'+
+          '<button class="btn btn-ghost" data-act="nav" data-id="ordini">'+ic("bag",15)+' Consegna un reso a un punto di ritiro</button>'+
+          '<button class="btn btn-ghost" data-act="noop">'+ic("search",15)+' Cerca un altro punto di ritiro</button></div>'+
+      '</div>'+
     '</div></div>';
 }
 
@@ -1488,8 +1825,17 @@ function viewSupporto(){
     '<button class="btn btn-ghost" style="width:100%" data-act="noop">'+cta+'</button></div>';
   const faq=[
     ["Come traccio la mia spedizione?","Apri l'ordine da “Ordini”: se è già partito trovi il codice del corriere e il pulsante per seguirlo passo passo."],
-    ["Entro quando posso restituire un vino?","Hai "+RESO_GIORNI+" giorni dalla consegna. Apri il reso dal dettaglio dell'ordine: ti mandiamo l'etichetta di ritiro, il rimborso arriva entro 14 giorni."],
-    ["Una bottiglia è arrivata rotta o difettosa","Segnalalo dall'ordine entro 48 ore con una foto: sostituiamo la bottiglia o rimborsiamo, senza spese per te."],
+    ["Entro quando posso restituire un vino?","Hai "+RESO_GIORNI+" giorni dalla consegna. Premi “Fai un reso” sull'ordine: le bottiglie devono essere ancora chiuse, "+
+      "ti inviamo la LDV da applicare al pacco e lo consegni al punto di ritiro o all'ufficio postale più vicino. Il rimborso arriva entro 14 giorni. "+
+      "Se le bottiglie tornano danneggiate non emettiamo alcun rimborso."],
+    ["Come funzionano i Punti Pop?","Guadagni 1 punto per ogni euro speso, più i bonus per recensioni, box Wine Club e inviti. "+
+      popNum(POP.cent)+" punti valgono "+eurK(1)+" di credito e il riscatto minimo è di "+popNum(POP.minRiscatto)+" punti. "+
+      "Saldo, livello e premi sono nella Panoramica e in “Codici sconto & Buoni”."],
+    ["I Punti Pop scadono?","I punti restano validi 24 mesi dall'accredito. Ti avvisiamo via email un mese prima della scadenza, "+
+      "così hai il tempo di trasformarli in un buono."],
+    ["Cosa sono i punti di ritiro?","Tabaccherie, edicole, uffici postali e locker convenzionati dove ritiri il pacco se non sei in casa e dove consegni i resi. "+
+      "Trovi quelli vicino a te in “Indirizzi e consegna”: la giacenza dura 10 giorni."],
+    ["Una bottiglia è arrivata rotta o difettosa","Usa “Segnala un problema” sull'ordine entro 48 ore e allega una foto: sostituiamo la bottiglia o rimborsiamo, senza spese per te."],
     ["Posso saltare un mese del Wine Club?","Sì, dalla sezione Wine Club, entro la data di chiusura del box. Nessun addebito per il mese saltato."],
     ["Dove trovo la fattura?","Nel dettaglio di ogni ordine spedito, scaricabile in PDF. Resta disponibile nel tuo account."],
     ["Posso ordinare senza registrarmi?","Sì, il checkout ospite è sempre attivo. Con l'account però tieni traccia di ordini, resi, buoni e wishlist."],
@@ -1503,8 +1849,25 @@ function viewSupporto(){
     '</div>'+
     '<div class="grid3">'+
       canale("msg",TEAL,"Chat","Il modo più rapido per problemi su un ordine in corso.","Apri la chat")+
-      canale("mail",GOLD,"Email","assistenza@stappando.it — allega foto o numero d'ordine.","Scrivi una email")+
+      canale("mail",GOLD,"Email",SUPPORT_MAIL+" — allega foto o numero d'ordine.","Scrivi una email")+
       canale("phone",ROSE,"Telefono","02 8055 1220 — lun–ven 9:00–18:00, costo urbano.","Chiama ora")+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Segnala un problema su un ordine</h3>'+
+        '<span class="packnote">prodotto o spedizione</span></div>'+
+      ORDINI.slice(0,3).map(o=>{
+        const n=o.items.reduce((s,i)=>s+i.qty,0);
+        return '<div class="prod-mini">'+
+          '<div class="stackimgs">'+o.items.slice(0,2).map(i=>'<div class="thumb"><img src="'+byId(i.id).img+'" alt="" loading="lazy"></div>').join("")+'</div>'+
+          '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+o.id+' · '+n+' bottiglie</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+o.date+' · '+esc(o.consegna)+'</p></div>'+
+          '<button class="btn btn-ghost" style="padding:8px 12px;flex:none" data-act="prob-open" data-id="'+o.id+'">'+
+            ic("msg",14)+' Segnala</button></div>';
+      }).join("")+
+      '<div style="padding:16px 20px;border-top:1px solid var(--border)">'+
+        '<div class="infobox">'+ic("info",15)+'<span>Il modulo ti guida in tre passi e prepara l\'email per '+SUPPORT_MAIL+' '+
+        'con ordine, tracking e recapiti già compilati: a te resta solo allegare le foto.</span></div></div>'+
     '</div>'+
     '<div class="card">'+
       '<div class="card-h"><h3>Domande frequenti</h3></div>'+
@@ -1566,6 +1929,10 @@ function header(){
         '<button class="rs-opt" data-act="nav" data-id="profilo"><span class="rs-opt-ic" style="background:var(--primary)">'+ic("shield",15)+'</span>'+
           '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Profilo &amp; Sicurezza</p></span>'+
           '<span class="rs-opt-s">Dati personali, password e 2FA</span></span></button>'+
+        '<button class="rs-opt" data-act="nav-punti"><span class="rs-opt-ic" style="background:#8a6a3b">'+ic("sparkles",15)+'</span>'+
+          '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Punti Pop</p>'+
+          '<span style="background:#8a6a3b">'+popLivello().cur.nome+'</span></span>'+
+          '<span class="rs-opt-s">'+popNum(POP.saldo)+' punti · valgono '+eurK(popEuro(POP.saldo))+'</span></span></button>'+
         '<button class="rs-opt" data-act="nav" data-id="buoni"><span class="rs-opt-ic" style="background:'+GOLD+'">'+ic("ticket",15)+'</span>'+
           '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Codici e buoni</p></span>'+
           '<span class="rs-opt-s">Credito disponibile '+eurK(UTENTE.credito)+'</span></span></button>'+
@@ -1638,33 +2005,246 @@ function cartDrawer(){
     '</div></div>';
 }
 
-/* ═══ MODALE RESO ═══════════════════════════════════════════ */
+/* ═══ PUNTI POP (elementi condivisi) ════════════════════════ */
+function ritiroMap(selId){
+  return '<div class="ritmap">'+
+    PUNTI_RITIRO.map(p=>'<span class="mk" style="left:'+p.x+'%;top:'+p.y+'%;'+
+      (p.id===selId?'color:var(--primary)':'color:rgba(0,0,0,.25)')+'">'+
+      ic("pin",p.id===selId?22:16)+'</span>').join("")+
+    '<span class="me" style="left:38%;top:52%" title="Sei qui"></span>'+
+    '<span class="packnote" style="position:absolute;left:10px;bottom:8px;background:rgba(255,255,255,.85);padding:2px 8px;border-radius:999px">'+
+      PUNTI_RITIRO.length+' punti di ritiro entro 1,5 km da “'+esc((INDIRIZZI.find(a=>a.id===S.addrDef)||{}).label||"casa")+'”</span>'+
+  '</div>';
+}
+function ritiroRow(p,sel,act){
+  return '<button class="opt '+(sel?"on":"")+'" data-act="'+act+'" data-id="'+p.id+'">'+
+    '<span class="opt-ic">'+ic(p.icon,17)+'</span>'+
+    '<span style="flex:1;min-width:0"><h4>'+esc(p.nome)+' <span class="deftag">'+esc(p.tipo)+'</span></h4>'+
+      '<p>'+esc(p.via)+' · '+esc(p.gestore)+'</p>'+
+      '<p>'+ic("clock",11)+' '+esc(p.orari)+'</p>'+
+      '<span class="rittags">'+p.servizi.map(s=>'<span class="rittag">'+esc(s)+'</span>').join("")+'</span></span>'+
+    '<span class="ritdist">'+p.dist+'</span></button>';
+}
+
+/* ═══ WIZARD RESO ═══════════════════════════════════════════ */
 function resoModal(){
-  const o=ORDINI.find(x=>x.id===S.reso);
+  const R=S.reso;
+  const o=ORDINI.find(x=>x.id===R.order);
   if(!o) return "";
-  return '<div class="overlay"><div class="scrim" data-act="reso-close"></div>'+
-    '<div class="modal" style="max-width:460px">'+
-      '<div class="modal-h"><h2>Richiedi un reso</h2>'+
+  const motivo=RESO_MOTIVI.find(m=>m.id===R.motivo)||RESO_MOTIVI[0];
+  const rit=PUNTI_RITIRO.find(p=>p.id===R.ritiro)||PUNTI_RITIRO[0];
+  const n=o.items.reduce((s,i)=>s+i.qty,0);
+
+  /* schermata finale */
+  if(R.inviato) return '<div class="overlay"><div class="scrim" data-act="reso-close"></div>'+
+    '<div class="modal" style="max-width:480px">'+
+      '<div class="modal-h"><h2>Richiesta di reso inviata</h2>'+
         '<button class="iconbtn" data-act="reso-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
       '<div class="modal-b">'+
+        '<div class="row" style="gap:12px"><span class="quick-ic" style="width:44px;height:44px;background:rgba(4,120,87,.12);color:#047857">'+ic("checkCircle",22)+'</span>'+
+          '<div><p style="font-size:14px;font-weight:600">Reso aperto su '+o.id+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(motivo.label)+'</p></div></div>'+
+        '<div class="timeline">'+
+          '<div class="tl-row done"><span class="dot">'+ic("check",13)+'</span><div>'+
+            '<p style="font-size:13px;font-weight:600">Richiesta ricevuta</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg)">Ti confermiamo tutto via email a '+esc(UTENTE.email)+'</p></div></div>'+
+          '<div class="tl-row done"><span class="dot">'+ic("file",13)+'</span><div>'+
+            '<p style="font-size:13px;font-weight:600">Ricevi la LDV entro 24 ore</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg)">La lettera di vettura arriva in PDF: stampala e applicala sul pacco chiuso</p></div></div>'+
+          '<div class="tl-row"><span class="dot">'+ic("pin",13)+'</span><div>'+
+            '<p style="font-size:13px;font-weight:600">Porta il pacco al punto di ritiro</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg)">'+esc(rit.nome)+' · '+esc(rit.via)+' ('+rit.dist+')</p></div></div>'+
+          '<div class="tl-row"><span class="dot">'+ic("euro",13)+'</span><div>'+
+            '<p style="font-size:13px;font-weight:600">Rimborso entro 14 giorni</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg)">Sullo stesso metodo di pagamento, '+esc(o.pagamento)+'</p></div></div>'+
+        '</div>'+
+        '<div class="warn">'+ic("alert",15)+'<span>Ricorda: le bottiglie devono viaggiare <b>chiuse e integre</b>. '+
+          'Se tornano danneggiate <b>non emetteremo alcun rimborso</b>.</span></div>'+
+      '</div>'+
+      '<div class="modal-f"><button class="btn btn-primary" data-act="reso-close">Ho capito</button></div>'+
+    '</div></div>';
+
+  const step1 = '<div class="field"><label class="eyebrow">Perché vuoi restituire?</label>'+
+      '<div class="stack-sm" style="gap:8px">'+RESO_MOTIVI.map(m=>
+        '<button class="opt '+(R.motivo===m.id?"on":"")+'" data-act="reso-motivo" data-id="'+m.id+'">'+
+          '<span class="radio"'+(R.motivo===m.id?' style="border-color:var(--primary)"':'')+'>'+
+            (R.motivo===m.id?'<span style="width:10px;height:10px;border-radius:999px;background:var(--primary);display:block"></span>':'')+'</span>'+
+          '<span style="flex:1;min-width:0"><h4>'+m.label+'</h4><p>'+m.desc+'</p></span></button>').join("")+
+      '</div></div>'+
+    '<div class="field"><label class="eyebrow">Vuoi aggiungere un dettaglio?</label>'+
+      '<textarea class="input" data-input="reso-testo" data-focus-key="resotesto" '+
+      'placeholder="Facoltativo — quali bottiglie e cosa è successo">'+esc(R.testo)+'</textarea></div>'+
+    '<div class="infobox">'+ic("info",15)+'<span>Hai '+RESO_GIORNI+' giorni dalla consegna ('+esc(o.consegna)+'). '+
+      'Puoi restituire tutto l\'ordine o solo una parte: indica le bottiglie qui sopra.</span></div>';
+
+  const step2 = '<div class="banner" style="border-radius:var(--r-sm)">'+
+      '<span class="bi">'+ic("wine",18)+'</span>'+
+      '<div style="flex:1"><h4>Le bottiglie devono essere chiuse</h4>'+
+      '<p>Si restituiscono solo bottiglie <b>sigillate e integre</b>, nell\'imballo originale o in uno equivalente. '+
+      'Una bottiglia aperta, anche solo stappata e richiusa, non è restituibile.</p></div></div>'+
+    '<button class="chk '+(R.chiuse?"on":"")+'" data-act="reso-chiuse">'+
+      '<span class="box">'+(R.chiuse?ic("check",13):'')+'</span>'+
+      '<span style="flex:1;min-width:0"><h4>Confermo che le bottiglie sono chiuse e integre</h4>'+
+      '<p>Le imballo con cura, in verticale, protette lungo i fianchi del cartone.</p></span></button>'+
+    '<div class="warn">'+ic("alert",15)+'<span>Se le bottiglie ci tornano <b>danneggiate</b>, per imballo insufficiente o perché già aperte, '+
+      '<b>non emetteremo alcun rimborso</b> e il pacco ti verrà rispedito.</span></div>'+
+    '<div class="field"><label class="eyebrow">Dove consegni il pacco</label>'+
+      ritiroMap(R.ritiro)+
+      '<div class="stack-sm" style="gap:8px;margin-top:10px">'+PUNTI_RITIRO.map(p=>ritiroRow(p,R.ritiro===p.id,"reso-ritiro")).join("")+'</div></div>'+
+    '<div class="infobox">'+ic("truck",15)+'<span>Invii la richiesta, ricevi la <b>LDV</b> (lettera di vettura) da stampare e applicare sul pacco, '+
+      'poi lo porti al punto di ritiro o all\'ufficio postale più vicino. Nessun costo per te se il reso è per un difetto nostro.</span></div>';
+
+  const step3 = '<div class="recap">'+
+      '<div class="rr"><span>Ordine</span><span>'+o.id+' · '+n+' bottiglie</span></div>'+
+      '<div class="rr"><span>Motivo</span><span>'+esc(motivo.label)+'</span></div>'+
+      '<div class="rr"><span>Consegna al</span><span>'+esc(rit.nome)+'</span></div>'+
+      '<div class="rr"><span>Indirizzo</span><span>'+esc(rit.via)+'</span></div>'+
+      '<div class="rr"><span>Rimborso su</span><span>'+esc(o.pagamento)+'</span></div>'+
+      (R.testo.trim()?'<div class="rr"><span>Nota</span><span style="font-weight:400">'+esc(R.testo.trim())+'</span></div>':'')+
+    '</div>'+
+    '<div class="infobox">'+ic("file",15)+'<span>Alla conferma apriamo la pratica e ti mandiamo la LDV a '+esc(UTENTE.email)+' entro 24 ore. '+
+      'Il rimborso parte quando il magazzino verifica che le bottiglie siano integre.</span></div>'+
+    '<div class="warn">'+ic("alert",15)+'<span>Bottiglie aperte o rotte al rientro: <b>nessun rimborso</b>.</span></div>';
+
+  const titoli={1:"Perché fai il reso",2:"Imballo e consegna",3:"Conferma la richiesta"};
+  return '<div class="overlay"><div class="scrim" data-act="reso-close"></div>'+
+    '<div class="modal" style="max-width:500px">'+
+      '<div class="modal-h"><div><h2>Fai un reso</h2>'+
+        '<p class="packnote">Passo '+R.step+' di 3 · '+titoli[R.step]+'</p></div>'+
+        '<button class="iconbtn" data-act="reso-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="steps">'+[1,2,3].map(i=>'<i class="'+(i<=R.step?"on":"")+'"></i>').join("")+'</div>'+
         '<div class="row" style="gap:12px"><span class="quick-ic" style="width:44px;height:44px;background:rgba(139,38,53,.1);color:'+ROSE+'">'+ic("undo",20)+'</span>'+
-          '<div><p style="font-size:14px;font-weight:600">'+o.id+'</p>'+
-          '<p style="font-size:12px;color:var(--muted-fg)">'+o.consegna+'</p></div></div>'+
-        '<div class="field"><label class="eyebrow">Motivo del reso</label>'+
-          '<div class="stack-sm" style="gap:8px">'+
-          ["Ho cambiato idea (diritto di recesso)","Bottiglia danneggiata o difettosa","Ho ricevuto un vino diverso da quello ordinato","Altro"]
-            .map((m,i)=>'<label class="pick" style="border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px">'+
-              '<span class="radio" style="'+(i===0?'border-color:var(--primary)':'')+'">'+(i===0?'<span style="width:10px;height:10px;border-radius:999px;background:var(--primary);display:block"></span>':'')+'</span>'+
-              '<span style="flex:1"><h4 style="font-size:13px">'+m+'</h4></span></label>').join("")+
-          '</div></div>'+
-        '<div class="field"><label class="eyebrow">Vuoi aggiungere un dettaglio?</label>'+
-          '<textarea class="input" data-focus-key="resotesto" placeholder="Facoltativo — aiuta a gestire il ritiro più in fretta"></textarea></div>'+
-        '<div class="infobox">'+ic("info",15)+'<span>Hai '+RESO_GIORNI+' giorni dalla consegna. Ti inviamo l\'etichetta di ritiro via email: '+
-          'il corriere passa a prendere il pacco e il rimborso arriva entro 14 giorni sullo stesso metodo di pagamento.</span></div>'+
+          '<div><p style="font-size:14px;font-weight:600">'+o.id+' · '+n+' bottiglie</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(o.consegna)+'</p></div></div>'+
+        (R.step===1?step1:(R.step===2?step2:step3))+
       '</div>'+
       '<div class="modal-f">'+
-        '<button class="btn btn-ghost" data-act="reso-close">Annulla</button>'+
-        '<button class="btn btn-primary" data-act="reso-submit" data-id="'+o.id+'">'+ic("send",15)+' Invia la richiesta</button></div>'+
+        (R.step===1
+          ? '<button class="btn btn-ghost" data-act="reso-close">Annulla</button>'
+          : '<button class="btn btn-ghost" data-act="reso-back">'+ic("arrowL",15)+' Indietro</button>')+
+        (R.step<3
+          ? '<button class="btn btn-primary" data-act="reso-next"'+(R.step===2&&!R.chiuse?" disabled":"")+'>Continua '+ic("chevR",15)+'</button>'
+          : '<button class="btn btn-primary" data-act="reso-submit" data-id="'+o.id+'">'+ic("send",15)+' Invia la richiesta</button>')+
+      '</div>'+
+    '</div></div>';
+}
+
+/* ═══ WIZARD “SEGNALA UN PROBLEMA” ══════════════════════════ */
+function probMailto(){
+  const B=S.prob;
+  const o=ORDINI.find(x=>x.id===B.order);
+  const cat=PROB_CAT[B.cat]||{}, tipo=probTipo(B.cat,B.tipo)||{};
+  const p=B.prod?byId(B.prod):null;
+  const righe=[
+    "Ordine: "+(o?o.id+" del "+o.date:"—"),
+    "Categoria: "+(cat.label||"—"),
+    "Problema: "+(tipo.label||"—"),
+    (p?"Bottiglia: "+p.name+" "+p.vintage+" — "+p.cantina:null),
+    (o&&o.tracking?"Tracking: "+o.corriere+" "+o.tracking:null),
+    (o?"Consegna: "+o.consegna:null),
+    (o?"Indirizzo: "+o.indirizzo:null),
+    "",
+    "Descrizione:",
+    (B.testo.trim()||"(nessun dettaglio aggiunto)"),
+    "",
+    "—",
+    UTENTE.full+" · "+UTENTE.email+" · "+UTENTE.tel,
+  ].filter(r=>r!==null);
+  const sub="["+(B.cat==="spedizione"?"Spedizione":"Prodotto")+"] "+(tipo.label||"Segnalazione")+" — "+(o?o.id:"ordine");
+  return "mailto:"+SUPPORT_MAIL+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(righe.join("\n"));
+}
+function probModal(){
+  const B=S.prob;
+  const o=ORDINI.find(x=>x.id===B.order);
+  if(!o) return "";
+  const cat=PROB_CAT[B.cat]||null, tipo=probTipo(B.cat,B.tipo);
+
+  if(B.inviato) return '<div class="overlay"><div class="scrim" data-act="prob-close"></div>'+
+    '<div class="modal" style="max-width:480px">'+
+      '<div class="modal-h"><h2>Segnalazione inviata</h2>'+
+        '<button class="iconbtn" data-act="prob-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="row" style="gap:12px"><span class="quick-ic" style="width:44px;height:44px;background:rgba(4,120,87,.12);color:#047857">'+ic("mail",22)+'</span>'+
+          '<div><p style="font-size:14px;font-weight:600">Email pronta per '+SUPPORT_MAIL+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc((tipo||{}).label||"")+' · '+o.id+'</p></div></div>'+
+        '<div class="infobox">'+ic("info",15)+'<span>Abbiamo aperto il tuo client di posta con la segnalazione già compilata: '+
+          'ordine, tracking e recapiti sono dentro, tu allega le foto se ne hai e premi invia. '+
+          'Rispondiamo entro un giorno lavorativo a '+esc(UTENTE.email)+'.</span></div>'+
+        '<div class="row" style="gap:8px;flex-wrap:wrap">'+
+          '<a class="btn btn-ghost" style="flex:1;min-width:150px;text-decoration:none" href="'+esc(probMailto())+'">'+ic("mail",15)+' Riapri l\'email</a>'+
+          '<button class="btn btn-ghost" style="flex:1;min-width:150px" data-act="prob-nav-supporto">'+ic("headset",15)+' Altri canali</button></div>'+
+      '</div>'+
+      '<div class="modal-f"><button class="btn btn-primary" data-act="prob-close">Chiudi</button></div>'+
+    '</div></div>';
+
+  const step1 = '<div class="field"><label class="eyebrow">Di cosa si tratta?</label>'+
+      '<div class="stack-sm" style="gap:8px">'+Object.keys(PROB_CAT).map(k=>{
+        const c=PROB_CAT[k];
+        return '<button class="opt '+(B.cat===k?"on":"")+'" data-act="prob-cat" data-id="'+k+'">'+
+          '<span class="opt-ic">'+ic(c.icon,17)+'</span>'+
+          '<span style="flex:1;min-width:0"><h4>'+c.label+'</h4><p>'+c.desc+'</p></span>'+
+          ic("chevR",15,"color:var(--muted-fg)")+'</button>';
+      }).join("")+'</div></div>';
+
+  const step2 = '<div class="field"><label class="eyebrow">Indica il problema · '+esc(cat?cat.label:"")+'</label>'+
+      '<div class="stack-sm" style="gap:8px">'+(cat?cat.tipi:[]).map(t=>
+        '<button class="opt '+(B.tipo===t.id?"on":"")+'" data-act="prob-tipo" data-id="'+t.id+'">'+
+          '<span class="radio"'+(B.tipo===t.id?' style="border-color:var(--primary)"':'')+'>'+
+            (B.tipo===t.id?'<span style="width:10px;height:10px;border-radius:999px;background:var(--primary);display:block"></span>':'')+'</span>'+
+          '<span style="flex:1;min-width:0"><h4>'+t.label+'</h4><p>'+t.desc+'</p></span></button>').join("")+
+      '</div></div>'+
+      (B.cat==="spedizione"
+        ? '<div class="infobox">'+ic("truck",15)+'<span>'+(o.tracking
+            ? 'Spedizione '+esc(o.corriere)+' · <b>'+esc(o.tracking)+'</b> — '+esc(o.consegna)+'. Alleghiamo noi questi dati alla mail.'
+            : 'L\'ordine è ancora in preparazione presso la cantina: non c\'è ancora un tracking da citare.')+'</span></div>'
+        : '');
+
+  const step3 = (B.cat==="prodotto"
+      ? '<div class="field"><label class="eyebrow">Quale bottiglia?</label>'+
+        '<div class="stack-sm" style="gap:8px">'+o.items.map(i=>{const p=byId(i.id);
+          return '<button class="opt '+(B.prod===p.id?"on":"")+'" data-act="prob-prod" data-id="'+p.id+'">'+
+            '<span class="thumb" style="width:34px;height:46px"><img src="'+p.img+'" alt="" loading="lazy"></span>'+
+            '<span style="flex:1;min-width:0"><h4>'+esc(p.name)+'</h4>'+
+            '<p>Annata '+p.vintage+' · '+esc(p.cantina)+' · × '+i.qty+'</p></span></button>';
+        }).join("")+'</div></div>'
+      : '')+
+    '<div class="field"><label class="eyebrow">Raccontaci cosa è successo</label>'+
+      '<textarea class="input" data-input="prob-testo" data-focus-key="probtesto" '+
+      'placeholder="'+(B.cat==="spedizione"?"Quando hai visto l\'ultimo aggiornamento? Il pacco era integro?":"Cosa c\'era scritto in etichetta e cosa aspettavi?")+'">'+esc(B.testo)+'</textarea>'+
+      '<p class="packnote" style="margin-top:6px;white-space:normal">Minimo 10 caratteri. Le foto le alleghi direttamente all\'email.</p></div>'+
+    '<div class="recap">'+
+      '<div class="rr"><span>Ordine</span><span>'+o.id+' · '+o.date+'</span></div>'+
+      '<div class="rr"><span>Categoria</span><span>'+esc(cat?cat.label:"")+'</span></div>'+
+      '<div class="rr"><span>Problema</span><span>'+esc((tipo||{}).label||"")+'</span></div>'+
+      (B.prod?'<div class="rr"><span>Bottiglia</span><span>'+esc(byId(B.prod).name)+' '+byId(B.prod).vintage+'</span></div>':'')+
+      '<div class="rr"><span>Destinatario</span><span>'+SUPPORT_MAIL+'</span></div>'+
+    '</div>';
+
+  const titoli={1:"Tipo di problema",2:"Indica il problema",3:"Dettagli e invio"};
+  const ok3=B.testo.trim().length>=10&&(B.cat!=="prodotto"||!!B.prod);
+  return '<div class="overlay"><div class="scrim" data-act="prob-close"></div>'+
+    '<div class="modal" style="max-width:500px">'+
+      '<div class="modal-h"><div><h2>Segnala un problema</h2>'+
+        '<p class="packnote">Passo '+B.step+' di 3 · '+titoli[B.step]+'</p></div>'+
+        '<button class="iconbtn" data-act="prob-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="steps">'+[1,2,3].map(i=>'<i class="'+(i<=B.step?"on":"")+'"></i>').join("")+'</div>'+
+        '<div class="row" style="gap:12px">'+
+          '<div class="stackimgs">'+o.items.slice(0,3).map(i=>'<div class="thumb"><img src="'+byId(i.id).img+'" alt="" loading="lazy"></div>').join("")+'</div>'+
+          '<div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600">'+o.id+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+o.date+' · '+esc(o.indirizzo)+'</p></div>'+
+          statusBadge(o.status)+'</div>'+
+        (B.step===1?step1:(B.step===2?step2:step3))+
+      '</div>'+
+      '<div class="modal-f">'+
+        (B.step===1
+          ? '<button class="btn btn-ghost" data-act="prob-close">Annulla</button>'
+          : '<button class="btn btn-ghost" data-act="prob-back">'+ic("arrowL",15)+' Indietro</button>')+
+        (B.step<3
+          ? '<button class="btn btn-primary" data-act="prob-next"'+((B.step===1&&!B.cat)||(B.step===2&&!B.tipo)?" disabled":"")+'>Continua '+ic("chevR",15)+'</button>'
+          : '<button class="btn btn-primary" data-act="prob-send"'+(ok3?"":" disabled")+'>'+ic("mail",15)+' Invia la segnalazione</button>')+
+      '</div>'+
     '</div></div>';
 }
 
@@ -1690,7 +2270,8 @@ function view(){
     mobileNav()+
     (S.cartOpen?cartDrawer():"")+
     (S.rev.modal?revModal():"")+
-    (S.reso?resoModal():"");
+    (S.reso.order?resoModal():"")+
+    (S.prob.order?probModal():"");
 }
 
 /* ── Render con conservazione del focus ─────────────────────── */
@@ -1718,6 +2299,7 @@ root.addEventListener("click",e=>{
   switch(act){
     case "nav":
       S.section=id; S.mobMenu=false; S.accMenu=false; S.cartOpen=false;
+      S.reso.order=null; S.prob.order=null;
       if(id!=="ordini"){S.ord.selected=null;S.ord.mobile=false;}
       break;
     case "acc-toggle": S.accMenu=!S.accMenu; break;
@@ -1749,6 +2331,7 @@ root.addEventListener("click",e=>{
 
     /* ordini */
     case "ord-tab": S.ord.tab=id; break;
+    case "ord-periodo-reset": S.ord.periodo="all"; break;
     case "ord-open": S.section="ordini"; S.ord.selected=id; S.ord.mobile=true; break;
     case "ord-close": S.ord.selected=null; S.ord.mobile=false; break;
     case "reorder": {
@@ -1757,10 +2340,44 @@ root.addEventListener("click",e=>{
       break;
     }
 
-    /* reso */
-    case "reso-open": S.reso=id; break;
-    case "reso-close": S.reso=null; break;
-    case "reso-submit": S.resoFatto[id]=true; S.reso=null; break;
+    /* reso: wizard in 3 passi */
+    case "reso-open":
+      S.reso={order:id,step:1,motivo:"recesso",ritiro:S.ritiroDef,chiuse:false,testo:"",inviato:false};
+      break;
+    case "reso-close": S.reso.order=null; break;
+    case "reso-motivo": S.reso.motivo=id; break;
+    case "reso-ritiro": S.reso.ritiro=id; break;
+    case "reso-chiuse": S.reso.chiuse=!S.reso.chiuse; break;
+    case "reso-next": if(S.reso.step<3&&(S.reso.step!==2||S.reso.chiuse)) S.reso.step++; break;
+    case "reso-back": if(S.reso.step>1) S.reso.step--; break;
+    case "reso-submit":
+      S.resoFatto[id]={motivo:S.reso.motivo,ritiro:S.reso.ritiro,testo:S.reso.testo};
+      S.reso.inviato=true;
+      break;
+
+    /* segnala un problema: wizard che compila la mail all'assistenza */
+    case "prob-open":
+      S.prob={order:id,step:1,cat:null,tipo:null,prod:null,testo:"",inviato:false};
+      break;
+    case "prob-close": S.prob.order=null; break;
+    case "prob-cat": S.prob.cat=id; S.prob.tipo=null; S.prob.prod=null; S.prob.step=2; break;
+    case "prob-tipo": S.prob.tipo=id; break;
+    case "prob-prod": S.prob.prod=id; break;
+    case "prob-next":
+      if(S.prob.step===1&&S.prob.cat) S.prob.step=2;
+      else if(S.prob.step===2&&S.prob.tipo) S.prob.step=3;
+      break;
+    case "prob-back": if(S.prob.step>1) S.prob.step--; break;
+    case "prob-send": {
+      const okTesto=S.prob.testo.trim().length>=10;
+      const okProd=S.prob.cat!=="prodotto"||!!S.prob.prod;
+      if(okTesto&&okProd){
+        S.prob.inviato=true;
+        window.location.href=probMailto(); /* apre il client di posta con la mail già compilata */
+      }
+      break;
+    }
+    case "prob-nav-supporto": S.prob.order=null; S.section="supporto"; break;
 
     /* wine club */
     case "club-skip": S.club.saltato=!S.club.saltato; break;
@@ -1768,6 +2385,27 @@ root.addEventListener("click",e=>{
     /* buoni */
     case "buoni-tab": S.buoni.tab=id; S.buoni.copied=null; break;
     case "copy": S.buoni.copied=id; break;
+
+    /* punti pop */
+    case "nav-punti":
+      S.section="buoni"; S.buoni.tab="punti";
+      S.mobMenu=false; S.accMenu=false; S.cartOpen=false;
+      break;
+    case "punti-riscatta": {
+      const pr=popPremio(id);
+      if(pr&&pr.punti<=POP.saldo){
+        POP.saldo-=pr.punti;
+        POP.movimenti.unshift({data:"oggi",desc:pr.label+" riscattato",punti:-pr.punti});
+        if(pr.tipo==="euro"){
+          UTENTE.credito+=pr.val;
+          MOVIMENTI.unshift({data:"oggi",desc:"Punti Pop riscattati · "+pr.label,tipo:"Punti Pop",imp:pr.val});
+        }
+        S.punti.msg = pr.tipo==="euro"
+          ? pr.label+" riscattato: "+eurK(pr.val)+" aggiunti al credito. Ti restano "+popNum(POP.saldo)+" Punti Pop."
+          : pr.label+" riscattato: ti scriviamo via email entro 24 ore. Ti restano "+popNum(POP.saldo)+" Punti Pop.";
+      }
+      break;
+    }
 
     /* recensioni */
     case "rev-open": S.rev.modal=id; S.rev.voto=5; S.rev.titolo=""; S.rev.testo=""; break;
@@ -1790,6 +2428,7 @@ root.addEventListener("click",e=>{
     case "pref": { const p=S.prefs.find(x=>x.id===id); if(p&&!p.fisso) p.on=!p.on; break; }
     case "prefs-off": S.prefs.forEach(p=>{if(!p.fisso) p.on=false;}); break;
     case "corriere": S.corriere=id; break;
+    case "ritiro-def": S.ritiroDef=id; break;
     case "addr-def": S.addrDef=id; break;
     case "pay-def": S.payDef=id; break;
     case "fa2": S.fa2=!S.fa2; break;
@@ -1799,6 +2438,7 @@ root.addEventListener("click",e=>{
   }
   if(act!=="acc-toggle") S.accMenu=false;
   if(act!=="copy"&&act!=="buoni-tab") S.buoni.copied=null;
+  if(act!=="punti-riscatta") S.punti.msg=null;
   render();
 });
 
@@ -1806,15 +2446,23 @@ root.addEventListener("input",e=>{
   const t=e.target;
   if(t.dataset.input){
     if(t.dataset.input==="ord-search")  S.ord.search=t.value;
+    if(t.dataset.input==="ord-periodo") S.ord.periodo=t.value;
     if(t.dataset.input==="rev-titolo")  S.rev.titolo=t.value;
     if(t.dataset.input==="rev-testo")   S.rev.testo=t.value;
+    if(t.dataset.input==="reso-testo")  S.reso.testo=t.value;
+    if(t.dataset.input==="prob-testo")  S.prob.testo=t.value;
     render();
   }
 });
+root.addEventListener("change",e=>{ /* i select non emettono input su tutti i browser */
+  const t=e.target;
+  if(t.dataset&&t.dataset.input==="ord-periodo"&&S.ord.periodo!==t.value){ S.ord.periodo=t.value; render(); }
+});
 root.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
-    if(S.cartOpen||S.mobMenu||S.accMenu||S.ord.mobile||S.rev.modal||S.reso){
-      S.cartOpen=false;S.mobMenu=false;S.accMenu=false;S.ord.mobile=false;S.rev.modal=null;S.reso=null;render();
+    if(S.cartOpen||S.mobMenu||S.accMenu||S.ord.mobile||S.rev.modal||S.reso.order||S.prob.order){
+      S.cartOpen=false;S.mobMenu=false;S.accMenu=false;S.ord.mobile=false;S.rev.modal=null;
+      S.reso.order=null;S.prob.order=null;render();
     }
   }
 });
