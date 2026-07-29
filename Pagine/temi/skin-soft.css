@@ -5,6 +5,7 @@
    e la scelta resta mentre navighi.
    ══════════════════════════════════════════════════════════ */
 :root{
+  --sidebar-bg:#241f21;
   --primary:#7b2d3b;
   --primary-dark:#5c1f2b;
   --primary-soft:rgba(123,45,59,.08);

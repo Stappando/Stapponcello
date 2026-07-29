@@ -32,6 +32,16 @@ direttamente tutte le dashboard, senza scaricare nulla.
   `istituzionale.css` riprende i colori reali di shop.stappando.it (teal `#055667`,
   oro `#b8973f`, fondo `#f8f7f5`).
 
+## Temi
+
+Il tema è un file solo, in `Pagine/temi/skin-*.css`: ridefinisce le variabili CSS che
+tutte le pagine — pubbliche e dashboard — usano già. Il selettore in basso a ogni pagina
+salva la scelta in `localStorage`, quindi si sceglie una volta e vale per tutto il sito.
+I sette temi sono: classico, noir, soft, bold, elegante, pastello, istituzionale.
+
+`Pagine/temi.html` resta il confronto "a tema pieno", con i CSS completi (`noir.css`,
+`bold.css`, …) che cambiano anche l'impaginazione, non solo i colori.
+
 ## Caratteri
 
 Niente caratteri con grazie. Il progetto usa **Bricolage Grotesque** per i titoli,
