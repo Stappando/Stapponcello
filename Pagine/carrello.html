@@ -7,7 +7,7 @@
 <meta name="description" content="Carrello Stappando: riepilogo bottiglie, spedizione, buono sconto e pagamento." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -32,7 +32,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);font-size:14px;line-height:1.45;
   -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
 }
@@ -47,7 +47,7 @@ img,svg{display:block}
 .eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
 
 /* ── topbar ───────────────────────────────────────────── */
-.topbar{position:sticky;top:0;z-index:40;flex:none;background:#fff;border-bottom:1px solid var(--border)}
+.topbar{position:sticky;top:0;z-index:40;flex:none;background:var(--card);border-bottom:1px solid var(--border)}
 .topbar-in{height:72px;display:flex;align-items:center;gap:24px;max-width:1180px;margin:0 auto;padding:0 28px}
 .logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
 .logo em{font-style:normal;color:var(--accent)}
@@ -65,7 +65,7 @@ img,svg{display:block}
 .crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted-fg);flex-wrap:wrap}
 .crumbs a:hover{color:var(--primary);text-decoration:underline}
 .crumbs span[aria-current]{color:var(--fg);font-weight:600}
-h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1;margin-top:14px}
+h1{font-family:var(--font-display);font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1;margin-top:14px}
 .head p.lead{font-size:14px;color:var(--muted-fg);margin-top:8px}
 
 /* passi del checkout */
@@ -110,7 +110,7 @@ main{flex:1;padding-bottom:72px}
   padding:3px 8px;border-radius:999px;border:1px solid;
 }
 .line-main .bn{
-  display:block;font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:17px;font-weight:600;line-height:1.2;margin-top:7px;
+  display:block;font-family:var(--font-display);font-size:17px;font-weight:600;line-height:1.2;margin-top:7px;
 }
 .line-main .bn:hover{color:var(--primary)}
 .line-main .bc{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
@@ -123,7 +123,7 @@ main{flex:1;padding-bottom:72px}
 .linkbtn.save:hover{color:var(--primary)}
 
 .line-side{display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex:none}
-.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:#fff}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:var(--card)}
 .qty button{width:34px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.14s}
 .qty button:hover{color:var(--primary)}
 .qty button[disabled]{opacity:.35;cursor:default}
@@ -140,7 +140,7 @@ main{flex:1;padding-bottom:72px}
 .empty{display:none;padding:64px 24px;text-align:center}
 .empty.on{display:block}
 .empty svg{margin:0 auto 16px;color:var(--muted-fg)}
-.empty h3{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:21px;font-weight:600}
+.empty h3{font-family:var(--font-display);font-size:21px;font-weight:600}
 .empty p{font-size:13.5px;color:var(--muted-fg);margin-top:8px}
 
 /* ── spedizione ───────────────────────────────────────── */
@@ -153,10 +153,10 @@ main{flex:1;padding-bottom:72px}
 .shipopt.on{border-color:var(--primary);background:var(--primary-soft)}
 .shipopt input{
   appearance:none;width:18px;height:18px;flex:none;border-radius:50%;
-  border:1.6px solid rgba(0,0,0,.24);background:#fff;position:relative;cursor:pointer;transition:.14s;
+  border:1.6px solid rgba(0,0,0,.24);background:var(--card);position:relative;cursor:pointer;transition:.14s;
 }
 .shipopt input:checked{background:var(--primary);border-color:var(--primary)}
-.shipopt input:checked::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
+.shipopt input:checked::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--card)}
 .shipopt .txt{flex:1;min-width:0}
 .shipopt .txt b{display:block;font-size:13.5px}
 .shipopt .txt span{font-size:12px;color:var(--muted-fg)}
@@ -167,7 +167,7 @@ main{flex:1;padding-bottom:72px}
 .paylist{display:flex;flex-wrap:wrap;gap:10px;padding:20px 24px}
 .paybtn{
   display:flex;align-items:center;gap:9px;padding:12px 16px;border:1.5px solid var(--border);
-  border-radius:var(--r-sm);font-size:12.5px;font-weight:600;transition:.15s;background:#fff;
+  border-radius:var(--r-sm);font-size:12.5px;font-weight:600;transition:.15s;background:var(--card);
 }
 .paybtn:hover{border-color:rgba(0,95,115,.35)}
 .paybtn.on{border-color:var(--primary);background:var(--primary-soft);color:var(--primary)}
@@ -185,7 +185,7 @@ main{flex:1;padding-bottom:72px}
   font-size:15px;align-items:center;
 }
 .row.total span{color:var(--fg);font-weight:700}
-.row.total b{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:28px;color:var(--primary);font-weight:700}
+.row.total b{font-family:var(--font-display);font-size:28px;color:var(--primary);font-weight:700}
 .vat{font-size:11px;color:var(--muted-fg);margin-top:4px;text-align:right}
 
 /* soglia spedizione gratuita */
@@ -201,7 +201,7 @@ main{flex:1;padding-bottom:72px}
 .coupon{display:flex;gap:8px;margin-top:16px}
 .coupon input{
   flex:1;min-width:0;height:44px;padding:0 16px;border:1px solid var(--border);
-  border-radius:999px;background:#fff;outline:none;font-size:13px;transition:.15s;
+  border-radius:999px;background:var(--card);outline:none;font-size:13px;transition:.15s;
 }
 .coupon input:focus{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.08)}
 .coupon .btn{height:44px;flex:none}
@@ -216,7 +216,7 @@ main{flex:1;padding-bottom:72px}
 }
 .btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9)}
 .btn-dark:hover{background:var(--primary-dark)}
-.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost{border:1px solid var(--border);background:var(--card);color:var(--fg)}
 .btn-ghost:hover{background:var(--muted)}
 .btn-gold{background:var(--accent);color:var(--primary-dark)}
 .btn-gold:hover{background:#d8bb94}
@@ -243,7 +243,7 @@ main{flex:1;padding-bottom:72px}
 
 /* consigliati */
 .cross{margin-top:44px}
-.cross h2{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:24px;font-weight:700}
+.cross h2{font-family:var(--font-display);font-size:24px;font-weight:700}
 .cross p.sub{font-size:13.5px;color:var(--muted-fg);margin-top:6px}
 .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:22px}
 .prod{
@@ -254,7 +254,7 @@ main{flex:1;padding-bottom:72px}
 .prod-art{position:relative;height:180px;flex:none;display:flex;align-items:center;justify-content:center}
 .prod-art .btl{height:142px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22))}
 .prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
-.prod-body .bn{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:15px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bn{font-family:var(--font-display);font-size:15px;font-weight:600;line-height:1.2;margin-top:8px}
 .prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
 .prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft)}
 .prod-foot b{font-size:17px;font-weight:700;color:var(--primary)}
@@ -293,6 +293,7 @@ footer{background:#12181a;color:rgba(255,255,255,.62);flex:none;padding:34px 0}
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -805,5 +806,6 @@ document.getElementById('cross').addEventListener('click', e => {
 render();
 </script>
 
+<script src="temi/skin.js"></script>
 </body>
 </html>

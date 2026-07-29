@@ -7,7 +7,7 @@
 <meta name="description" content="La struttura del sito Stappando: navigazione principale, barra utente, aree riservate e pagine di servizio." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -30,11 +30,11 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 16px rgba(0,0,0,.07);
   --shadow-lg:0 16px 44px rgba(0,61,77,.16);
-  --display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --display:var(--font-display);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;
   -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
 }
@@ -74,7 +74,7 @@ svg{display:block}
 
 /* ── anteprima della barra ────────────────────────────── */
 .navpreview{
-  background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
   box-shadow:var(--shadow-md);margin-top:-46px;position:relative;z-index:2;overflow:hidden;
 }
 .np-strip{
@@ -235,6 +235,7 @@ footer a:hover{text-decoration:underline}
   .hier-row.h{display:none}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -644,5 +645,6 @@ document.getElementById('gerTally').innerHTML = [
 ].map(x => `<div><b>${x.n}</b><span>${x.l}</span></div>`).join('');
 </script>
 
+<script src="temi/skin.js"></script>
 </body>
 </html>
