@@ -20,6 +20,9 @@ direttamente tutte le dashboard, senza scaricare nulla.
 - **`Pagine/alberatura.html`** — la mappa di tutte le schermate del sito: le cinque voci
   della barra (Shop, Storie, Experience, Cantine, Wine Club), la barra utente, le aree
   riservate e le pagine di servizio, con lo stato di ciascuna.
+- **`Pagine/ruoli.html`** — i sette ruoli della piattaforma (visitatore, cliente, Horeca,
+  vendor manager, vendor owner, manager admin, admin) con la matrice dei permessi ricavata
+  dalle voci di menù delle dashboard.
 - **`Pagine/temi.html`** — confronto fra sei direzioni grafiche (Noir, Bold, Soft, Elegante,
   Pastello, Istituzionale).
   Il markup è uno solo: il tema si cambia dal selettore in basso, che sostituisce il file CSS.

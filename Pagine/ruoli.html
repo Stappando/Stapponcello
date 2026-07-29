@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Ruoli utente</title>
+<meta name="description" content="I ruoli della piattaforma Stappando: chi è chi, cosa può fare ciascuno e dove entra." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --ok:#2d6a4f;
+  --warn:#a8814f;
+  --no:#b9b2a8;
+  --r:16px;
+  --r-sm:10px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+  --display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Montserrat,system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1280px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-dark)}
+
+/* ── testata ──────────────────────────────────────────── */
+.head{
+  background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 100%);
+  color:#fff;padding:30px 0 72px;position:relative;overflow:hidden;flex:none;
+}
+.head::after{
+  content:"";position:absolute;right:-120px;top:-160px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
+}
+.head .wrap{position:relative;z-index:1}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.55);flex-wrap:wrap}
+.crumbs a:hover{color:#fff;text-decoration:underline}
+.head .eyebrow{color:var(--accent);margin-top:24px;display:block}
+.head h1{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.1;margin-top:12px}
+.head p{margin-top:14px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.65;max-width:64ch}
+
+/* ── scala di accesso ─────────────────────────────────── */
+.ladder{
+  margin-top:-38px;position:relative;z-index:2;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);padding:22px 24px;
+}
+.ladder h2{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-fg)}
+.ladder-in{display:flex;align-items:stretch;gap:8px;margin-top:14px;flex-wrap:wrap}
+.rung{
+  flex:1;min-width:132px;border-radius:var(--r-sm);padding:13px 15px;
+  background:var(--bg);border:1px solid var(--border-soft);position:relative;
+}
+.rung b{display:block;font-size:13px;font-weight:600}
+.rung span{display:block;font-size:11px;color:var(--muted-fg);margin-top:3px}
+.rung i{
+  position:absolute;top:-1px;left:-1px;right:-1px;height:3px;border-radius:var(--r-sm) var(--r-sm) 0 0;
+}
+.ladder-note{font-size:12px;color:var(--muted-fg);margin-top:14px}
+
+/* ── schede dei ruoli ─────────────────────────────────── */
+main{flex:1;padding-bottom:76px}
+.sec{margin-top:52px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.sec-head h2{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.03em}
+.sec-head p{font-size:13.5px;color:var(--muted-fg);flex:1;min-width:220px}
+
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;align-items:start}
+.role{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.role:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.role-top{padding:20px 22px 18px;border-bottom:1px solid var(--border-soft);position:relative}
+.role-top::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.role-head{display:flex;align-items:center;gap:13px}
+.role-ic{
+  width:46px;height:46px;border-radius:var(--r-sm);flex:none;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.role-top h3{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.03em}
+.role-top .kind{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-fg);margin-top:4px}
+.role-top .who{font-size:13px;color:var(--muted-fg);line-height:1.55;margin-top:12px}
+.role-entry{
+  display:inline-flex;align-items:center;gap:7px;margin-top:13px;
+  font-size:12.5px;font-weight:600;color:var(--primary);
+}
+.role-entry.none{color:var(--muted-fg);font-weight:500}
+.role-entry svg{transition:transform .18s ease}
+.role-entry:hover svg{transform:translateX(3px)}
+
+.role-body{padding:16px 22px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
+.can h4,.cant h4{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;
+}
+.can h4{color:var(--ok)}
+.cant h4{color:var(--muted-fg)}
+.can li,.cant li{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.5;padding:3px 0}
+.can li svg{flex:none;color:var(--ok);margin-top:3px}
+.cant li svg{flex:none;color:var(--no);margin-top:3px}
+.cant li{color:var(--muted-fg)}
+
+/* ── matrice ──────────────────────────────────────────── */
+.matrix-wrap{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:auto;
+}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{padding:11px 12px;text-align:center;border-bottom:1px solid var(--border-soft);font-size:12.5px}
+thead th{
+  position:sticky;top:0;background:var(--bg);z-index:2;
+  font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);
+  border-bottom:1px solid var(--border);
+}
+th.cap,td.cap{
+  text-align:left;position:sticky;left:0;background:var(--card);z-index:1;
+  min-width:250px;font-weight:500;
+}
+thead th.cap{background:var(--bg);z-index:3}
+tr.grp td{
+  background:var(--muted);font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted-fg);text-align:left;
+}
+tr.grp td.cap{background:var(--muted)}
+tbody tr:hover td{background:rgba(201,168,124,.07)}
+tbody tr:hover td.cap{background:rgba(201,168,124,.07)}
+.mark{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;
+}
+.mark.yes{background:rgba(45,106,79,.12);color:var(--ok)}
+.mark.part{background:rgba(201,168,124,.2);color:var(--warn)}
+.mark.no{color:var(--no)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--muted-fg)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+
+/* ── note ─────────────────────────────────────────────── */
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:22px}
+.note{
+  background:var(--card);border-left:3px solid var(--accent);border-radius:0 var(--r) var(--r) 0;
+  padding:20px 22px;box-shadow:var(--shadow-sm);
+}
+.note b{display:block;font-size:14px;font-weight:600;margin-bottom:7px}
+.note p{font-size:13px;color:var(--muted-fg);line-height:1.6}
+.note.ask{border-left-color:var(--primary)}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12.5px;color:var(--muted-fg);flex:none}
+footer a{color:var(--primary);font-weight:500}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:720px){
+  .wrap{padding:0 18px}
+  .roles{grid-template-columns:1fr}
+  .rung{min-width:calc(50% - 4px)}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="../index.html">Indice dei mockup</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="alberatura.html">Alberatura</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span>Ruoli utente</span>
+    </nav>
+
+    <span class="eyebrow">Chi vede cosa</span>
+    <h1>Ruoli utente</h1>
+    <p>
+      Sette identità, dal visitatore che capita sul sito all'amministratore che tiene le chiavi.
+      Quello che segue non è un'ipotesi: i permessi sono letti dalle sei dashboard già disegnate,
+      voce di menù per voce di menù.
+    </p>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- scala di accesso -->
+  <section class="ladder">
+    <h2>Scala di accesso</h2>
+    <div class="ladder-in" id="ladder"></div>
+    <p class="ladder-note">
+      Non è una gerarchia unica: <b>cliente</b>, <b>Horeca</b> e <b>cantina</b> sono tre mondi
+      paralleli che comprano o vendono. Solo l'ultimo tratto — manager admin e admin — è una vera
+      scala di potere.
+    </p>
+  </section>
+
+  <!-- schede dei ruoli -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>I sette ruoli</h2>
+      <p>Chi è, dove entra, cosa può fare e — soprattutto — cosa non può.</p>
+    </div>
+    <div class="roles" id="roles"></div>
+  </section>
+
+  <!-- matrice -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Matrice dei permessi</h2>
+      <p>Le voci vere delle dashboard, incrociate con i ruoli.</p>
+    </div>
+    <div class="matrix-wrap">
+      <table id="matrix">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span><i class="mark yes">✓</i> permesso pieno</span>
+      <span><i class="mark part">◐</i> parziale, o con approvazione</span>
+      <span><i class="mark no">—</i> non accede</span>
+    </div>
+  </section>
+
+  <!-- da decidere -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Quello che manca, o che va deciso</h2>
+      <p>Emerso confrontando le dashboard fra loro.</p>
+    </div>
+    <div class="notes" id="notes"></div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  Stappando · ruoli utente — <a href="alberatura.html">alberatura</a> · <a href="../index.html">indice dei mockup</a>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · ruoli
+   I permessi vengono dalle voci di menù delle dashboard in
+   Dashboards/: se lì cambia una sezione, va aggiornata qui.
+   ══════════════════════════════════════════════════════════ */
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const IC = {
+  guest:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  horeca:'<path d="M3 11h18"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/>',
+  vmanager:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',
+  vowner:'<path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/>',
+  madmin:'<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  admin:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+};
+
+const RUOLI = [
+  {id:'guest', k:'guest', col:'#8a8375', nome:'Visitatore', tipo:'Non registrato',
+   who:'Chiunque arrivi sul sito senza account. È il 90% del traffico: deve poter capire tutto prima di dare un indirizzo email.',
+   entry:{l:'Homepage', h:'homepage.html'},
+   can:['Sfogliare catalogo, schede vino e cantine','Leggere i Racconti e la mappa delle regioni','Cercare e filtrare','Riempire il carrello'],
+   cant:['Concludere l’ordine senza registrarsi (da decidere)','Vedere i prezzi del listino Horeca','Scrivere recensioni']},
+
+  {id:'cliente', k:'user', col:'#005f73', nome:'Cliente', tipo:'B2C · registrato',
+   who:'Il privato che compra per sé o per regalo. La sua area è "Il mio Stappando": ordini, resi, buoni, Wine Club.',
+   entry:{l:'Il mio Stappando', h:'../Dashboards/dashboard-user.html'},
+   can:['Ordinare, tracciare le spedizioni, aprire un reso con motivo','Gestire indirizzi, punti di ritiro e dati di fatturazione','Usare codici sconto e buoni','Iscriversi al Wine Club e saltare un mese','Scrivere recensioni sugli acquisti fatti'],
+   cant:['Vedere i prezzi riservati Horeca','Accedere ai dati di altri clienti']},
+
+  {id:'horeca', k:'horeca', col:'#6d1f2c', nome:'Horeca', tipo:'B2B · account approvato',
+   who:'Ristoranti, enoteche, wine bar. Stesso catalogo del cliente, ma a listino riservato e con logiche di riordino.',
+   entry:{l:'Area Horeca', h:'../Dashboards/dashboard-horeca.html'},
+   can:['Comprare al listino B2B, con sconti per volume','Riordinare in un clic quello che ha già preso','Tenere una wishlist di locale','Gestire i dati dell’azienda e la fatturazione'],
+   cant:['Vedere i margini della piattaforma o delle cantine','Comprare ai prezzi B2C']},
+
+  {id:'vmanager', k:'vmanager', col:'#2d6a4f', nome:'Vendor manager', tipo:'Cantina · operativo',
+   who:'Chi in cantina lavora tutti i giorni: carica i vini, prepara gli ordini, risponde alle recensioni. Non è il titolare.',
+   entry:{l:'Pannello cantina', h:'../Dashboards/dashboard-vendor-manager.html'},
+   can:['Creare e modificare i prodotti della propria cantina','Gestire giacenze e stato degli ordini','Vedere statistiche e recensioni della cantina','Aprire una richiesta di sponsorizzazione'],
+   cant:['Toccare le impostazioni della cantina (payout, dati fiscali)','Vedere le cantine altrui']},
+
+  {id:'vowner', k:'vowner', col:'#a8814f', nome:'Vendor owner', tipo:'Cantina · titolare',
+   who:'Il titolare della cantina. Fa tutto quello che fa il manager, più le impostazioni che riguardano soldi e contratto.',
+   entry:{l:'Pannello titolare', h:'../Dashboards/dashboard-vendor-owner.html'},
+   can:['Tutto quello che può il vendor manager','Impostazioni della cantina: payout, dati fiscali, anagrafica','Vedere il fatturato e i costi delle sponsorizzazioni'],
+   cant:['Vedere le cantine altrui','Cambiare le commissioni concordate']},
+
+  {id:'madmin', k:'madmin', col:'#4a3b63', nome:'Manager admin', tipo:'Piattaforma · operativo',
+   who:'Chi manda avanti il marketplace ogni giorno: utenti, cantine, ordini, contenuti, promozioni.',
+   entry:{l:'Dashboard Manager Admin', h:'../Dashboards/dashboard-manager-admin.html'},
+   can:['Gestire utenti, cantine, catalogo e ordini globali','Pagamenti, spedizioni e corrieri','Promozioni, marketing, blog e CMS','Moderare recensioni, gestire il Wine Club','Leggere report e analytics'],
+   cant:['Assegnare ruoli e permessi','Cambiare commissioni e contratti','Toccare feature flag, API e log di audit','Approvare da solo i rimborsi oltre soglia']},
+
+  {id:'admin', k:'admin', col:'#003d4d', nome:'Admin', tipo:'Piattaforma · super/owner',
+   who:'Il ruolo radice. Ha le cinque chiavi che il manager admin non ha, ed è l’unico che può darle a qualcun altro.',
+   entry:{l:'Dashboard Admin', h:'../Dashboards/dashboard-admin.html'},
+   can:['Tutto quello che può il manager admin','Ruoli e permessi: chi diventa cosa','Commissioni e contratti con le cantine','Feature flag e integrazioni / API','Log e audit di ogni azione','Approvare i rimborsi oltre soglia'],
+   cant:['Niente: è il livello più alto — per questo ogni sua azione finisce nel log']},
+];
+
+/* ── matrice: y sì · p parziale · n no ────────────────── */
+const COLONNE = ['guest','cliente','horeca','vmanager','vowner','madmin','admin'];
+const MATRICE = [
+  {grp:'Acquisto'},
+  {c:'Sfogliare catalogo, vini e cantine',      v:'yyyyyyy'},
+  {c:'Prezzi e listino riservato Horeca',       v:'nnynnyy'},
+  {c:'Concludere un ordine',                    v:'pyynnnn'},
+  {c:'Wine Club: iscrizione e gestione',        v:'nynnnyy'},
+  {c:'Scrivere recensioni',                     v:'nyynnnn'},
+  {c:'Rispondere alle recensioni',              v:'nnnyyyy'},
+
+  {grp:'La propria cantina'},
+  {c:'Prodotti: creare, modificare, giacenze',  v:'nnnyyyy'},
+  {c:'Ordini della cantina',                    v:'nnnyyyy'},
+  {c:'Statistiche della cantina',               v:'nnnyyyy'},
+  {c:'Sponsorizzazioni',                        v:'nnnyyyy'},
+  {c:'Impostazioni cantina: payout, dati fiscali', v:'nnnnyyy'},
+
+  {grp:'Piattaforma'},
+  {c:'Utenti',                                  v:'nnnnnyy'},
+  {c:'Vendor e cantine',                        v:'nnnnnyy'},
+  {c:'Catalogo globale',                        v:'nnnnnyy'},
+  {c:'Ordini globali',                          v:'nnnnnyy'},
+  {c:'Pagamenti',                               v:'nnnnnyy'},
+  {c:'Rimborsi oltre soglia',                   v:'nnnnnpy'},
+  {c:'Spedizioni e corrieri',                   v:'nnnnnyy'},
+  {c:'Promozioni e codici sconto',              v:'nnnnnyy'},
+  {c:'Marketing, blog e contenuti (CMS)',       v:'nnnnnyy'},
+  {c:'Moderazione recensioni',                  v:'nnnnnyy'},
+  {c:'Report e analytics',                      v:'nnnnnyy'},
+  {c:'Impostazioni di sistema',                 v:'nnnnnyy'},
+
+  {grp:'Solo il ruolo radice'},
+  {c:'Ruoli e permessi',                        v:'nnnnnny'},
+  {c:'Commissioni e contratti',                 v:'nnnnnny'},
+  {c:'Feature flag',                            v:'nnnnnny'},
+  {c:'Integrazioni e API',                      v:'nnnnnny'},
+  {c:'Log e audit',                             v:'nnnnnny'},
+];
+
+const NOTE = [
+  {ask:true, t:'Owner e manager di cantina si somigliano troppo',
+   p:'Confrontando i due pannelli, l’unica differenza è la voce “Impostazioni”. Il manager vede quindi fatturato, statistiche e costi delle sponsorizzazioni come il titolare. Va deciso se è voluto o se al manager vanno tolti i numeri di soldi.'},
+  {ask:true, t:'Si può comprare senza registrarsi?',
+   p:'Oggi il carrello è aperto a tutti ma il checkout non esiste ancora. Prima di disegnarlo serve la risposta: ordine come ospite con la sola email, oppure registrazione obbligatoria?'},
+  {t:'Manca tutta la porta d’ingresso',
+   p:'Accedi, registrati, recupero password, verifica email: nessuna di queste schermate esiste. Sono il primo passo per rendere veri i ruoli, perché oggi si entra nelle dashboard solo per link diretto.'},
+  {t:'L’account Horeca va approvato',
+   p:'Un ristorante non può auto-assegnarsi il listino B2B. Serve una richiesta con partita IVA e una coda di approvazione lato piattaforma: non c’è né la richiesta né la coda.'},
+  {t:'Chi invita lo staff della cantina?',
+   p:'Il vendor owner dovrebbe poter invitare i suoi vendor manager, ma nel pannello titolare non c’è una gestione utenti. Oggi l’unico che può creare quel ruolo è l’admin.'},
+  {ask:true, t:'Serve un ruolo Redazione?',
+   p:'Blog e CMS oggi stanno dentro admin e manager admin. Se i Racconti diventano centrali, conviene un ruolo che tocchi solo i contenuti e non veda ordini né pagamenti.'},
+];
+
+/* ── scala di accesso ─────────────────────────────────── */
+document.getElementById('ladder').innerHTML = RUOLI.map(r => `
+  <div class="rung">
+    <i style="background:${r.col}"></i>
+    <b>${esc(r.nome)}</b>
+    <span>${esc(r.tipo)}</span>
+  </div>`).join('');
+
+/* ── schede ───────────────────────────────────────────── */
+const CHECK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+const CROSS = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+const ARROW = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
+
+document.getElementById('roles').innerHTML = RUOLI.map(r => `
+  <article class="role">
+    <div class="role-top" style="--c:${r.col}">
+      <div class="role-head">
+        <span class="role-ic" style="background:${r.col}" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[r.k]}</svg>
+        </span>
+        <div>
+          <h3>${esc(r.nome)}</h3>
+          <p class="kind">${esc(r.tipo)}</p>
+        </div>
+      </div>
+      <p class="who">${esc(r.who)}</p>
+      ${r.entry.h
+        ? `<a class="role-entry" href="${r.entry.h}">${esc(r.entry.l)} ${ARROW}</a>`
+        : `<span class="role-entry none">${esc(r.entry.l)}</span>`}
+    </div>
+    <div class="role-body">
+      <div class="can">
+        <h4>Può</h4>
+        <ul>${r.can.map(x => `<li>${CHECK}<span>${esc(x)}</span></li>`).join('')}</ul>
+      </div>
+      <div class="cant">
+        <h4>Non può</h4>
+        <ul>${r.cant.map(x => `<li>${CROSS}<span>${esc(x)}</span></li>`).join('')}</ul>
+      </div>
+    </div>
+  </article>`).join('');
+
+/* la striscia colorata in cima alla scheda */
+document.querySelectorAll('.role-top').forEach(el => {
+  el.style.setProperty('border-top', '0');
+  el.insertAdjacentHTML('afterbegin',
+    `<span style="position:absolute;top:0;left:0;right:0;height:3px;background:${el.style.getPropertyValue('--c')}"></span>`);
+});
+
+/* ── matrice ──────────────────────────────────────────── */
+const MARK = {y:'<i class="mark yes">✓</i>', p:'<i class="mark part">◐</i>', n:'<i class="mark no">—</i>'};
+const NOMI = Object.fromEntries(RUOLI.map(r => [r.id, r.nome]));
+
+document.querySelector('#matrix thead').innerHTML =
+  `<tr><th class="cap">Permesso</th>${COLONNE.map(c => `<th>${esc(NOMI[c])}</th>`).join('')}</tr>`;
+
+document.querySelector('#matrix tbody').innerHTML = MATRICE.map(r => {
+  if(r.grp) return `<tr class="grp"><td class="cap" colspan="${COLONNE.length + 1}">${esc(r.grp)}</td></tr>`;
+  return `<tr><td class="cap">${esc(r.c)}</td>${
+    r.v.split('').map(v => `<td>${MARK[v]}</td>`).join('')}</tr>`;
+}).join('');
+
+/* ── note ─────────────────────────────────────────────── */
+document.getElementById('notes').innerHTML = NOTE.map(n => `
+  <div class="note${n.ask ? ' ask' : ''}">
+    <b>${n.ask ? '↳ Da decidere · ' : ''}${esc(n.t)}</b>
+    <p>${esc(n.p)}</p>
+  </div>`).join('');
+</script>
+
+</body>
+</html>
