@@ -131,6 +131,7 @@ img{display:block;max-width:100%}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .row{display:flex;align-items:center;gap:12px}
 .spread{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -166,6 +167,10 @@ img{display:block;max-width:100%}
 .p-esaurito{background:#fef2f2;color:#dc2626}
 .p-bozza{background:#f3f4f6;color:#6b7280}
 .p-root{background:rgba(127,29,29,.1);color:var(--root)}
+.p-oscurato{background:#ede9fe;color:#5b21b6}
+.dt tr.oscurato td{color:var(--muted-fg)}
+.dt tr.oscurato .thumb img{filter:grayscale(.9);opacity:.55}
+.dt tr.oscurato b{font-weight:600;text-decoration:line-through;text-decoration-color:rgba(91,33,182,.4)}
 
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 0;text-align:center;gap:12px;color:var(--muted-fg)}
 .empty p{font-size:14px;font-weight:500}
@@ -337,7 +342,7 @@ svg .axis{font-size:11px;fill:#7a7060}
 /* ── mobile ──────────────────────────────────────────── */
 .mobnav,.mobsheet{display:none}
 @media (max-width:900px){
-  .grid4{grid-template-columns:repeat(2,1fr)}
+  .grid4,.grid5{grid-template-columns:repeat(2,1fr)}
   .grid-2col{grid-template-columns:1fr}
 }
 @media (max-width:768px){
@@ -375,7 +380,7 @@ svg .axis{font-size:11px;fill:#7a7060}
   .confirm{max-width:none;border-radius:24px 24px 0 0}
 }
 @media (max-width:520px){
-  .grid4{grid-template-columns:1fr 1fr}
+  .grid4,.grid5{grid-template-columns:1fr 1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -580,16 +585,16 @@ const VENDOR_STATUS = {attiva:{label:"Attiva",pill:"p-attivo"},sospesa:{label:"S
 const CONTRATTO_CFG = {firmato:{label:"Firmato",pill:"p-attivo"},da_firmare:{label:"Da firmare",pill:"p-esaurito"},in_verifica:{label:"In verifica",pill:"p-bozza"}};
 
 const USERS = [
-  {id:"u1",name:"Luca Ferretti",email:"luca.ferretti@email.it",role:"user",orders:14,spent:1240,status:"attivo",joined:"feb 2025"},
-  {id:"u2",name:"Enoteca Bacco Srl",email:"ordini@enotecabacco.it",role:"horeca",piva:"IT03920140127",orders:62,spent:18420,status:"attivo",joined:"gen 2024"},
-  {id:"u3",name:"Marta Conti",email:"marta.conti@email.it",role:"user",orders:8,spent:640,status:"attivo",joined:"apr 2025"},
-  {id:"u4",name:"Ristorante Le Volte",email:"acquisti@levolte.it",role:"horeca",piva:"IT02214560488",orders:41,spent:12980,status:"attivo",joined:"mar 2024"},
-  {id:"u5",name:"Giorgio Russo",email:"g.russo@email.it",role:"user",orders:3,spent:210,status:"sospeso",joined:"giu 2026"},
-  {id:"u6",name:"Marco Bellini",email:"marco@tenutadelsole.it",role:"vowner",orders:0,spent:0,status:"attivo",joined:"mar 2024"},
-  {id:"u7",name:"Silvia Neri",email:"silvia.neri@email.it",role:"user",orders:19,spent:1810,status:"attivo",joined:"nov 2024"},
-  {id:"u8",name:"Davide Poli",email:"davide@tenutadelsole.it",role:"vmanager",orders:0,spent:0,status:"attivo",joined:"set 2024"},
-  {id:"u9",name:"Chiara Lodi",email:"chiara.lodi@stappando.it",role:"madmin",orders:0,spent:0,status:"attivo",joined:"gen 2025"},
-  {id:"u10",name:"Elena Marchetti",email:"e.marchetti@email.it",role:"user",orders:11,spent:930,status:"attivo",joined:"set 2025"},
+  {id:"u1",name:"Luca Ferretti",email:"luca.ferretti@email.it",role:"user",orders:14,spent:1240,status:"attivo",joined:"feb 2025",newsletter:true,newsFrom:"feb 2025"},
+  {id:"u2",name:"Enoteca Bacco Srl",email:"ordini@enotecabacco.it",role:"horeca",piva:"IT03920140127",orders:62,spent:18420,status:"attivo",joined:"gen 2024",newsletter:true,newsFrom:"gen 2024"},
+  {id:"u3",name:"Marta Conti",email:"marta.conti@email.it",role:"user",orders:8,spent:640,status:"attivo",joined:"apr 2025",newsletter:true,newsFrom:"mag 2025"},
+  {id:"u4",name:"Ristorante Le Volte",email:"acquisti@levolte.it",role:"horeca",piva:"IT02214560488",orders:41,spent:12980,status:"attivo",joined:"mar 2024",newsletter:false},
+  {id:"u5",name:"Giorgio Russo",email:"g.russo@email.it",role:"user",orders:3,spent:210,status:"sospeso",joined:"giu 2026",newsletter:false},
+  {id:"u6",name:"Marco Bellini",email:"marco@tenutadelsole.it",role:"vowner",orders:0,spent:0,status:"attivo",joined:"mar 2024",newsletter:false},
+  {id:"u7",name:"Silvia Neri",email:"silvia.neri@email.it",role:"user",orders:19,spent:1810,status:"attivo",joined:"nov 2024",newsletter:true,newsFrom:"nov 2024"},
+  {id:"u8",name:"Davide Poli",email:"davide@tenutadelsole.it",role:"vmanager",orders:0,spent:0,status:"attivo",joined:"set 2024",newsletter:false},
+  {id:"u9",name:"Chiara Lodi",email:"chiara.lodi@stappando.it",role:"madmin",orders:0,spent:0,status:"attivo",joined:"gen 2025",newsletter:true,newsFrom:"gen 2025"},
+  {id:"u10",name:"Elena Marchetti",email:"e.marchetti@email.it",role:"user",orders:11,spent:930,status:"attivo",joined:"set 2025",newsletter:true,newsFrom:"set 2025"},
 ];
 
 const ADMIN_ORDERS = [
@@ -714,7 +719,9 @@ const CATALOG = [
   {id:"c7",name:"Nerello Mascalese 2021",vendor:"Etna Rossi",type:"Rossi",price:34,stock:0,status:"esaurito",img:W.mockup3},
   {id:"c8",name:"Franciacorta Brut",vendor:"Franciacorta Elite",type:"Bollicine",price:29,stock:40,status:"attivo",img:W.mockup1},
 ];
-const CAT_STATUS = {attivo:{label:"Attivo",pill:"p-attivo"},esaurito:{label:"Esaurito",pill:"p-esaurito"},bozza:{label:"Bozza",pill:"p-bozza"}};
+const CAT_STATUS = {attivo:{label:"Attivo",pill:"p-attivo"},esaurito:{label:"Esaurito",pill:"p-esaurito"},
+  bozza:{label:"Bozza",pill:"p-bozza"},oscurato:{label:"Oscurato",pill:"p-oscurato"}};
+const CAT_TYPES = ["Rossi","Bianchi","Bollicine","Rosati","Dolci"];
 
 /* ── SISTEMA · Integrazioni e chiavi API ────────────────────── */
 const INTEGRAZIONI = [
@@ -796,7 +803,8 @@ const MOBILE_NAV = ["panoramica","ordini","vendor","rbac"];
 const S = {
   section:"panoramica",
   roleMenu:false, mobMenu:false, toast:null,
-  cat:{q:"",type:"all"},
+  cat:{q:"",type:"all",edit:null,form:null,del:null},
+  catalog: CATALOG.map(p=>Object.assign({},p)),
   ven:{q:"",status:"all",comm:null},
   vendors: VENDORS.map(v=>Object.assign({},v)),
   usr:{q:"",role:"all",roleModal:null,pick:null},
@@ -952,7 +960,7 @@ function viewPanoramica(){
   const vRev=S.vendors.filter(v=>v.status==="in_review").length;
   const vSusp=S.vendors.filter(v=>v.status==="sospesa").length;
   const revFlag=S.reviews.filter(r=>r.status==="segnalata").length;
-  const outStock=CATALOG.filter(p=>p.status==="esaurito").length;
+  const outStock=S.catalog.filter(p=>p.status==="esaurito").length;
   const refundReq=pendingRefunds().length;
   const contrattiOpen=S.vendors.filter(v=>v.contratto!=="firmato").length;
   const alertN=vRev+vSusp+revFlag+outStock+refundReq+contrattiOpen;
@@ -1031,30 +1039,110 @@ function viewPanoramica(){
 /* ═══ CATALOGO ══════════════════════════════════════════════ */
 function viewCatalogo(){
   const q=S.cat.q.toLowerCase(), tp=S.cat.type;
-  const list=CATALOG.filter(p=>(tp==="all"||p.type===tp)&&(!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q)));
-  const types=["all"].concat(Array.from(new Set(CATALOG.map(p=>p.type))));
+  const C=S.catalog;
+  const list=C.filter(p=>(tp==="all"||p.type===tp)&&(!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q)));
+  const types=["all"].concat(Array.from(new Set(C.map(p=>p.type))));
+  const oscurati=C.filter(p=>p.status==="oscurato").length;
   const taxCard=(title,items)=>'<div class="card" style="padding:16px 20px"><div class="spread" style="margin-bottom:10px"><span class="eyebrow">'+title+'</span>'+
     '<button class="link" data-act="toast" data-msg="Gestione '+title.toLowerCase()+' (demo)">'+ic("plus",13)+' Aggiungi</button></div>'+
     '<div class="chiprow" style="flex-wrap:wrap;overflow:visible">'+items.map(t=>'<span class="chip">'+esc(t)+'</span>').join("")+'</div></div>';
+  const riga=p=>{
+    const osc=p.status==="oscurato";
+    return '<tr'+(osc?' class="oscurato"':'')+'><td><div class="row" style="gap:10px"><span class="thumb" style="width:34px;height:42px"><img src="'+p.img+'" alt="" loading="lazy"></span><b style="font-weight:600">'+esc(p.name)+'</b></div></td>'+
+      '<td>'+esc(p.vendor)+'</td><td>'+esc(p.type)+'</td><td>'+eur(p.price)+'</td>'+
+      '<td class="'+(p.stock===0?"zero":p.stock<10?"low":"")+'">'+p.stock+'</td><td>'+pill(CAT_STATUS[p.status])+'</td>'+
+      '<td><div class="row" style="gap:4px;justify-content:flex-end">'+
+        '<button class="iconbtn" data-act="cat-hide" data-id="'+p.id+'" title="'+(osc?"Rimetti in vendita sullo shop":"Oscura: resta in catalogo ma sparisce dallo shop")+'">'+
+          ic(osc?"eye":"eyeoff",15)+'</button>'+
+        '<button class="iconbtn" data-act="cat-edit" data-id="'+p.id+'" title="Modifica prodotto">'+ic("pencil",15)+'</button>'+
+        '<button class="iconbtn" data-act="cat-del" data-id="'+p.id+'" title="Elimina dal catalogo">'+ic("trash",15)+'</button>'+
+      '</div></td></tr>';
+  };
   return '<div class="wrap-lg stack">'+
     toastBar()+
-    '<div class="grid3">'+
-      '<div class="ministat"><span>Prodotti totali</span><b>'+CATALOG.length+'</b></div>'+
-      '<div class="ministat"><span>Cantine in catalogo</span><b>'+new Set(CATALOG.map(p=>p.vendor)).size+'</b></div>'+
-      '<div class="ministat"><span>Esauriti</span><b class="zero">'+CATALOG.filter(p=>p.status==="esaurito").length+'</b></div>'+
+    rootBar("Controllo totale sul catalogo",
+      "Sei l’unico a poter intervenire sui prodotti di qualsiasi cantina: <b>oscurare</b> un vino lo nasconde dallo shop lasciandolo nel catalogo del vendor, "+
+      "<b>modificare</b> corregge dati e prezzo, <b>eliminare</b> lo rimuove del tutto. Ogni intervento è tracciato in Log &amp; audit e notificato alla cantina.")+
+    '<div class="grid4">'+
+      '<div class="ministat"><span>Prodotti totali</span><b>'+C.length+'</b></div>'+
+      '<div class="ministat"><span>Cantine in catalogo</span><b>'+new Set(C.map(p=>p.vendor)).size+'</b></div>'+
+      '<div class="ministat"><span>Oscurati</span><b>'+oscurati+'</b></div>'+
+      '<div class="ministat"><span>Esauriti</span><b class="zero">'+C.filter(p=>p.status==="esaurito").length+'</b></div>'+
     '</div>'+
+    (oscurati>0?'<div class="infobox">'+ic("eyeoff",15)+'<span><b>'+oscurati+' '+(oscurati===1?"prodotto oscurato":"prodotti oscurati")+'.</b> '+
+      'Non compaiono sullo shop e non sono acquistabili, ma restano nel catalogo della cantina con giacenza, storico e recensioni. '+
+      'La cantina li vede come “oscurati dalla piattaforma” e non può rimetterli online da sola.</span></div>':'')+
     '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="cat-q" data-focus-key="catq" placeholder="Cerca prodotto o cantina…" value="'+esc(S.cat.q)+'"></div>'+
       '<div class="chiprow">'+types.map(t=>'<button class="chip '+(tp===t?"on":"")+'" data-act="cat-type" data-id="'+t+'">'+(t==="all"?"Tutti":t)+'</button>').join("")+'</div></div>'+
-    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Prodotto</th><th>Cantina</th><th>Tipo</th><th>Prezzo</th><th>Giacenza</th><th>Stato</th></tr></thead><tbody>'+
-      (list.length?list.map(p=>'<tr><td><div class="row" style="gap:10px"><span class="thumb" style="width:34px;height:42px"><img src="'+p.img+'" alt="" loading="lazy"></span><b style="font-weight:600">'+esc(p.name)+'</b></div></td>'+
-        '<td>'+esc(p.vendor)+'</td><td>'+esc(p.type)+'</td><td>'+eur(p.price)+'</td>'+
-        '<td class="'+(p.stock===0?"zero":p.stock<10?"low":"")+'">'+p.stock+'</td><td>'+pill(CAT_STATUS[p.status])+'</td></tr>').join("")
-        :'<tr><td colspan="6"><div class="empty" style="padding:40px 0">'+ic("box",32,"opacity:.4")+'<p>Nessun prodotto trovato</p></div></td></tr>')+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Prodotto</th><th>Cantina</th><th>Tipo</th><th>Prezzo</th><th>Giacenza</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+      (list.length?list.map(riga).join("")
+        :'<tr><td colspan="7"><div class="empty" style="padding:40px 0">'+ic("box",32,"opacity:.4")+'<p>Nessun prodotto trovato</p></div></td></tr>')+
       '</tbody></table></div>'+
     '<p class="eyebrow" style="margin-top:4px">Tassonomie — categorie, uvaggi, regioni, tag</p>'+
     '<div class="grid2">'+taxCard("Categorie",TAXONOMY.categorie)+taxCard("Uvaggi",TAXONOMY.uvaggi)+'</div>'+
     '<div class="grid2">'+taxCard("Regioni",TAXONOMY.regioni)+taxCard("Tag",TAXONOMY.tag)+'</div>'+
   '</div>';
+}
+
+/* modifica di un prodotto di qualsiasi cantina */
+function catEditModal(){
+  const p=S.catalog.find(x=>x.id===S.cat.edit); if(!p) return "";
+  const f=S.cat.form||{};
+  const prezzo=parseFloat(String(f.price).replace(",",".")), giac=parseInt(f.stock,10);
+  const valid=String(f.name).trim().length>0 && prezzo>0 && !isNaN(giac) && giac>=0;
+  const stati=[["attivo","In vendita"],["oscurato","Oscurato"],["bozza","Bozza"]];
+  return '<div class="overlay"><div class="scrim" data-act="cat-edit-close"></div>'+
+    '<div class="modal">'+
+      '<div class="modal-h"><h2>Modifica prodotto</h2>'+
+        '<button class="iconbtn" data-act="cat-edit-close" aria-label="Chiudi">'+ic("x",20)+'</button></div>'+
+      '<div class="modal-b">'+
+        '<div class="row" style="gap:12px"><span class="thumb" style="width:44px;height:56px"><img src="'+p.img+'" alt=""></span>'+
+          '<div><p style="font-size:14px;font-weight:600">'+esc(p.name)+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(p.vendor)+' · '+esc(p.id)+'</p></div></div>'+
+        '<div class="field"><label class="eyebrow">Nome prodotto *</label>'+
+          '<input class="input" data-input="cat-name" data-focus-key="catname" value="'+esc(f.name)+'"></div>'+
+        '<div class="grid2">'+
+          '<div class="field"><label class="eyebrow">Cantina</label><select class="input" data-input="cat-vendor" data-focus-key="catvendor">'+
+            Array.from(new Set(S.vendors.map(v=>v.name).concat([p.vendor]))).map(v=>
+              '<option '+(f.vendor===v?"selected":"")+'>'+esc(v)+'</option>').join("")+'</select></div>'+
+          '<div class="field"><label class="eyebrow">Tipologia</label><select class="input" data-input="cat-type-form" data-focus-key="cattype">'+
+            Array.from(new Set(CAT_TYPES.concat(S.catalog.map(x=>x.type)))).map(t=>
+              '<option '+(f.type===t?"selected":"")+'>'+esc(t)+'</option>').join("")+'</select></div>'+
+        '</div>'+
+        '<div class="grid2">'+
+          '<div class="field"><label class="eyebrow">Prezzo (€) *</label>'+
+            '<input class="input" type="number" min="0" step="0.5" data-input="cat-price" data-focus-key="catprice" value="'+esc(f.price)+'"></div>'+
+          '<div class="field"><label class="eyebrow">Giacenza (bt.) *</label>'+
+            '<input class="input" type="number" min="0" data-input="cat-stock" data-focus-key="catstock" value="'+esc(f.stock)+'"></div>'+
+        '</div>'+
+        '<div class="field"><label class="eyebrow">Stato sullo shop</label>'+
+          '<div class="row" style="gap:6px">'+stati.map(s=>'<button class="chip '+(f.status===s[0]?"on":"")+'"'+
+            (f.status===s[0]&&s[0]==="oscurato"?' style="background:#5b21b6"':'')+
+            ' data-act="cat-form-status" data-id="'+s[0]+'">'+(s[0]==="oscurato"?ic("eyeoff",12)+" ":"")+s[1]+'</button>').join("")+'</div>'+
+          '<p style="font-size:11px;color:var(--muted-fg);margin-top:8px;line-height:1.5">'+
+          'Con giacenza a 0 il prodotto passa automaticamente a <b>esaurito</b>. '+
+          'Un prodotto <b>oscurato</b> resta nel catalogo della cantina ma non è visibile né acquistabile sullo shop.</p></div>'+
+        '<div class="infobox">'+ic("clipboard",15)+'<span>La modifica di un prodotto altrui viene registrata in Log &amp; audit e la cantina riceve una notifica con i campi cambiati.</span></div>'+
+      '</div>'+
+      '<div class="modal-f"><button class="btn btn-ghost" data-act="cat-edit-close">Annulla</button>'+
+        '<button class="btn btn-root" data-act="cat-save" data-id="'+p.id+'"'+(valid?"":" disabled")+'>'+ic("check",15)+' Salva modifiche</button></div>'+
+    '</div></div>';
+}
+/* eliminazione definitiva dal catalogo */
+function catDelModal(){
+  const p=S.catalog.find(x=>x.id===S.cat.del); if(!p) return "";
+  return '<div class="overlay"><div class="scrim" data-act="cat-del-cancel"></div>'+
+    '<div class="confirm">'+
+      '<div class="row" style="gap:12px"><span class="ico">'+ic("alert",22)+'</span>'+
+        '<div><h2 style="font-size:16px;font-weight:600">Elimina dal catalogo</h2>'+
+        '<p style="font-size:12px;color:var(--muted-fg)">'+esc(p.name)+' · '+esc(p.vendor)+'</p></div></div>'+
+      '<p style="font-size:13px;color:var(--muted-fg);line-height:1.55">Il prodotto viene rimosso dallo shop e dal catalogo della cantina. '+
+        'È irreversibile: se vuoi solo sospenderne la vendita usa <b style="color:var(--fg)">Oscura</b>. '+
+        '<b style="color:var(--fg)">Gli ordini già effettuati e i documenti fiscali restano intatti.</b></p>'+
+      '<div class="modal-f" style="padding:0;border:none">'+
+        '<button class="btn btn-ghost" data-act="cat-del-cancel">Annulla</button>'+
+        '<button class="btn btn-danger" data-act="cat-del-confirm" data-id="'+p.id+'">'+ic("trash",15)+' Elimina definitivamente</button></div>'+
+    '</div></div>';
 }
 
 /* ═══ VENDOR / CANTINE — commissioni e attivazione sbloccate ═ */
@@ -1118,6 +1206,12 @@ function scaglionePer(gmv){
 }
 
 /* ═══ UTENTI — cambio ruolo sbloccato ═══════════════════════ */
+/* iscrizione alla newsletter: la dà il consenso dell’utente, qui è di sola lettura */
+function newsCell(u){
+  return u.newsletter
+    ? '<span class="pill p-attivo" title="Iscritto'+(u.newsFrom?" da "+u.newsFrom:"")+'">'+ic("mail",10)+' Iscritto</span>'
+    : '<span class="pill p-bozza" title="Non iscritto alla newsletter">Non iscritto</span>';
+}
 function viewUtenti(){
   const q=S.usr.q.toLowerCase(), rl=S.usr.role;
   const list=S.users.filter(u=>(rl==="all"||u.role===rl)&&(!q||u.name.toLowerCase().includes(q)||u.email.toLowerCase().includes(q)));
@@ -1126,6 +1220,7 @@ function viewUtenti(){
     '<td><div class="row" style="gap:10px"><span class="avatar" style="background:'+roleById(u.role).color+'">'+initials(u.name)+'</span>'+
       '<div><b style="font-weight:600">'+esc(u.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(u.email)+(u.piva?' · P.IVA '+esc(u.piva):"")+'</p></div></div></td>'+
     '<td>'+rolePill(u.role)+'</td>'+
+    '<td>'+newsCell(u)+'</td>'+
     '<td>'+(u.orders||"—")+'</td><td>'+(u.spent?eurK(u.spent):"—")+'</td>'+
     '<td>'+(u.status==="attivo"?'<span class="badge st-consegnato"><i></i>Attivo</span>':'<span class="badge st-annullato"><i></i>Sospeso</span>')+'</td>'+
     '<td><div class="row" style="gap:6px;justify-content:flex-end">'+
@@ -1137,16 +1232,17 @@ function viewUtenti(){
     toastBar()+
     rootBar("Cambio ruolo utente sbloccato",
       "Solo l'Admin può promuovere o declassare un account fra i 7 livelli. Ogni cambio di ruolo è un'azione critica e viene scritta nel log &amp; audit con autore, data e IP.")+
-    '<div class="grid4">'+
+    '<div class="grid5">'+
       '<div class="ministat"><span>Clienti B2C</span><b>'+per("user")+'</b></div>'+
       '<div class="ministat"><span>Clienti Horeca</span><b>'+per("horeca")+'</b></div>'+
       '<div class="ministat"><span>Staff cantine</span><b>'+(per("vowner")+per("vmanager"))+'</b></div>'+
+      '<div class="ministat"><span>Iscritti newsletter</span><b>'+S.users.filter(u=>u.newsletter).length+'</b></div>'+
       '<div class="ministat"><span>Sospesi</span><b class="zero">'+S.users.filter(u=>u.status==="sospeso").length+'</b></div>'+
     '</div>'+
     '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="usr-q" data-focus-key="usrq" placeholder="Cerca nome o email…" value="'+esc(S.usr.q)+'"></div>'+
       '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(rl===c[0]?"on":"")+'" data-act="usr-role-filter" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div></div>'+
-    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Utente</th><th>Ruolo</th><th>Ordini</th><th>Speso</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
-      (list.length?rows:'<tr><td colspan="6"><div class="empty" style="padding:40px 0">'+ic("users",32,"opacity:.4")+'<p>Nessun utente trovato</p></div></td></tr>')+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Utente</th><th>Ruolo</th><th>Newsletter</th><th>Ordini</th><th>Speso</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+      (list.length?rows:'<tr><td colspan="7"><div class="empty" style="padding:40px 0">'+ic("users",32,"opacity:.4")+'<p>Nessun utente trovato</p></div></td></tr>')+
     '</tbody></table></div>'+
   '</div>';
 }
@@ -1911,6 +2007,8 @@ function view(){
     mobileNav()+
     (S.ord.refund?refundModal():"")+
     (S.ord.destroy?destroyModal():"")+
+    (S.cat.edit?catEditModal():"")+
+    (S.cat.del?catDelModal():"")+
     (S.usr.roleModal?roleModal():"")+
     (S.ven.comm?commModal():"");
 }
@@ -1942,8 +2040,42 @@ root.addEventListener("click",e=>{
     case "mob-close": S.mobMenu=false; break;
     case "toast": S.toast=el.dataset.msg||""; break;
 
-    /* catalogo */
+    /* catalogo · oscura, modifica, elimina (solo Admin) */
     case "cat-type": S.cat.type=id; break;
+    case "cat-hide": { const p=S.catalog.find(x=>x.id===id);
+      if(p){
+        if(p.status==="oscurato"){
+          p.status = p.prevStatus || (p.stock===0?"esaurito":"attivo"); delete p.prevStatus;
+          S.toast=p.name+" è di nuovo visibile sullo shop";
+        }else{
+          p.prevStatus=p.status; p.status="oscurato";
+          S.toast=p.name+" oscurato · "+p.vendor+" riceve la notifica";
+        }
+      } break; }
+    case "cat-edit": { const p=S.catalog.find(x=>x.id===id);
+      if(p){ S.cat.edit=id;
+        S.cat.form={name:p.name,vendor:p.vendor,type:p.type,price:p.price,stock:p.stock,status:p.status==="esaurito"?"attivo":p.status}; }
+      break; }
+    case "cat-edit-close": S.cat.edit=null; S.cat.form=null; break;
+    case "cat-form-status": if(S.cat.form) S.cat.form.status=id; break;
+    case "cat-save": { const p=S.catalog.find(x=>x.id===id), f=S.cat.form;
+      if(p&&f){
+        const prezzo=parseFloat(String(f.price).replace(",","."));
+        const giac=parseInt(f.stock,10);
+        if(f.name.trim()&&prezzo>0&&!isNaN(giac)&&giac>=0){
+          p.name=f.name.trim(); p.vendor=f.vendor; p.type=f.type; p.price=prezzo; p.stock=giac;
+          if(f.status==="oscurato"){ p.status="oscurato"; p.prevStatus=giac===0?"esaurito":"attivo"; }
+          else{ p.status = giac===0 ? "esaurito" : f.status; delete p.prevStatus; }
+          S.toast="Prodotto aggiornato · notifica inviata a "+p.vendor;
+          S.cat.edit=null; S.cat.form=null;
+        }
+      } break; }
+    case "cat-del": S.cat.del=id; break;
+    case "cat-del-cancel": S.cat.del=null; break;
+    case "cat-del-confirm": { const i=S.catalog.findIndex(x=>x.id===id);
+      if(i>=0){ const p=S.catalog[i]; S.catalog.splice(i,1);
+        S.toast=p.name+" eliminato dal catalogo di "+p.vendor; }
+      S.cat.del=null; break; }
 
     /* vendor · commissioni e attivazione (solo Admin) */
     case "ven-status": S.ven.status=id; break;
@@ -2066,6 +2198,11 @@ root.addEventListener("input",e=>{
   if(t.dataset.input){
     const map={
       "cat-q":()=>S.cat.q=t.value,
+      "cat-name":()=>{if(S.cat.form)S.cat.form.name=t.value;},
+      "cat-vendor":()=>{if(S.cat.form)S.cat.form.vendor=t.value;},
+      "cat-type-form":()=>{if(S.cat.form)S.cat.form.type=t.value;},
+      "cat-price":()=>{if(S.cat.form)S.cat.form.price=t.value;},
+      "cat-stock":()=>{if(S.cat.form)S.cat.form.stock=t.value;},
       "ven-q":()=>S.ven.q=t.value,
       "usr-q":()=>S.usr.q=t.value,
       "ord-q":()=>S.ord.q=t.value,
@@ -2078,10 +2215,21 @@ root.addEventListener("input",e=>{
   }
 });
 
+/* i <select> del modale catalogo: alcuni browser emettono solo “change” */
+root.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset&&t.dataset.input&&t.tagName==="SELECT"){
+    if(t.dataset.input==="cat-vendor"&&S.cat.form) S.cat.form.vendor=t.value;
+    if(t.dataset.input==="cat-type-form"&&S.cat.form) S.cat.form.type=t.value;
+    render();
+  }
+});
+
 root.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
-    if(S.ord.refund||S.ord.destroy||S.usr.roleModal||S.ven.comm||S.mobMenu||S.roleMenu||S.promo.creating){
+    if(S.ord.refund||S.ord.destroy||S.usr.roleModal||S.ven.comm||S.mobMenu||S.roleMenu||S.promo.creating||S.cat.edit||S.cat.del){
       S.ord.refund=null;S.ord.destroy=null;S.usr.roleModal=null;S.usr.pick=null;S.ven.comm=null;
+      S.cat.edit=null;S.cat.form=null;S.cat.del=null;
       S.mobMenu=false;S.roleMenu=false;S.promo.creating=false;S.promo.form=null;render();
     }
   }
