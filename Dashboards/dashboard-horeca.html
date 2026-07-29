@@ -472,35 +472,11 @@ svg .axis{font-size:11px;fill:#7a7060}
 .rl-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:rgba(240,235,227,.4);border-top:1px solid var(--border)}
 .freq{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:600;background:var(--muted);color:var(--muted-fg)}
 
-/* tabella fatture */
-.tbl{width:100%;border-collapse:collapse}
-.tbl th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);padding:12px 16px;border-bottom:1px solid var(--border);white-space:nowrap}
-.tbl td{padding:14px 16px;border-bottom:1px solid var(--border-soft);font-size:13px;vertical-align:middle}
-.tbl tr:last-child td{border-bottom:none}
-.tbl tbody tr:hover{background:rgba(0,0,0,.02)}
-.tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.tbl .code{font-size:12px;font-weight:700;color:var(--fg)}
-.tblwrap{overflow-x:auto}
-.st-consegnata{background:#ecfdf5;color:#047857;border-color:#a7f3d0}
-.st-consegnata i{background:#10b981}
-.st-inviata{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-.st-inviata i{background:#3b82f6}
-.st-attesa{background:#fffbeb;color:#b45309;border-color:#fde68a}
-.st-attesa i{background:#fbbf24}
-.st-scartata{background:#fef2f2;color:#dc2626;border-color:#fecaca}
-.st-scartata i{background:#ef4444}
-.st-pagata{background:#ecfdf5;color:#047857;border-color:#a7f3d0}
-.st-pagata i{background:#10b981}
-.st-da_pagare{background:#fffbeb;color:#b45309;border-color:#fde68a}
-.st-da_pagare i{background:#fbbf24}
-
-/* card generiche a righe (impostazioni, azienda, documenti) */
+/* card generiche a righe (impostazioni, azienda) */
 .dl{display:grid;grid-template-columns:180px 1fr;gap:4px 20px;font-size:13px}
 .dl dt{color:var(--muted-fg);font-size:12px;padding:9px 0;border-bottom:1px solid var(--border-soft)}
 .dl dd{font-weight:500;padding:9px 0;border-bottom:1px solid var(--border-soft);word-break:break-word}
 .dl dt:last-of-type,.dl dd:last-of-type{border-bottom:none}
-.doc{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff}
-.doc-ic{width:36px;height:36px;border-radius:10px;background:var(--muted);color:var(--muted-fg);display:flex;align-items:center;justify-content:center;flex:none}
 .setrow{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--border-soft);width:100%;text-align:left;transition:.15s}
 .setrow:last-child{border-bottom:none}
 .setrow:hover{background:rgba(0,0,0,.02)}
@@ -512,9 +488,7 @@ svg .axis{font-size:11px;fill:#7a7060}
 .switch i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:999px;background:#fff;box-shadow:var(--shadow-sm);transition:.18s;display:block}
 .switch.on i{left:21px}
 
-/* wine club */
-.wc-box{display:flex;gap:16px;align-items:center;padding:16px;border:1px dashed var(--border);border-radius:var(--r);background:#fff}
-.wc-mystery{width:56px;height:80px;border-radius:var(--r-sm);background:linear-gradient(135deg,#003d4d,#005f73);display:flex;align-items:center;justify-content:center;color:var(--accent);flex:none}
+/* stato dell'ordine nel dettaglio */
 .timeline{display:flex;flex-direction:column;gap:0}
 .tl-row{display:flex;gap:14px;padding-bottom:18px;position:relative}
 .tl-row:last-child{padding-bottom:0}
@@ -555,7 +529,7 @@ svg .axis{font-size:11px;fill:#7a7060}
 /* ═══════════════════════════════════════════════════════════════
    Stappando Enocultura — Area Horeca (cliente B2B verificato)
    Ruolo: HORECA · eredita User (B2C) + listino riservato,
-   ordini ricorrenti, dati azienda e fatturazione elettronica.
+   riordino rapido di ciò che ha già acquistato e dati azienda.
    ═══════════════════════════════════════════════════════════════ */
 const ROLE = "horeca";
 
@@ -652,7 +626,6 @@ const AZIENDA = {
   ragione:"Osteria del Borgo S.r.l.",
   piva:"IT 03948210967",
   cf:"03948210967",
-  sdi:"M5UXCR1",
   pec:"osteriadelborgo@pec.it",
   rea:"RM-1284561",
   sede:"Via dei Coronari 128 — 00186 Roma (RM)",
@@ -664,15 +637,7 @@ const AZIENDA = {
   verificata:true,
   verificaData:"12 gen 2026",
   pagamento:"Bonifico 30 gg data fattura",
-  fido:6000,
-  fidoUsato:1842.60,
   corriere:"BRT — consegna al banco 8:00–12:00",
-  documenti:[
-    {nome:"Visura camerale.pdf",peso:"412 KB",data:"10 gen 2026",stato:"validato"},
-    {nome:"Certificato attribuzione P.IVA.pdf",peso:"128 KB",data:"10 gen 2026",stato:"validato"},
-    {nome:"Documento legale rappresentante.pdf",peso:"1,2 MB",data:"10 gen 2026",stato:"validato"},
-    {nome:"Licenza somministrazione.pdf",peso:"340 KB",data:"18 mar 2026",stato:"in_verifica"},
-  ],
 };
 
 /* ── Listino riservato B2B ──────────────────────────────────── */
@@ -709,55 +674,29 @@ const ORDER_STATUS_CFG = {
 };
 const ORDINI = [
   {id:"#ORD-2847",date:"20 lug 2026",status:"in_lavorazione",cantina:"Tenuta del Sole",corriere:"BRT",tracking:"BRT 4412 9087 331",
-   consegna:"prevista 24 lug 2026",fattura:null,shipping:0,notes:"Consegna al banco entro le 12:00.",
+   consegna:"prevista 24 lug 2026",shipping:0,notes:"Consegna al banco entro le 12:00.",
    items:[{id:"p1",qty:6},{id:"p9",qty:12}]},
   {id:"#ORD-2841",date:"14 lug 2026",status:"spedito",cantina:"Ca' del Glera",corriere:"BRT",tracking:"BRT 4412 8871 004",
-   consegna:"prevista 22 lug 2026",fattura:"FT-2026/0148",shipping:0,
+   consegna:"prevista 22 lug 2026",shipping:0,
    items:[{id:"p5",qty:36},{id:"p10",qty:12}]},
   {id:"#ORD-2833",date:"6 lug 2026",status:"consegnato",cantina:"Villa Ginori",corriere:"BRT",tracking:"BRT 4412 7712 550",
-   consegna:"consegnato 9 lug 2026",fattura:"FT-2026/0142",shipping:0,
+   consegna:"consegnato 9 lug 2026",shipping:0,
    items:[{id:"p4",qty:24},{id:"p7",qty:12}]},
   {id:"#ORD-2820",date:"28 giu 2026",status:"consegnato",cantina:"Poggio Antico",corriere:"TNT",tracking:"TNT 9930 1122 87",
-   consegna:"consegnato 1 lug 2026",fattura:"FT-2026/0131",shipping:0,
+   consegna:"consegnato 1 lug 2026",shipping:0,
    items:[{id:"p2",qty:6},{id:"p3",qty:6}]},
   {id:"#ORD-2811",date:"21 giu 2026",status:"consegnato",cantina:"Vigne Alte",corriere:"BRT",tracking:"BRT 4412 6650 219",
-   consegna:"consegnato 24 giu 2026",fattura:"FT-2026/0119",shipping:9.9,
+   consegna:"consegnato 24 giu 2026",shipping:9.9,
    items:[{id:"p6",qty:24},{id:"p8",qty:18}]},
   {id:"#ORD-2796",date:"8 giu 2026",status:"annullato",cantina:"Masseria Sole",corriere:"—",tracking:null,
-   consegna:"annullato su richiesta",fattura:null,shipping:0,notes:"Annullato: annata esaurita, riordinata a luglio.",
+   consegna:"annullato su richiesta",shipping:0,notes:"Annullato: annata esaurita, riordinata a luglio.",
    items:[{id:"p12",qty:24}]},
 ];
-
-/* ── Fatture elettroniche (SDI) ─────────────────────────────── */
-const FATTURE = [
-  {id:"FT-2026/0148",ordine:"#ORD-2841",data:"14 lug 2026",scadenza:"13 ago 2026",imponibile:703.20,sdi:"inviata",pag:"da_pagare"},
-  {id:"FT-2026/0142",ordine:"#ORD-2833",data:"6 lug 2026",scadenza:"5 ago 2026",imponibile:858.00,sdi:"consegnata",pag:"da_pagare"},
-  {id:"FT-2026/0131",ordine:"#ORD-2820",data:"28 giu 2026",scadenza:"28 lug 2026",imponibile:942.00,sdi:"consegnata",pag:"pagata"},
-  {id:"FT-2026/0119",ordine:"#ORD-2811",data:"21 giu 2026",scadenza:"21 lug 2026",imponibile:550.80,sdi:"consegnata",pag:"pagata"},
-  {id:"FT-2026/0104",ordine:"#ORD-2782",data:"2 giu 2026",scadenza:"2 lug 2026",imponibile:1284.40,sdi:"consegnata",pag:"pagata"},
-  {id:"FT-2026/0098",ordine:"#ORD-2770",data:"24 mag 2026",scadenza:"23 giu 2026",imponibile:396.00,sdi:"scartata",pag:"da_pagare",errore:"Codice destinatario non valido — reinvio automatico in corso"},
-];
-const SDI_CFG = {consegnata:{label:"Consegnata al SDI"},inviata:{label:"Inviata al SDI"},attesa:{label:"In attesa"},scartata:{label:"Scartata"}};
-const PAG_CFG = {pagata:{label:"Pagata"},da_pagare:{label:"Da pagare"}};
-
-/* ── Wine Club ──────────────────────────────────────────────── */
-const CLUB = {
-  attivo:true, piano:"Club Horeca · 6 bottiglie", prezzo:96, cadenza:"mensile",
-  rinnovo:"5 ago 2026", chiusura:"31 lug 2026", saltato:false,
-  indirizzo:"Osteria del Borgo — Via dei Coronari 128, Roma",
-  pagamento:"Bonifico 30 gg (come lo shop)",
-  boxRicevuti:[
-    {mese:"Luglio 2026",tema:"Bianchi di mare",vini:"Vermentino di Sardegna · Verdicchio di Jesi",data:"5 lug 2026"},
-    {mese:"Giugno 2026",tema:"Rosati d'estate",vini:"Rosé di Toscana · Cerasuolo d'Abruzzo",data:"5 giu 2026"},
-    {mese:"Maggio 2026",tema:"Nebbiolo verticale",vini:"Nebbiolo Langhe · Barolo DOCG",data:"5 mag 2026"},
-  ],
-};
 
 /* ── Comunicazioni / preferenze ─────────────────────────────── */
 const PREFS = [
   {id:"listino",icon:"tag",label:"Aggiornamenti listino B2B",desc:"Nuovi prezzi riservati e nuove annate in catalogo",on:true},
   {id:"riordino",icon:"repeat",label:"Promemoria riordino",desc:"Avviso il giorno prima della data prevista di ogni lista",on:true},
-  {id:"fatture",icon:"file",label:"Fatture e scadenze",desc:"Invio fattura elettronica e promemoria a 5 giorni dalla scadenza",on:true},
   {id:"news",icon:"msg",label:"Newsletter Stappando",desc:"Storie di cantine, eventi e degustazioni per professionisti",on:false},
 ];
 
@@ -776,8 +715,6 @@ const NAV_MAIN = [
   {id:"listino",label:"Listino B2B",icon:"tag",only:true},
   {id:"riordino",label:"Riordino rapido",icon:"repeat",only:true},
   {id:"ordini",label:"Ordini",icon:"bag"},
-  {id:"fatture",label:"Fatture elettroniche",icon:"file",only:true},
-  {id:"club",label:"Wine Club",icon:"wine"},
   {id:"wishlist",label:"Wishlist",icon:"heart"},
 ];
 const NAV_BOTTOM = [
@@ -795,10 +732,8 @@ const S = {
   cart:{},
   wishlist:["p2","p7","p10"],
   list:{search:"",type:"all",sort:"consigliati",view:"grid",sortMenu:false},
-  rec:{open:"l1"},
+  rec:{open:"l1",search:""},
   ord:{tab:"all",search:"",selected:null,mobile:false},
-  fat:{tab:"all"},
-  club:{saltato:CLUB.saltato,boxOpen:false},
   prefs:JSON.parse(JSON.stringify(PREFS)),
 };
 
@@ -818,12 +753,6 @@ function addToCart(id,qty){
 /* ── Componenti condivisi ───────────────────────────────────── */
 function statusBadge(st){
   return '<span class="badge st-'+st+'"><i></i>'+ORDER_STATUS_CFG[st].label+'</span>';
-}
-function sdiBadge(st){
-  return '<span class="badge st-'+st+'"><i></i>'+SDI_CFG[st].label+'</span>';
-}
-function pagBadge(st){
-  return '<span class="badge st-'+st+'"><i></i>'+PAG_CFG[st].label+'</span>';
 }
 function stockDot(p){
   const c = p.stock===0 ? "out" : (p.stock<=12 ? "low" : "");
@@ -854,13 +783,41 @@ function emptyState(icon,title,sub,btnLabel,btnTarget,btnAct){
     (btnLabel?'<button class="btn btn-primary" data-act="'+(btnAct||"nav")+'" data-id="'+(btnTarget||"")+'">'+btnLabel+'</button>':'')+'</div>';
 }
 
+/* tutte le etichette acquistate, aggregate su tutti gli ordini
+   (ORDINI è ordinato dal più recente: il primo incontro è l'ultimo acquisto) */
+function acquistati(){
+  const map={};
+  ORDINI.filter(o=>o.status!=="annullato").forEach(o=>o.items.forEach(i=>{
+    const a = map[i.id] || (map[i.id]={id:i.id,tot:0,volte:0,ultimo:o.date,ultimoOrd:o.id,ultimaQta:i.qty});
+    a.tot+=i.qty; a.volte++;
+  }));
+  return Object.keys(map).map(k=>map[k]).sort((a,b)=>b.tot-a.tot);
+}
+/* riga riordinabile: etichetta + quantità + aggiungi al carrello */
+function rigaAcquistato(a,compatta){
+  const p=byId(a.id);
+  return '<div class="prod-mini">'+
+    '<div class="thumb" style="width:38px;height:52px"><img src="'+p.img+'" alt="" loading="lazy"></div>'+
+    '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+esc(p.name)+' <span class="muted" style="font-weight:400">'+p.vintage+'</span></p>'+
+    '<p style="font-size:12px;color:var(--muted-fg)">'+esc(p.cantina)+' · '+eur(p.b2b)+'/bot. · '+
+      (compatta
+        ? a.tot+' bottiglie acquistate'
+        : a.tot+' bottiglie in '+a.volte+' '+(a.volte===1?"ordine":"ordini")+' · ultimo '+a.ultimo)+'</p>'+
+    (compatta?'':'<div style="margin-top:6px">'+stockDot(p)+'</div>')+'</div>'+
+    (p.stock===0
+      ? '<span class="packnote" style="flex:none">Non disponibile</span>'
+      : '<div class="row" style="gap:8px;flex:none">'+(compatta?'':stepper(p,true))+
+        '<button class="btn btn-primary" style="padding:8px 12px;font-size:12px" data-act="cart-add" data-id="'+p.id+'">'+
+        ic("cart",14)+(compatta?'':' Aggiungi al carrello')+'</button></div>')+
+  '</div>';
+}
+
 /* ═══ PANORAMICA ════════════════════════════════════════════ */
 function viewPanoramica(){
-  const daPagare = FATTURE.filter(f=>f.pag==="da_pagare");
-  const totDaPagare = daPagare.reduce((s,f)=>s+f.imponibile*(1+IVA),0);
+  const acq = acquistati();
   const recenti = ORDINI.slice(0,3);
-  const stat=(l,v,s,neg)=>'<div class="stat"><span class="lbl">'+l+'</span><span class="val">'+v+'</span>'+
-    '<span class="sub" style="'+(neg?'color:#b45309':'')+'">'+(neg?ic("clock",13):ic("up",13))+s+'</span></div>';
+  const stat=(l,v,s,icona)=>'<div class="stat"><span class="lbl">'+l+'</span><span class="val">'+v+'</span>'+
+    '<span class="sub">'+ic(icona||"up",13)+s+'</span></div>';
   const quick=(l,i,c,sec)=>'<button class="quick" data-act="nav" data-id="'+sec+'">'+
     '<span class="quick-ic" style="background:'+c+'1a;color:'+c+'">'+ic(i,20)+'</span><span>'+l+'</span></button>';
 
@@ -874,7 +831,7 @@ function viewPanoramica(){
       stat("Spesa 2026","€ 18.420","+22% rispetto al 2025")+
       stat("Ordini effettuati","34","6 negli ultimi 30 giorni")+
       stat("Risparmio vs B2C","€ 6.210","in media 31% a bottiglia")+
-      stat("Fatture da saldare",daPagare.length+"","Totale "+eurK(totDaPagare),true)+
+      stat("Etichette riordinabili",acq.length+"","già acquistate, pronte al riordino","repeat")+
     '</div>'+
 
     '<div class="dash-grid">'+
@@ -893,18 +850,10 @@ function viewPanoramica(){
       '</div>'+
       '<div class="card">'+
         '<div class="card-h"><h3>Riordino rapido</h3>'+
-          '<button class="link" data-act="nav" data-id="riordino">Gestisci liste '+ic("chevR",12)+'</button></div>'+
-        LISTE.map(l=>{
-          const n=l.items.reduce((s,i)=>s+i.qty,0);
-          const tot=l.items.reduce((s,i)=>s+byId(i.id).b2b*i.qty,0);
-          return '<div class="prod-mini">'+
-            '<span class="rl-ic" style="width:36px;height:36px">'+ic("repeat",16)+'</span>'+
-            '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+esc(l.name)+'</p>'+
-            '<p style="font-size:12px;color:var(--muted-fg)">'+n+' bottiglie · '+eur(tot)+' · prossimo '+l.next+'</p></div>'+
-            '<button class="btn btn-ghost" style="padding:8px 12px;flex:none" data-act="list-add" data-id="'+l.id+'">'+ic("cart",14)+'</button></div>';
-        }).join("")+
+          '<button class="link" data-act="nav" data-id="riordino">Tutte le etichette '+ic("chevR",12)+'</button></div>'+
+        acq.slice(0,5).map(a=>rigaAcquistato(a,true)).join("")+
         '<div style="padding:12px 20px;border-top:1px solid var(--border)">'+
-          '<button class="btn btn-primary" style="width:100%" data-act="nav" data-id="listino">'+ic("tag",15)+' Apri il listino B2B</button></div>'+
+          '<button class="btn btn-primary" style="width:100%" data-act="nav" data-id="riordino">'+ic("repeat",15)+' Riordina quello che usi sempre</button></div>'+
       '</div>'+
     '</div>'+
 
@@ -917,9 +866,9 @@ function viewPanoramica(){
 
     '<div class="grid4">'+
       quick("Listino B2B","tag",TEAL,"listino")+
-      quick("Liste ricorrenti","repeat","#8B2635","riordino")+
-      quick("Fatture elettroniche","file",GOLD,"fatture")+
-      quick("Wine Club","wine","#2d6a4f","club")+
+      quick("Riordino rapido","repeat","#8B2635","riordino")+
+      quick("I miei ordini","bag",GOLD,"ordini")+
+      quick("Wishlist","heart","#2d6a4f","wishlist")+
     '</div></div>';
 }
 
@@ -987,9 +936,8 @@ function viewListino(){
       '<span class="bi">'+ic("tag",18)+'</span>'+
       '<div style="flex:1"><h4>Listino riservato Horeca · valido dal 1 lug 2026</h4>'+
       '<p>Sconto medio del '+scontoMedio+'% sul prezzo di vendita al pubblico. Ordine minimo un cartone per etichetta, quantità multiple di 6.</p></div>'+
-      '<div class="row" style="gap:8px;flex:none">'+
-        '<button class="btn btn-ghost" data-act="download" data-id="listino.pdf">'+ic("download",14)+' PDF</button>'+
-        '<button class="btn btn-ghost" data-act="download" data-id="listino.csv">'+ic("download",14)+' CSV</button></div>'+
+      '<button class="btn btn-ghost" style="flex:none" data-act="download" data-id="listino.csv">'+
+        ic("download",14)+' Esporta CSV</button>'+
     '</div>'+
 
     '<div class="toolbar">'+
@@ -1048,17 +996,41 @@ function viewRiordino(){
 
   const ultimi = ORDINI.filter(o=>o.status!=="annullato").slice(0,4);
 
+  /* tutte le etichette già acquistate, con ricerca e aggiungi al carrello su ogni riga */
+  const acq = acquistati();
+  const q = S.rec.search.toLowerCase();
+  const acqFiltrati = acq.filter(a=>{
+    const p=byId(a.id);
+    return !q||p.name.toLowerCase().includes(q)||p.cantina.toLowerCase().includes(q)||
+      p.region.toLowerCase().includes(q)||p.denom.toLowerCase().includes(q);
+  });
+  const bottiglie = acq.reduce((s,a)=>s+a.tot,0);
+  const disponibili = acq.filter(a=>byId(a.id).stock>0);
+
   return '<div class="wrap stack">'+
     '<div class="banner">'+
       '<span class="bi">'+ic("repeat",18)+'</span>'+
-      '<div style="flex:1"><h4>Le tue liste ricorrenti</h4>'+
-      '<p>Salva le combinazioni che ordini sempre e portale nel carrello con un clic. Attiva il promemoria per riceverle come notifica il giorno prima.</p></div>'+
-      '<button class="btn btn-primary" style="flex:none" data-act="noop">'+ic("plus",15)+' Nuova lista</button>'+
+      '<div style="flex:1"><h4>Tutto quello che hai già acquistato</h4>'+
+      '<p>Qui trovi ogni etichetta passata dai tuoi ordini, con il tuo prezzo riservato: aggiungila al carrello '+
+      'senza cercarla nel listino. '+acq.length+' etichette, '+bottiglie+' bottiglie in totale.</p></div>'+
+      '<button class="btn btn-primary" style="flex:none" data-act="acq-all"'+(disponibili.length===0?" disabled":"")+'>'+
+        ic("cart",15)+' Aggiungi tutte</button>'+
     '</div>'+
-    '<div class="stack-sm">'+LISTE.map(lista).join("")+'</div>'+
 
     '<div class="card">'+
-      '<div class="card-h"><h3>Riordina da un ordine passato</h3>'+
+      '<div class="card-h"><h3>Etichette acquistate</h3>'+
+        '<span class="packnote">'+acqFiltrati.length+' di '+acq.length+' · ordinate per volume</span></div>'+
+      '<div style="padding:16px 20px;border-bottom:1px solid var(--border)">'+
+        '<div class="search">'+ic("search",15)+
+          '<input class="input" data-input="rec-search" data-focus-key="recsearch" '+
+          'placeholder="Cerca tra le etichette che ordini..." value="'+esc(S.rec.search)+'"></div></div>'+
+      (acqFiltrati.length===0
+        ? emptyState("search","Nessuna etichetta trovata","Prova con un altro nome, cantina o regione.")
+        : acqFiltrati.map(a=>rigaAcquistato(a)).join(""))+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Riordina un ordine intero</h3>'+
         '<button class="link" data-act="nav" data-id="ordini">Storico completo '+ic("chevR",12)+'</button></div>'+
       ultimi.map(o=>{
         const n=o.items.reduce((s,i)=>s+i.qty,0);
@@ -1067,9 +1039,13 @@ function viewRiordino(){
           '<div class="stackimgs">'+o.items.slice(0,3).map(i=>'<div class="thumb"><img src="'+byId(i.id).img+'" alt="" loading="lazy"></div>').join("")+'</div>'+
           '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+o.id+' · '+esc(o.cantina)+'</p>'+
           '<p style="font-size:12px;color:var(--muted-fg)">'+n+' bottiglie · '+eur(tot)+' · '+o.date+'</p></div>'+
-          '<button class="btn btn-ghost" style="padding:8px 12px;flex:none" data-act="reorder" data-id="'+o.id+'">'+ic("rotate",14)+' Riordina</button></div>';
+          '<button class="btn btn-ghost" style="padding:8px 12px;flex:none" data-act="reorder" data-id="'+o.id+'">'+ic("cart",14)+' Aggiungi al carrello</button></div>';
       }).join("")+
-    '</div></div>';
+    '</div>'+
+
+    '<div class="spread" style="flex-wrap:wrap"><h3 style="font-size:15px;font-weight:600">Liste ricorrenti</h3>'+
+      '<button class="btn btn-ghost" data-act="noop">'+ic("plus",15)+' Nuova lista</button></div>'+
+    '<div class="stack-sm">'+LISTE.map(lista).join("")+'</div></div>';
 }
 
 /* ═══ ORDINI ════════════════════════════════════════════════ */
@@ -1164,131 +1140,11 @@ function orderDetail(o){
         '</div></div>'+
 
       '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px">'+
-        '<span class="eyebrow">Documenti e azioni</span>'+
-        (o.fattura
-          ? '<div class="doc"><span class="doc-ic">'+ic("file",16)+'</span>'+
-            '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+o.fattura+'</p>'+
-            '<p style="font-size:11px;color:var(--muted-fg)">Fattura elettronica · disponibile in XML e PDF</p></div>'+
-            '<button class="iconbtn" data-act="download" data-id="'+o.fattura+'" aria-label="Scarica">'+ic("download",16)+'</button></div>'
-          : '<div class="note">La fattura elettronica viene emessa alla spedizione e recapitata al codice SDI '+AZIENDA.sdi+'.</div>')+
+        '<span class="eyebrow">Azioni</span>'+
         '<div class="row" style="gap:8px">'+
           '<button class="btn btn-primary" style="flex:1" data-act="reorder" data-id="'+o.id+'">'+ic("rotate",15)+' Riordina</button>'+
           '<button class="btn btn-ghost" style="flex:1" data-act="nav" data-id="supporto">'+ic("msg",15)+' Segnala un problema</button></div>'+
       '</div>'+
-    '</div></div>';
-}
-
-/* ═══ FATTURE ELETTRONICHE ══════════════════════════════════ */
-const FAT_TABS=[{id:"all",label:"Tutte"},{id:"da_pagare",label:"Da pagare"},{id:"pagata",label:"Pagate"},{id:"scartata",label:"Da sistemare"}];
-
-function viewFatture(){
-  const list=FATTURE.filter(f=>S.fat.tab==="all"||(S.fat.tab==="scartata"?f.sdi==="scartata":f.pag===S.fat.tab));
-  const counts={all:FATTURE.length,
-    da_pagare:FATTURE.filter(f=>f.pag==="da_pagare").length,
-    pagata:FATTURE.filter(f=>f.pag==="pagata").length,
-    scartata:FATTURE.filter(f=>f.sdi==="scartata").length};
-  const tot=FATTURE.reduce((s,f)=>s+f.imponibile*(1+IVA),0);
-  const aperto=FATTURE.filter(f=>f.pag==="da_pagare").reduce((s,f)=>s+f.imponibile*(1+IVA),0);
-  const scartata=FATTURE.find(f=>f.sdi==="scartata");
-
-  const ministat=(l,v,c)=>'<div class="ministat"><span>'+l+'</span><b style="'+(c?'color:'+c:'')+'">'+v+'</b></div>';
-
-  return '<div class="wrap-lg stack">'+
-    '<div class="grid3">'+
-      ministat("Fatturato 2026",eurK(tot))+
-      ministat("Da saldare",eurK(aperto),"#b45309")+
-      ministat("Prossima scadenza","28 lug 2026")+
-    '</div>'+
-
-    (scartata?'<div class="banner" style="border-color:#fecaca;background:linear-gradient(135deg,rgba(239,68,68,.06),rgba(251,191,36,.07))">'+
-      '<span class="bi" style="background:#fef2f2;color:#dc2626">'+ic("alert",18)+'</span>'+
-      '<div style="flex:1"><h4>Una fattura è stata scartata dal Sistema di Interscambio</h4>'+
-      '<p>'+scartata.id+' — '+esc(scartata.errore)+'. Controlla che codice SDI e P.IVA in “Dati azienda” siano corretti.</p></div>'+
-      '<button class="btn btn-ghost" style="flex:none" data-act="nav" data-id="azienda">Verifica dati</button></div>':'')+
-
-    '<div class="spread" style="flex-wrap:wrap">'+
-      '<div class="chiprow">'+FAT_TABS.map(t=>'<button class="chip '+(S.fat.tab===t.id?"on":"")+'" data-act="fat-tab" data-id="'+t.id+'">'+t.label+
-        ((counts[t.id]||0)>0?'<b>'+counts[t.id]+'</b>':'')+'</button>').join("")+'</div>'+
-      '<button class="btn btn-ghost" data-act="download" data-id="fatture-2026.zip">'+ic("download",14)+' Scarica tutte (ZIP)</button>'+
-    '</div>'+
-
-    '<div class="card tblwrap">'+
-      (list.length===0 ? emptyState("file","Nessuna fattura in questa vista","Cambia filtro per vedere le altre fatture del tuo account.") :
-      '<table class="tbl"><thead><tr>'+
-        '<th>Numero</th><th>Data</th><th>Ordine</th><th class="num">Imponibile</th><th class="num">Totale</th>'+
-        '<th>Stato SDI</th><th>Pagamento</th><th></th></tr></thead><tbody>'+
-      list.map(f=>'<tr>'+
-        '<td><span class="code">'+f.id+'</span></td>'+
-        '<td class="muted">'+f.data+'</td>'+
-        '<td><button class="link" data-act="ord-open" data-id="'+f.ordine+'">'+f.ordine+'</button></td>'+
-        '<td class="num">'+eur(f.imponibile)+'</td>'+
-        '<td class="num" style="font-weight:700">'+eur(f.imponibile*(1+IVA))+'</td>'+
-        '<td>'+sdiBadge(f.sdi)+'</td>'+
-        '<td>'+pagBadge(f.pag)+'<div style="font-size:11px;color:var(--muted-fg);margin-top:3px">scad. '+f.scadenza+'</div></td>'+
-        '<td><div class="row" style="gap:4px;justify-content:flex-end">'+
-          '<button class="iconbtn" data-act="download" data-id="'+f.id+'.xml" title="Scarica XML">'+ic("file",16)+'</button>'+
-          '<button class="iconbtn" data-act="download" data-id="'+f.id+'.pdf" title="Scarica PDF">'+ic("download",16)+'</button></div></td>'+
-      '</tr>').join("")+'</tbody></table>')+
-    '</div>'+
-
-    '<div class="infobox">'+ic("info",15)+
-      '<span>Le fatture vengono recapitate al codice destinatario <b>'+AZIENDA.sdi+'</b> e restano scaricabili qui per 10 anni. '+
-      'Il pagamento concordato è: '+esc(AZIENDA.pagamento)+'.</span></div>'+
-  '</div>';
-}
-
-/* ═══ WINE CLUB ═════════════════════════════════════════════ */
-function viewClub(){
-  return '<div class="wrap stack">'+
-    '<div class="hero"><div class="glow"></div><div class="inner">'+
-      '<div style="flex:1"><span class="tagline">'+ic("sparkles",13)+'Abbonamento attivo</span>'+
-      '<h2>'+CLUB.piano+'</h2>'+
-      '<p>Sei vini selezionati ogni mese dai nostri sommelier, pensati per allargare la carta del locale. Prezzo bloccato e reso gratuito sulle bottiglie non gradite.</p></div>'+
-      '<div class="nums"><div><b>'+eurK(CLUB.prezzo)+'</b><span>al mese, IVA esclusa</span></div>'+
-      '<div><b>'+CLUB.rinnovo+'</b><span>prossimo rinnovo</span></div></div>'+
-    '</div></div>'+
-
-    '<div class="grid-2col">'+
-      '<div class="card">'+
-        '<div class="card-h"><h3>Box in arrivo</h3><span class="hbadge">'+ic("cal",10)+'Spedizione 5 ago</span></div>'+
-        '<div style="padding:20px;display:flex;flex-direction:column;gap:16px">'+
-          '<div class="wc-box">'+
-            '<span class="wc-mystery">'+ic("wine",22)+'</span>'+
-            '<div style="flex:1"><p style="font-size:14px;font-weight:600">Sei bottiglie ancora da svelare</p>'+
-            '<p style="font-size:12px;color:var(--muted-fg);margin-top:4px">Il tema di agosto è “Vini di montagna”. Le etichette compaiono qui il giorno della spedizione.</p></div>'+
-          '</div>'+
-          (S.club.saltato
-            ? '<div class="note">Hai saltato il box di agosto. Riprenderemo a settembre, nessun addebito questo mese.</div>'
-            : '<div class="infobox">'+ic("clock",15)+'<span>Puoi saltare il mese o modificare l’indirizzo entro il '+CLUB.chiusura+'.</span></div>')+
-          '<div class="row" style="gap:8px">'+
-            '<button class="btn btn-ghost" style="flex:1" data-act="club-skip">'+ic(S.club.saltato?"rotate":"cal",15)+' '+(S.club.saltato?"Annulla il salto":"Salta il mese")+'</button>'+
-            '<button class="btn btn-ghost" style="flex:1" data-act="nav" data-id="impostazioni">'+ic("pin",15)+' Indirizzo</button></div>'+
-        '</div></div>'+
-
-      '<div class="card">'+
-        '<div class="card-h"><h3>Box ricevuti</h3><button class="link" data-act="nav" data-id="ordini">Storico '+ic("chevR",12)+'</button></div>'+
-        CLUB.boxRicevuti.map(b=>'<div class="prod-mini">'+
-          '<span class="rl-ic" style="width:38px;height:38px;background:rgba(201,168,124,.18);color:#8a6a3b">'+ic("gift",17)+'</span>'+
-          '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+b.mese+' · '+esc(b.tema)+'</p>'+
-          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(b.vini)+'</p></div>'+
-          '<button class="btn btn-ghost" style="padding:8px 12px;flex:none" data-act="nav" data-id="listino">'+ic("rotate",14)+'</button></div>').join("")+
-        '<div style="padding:12px 20px;border-top:1px solid var(--border)">'+
-          '<p style="font-size:12px;color:var(--muted-fg)">Ogni vino del box è riacquistabile singolarmente al prezzo di listino Horeca.</p></div>'+
-      '</div>'+
-    '</div>'+
-
-    '<div class="card">'+
-      '<div class="card-h"><h3>Abbonamento</h3></div>'+
-      '<div style="padding:20px"><dl class="dl">'+
-        '<dt>Piano</dt><dd>'+CLUB.piano+' — '+eurK(CLUB.prezzo)+' al mese</dd>'+
-        '<dt>Rinnovo</dt><dd>'+CLUB.rinnovo+', addebito automatico</dd>'+
-        '<dt>Consegna</dt><dd>'+esc(CLUB.indirizzo)+'</dd>'+
-        '<dt>Pagamento</dt><dd>'+esc(CLUB.pagamento)+'</dd>'+
-      '</dl></div>'+
-      '<div style="padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap">'+
-        '<button class="btn btn-ghost" data-act="noop">Sospendi l’abbonamento</button>'+
-        '<button class="btn btn-ghost" style="color:#dc2626;border-color:#fecaca" data-act="noop">Disdici</button>'+
-        '<span class="packnote" style="align-self:center;margin-left:auto">Sospensione e disdetta hanno effetto dal ciclo successivo.</span></div>'+
     '</div></div>';
 }
 
@@ -1318,7 +1174,6 @@ function viewWishlist(){
 /* ═══ DATI AZIENDA ══════════════════════════════════════════ */
 function viewAzienda(){
   const A=AZIENDA;
-  const usoFido=Math.round(A.fidoUsato/A.fido*100);
   return '<div class="wrap stack">'+
     '<div class="banner">'+
       '<span class="bi" style="background:#ecfdf5;color:#047857">'+ic("shield",18)+'</span>'+
@@ -1335,48 +1190,27 @@ function viewAzienda(){
           '<dt>Insegna</dt><dd>'+esc(A.insegna)+'</dd>'+
           '<dt>Partita IVA</dt><dd>'+A.piva+'</dd>'+
           '<dt>Codice fiscale</dt><dd>'+A.cf+'</dd>'+
-          '<dt>Codice SDI</dt><dd>'+A.sdi+'</dd>'+
           '<dt>PEC</dt><dd>'+esc(A.pec)+'</dd>'+
           '<dt>REA</dt><dd>'+A.rea+'</dd>'+
           '<dt>Sede legale</dt><dd>'+esc(A.sede)+'</dd>'+
         '</dl></div></div>'+
 
-      '<div class="stack">'+
-        '<div class="card">'+
-          '<div class="card-h"><h3>Referente acquisti</h3></div>'+
-          '<div style="padding:20px;display:flex;flex-direction:column;gap:10px">'+
-            '<p style="font-size:14px;font-weight:600">'+esc(A.referente)+'</p>'+
-            '<p style="font-size:12px;color:var(--muted-fg)">'+esc(A.ruolo)+'</p>'+
-            '<div class="stack-sm" style="gap:8px;margin-top:4px">'+
-              '<div class="line">'+ic("mail",13)+'<span>'+esc(A.email)+'</span></div>'+
-              '<div class="line">'+ic("phone",13)+'<span>'+A.tel+'</span></div>'+
-              '<div class="line">'+ic("pin",13)+'<span>'+esc(A.consegna)+'</span></div>'+
-            '</div></div></div>'+
-
-        '<div class="card">'+
-          '<div class="card-h"><h3>Condizioni commerciali</h3></div>'+
-          '<div style="padding:20px;display:flex;flex-direction:column;gap:14px">'+
-            '<dl class="dl">'+
-              '<dt>Pagamento</dt><dd>'+esc(A.pagamento)+'</dd>'+
-              '<dt>Trasporto</dt><dd>Gratuito sopra '+eurK(FREE_SHIP)+' imponibile</dd>'+
-              '<dt>Corriere</dt><dd>'+esc(A.corriere)+'</dd>'+
-            '</dl>'+
-            '<div><div class="spread" style="font-size:12px"><span class="muted">Fido utilizzato</span>'+
-              '<span style="font-weight:600">'+eurK(A.fidoUsato)+' / '+eurK(A.fido)+'</span></div>'+
-              '<div class="freeship" style="margin-top:8px"><i style="width:'+usoFido+'%"></i></div></div>'+
-          '</div></div>'+
-      '</div>'+
+      '<div class="card" style="align-self:start">'+
+        '<div class="card-h"><h3>Referente acquisti</h3><button class="link" data-act="noop">'+ic("pencil",12)+' Modifica</button></div>'+
+        '<div style="padding:20px;display:flex;flex-direction:column;gap:10px">'+
+          '<p style="font-size:14px;font-weight:600">'+esc(A.referente)+'</p>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+esc(A.ruolo)+'</p>'+
+          '<div class="stack-sm" style="gap:8px;margin-top:4px">'+
+            '<div class="line">'+ic("mail",13)+'<span>'+esc(A.email)+'</span></div>'+
+            '<div class="line">'+ic("phone",13)+'<span>'+A.tel+'</span></div>'+
+            '<div class="line">'+ic("pin",13)+'<span>'+esc(A.consegna)+'</span></div>'+
+          '</div></div></div>'+
     '</div>'+
 
-    '<div class="card">'+
-      '<div class="card-h"><h3>Documenti</h3><button class="link" data-act="noop">'+ic("plus",12)+' Carica documento</button></div>'+
-      '<div style="padding:20px;display:flex;flex-direction:column;gap:10px">'+
-        A.documenti.map(d=>'<div class="doc"><span class="doc-ic">'+ic("file",16)+'</span>'+
-          '<div style="flex:1;min-width:0"><p style="font-size:13px;font-weight:600">'+esc(d.nome)+'</p>'+
-          '<p style="font-size:11px;color:var(--muted-fg)">'+d.peso+' · caricato il '+d.data+'</p></div>'+
-          (d.stato==="validato"?'<span class="verif">'+ic("check",12)+'Validato</span>':'<span class="badge st-attesa"><i></i>In verifica</span>')+
-          '<button class="iconbtn" data-act="download" data-id="'+esc(d.nome)+'" aria-label="Scarica">'+ic("download",16)+'</button></div>').join("")+
-      '</div></div></div>';
+    '<div class="infobox">'+ic("info",15)+
+      '<span>I dati che vedi qui sono quelli con cui abbiamo verificato l\'account: non serve inviare nient\'altro. '+
+      'Se qualcosa cambia (sede, referente, ragione sociale) modificalo qui e ci pensiamo noi.</span></div>'+
+  '</div>';
 }
 
 /* ═══ IMPOSTAZIONI ══════════════════════════════════════════ */
@@ -1390,7 +1224,7 @@ function viewImpostazioni(){
     '<div class="card">'+
       '<div class="card-h"><h3>Acquisti e consegne</h3></div>'+
       row("pin",TEAL,"Indirizzi","Consegna: "+esc(AZIENDA.consegna)+" · Fatturazione: sede legale")+
-      row("card","#8B2635","Metodi di pagamento","Bonifico 30 gg concordato · una carta salvata per il Wine Club")+
+      row("card","#8B2635","Metodi di pagamento",esc(AZIENDA.pagamento)+" · una carta salvata per gli ordini urgenti")+
       row("truck","#2d6a4f","Corriere preferito",esc(AZIENDA.corriere))+
     '</div>'+
 
@@ -1406,13 +1240,14 @@ function viewImpostazioni(){
       '<div class="card-h"><h3>Profilo e sicurezza</h3></div>'+
       row("users",GOLD,"Dati di accesso",esc(AZIENDA.email)+" · password aggiornata a maggio")+
       row("lock","#1e3a5f","Verifica in due passaggi","Attiva via app di autenticazione",'<span class="verif">'+ic("check",12)+'Attiva</span>')+
-      row("building",TEAL,"Dati azienda","Ragione sociale, P.IVA, codice SDI e documenti")+
+      row("building",TEAL,"Dati azienda","Ragione sociale, P.IVA, sede e referente acquisti")+
     '</div>'+
 
     '<div class="card">'+
       '<div style="padding:20px;display:flex;flex-direction:column;gap:12px">'+
         '<h3 style="font-size:14px;font-weight:600">Chiusura account</h3>'+
-        '<p style="font-size:12px;color:var(--muted-fg);line-height:1.5">La chiusura sospende il listino riservato e le liste ricorrenti. Le fatture già emesse restano scaricabili per legge.</p>'+
+        '<p style="font-size:12px;color:var(--muted-fg);line-height:1.5">La chiusura sospende il listino riservato e le liste ricorrenti. '+
+        'Lo storico degli ordini resta conservato per gli obblighi di legge.</p>'+
         '<button class="btn btn-ghost" style="align-self:flex-start;color:#dc2626;border-color:#fecaca" data-act="noop">Richiedi la chiusura</button>'+
       '</div></div></div>';
 }
@@ -1425,7 +1260,8 @@ function viewSupporto(){
     '<button class="btn btn-ghost" style="width:100%" data-act="noop">'+cta+'</button></div>';
   const faq=[
     ["Come cambio le quantità minime?","Ogni etichetta si ordina a cartoni da 6. Per confezioni diverse scrivi al tuo referente commerciale."],
-    ["Quando arriva la fattura?","Viene emessa alla spedizione e recapitata al codice SDI "+AZIENDA.sdi+" entro 24 ore."],
+    ["Come riordino quello che prendo sempre?","In “Riordino rapido” trovi tutte le etichette già passate dai tuoi ordini, con il prezzo riservato: "+
+      "aggiungi al carrello riga per riga, oppure richiama un ordine intero o una lista ricorrente."],
     ["Posso rendere una bottiglia difettosa?","Sì, entro 14 giorni dalla consegna: apri una segnalazione dall'ordine e organizziamo il ritiro."],
     ["Il listino cambia spesso?","Viene aggiornato ogni trimestre. Ti avvisiamo prima che i nuovi prezzi diventino attivi."],
   ];
@@ -1438,7 +1274,7 @@ function viewSupporto(){
     '<div class="grid3">'+
       canale("msg",TEAL,"Chat con il tuo referente","Parla con chi segue il tuo locale: conosce ordini, listino e consegne.","Apri la chat")+
       canale("phone","#8B2635","Telefono","800 991 220 — numero riservato ai clienti business.","Chiama ora")+
-      canale("mail",GOLD,"Email","horeca@stappando.it — allega ordine o fattura per una risposta più rapida.","Scrivi una email")+
+      canale("mail",GOLD,"Email","horeca@stappando.it — indica il numero d'ordine per una risposta più rapida.","Scrivi una email")+
     '</div>'+
     '<div class="card">'+
       '<div class="card-h"><h3>Domande frequenti</h3></div>'+
@@ -1483,7 +1319,7 @@ function header(){
           '<span class="rs-opt-s">'+esc(AZIENDA.ragione)+' · '+AZIENDA.piva+'</span></span></div>'+
         '<button class="rs-opt" data-act="nav" data-id="azienda"><span class="rs-opt-ic" style="background:var(--primary)">'+ic("building",15)+'</span>'+
           '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Dati azienda</p></span>'+
-          '<span class="rs-opt-s">P.IVA, codice SDI e documenti</span></span></button>'+
+          '<span class="rs-opt-s">P.IVA, sede e referente acquisti</span></span></button>'+
         '<button class="rs-opt" data-act="nav" data-id="impostazioni"><span class="rs-opt-ic" style="background:#7a7060">'+ic("settings",15)+'</span>'+
           '<span style="flex:1;min-width:0"><span class="rs-opt-t"><p>Impostazioni</p></span>'+
           '<span class="rs-opt-s">Indirizzi, pagamenti, comunicazioni</span></span></button>'+
@@ -1542,7 +1378,8 @@ function cartDrawer(){
                 '<div class="freeship"><i style="width:'+Math.round(sub/FREE_SHIP*100)+'%"></i></div></div>'
                 :'<p style="font-size:11px;color:#047857;font-weight:600;margin-top:4px">Trasporto gratuito incluso</p>')+
             '</div>'+
-            '<div class="infobox">'+ic("info",15)+'<span>Pagamento: '+esc(AZIENDA.pagamento)+'. La fattura elettronica arriverà al codice SDI '+AZIENDA.sdi+'.</span></div>')+
+            '<div class="infobox">'+ic("info",15)+'<span>Pagamento concordato: '+esc(AZIENDA.pagamento)+'. '+
+              'Consegna a '+esc(AZIENDA.consegna)+' con '+esc(AZIENDA.corriere)+'.</span></div>')+
       '</div>'+
       (lines.length>0?'<div class="modal-f">'+
         '<button class="btn btn-ghost" data-act="cart-close">Continua a ordinare</button>'+
@@ -1558,8 +1395,6 @@ function view(){
     case "listino":      body=viewListino(); break;
     case "riordino":     body=viewRiordino(); break;
     case "ordini":       body=viewOrdini(); break;
-    case "fatture":      body=viewFatture(); break;
-    case "club":         body=viewClub(); break;
     case "wishlist":     body=viewWishlist(); break;
     case "azienda":      body=viewAzienda(); break;
     case "impostazioni": body=viewImpostazioni(); break;
@@ -1633,6 +1468,10 @@ root.addEventListener("click",e=>{
 
     /* riordino */
     case "rec-open": S.rec.open = S.rec.open===id ? null : id; break;
+    case "acq-all":
+      acquistati().forEach(a=>{const p=byId(a.id); if(p&&p.stock>0) addToCart(a.id,a.ultimaQta);});
+      S.cartOpen=true;
+      break;
     case "list-add": {
       const l=LISTE.find(x=>x.id===id);
       if(l){ l.items.forEach(i=>addToCart(i.id,i.qty)); S.cartOpen=true; }
@@ -1649,12 +1488,7 @@ root.addEventListener("click",e=>{
     case "ord-open": S.section="ordini"; S.ord.selected=id; S.ord.mobile=true; break;
     case "ord-close": S.ord.selected=null; S.ord.mobile=false; break;
 
-    /* fatture */
-    case "fat-tab": S.fat.tab=id; break;
     case "download": break; /* demo statica: nessun file reale */
-
-    /* club */
-    case "club-skip": S.club.saltato=!S.club.saltato; break;
 
     /* impostazioni */
     case "pref": { const p=S.prefs.find(x=>x.id===id); if(p) p.on=!p.on; break; }
@@ -1670,6 +1504,7 @@ root.addEventListener("input",e=>{
   const t=e.target;
   if(t.dataset.input){
     if(t.dataset.input==="list-search") S.list.search=t.value;
+    if(t.dataset.input==="rec-search")  S.rec.search=t.value;
     if(t.dataset.input==="ord-search")  S.ord.search=t.value;
     render();
   }
