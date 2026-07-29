@@ -17,6 +17,9 @@ direttamente tutte le dashboard, senza scaricare nulla.
   scheda cantina, carrello/checkout e Regioni del vino. Le pagine sono collegate fra loro,
   quindi si naviga dall'una all'altra come nel sito vero.
 
+- **`Pagine/alberatura.html`** — la mappa di tutte le schermate del sito: le cinque voci
+  della barra (Shop, Storie, Experience, Cantine, Wine Club), la barra utente, le aree
+  riservate e le pagine di servizio, con lo stato di ciascuna.
 - **`Pagine/temi.html`** — confronto fra sei direzioni grafiche (Noir, Bold, Soft, Elegante,
   Pastello, Istituzionale).
   Il markup è uno solo: il tema si cambia dal selettore in basso, che sostituisce il file CSS.
