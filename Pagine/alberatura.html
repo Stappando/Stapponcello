@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Alberatura del sito</title>
+<meta name="description" content="La struttura del sito Stappando: navigazione principale, barra utente, aree riservate e pagine di servizio." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#005f73;
+  --primary-dark:#003d4d;
+  --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c;
+  --accent-dark:#a8814f;
+  --bg:#f7f3ee;
+  --card:#ffffff;
+  --fg:#1a1a1a;
+  --muted-fg:#7a7060;
+  --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09);
+  --border-soft:rgba(0,0,0,.06);
+  --ok:#2d6a4f;
+  --todo:#a8814f;
+  --r:16px;
+  --r-sm:10px;
+  --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+  --display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Montserrat,system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1280px;width:100%;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-dark)}
+
+/* ── testata ──────────────────────────────────────────── */
+.head{
+  background:linear-gradient(160deg,var(--primary-dark) 0%,var(--primary) 100%);
+  color:#fff;padding:30px 0 76px;position:relative;overflow:hidden;flex:none;
+}
+.head::after{
+  content:"";position:absolute;right:-120px;top:-160px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
+}
+.head .wrap{position:relative;z-index:1}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.55)}
+.crumbs a:hover{color:#fff;text-decoration:underline}
+.head .eyebrow{color:var(--accent);margin-top:24px;display:block}
+.head h1{font-family:var(--display);font-size:clamp(28px,3.6vw,42px);font-weight:600;letter-spacing:-.035em;line-height:1.1;margin-top:12px}
+.head p{margin-top:14px;color:rgba(255,255,255,.76);font-size:15px;line-height:1.65;max-width:62ch}
+
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.legend span{
+  display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  padding:7px 13px;border-radius:999px;color:rgba(255,255,255,.85);
+}
+.legend i{width:8px;height:8px;border-radius:50%;flex:none}
+.i-ok{background:#7fd1a6}
+.i-todo{background:var(--accent)}
+.i-ext{background:#9ec5ff}
+
+/* ── anteprima della barra ────────────────────────────── */
+.navpreview{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);margin-top:-46px;position:relative;z-index:2;overflow:hidden;
+}
+.np-strip{
+  background:var(--primary-dark);color:rgba(255,255,255,.7);
+  font-size:11px;padding:8px 22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.np-bar{display:flex;align-items:center;gap:26px;padding:16px 22px;flex-wrap:wrap}
+.np-logo{font-weight:700;letter-spacing:.14em;font-size:14px;flex:none}
+.np-logo em{font-style:normal;color:var(--accent)}
+.np-links{display:flex;gap:8px;flex-wrap:wrap}
+.np-links a{
+  font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 14px;border-radius:999px;background:var(--muted);transition:.15s;
+}
+.np-links a:hover{background:var(--primary);color:#fff}
+.np-links a.ext{background:rgba(0,95,115,.08);color:var(--primary)}
+.np-tools{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.np-tools span{
+  display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:var(--muted-fg);
+  border:1px solid var(--border);border-radius:999px;padding:7px 13px;
+}
+.np-note{
+  padding:12px 22px;border-top:1px solid var(--border-soft);background:var(--bg);
+  font-size:12px;color:var(--muted-fg);
+}
+
+/* ── sezioni dell'albero ──────────────────────────────── */
+main{flex:1;padding-bottom:72px}
+.sec{margin-top:52px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.sec-head h2{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.03em}
+.sec-head p{font-size:13.5px;color:var(--muted-fg);flex:1;min-width:220px}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:18px;align-items:start}
+.cols.three{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+
+.branch{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;display:flex;flex-direction:column;
+}
+.branch-top{padding:18px 20px 16px;border-bottom:1px solid var(--border-soft)}
+.branch-top .lvl{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-fg)}
+.branch-top h3{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.03em;margin-top:7px}
+.branch-top h3 a:hover{color:var(--primary)}
+.branch-top .desc{font-size:12.5px;color:var(--muted-fg);margin-top:7px;line-height:1.5}
+.branch ul{padding:10px 12px 14px}
+
+/* nodo dell'albero, con la stanghetta di collegamento */
+.node{position:relative;padding:7px 10px 7px 26px;border-radius:var(--r-sm);transition:background .14s}
+.node:hover{background:var(--muted)}
+.node::before{
+  content:"";position:absolute;left:11px;top:0;bottom:0;width:1px;background:var(--border);
+}
+.node:last-child::before{bottom:50%}
+.node::after{
+  content:"";position:absolute;left:11px;top:50%;width:9px;height:1px;background:var(--border);
+}
+.node > a,.node > span{display:block;font-size:13px}
+.node .row{display:flex;align-items:center;gap:9px}
+.node .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.node.ok .dot{background:var(--ok)}
+.node.todo .dot{background:var(--accent)}
+.node.ext .dot{background:#6f9fd8}
+.node .lbl{flex:1;min-width:0}
+.node.ok .lbl{font-weight:600}
+.node.todo .lbl{color:var(--muted-fg)}
+.node .tag{
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;flex:none;
+}
+.node.ok .tag{color:var(--ok);background:rgba(45,106,79,.1)}
+.node.todo .tag{color:var(--todo);background:rgba(201,168,124,.16)}
+.node.ext .tag{color:#3a6ea5;background:rgba(110,159,216,.14)}
+.node .sub{
+  display:block;font-size:11.5px;color:var(--muted-fg);font-weight:400;
+  margin:3px 0 0 16px;line-height:1.45;
+}
+.node .tag{align-self:center}
+
+/* ── riepilogo ────────────────────────────────────────── */
+.tally{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:44px;
+}
+.tally div{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:22px;box-shadow:var(--shadow-sm);
+}
+.tally b{display:block;font-family:var(--display);font-size:32px;font-weight:600;letter-spacing:-.04em;color:var(--primary)}
+.tally span{font-size:12px;color:var(--muted-fg);margin-top:5px;display:block}
+
+.note{
+  margin-top:26px;padding:20px 24px;background:var(--card);border-left:3px solid var(--accent);
+  border-radius:0 var(--r) var(--r) 0;font-size:13.5px;line-height:1.65;color:var(--muted-fg);
+  box-shadow:var(--shadow-sm);
+}
+.note b{color:var(--fg);font-weight:600}
+.note + .note{margin-top:12px}
+
+/* ── piede ────────────────────────────────────────────── */
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12.5px;color:var(--muted-fg);flex:none}
+footer a{color:var(--primary);font-weight:500}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:1180px){
+  .tally{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .wrap{padding:0 18px}
+  .cols,.cols.three{grid-template-columns:1fr}
+  .tally{grid-template-columns:1fr}
+  .np-tools{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TESTATA ══════════════════════════════════════════ -->
+<header class="head">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="../index.html">Indice dei mockup</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span>Alberatura</span>
+    </nav>
+
+    <span class="eyebrow">Struttura del sito</span>
+    <h1>Alberatura</h1>
+    <p>
+      Tutte le schermate del sito e come stanno insieme: cosa c'è nella barra in alto, dove
+      portano le voci, cosa vive nell'area utente e cosa nelle aree riservate. In verde quello
+      che è già un mockup navigabile, in oro quello che resta da fare.
+    </p>
+
+    <div class="legend">
+      <span><i class="i-ok"></i>Mockup pronto — cliccabile</span>
+      <span><i class="i-todo"></i>Da fare</span>
+      <span><i class="i-ext"></i>Sito esterno</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!-- anteprima della barra -->
+  <div class="navpreview">
+    <div class="np-strip">
+      <span>Marketplace di 320 cantine · dal produttore a casa tua</span>
+      <span>Corriere a scelta: BRT, TNT, Poste</span>
+      <span>★ 4,7/5 su 3.482 recensioni</span>
+    </div>
+    <div class="np-bar">
+      <span class="np-logo">STAPP<em>ANDO</em></span>
+      <nav class="np-links" aria-label="Anteprima della navigazione">
+        <a href="catalogo.html">Shop</a>
+        <a href="javascript:void(0)">Storie</a>
+        <a class="ext" href="https://vineis.eu" target="_blank" rel="noopener">Experience ↗</a>
+        <a href="cantina.html">Cantine</a>
+        <a href="javascript:void(0)">Wine Club</a>
+      </nav>
+      <div class="np-tools">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          Cerca
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profilo
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
+          Preferiti
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+          Carrello
+        </span>
+      </div>
+    </div>
+    <p class="np-note">
+      Cinque voci, non di più: <b>Experience</b> esce dal sito e porta su vineis.eu, quindi si apre
+      in una scheda nuova. Le altre quattro restano dentro Stappando.
+    </p>
+  </div>
+
+  <!-- ══ NAVIGAZIONE PRINCIPALE ═══════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Navigazione principale</h2>
+      <p>Le cinque voci della barra e cosa c'è sotto ciascuna.</p>
+    </div>
+    <div class="cols" id="mainNav"></div>
+  </section>
+
+  <!-- ══ BARRA UTENTE ═════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Barra utente</h2>
+      <p>Ricerca, profilo, preferiti e il percorso d'acquisto fino alla conferma.</p>
+    </div>
+    <div class="cols" id="userNav"></div>
+  </section>
+
+  <!-- ══ AREE RISERVATE ═══════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Aree riservate</h2>
+      <p>Dietro l'accesso: cliente, Horeca, cantina e piattaforma. Le dashboard esistono già.</p>
+    </div>
+    <div class="cols" id="privateNav"></div>
+  </section>
+
+  <!-- ══ SERVIZIO ═════════════════════════════════════ -->
+  <section class="sec">
+    <div class="sec-head">
+      <h2>Servizio, azienda e legali</h2>
+      <p>Le pagine che stanno nel piè di pagina. Nessuna è ancora disegnata.</p>
+    </div>
+    <div class="cols three" id="serviceNav"></div>
+  </section>
+
+  <!-- riepilogo -->
+  <div class="tally" id="tally"></div>
+
+  <p class="note">
+    <b>Nota sulle Cantine.</b> Oggi esiste la <i>scheda</i> di una cantina (Cascina Rivetto), non
+    l'indice che le elenca tutte e 320. La voce di menù dovrebbe portare all'indice, con filtri per
+    regione, tipo di produttore e certificazioni — è la pagina che manca di più.
+  </p>
+  <p class="note">
+    <b>Nota su Experience.</b> Rimandando a vineis.eu esce dal nostro dominio: vale la pena decidere
+    se resta un semplice link o se prima passa da una pagina ponte che spiega cos'è Vineis e come si
+    lega ai vini che hai comprato qui.
+  </p>
+
+</div>
+</main>
+
+<footer>
+  Stappando · alberatura dei mockup — <a href="../index.html">torna all'indice</a>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Stappando · alberatura
+   Un solo elenco di dati: cambiare qui aggiorna albero e conteggi.
+   stato: 'ok' mockup pronto · 'todo' da fare · 'ext' sito esterno
+   ══════════════════════════════════════════════════════════ */
+
+const ALBERO = {
+  mainNav: [
+    {lvl:'Voce 1', name:'Shop', href:'catalogo.html', stato:'ok',
+     desc:'Il catalogo con i filtri: tipologia, regione, prezzo, formato.',
+     figli:[
+       {name:'Tipologie', href:'catalogo.html', stato:'ok', sub:'Rossi, bianchi, bollicine, rosati, dolci — viste filtrate del catalogo'},
+       {name:'Distillati', stato:'todo', sub:'Whisky, gin, rum, grappe'},
+       {name:'Collezioni', stato:'todo', sub:'Es. “L’estate di Podere Cigli”'},
+       {name:'Idee regalo', stato:'todo'},
+       {name:'Scheda prodotto', href:'prodotto.html', stato:'ok', sub:'Barolo Bussia 2019'},
+       {name:'Risultati di ricerca', stato:'todo'},
+     ]},
+    {lvl:'Voce 2', name:'Storie', stato:'todo',
+     desc:'Il blog: territori, vitigni, abbinamenti, interviste ai produttori.',
+     figli:[
+       {name:'Indice dei racconti', stato:'todo'},
+       {name:'Territori', stato:'todo'},
+       {name:'Enocultura', stato:'todo'},
+       {name:'Abbinamenti', stato:'todo'},
+       {name:'Articolo', stato:'todo', sub:'Pagina di lettura'},
+     ]},
+    {lvl:'Voce 3', name:'Experience', href:'https://vineis.eu', stato:'ext',
+     desc:'Esce dal sito: porta su vineis.eu, in una scheda nuova.',
+     figli:[
+       {name:'vineis.eu', href:'https://vineis.eu', stato:'ext', sub:'Visite, degustazioni, eventi in cantina'},
+       {name:'Pagina ponte “Cos’è Vineis”', stato:'todo', sub:'Da decidere se serve'},
+     ]},
+    {lvl:'Voce 4', name:'Cantine', stato:'todo',
+     desc:'Chi fa il vino. Manca l’indice che le raccoglie tutte.',
+     figli:[
+       {name:'Indice delle 320 cantine', stato:'todo', sub:'Con filtri per regione e tipo'},
+       {name:'Scheda cantina', href:'cantina.html', stato:'ok', sub:'Cascina Rivetto'},
+       {name:'Regioni del vino', href:'regioni.html', stato:'ok', sub:'Mappa interattiva'},
+       {name:'Vendi su Stappando', stato:'todo', sub:'Pagina per i produttori'},
+     ]},
+    {lvl:'Voce 5', name:'Wine Club', stato:'todo',
+     desc:'L’abbonamento: sei bottiglie al mese scelte sul tuo gusto.',
+     figli:[
+       {name:'Come funziona', stato:'todo'},
+       {name:'I piani', stato:'todo', sub:'Scoperta · Cantina · Collezione'},
+       {name:'Domande frequenti', stato:'todo'},
+       {name:'Attiva l’abbonamento', stato:'todo'},
+     ]},
+  ],
+
+  userNav: [
+    {lvl:'Strumento', name:'Cerca', href:'catalogo.html', stato:'ok',
+     desc:'Suggerimenti raggruppati per vino, cantina, tipologia e regione.',
+     figli:[
+       {name:'Tendina dei suggerimenti', href:'homepage.html', stato:'ok'},
+       {name:'Pagina dei risultati', stato:'todo'},
+     ]},
+    {lvl:'Account', name:'Profilo', href:'../Dashboards/dashboard-user.html', stato:'ok',
+     desc:'Accesso e area personale del cliente.',
+     figli:[
+       {name:'Accedi / Registrati', stato:'todo'},
+       {name:'Il mio account', href:'../Dashboards/dashboard-user.html', stato:'ok'},
+       {name:'Ordini e resi', href:'../Dashboards/dashboard-user.html', stato:'ok'},
+       {name:'Dettaglio ordine e tracking', stato:'todo'},
+       {name:'Indirizzi e pagamenti', stato:'todo'},
+     ]},
+    {lvl:'Salvati', name:'Preferiti', stato:'todo',
+     desc:'La lista dei desideri, già presente come contatore nella barra.',
+     figli:[
+       {name:'Lista dei preferiti', stato:'todo'},
+       {name:'Avviso “torna disponibile”', stato:'todo'},
+     ]},
+    {lvl:'Acquisto', name:'Carrello', href:'carrello.html', stato:'ok',
+     desc:'Il percorso fino alla conferma dell’ordine.',
+     figli:[
+       {name:'Carrello', href:'carrello.html', stato:'ok'},
+       {name:'Indirizzo e spedizione', stato:'todo'},
+       {name:'Pagamento', stato:'todo'},
+       {name:'Ordine confermato', stato:'todo'},
+       {name:'Traccia il tuo ordine', stato:'todo'},
+     ]},
+  ],
+
+  privateNav: [
+    {lvl:'B2C', name:'Cliente', href:'../Dashboards/dashboard-user.html', stato:'ok',
+     desc:'Il mio Stappando: ordini, Wine Club, wishlist, buoni.',
+     figli:[{name:'Dashboard cliente', href:'../Dashboards/dashboard-user.html', stato:'ok'}]},
+    {lvl:'B2B', name:'Horeca', href:'../Dashboards/dashboard-horeca.html', stato:'ok',
+     desc:'Ristoranti e enoteche: catalogo, riordini, storico.',
+     figli:[{name:'Area Horeca', href:'../Dashboards/dashboard-horeca.html', stato:'ok'},
+            {name:'Listino riservato', stato:'todo'}]},
+    {lvl:'Produttore', name:'Cantina', href:'../Dashboards/dashboard-vendor-owner.html', stato:'ok',
+     desc:'Il pannello della cantina, con due livelli di permessi.',
+     figli:[{name:'Vendor owner', href:'../Dashboards/dashboard-vendor-owner.html', stato:'ok'},
+            {name:'Vendor manager', href:'../Dashboards/dashboard-vendor-manager.html', stato:'ok'},
+            {name:'Catalogo prodotti della cantina', stato:'todo'}]},
+    {lvl:'Interno', name:'Piattaforma', href:'../Dashboards/dashboard-admin.html', stato:'ok',
+     desc:'Back-office: utenti, cantine, commissioni, log.',
+     figli:[{name:'Admin (super/owner)', href:'../Dashboards/dashboard-admin.html', stato:'ok'},
+            {name:'Manager admin', href:'../Dashboards/dashboard-manager-admin.html', stato:'ok'},
+            {name:'Contenuti e racconti', stato:'todo'}]},
+  ],
+
+  serviceNav: [
+    {lvl:'Azienda', name:'Chi siamo', stato:'todo',
+     desc:'La storia di Roberto e Claudio e il metodo di selezione.',
+     figli:[{name:'Chi siamo', stato:'todo'},
+            {name:'Il nostro metodo di selezione', stato:'todo'},
+            {name:'Lavora con noi', stato:'todo'},
+            {name:'Contatti', stato:'todo'}]},
+    {lvl:'Assistenza', name:'Aiuto', stato:'todo',
+     desc:'Tutto quello che serve dopo l’ordine.',
+     figli:[{name:'Spedizioni e consegne', stato:'todo'},
+            {name:'Resi e rimborsi', stato:'todo'},
+            {name:'Metodi di pagamento', stato:'todo'},
+            {name:'Domande frequenti', stato:'todo'}]},
+    {lvl:'Legali', name:'Note legali', stato:'todo',
+     desc:'Obbligatorie, più la pagina di errore.',
+     figli:[{name:'Termini e condizioni', stato:'todo'},
+            {name:'Privacy policy', stato:'todo'},
+            {name:'Cookie policy', stato:'todo'},
+            {name:'404 · Pagina non trovata', stato:'todo'}]},
+  ],
+};
+
+const TAG = {ok:'Pronta', todo:'Da fare', ext:'Esterna'};
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+function nodoHTML(n){
+  const inner = `
+    <span class="row">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="lbl">${esc(n.name)}</span>
+      <span class="tag">${TAG[n.stato]}</span>
+    </span>
+    ${n.sub ? `<span class="sub">${esc(n.sub)}</span>` : ''}`;
+  const ext = n.stato === 'ext' ? ' target="_blank" rel="noopener"' : '';
+  return `<li class="node ${n.stato}">${
+    n.href ? `<a href="${n.href}"${ext}>${inner}</a>` : `<span>${inner}</span>`
+  }</li>`;
+}
+
+function ramoHTML(r){
+  const titolo = r.href
+    ? `<a href="${r.href}"${r.stato === 'ext' ? ' target="_blank" rel="noopener"' : ''}>${esc(r.name)}</a>`
+    : esc(r.name);
+  return `<article class="branch">
+    <div class="branch-top">
+      <p class="lvl">${esc(r.lvl)}</p>
+      <h3>${titolo}</h3>
+      <p class="desc">${esc(r.desc)}</p>
+    </div>
+    <ul>${r.figli.map(nodoHTML).join('')}</ul>
+  </article>`;
+}
+
+Object.entries(ALBERO).forEach(([id, rami]) => {
+  document.getElementById(id).innerHTML = rami.map(ramoHTML).join('');
+});
+
+/* ── conteggi ─────────────────────────────────────────── */
+const tutti = Object.values(ALBERO).flat();
+const foglie = tutti.flatMap(r => r.figli);
+const conta = st => foglie.filter(f => f.stato === st).length;
+const pronte = new Set(foglie.filter(f => f.stato === 'ok').map(f => f.href)).size;
+
+document.getElementById('tally').innerHTML = [
+  {n: foglie.length,   l: 'Schermate mappate in tutto'},
+  {n: pronte,          l: 'Mockup già navigabili'},
+  {n: conta('todo'),   l: 'Schermate da disegnare'},
+  {n: tutti.length,    l: 'Rami di primo livello'},
+].map(x => `<div><b>${x.n}</b><span>${x.l}</span></div>`).join('');
+</script>
+
+</body>
+</html>
