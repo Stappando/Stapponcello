@@ -604,16 +604,16 @@ const VENDORS = [
 const VENDOR_STATUS = {attiva:{label:"Attiva",pill:"p-attivo"},sospesa:{label:"Sospesa",pill:"p-esaurito"},in_review:{label:"In revisione",pill:"p-bozza"}};
 
 const USERS = [
-  {id:"u1",name:"Luca Ferretti",email:"luca.ferretti@email.it",type:"B2C",orders:14,spent:1240,status:"attivo",joined:"feb 2025"},
-  {id:"u2",name:"Enoteca Bacco Srl",email:"ordini@enotecabacco.it",type:"Horeca",piva:"IT03920140127",orders:62,spent:18420,status:"attivo",joined:"gen 2024"},
-  {id:"u3",name:"Marta Conti",email:"marta.conti@email.it",type:"B2C",orders:8,spent:640,status:"attivo",joined:"apr 2025"},
-  {id:"u4",name:"Ristorante Le Volte",email:"acquisti@levolte.it",type:"Horeca",piva:"IT02214560488",orders:41,spent:12980,status:"attivo",joined:"mar 2024"},
-  {id:"u5",name:"Giorgio Russo",email:"g.russo@email.it",type:"B2C",orders:3,spent:210,status:"sospeso",joined:"giu 2026"},
-  {id:"u6",name:"Hotel Belvedere",email:"cantina@hotelbelvedere.it",type:"Horeca",piva:"IT01880730963",orders:28,spent:9340,status:"attivo",joined:"lug 2024"},
-  {id:"u7",name:"Silvia Neri",email:"silvia.neri@email.it",type:"B2C",orders:19,spent:1810,status:"attivo",joined:"nov 2024"},
-  {id:"u8",name:"Wine Bar Centrale",email:"info@winebarcentrale.it",type:"Horeca",piva:"IT04412200155",orders:15,spent:5120,status:"attivo",joined:"mag 2025"},
-  {id:"u9",name:"Francesco Bianchi",email:"f.bianchi@email.it",type:"B2C",orders:6,spent:520,status:"attivo",joined:"gen 2026"},
-  {id:"u10",name:"Elena Marchetti",email:"e.marchetti@email.it",type:"B2C",orders:11,spent:930,status:"attivo",joined:"set 2025"},
+  {id:"u1",name:"Luca Ferretti",email:"luca.ferretti@email.it",type:"B2C",orders:14,spent:1240,status:"attivo",joined:"feb 2025",newsletter:true,newsFrom:"feb 2025"},
+  {id:"u2",name:"Enoteca Bacco Srl",email:"ordini@enotecabacco.it",type:"Horeca",piva:"IT03920140127",orders:62,spent:18420,status:"attivo",joined:"gen 2024",newsletter:true,newsFrom:"gen 2024"},
+  {id:"u3",name:"Marta Conti",email:"marta.conti@email.it",type:"B2C",orders:8,spent:640,status:"attivo",joined:"apr 2025",newsletter:true,newsFrom:"mag 2025"},
+  {id:"u4",name:"Ristorante Le Volte",email:"acquisti@levolte.it",type:"Horeca",piva:"IT02214560488",orders:41,spent:12980,status:"attivo",joined:"mar 2024",newsletter:false},
+  {id:"u5",name:"Giorgio Russo",email:"g.russo@email.it",type:"B2C",orders:3,spent:210,status:"sospeso",joined:"giu 2026",newsletter:false},
+  {id:"u6",name:"Hotel Belvedere",email:"cantina@hotelbelvedere.it",type:"Horeca",piva:"IT01880730963",orders:28,spent:9340,status:"attivo",joined:"lug 2024",newsletter:true,newsFrom:"lug 2024"},
+  {id:"u7",name:"Silvia Neri",email:"silvia.neri@email.it",type:"B2C",orders:19,spent:1810,status:"attivo",joined:"nov 2024",newsletter:true,newsFrom:"nov 2024"},
+  {id:"u8",name:"Wine Bar Centrale",email:"info@winebarcentrale.it",type:"Horeca",piva:"IT04412200155",orders:15,spent:5120,status:"attivo",joined:"mag 2025",newsletter:false},
+  {id:"u9",name:"Francesco Bianchi",email:"f.bianchi@email.it",type:"B2C",orders:6,spent:520,status:"attivo",joined:"gen 2026",newsletter:true,newsFrom:"feb 2026"},
+  {id:"u10",name:"Elena Marchetti",email:"e.marchetti@email.it",type:"B2C",orders:11,spent:930,status:"attivo",joined:"set 2025",newsletter:true,newsFrom:"set 2025"},
 ];
 
 const ADMIN_ORDERS = [
@@ -970,6 +970,10 @@ function viewCatalogo(){
       '<div class="ministat"><span>Cantine attive</span><b>'+new Set(CATALOG.map(p=>p.vendor)).size+'</b></div>'+
       '<div class="ministat"><span>Esauriti</span><b class="zero">'+CATALOG.filter(p=>p.status==="esaurito").length+'</b></div>'+
     '</div>'+
+    '<div class="lockrow"><span class="ico">'+ic("lock",18)+'</span><div style="flex:1;min-width:0">'+
+      '<p style="font-size:13px;font-weight:600">Interventi sui prodotti delle cantine</p>'+
+      '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px">Oscurare, modificare o eliminare il vino di una cantina è riservato all’Admin. Qui il catalogo è in sola consultazione: puoi cercare, filtrare e segnalare.</p></div>'+
+      '<span class="pill p-bozza">Solo Admin</span></div>'+
     '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="cat-q" data-focus-key="catq" placeholder="Cerca prodotto o cantina…" value="'+esc(S.cat.q)+'"></div>'+
       '<div class="chiprow">'+types.map(t=>'<button class="chip '+(tp===t?"on":"")+'" data-act="cat-type" data-id="'+t+'">'+(t==="all"?"Tutti":t)+'</button>').join("")+'</div></div>'+
     '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Prodotto</th><th>Cantina</th><th>Tipo</th><th>Prezzo</th><th>Giacenza</th><th>Stato</th></tr></thead><tbody>'+
@@ -1020,6 +1024,12 @@ function viewVendor(){
 }
 
 /* ═══ UTENTI ════════════════════════════════════════════════ */
+/* iscrizione alla newsletter: informazione di sola lettura, la dà il consenso dell’utente */
+function newsCell(u){
+  return u.newsletter
+    ? '<span class="pill p-attivo" title="Iscritto'+(u.newsFrom?" da "+u.newsFrom:"")+'">'+ic("mail",10)+' Iscritto</span>'
+    : '<span class="pill p-bozza" title="Non iscritto alla newsletter">Non iscritto</span>';
+}
 function viewUtenti(){
   const q=S.usr.q.toLowerCase(), tp=S.usr.type;
   const list=S.users.filter(u=>(tp==="all"||u.type===tp)&&(!q||u.name.toLowerCase().includes(q)||u.email.toLowerCase().includes(q)));
@@ -1027,6 +1037,7 @@ function viewUtenti(){
   const rows=list.map(u=>'<tr>'+
     '<td><div><b style="font-weight:600">'+esc(u.name)+'</b><p style="font-size:11px;color:var(--muted-fg)">'+esc(u.email)+(u.piva?' · P.IVA '+esc(u.piva):"")+'</p></div></td>'+
     '<td><span class="pill '+(u.type==="Horeca"?"p-bozza":"p-attivo")+'">'+u.type+'</span></td>'+
+    '<td>'+newsCell(u)+'</td>'+
     '<td>'+u.orders+'</td><td>'+eurK(u.spent)+'</td>'+
     '<td>'+(u.status==="attivo"?'<span class="badge st-consegnato"><i></i>Attivo</span>':'<span class="badge st-annullato"><i></i>Sospeso</span>')+'</td>'+
     '<td><div class="row" style="gap:6px;justify-content:flex-end">'+
@@ -1035,9 +1046,10 @@ function viewUtenti(){
     '</div></td></tr>').join("");
   return '<div class="wrap-lg stack">'+
     toastBar()+
-    '<div class="grid3">'+
+    '<div class="grid4">'+
       '<div class="ministat"><span>Clienti B2C</span><b>'+S.users.filter(u=>u.type==="B2C").length+'</b></div>'+
       '<div class="ministat"><span>Clienti Horeca</span><b>'+S.users.filter(u=>u.type==="Horeca").length+'</b></div>'+
+      '<div class="ministat"><span>Iscritti newsletter</span><b>'+S.users.filter(u=>u.newsletter).length+'</b></div>'+
       '<div class="ministat"><span>Sospesi</span><b>'+S.users.filter(u=>u.status==="sospeso").length+'</b></div>'+
     '</div>'+
     '<div class="lockrow"><span class="ico">'+ic("lock",18)+'</span><div style="flex:1;min-width:0">'+
@@ -1046,8 +1058,8 @@ function viewUtenti(){
       '<span class="pill p-bozza">Solo Admin</span></div>'+
     '<div class="toolbar"><div class="search">'+ic("search",16)+'<input class="input" data-input="usr-q" data-focus-key="usrq" placeholder="Cerca nome o email…" value="'+esc(S.usr.q)+'"></div>'+
       '<div class="chiprow">'+chips.map(c=>'<button class="chip '+(tp===c[0]?"on":"")+'" data-act="usr-type" data-id="'+c[0]+'">'+c[1]+'</button>').join("")+'</div></div>'+
-    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Utente</th><th>Tipo</th><th>Ordini</th><th>Speso</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
-      (list.length?rows:'<tr><td colspan="6"><div class="empty" style="padding:40px 0">'+ic("users",32,"opacity:.4")+'<p>Nessun utente trovato</p></div></td></tr>')+
+    '<div class="card" style="overflow-x:auto"><table class="dt"><thead><tr><th>Utente</th><th>Tipo</th><th>Newsletter</th><th>Ordini</th><th>Speso</th><th>Stato</th><th style="text-align:right">Azioni</th></tr></thead><tbody>'+
+      (list.length?rows:'<tr><td colspan="7"><div class="empty" style="padding:40px 0">'+ic("users",32,"opacity:.4")+'<p>Nessun utente trovato</p></div></td></tr>')+
     '</tbody></table></div>'+
   '</div>';
 }
