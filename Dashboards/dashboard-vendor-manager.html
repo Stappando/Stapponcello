@@ -184,6 +184,14 @@ img{display:block;max-width:100%}
 .quick-ic{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;transition:.15s}
 .quick:hover .quick-ic{transform:scale(1.1)}
 .quick span{font-size:14px;font-weight:500;line-height:1.25}
+button.ord-mini,button.prod-mini{width:100%;text-align:left}
+.rev-mini{display:flex;gap:12px;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--border-soft)}
+.rev-mini:last-child{border-bottom:none}
+.rev-mini.todo{background:rgba(201,168,124,.08);box-shadow:inset 3px 0 0 var(--accent)}
+.rev-mini .txt{font-size:12px;color:var(--muted-fg);line-height:1.5;margin-top:4px;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rev-mini .btn{flex:none;padding:8px 12px;font-size:12px;gap:6px}
+@media(max-width:640px){.rev-mini{flex-wrap:wrap}.rev-mini .btn{margin-left:50px}}
 
 /* ── ordini ──────────────────────────────────────────── */
 .ord-layout{display:flex;gap:20px;height:100%}
@@ -619,15 +627,15 @@ const NAV_BOTTOM = [
   {id:"supporto",label:"Supporto",icon:"headset"},
 ];
 const OWNER_SECTIONS   = ["panoramica","ordini","prodotti","recensioni","statistiche","sponsorizza"];
-const MANAGER_SECTIONS = ["ordini","prodotti","recensioni","sponsorizza"];
+const MANAGER_SECTIONS = ["panoramica","ordini","prodotti","recensioni","sponsorizza"];
 const ROLE_CFG = {
   owner:{label:"Titolare",initial:"T",color:"var(--primary)",
     sections:OWNER_SECTIONS, home:"panoramica",
     mobile:["panoramica","ordini","prodotti"],
     desc:"Accesso completo: fatturato, statistiche e tutto il resto"},
   manager:{label:"Manager",initial:"M",color:"var(--accent)",
-    sections:MANAGER_SECTIONS, home:"ordini",
-    mobile:["ordini","prodotti","recensioni"],
+    sections:MANAGER_SECTIONS, home:"panoramica",
+    mobile:["panoramica","ordini","prodotti"],
     desc:"Gestisce ordini, prodotti, recensioni e sponsorizzazioni"},
 };
 const RC = ROLE_CFG[ROLE];
@@ -727,6 +735,107 @@ function viewPanoramica(){
       quick("Aggiungi prodotto","box","#8B2635","prodotti")+
       quick("Vedi recensioni","star","#c9a87c","recensioni")+
       quick("Statistiche","chart","#2d6a4f","statistiche")+
+    '</div></div>';
+}
+
+/* ═══ PANORAMICA MANAGER ════════════════════════════════════
+   Il manager non vede il fatturato: la panoramica riassume il lavoro
+   da fare (ordini ricevuti, prodotti più venduti, recensioni). */
+function viewPanoramicaManager(){
+  const recenti = S.orders.slice(0,5);
+  const daGestire = S.orders.filter(o=>o.status==="in_lavorazione").length;
+  const bottiglie = S.orders.filter(o=>o.status!=="annullato")
+    .reduce((s,o)=>s+o.items.reduce((n,i)=>n+i.qty,0),0);
+  const best = [...S.products].filter(x=>x.status!=="bozza").sort((a,b)=>b.sold-a.sold).slice(0,4);
+  const attivi = S.products.filter(x=>x.status==="attivo").length;
+  const scorte = S.products.filter(x=>x.stock>0&&x.stock<=5).length;
+  /* prima le recensioni a cui rispondere, poi le altre in ordine di data */
+  const daRispondere = S.reviews.filter(r=>!r.reply);
+  const revOrdinate = daRispondere.concat(S.reviews.filter(r=>r.reply));
+  const media = (S.reviews.reduce((s,r)=>s+r.rating,0)/S.reviews.length).toFixed(1).replace(".",",");
+
+  const stat=(l,v,s,i,c)=>'<div class="stat"><span class="lbl">'+l+'</span><span class="val">'+v+'</span>'+
+    '<span class="sub" style="color:'+(c||"var(--muted-fg)")+'">'+ic(i,13)+s+'</span></div>';
+  const quick=(l,i,c,sec,act)=>'<button class="quick" data-act="'+(act||"nav")+'" data-id="'+sec+'">'+
+    '<span class="quick-ic" style="background:'+c+'1a;color:'+c+'">'+ic(i,20)+'</span><span>'+l+'</span></button>';
+
+  return '<div class="wrap stack">'+
+    '<div class="hello"><h2>Ciao, Tenuta del Sole 👋</h2>'+
+      '<p>Ordini ricevuti, prodotti più venduti e recensioni da gestire, tutto in una schermata.</p></div>'+
+
+    '<div class="grid4">'+
+      stat("Ordini ricevuti",S.orders.length,bottiglie+" bottiglie in totale","bag")+
+      stat("Da gestire",daGestire,daGestire===0?"nessun ordine in attesa":"da preparare e spedire","rotate",
+        daGestire>0?"#b45309":"#059669")+
+      stat("Prodotti attivi",attivi,scorte>0?scorte+" con scorta bassa":"giacenze in ordine","box",
+        scorte>0?"#b45309":"#059669")+
+      stat("Valutazione media",media+" ★",
+        daRispondere.length>0?daRispondere.length+" recensioni senza risposta":"hai risposto a tutte","star",
+        daRispondere.length>0?"#b45309":"#059669")+
+    '</div>'+
+
+    '<div class="dash-grid">'+
+      '<div class="card">'+
+        '<div class="card-h"><h3>Ordini ricevuti</h3>'+
+          '<button class="link" data-act="nav" data-id="ordini">Vedi tutti '+ic("chevR",12)+'</button></div>'+
+        recenti.map(o=>{
+          const n=o.items.reduce((s,i)=>s+i.qty,0);
+          return '<button class="ord-mini" data-act="ord-goto" data-id="'+o.id+'"><div style="flex:1;min-width:0">'+
+            '<div class="spread"><span style="font-size:12px;font-weight:600;color:var(--muted-fg)">'+o.id+'</span>'+statusBadge(o.status)+'</div>'+
+            '<p style="font-size:14px;font-weight:500;margin-top:2px">'+o.customer+'</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg)">'+esc(o.items.map(i=>i.name).join(", "))+'</p>'+
+            '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px">'+o.date+' · '+n+' '+(n===1?"bottiglia":"bottiglie")+'</p></div>'+
+            '<span style="font-size:14px;font-weight:600;flex:none">'+eur(orderTotal(o))+'</span>'+
+            ic("chevR",13,"color:var(--muted-fg);flex:none")+'</button>';
+        }).join("")+
+        (daGestire>0?'<div style="padding:12px 20px;border-top:1px solid var(--border)">'+
+          '<button class="btn btn-primary" style="width:100%" data-act="ord-tab-goto" data-id="in_lavorazione">'+
+          ic("rotate",15)+' Gestisci i '+daGestire+' ordini in lavorazione</button></div>':'')+
+      '</div>'+
+      '<div class="card" style="align-self:start">'+
+        '<div class="card-h"><h3>Prodotti più venduti</h3>'+
+          '<button class="link" data-act="nav" data-id="prodotti">Vedi tutti '+ic("chevR",12)+'</button></div>'+
+        best.map((p,i)=>'<div class="prod-mini">'+
+          '<div class="thumb" style="width:40px;height:56px"><img src="'+p.imageUrl+'" alt="'+esc(p.name)+'" loading="lazy"></div>'+
+          '<div style="flex:1;min-width:0"><div class="row" style="gap:6px;flex-wrap:wrap">'+
+            '<p style="font-size:14px;font-weight:600">'+esc(p.name)+'</p>'+
+            (i===0&&p.status==="attivo"?'<span class="pill" style="background:var(--accent);color:#fff">'+ic("award",9)+' Top</span>':'')+
+            (p.status!=="attivo"?'<span class="pill p-'+p.status+'">'+(p.status==="oscurato"?ic("eyeOff",9):"")+PRODUCT_STATUS_CFG[p.status].label+'</span>':'')+'</div>'+
+          '<p style="font-size:12px;color:var(--muted-fg)">'+p.denomination+' · '+p.vintage+'</p>'+
+          '<div class="row" style="gap:12px;margin-top:4px">'+
+            '<span class="row" style="gap:4px;font-size:12px;font-weight:600;color:#059669">'+ic("up",11)+p.sold+' vendute</span>'+
+            '<span style="font-size:12px;color:var(--muted-fg)">'+eur(p.price)+'</span>'+
+            '<span style="font-size:12px;color:'+(p.stock===0?"#dc2626":p.stock<=5?"#b45309":"var(--muted-fg)")+'">'+p.stock+' bt.</span></div></div>'+
+          '<button class="iconbtn" data-act="prod-edit" data-id="'+p.id+'" aria-label="Modifica">'+ic("pencil",13)+'</button></div>').join("")+
+        '<div style="padding:12px 20px;border-top:1px solid var(--border)">'+
+          '<button class="btn btn-primary" style="width:100%" data-act="prod-new">'+ic("plus",15)+' Aggiungi prodotto</button></div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Recensioni</h3>'+
+        '<span class="row" style="gap:10px;margin-left:auto">'+
+        (daRispondere.length>0?'<span class="pill" style="background:#fef3c7;color:#b45309">'+
+          daRispondere.length+' da rispondere</span>':'<span class="pill" style="background:#ecfdf5;color:#047857">'+
+          ic("check",9)+' tutte gestite</span>')+
+        '<button class="link" data-act="nav" data-id="recensioni">Vedi tutte '+ic("chevR",12)+'</button></span></div>'+
+      revOrdinate.slice(0,4).map(r=>'<div class="rev-mini '+(r.reply?"":"todo")+'">'+avatar(r.customer)+
+        '<div style="flex:1;min-width:0">'+
+          '<div class="row" style="gap:8px;flex-wrap:wrap">'+
+            '<p style="font-size:14px;font-weight:600">'+r.customer+'</p>'+stars(r.rating,12)+
+            '<span style="font-size:12px;color:var(--muted-fg)">'+r.date+'</span>'+
+            (r.reply?'':'<span class="pill" style="background:#fef3c7;color:#b45309">Da rispondere</span>')+'</div>'+
+          '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px">su <b style="color:var(--primary);font-weight:500">'+esc(r.product)+'</b></p>'+
+          '<p class="txt">'+esc(r.text)+'</p></div>'+
+        '<button class="btn '+(r.reply?"btn-ghost":"btn-primary")+'" data-act="rev-reply-open" data-id="'+r.id+'">'+
+          ic(r.reply?"pencil":"msg",13)+(r.reply?" Modifica":" Rispondi")+'</button></div>').join("")+
+    '</div>'+
+
+    '<div class="grid4">'+
+      quick("Gestisci ordini","bag","#005f73","ordini")+
+      quick("Aggiungi prodotto","plus","#8B2635","prodotti","prod-new")+
+      quick("Rispondi alle recensioni","star","#c9a87c","recensioni")+
+      quick("Sponsorizza","megaphone","#2d6a4f","sponsorizza")+
     '</div></div>';
 }
 
@@ -1377,7 +1486,7 @@ function view(){
   let body;
   if(!RC.sections.includes(S.section) && S.section!=="supporto") S.section=RC.home;
   switch(S.section){
-    case "panoramica": body=viewPanoramica(); break;
+    case "panoramica": body=ROLE==="manager"?viewPanoramicaManager():viewPanoramica(); break;
     case "ordini":     body=viewOrdini(); break;
     case "prodotti":   body=viewProdotti(); break;
     case "recensioni": body=viewRecensioni(); break;
@@ -1449,6 +1558,9 @@ root.addEventListener("click",e=>{
 
     case "ord-tab": S.ord.tab=id; break;
     case "ord-select": S.ord.selected=id; S.ord.mobile=true; S.ord.statusMenu=false; break;
+    /* dalla panoramica: apre l'ordine (o la lista filtrata) nella sezione Ordini */
+    case "ord-goto": S.section="ordini"; S.ord.selected=id; S.ord.mobile=true; S.ord.statusMenu=false; closeMenus(); break;
+    case "ord-tab-goto": S.section="ordini"; S.ord.tab=id; S.ord.selected=null; S.ord.mobile=false; closeMenus(); break;
     case "ord-close": S.ord.selected=null; S.ord.mobile=false; S.ord.statusMenu=false; break;
     case "ord-status-toggle": S.ord.statusMenu=!S.ord.statusMenu; break;
     case "ord-status": {
@@ -1497,6 +1609,8 @@ root.addEventListener("click",e=>{
     case "rev-reply-open": {
       const r=S.reviews.find(x=>x.id===id);
       S.rev.replyTo=id; S.rev.replyText=(r&&r.reply)||"";
+      /* si può partire dalla panoramica: il form si apre nella sezione Recensioni */
+      if(S.section!=="recensioni"){S.section="recensioni"; S.rev.rating="all"; S.rev.product="all"; closeMenus();}
       break;
     }
     case "rev-reply-cancel": S.rev.replyTo=null; S.rev.replyText=""; break;
