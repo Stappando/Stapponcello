@@ -414,8 +414,8 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
     <nav class="topnav" aria-label="Navigazione principale">
       <a href="catalogo.html">Shop</a>
       <a href="javascript:void(0)">Storie</a>
-      <a href="https://vineis.eu" target="_blank" rel="noopener">Experience<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:1px;margin-left:5px"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a>
-      <a href="cantina.html" class="on" aria-current="page">Cantine</a>
+      <a href="experience.html">Experience</a>
+      <a href="regioni.html" class="on" aria-current="page">Cantine</a>
       <a href="javascript:void(0)">Wine Club</a>
     </nav>
     <div class="top-icons">
@@ -437,8 +437,8 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
   <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
     <a href="catalogo.html">Shop <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="javascript:void(0)">Storie <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="https://vineis.eu" target="_blank" rel="noopener">Experience <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="cantina.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="experience.html">Experience <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
+    <a href="regioni.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="javascript:void(0)">Wine Club <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="regioni.html">Regioni del vino <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
     <a href="carrello.html">Carrello <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
@@ -942,13 +942,14 @@ burger.addEventListener('click', () => {
 const MENU = [
   {id:'shop', label:'Shop', href:'catalogo.html',
    cols:[
-     {title:'Per tipologia', items:[
+     {title:'Categorie', items:[
+       {l:'Vini', h:'catalogo.html', n:'543'},
        {l:'Rossi', h:'catalogo.html', n:'218'},
        {l:'Bianchi', h:'catalogo.html', n:'164'},
        {l:'Bollicine', h:'catalogo.html', n:'92'},
        {l:'Rosati', h:'catalogo.html', n:'41'},
        {l:'Dolci e passiti', h:'catalogo.html', n:'28'},
-       {l:'Distillati', soon:true},
+       {l:'Spirits', h:'spirits.html', n:'86'},
      ], all:{l:'Tutto il catalogo', h:'catalogo.html'}},
      {title:'Per occasione', items:[
        {l:'Da regalare', soon:true},
@@ -961,8 +962,6 @@ const MENU = [
        {l:'Novità', h:'catalogo.html'},
        {l:'I più venduti', h:'catalogo.html'},
        {l:'In offerta', h:'catalogo.html'},
-       {l:'Collezioni', soon:true},
-       {l:'Scheda prodotto', h:'prodotto.html'},
      ]},
    ],
    promo:{eyebrow:'La collezione', title:"L'estate di Podere Cigli",
@@ -987,20 +986,10 @@ const MENU = [
           text:'Una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.',
           cta:'Iscriviti', h:'javascript:void(0)', from:'#003d4d', to:'#005f73'}},
 
-  {id:'experience', label:'Experience', href:'https://vineis.eu', ext:true,
-   cols:[
-     {title:'Cosa trovi su Vineis', items:[
-       {l:'Visite in cantina', h:'https://vineis.eu', ext:true},
-       {l:'Degustazioni guidate', h:'https://vineis.eu', ext:true},
-       {l:'Eventi e vendemmie aperte', h:'https://vineis.eu', ext:true},
-       {l:'Esperienze da regalare', h:'https://vineis.eu', ext:true},
-     ]},
-   ],
-   promo:{eyebrow:'Sito esterno', title:'Vai a conoscere chi lo produce',
-          text:'Quando un vino ti entra nel cuore, con Vineis puoi andare a trovare la cantina di persona.',
-          cta:'Apri vineis.eu', h:'https://vineis.eu', ext:true, from:'#4a3b63', to:'#2e2440'}},
+  /* Experience non ha tendina: è una pagina ponte che spiega Vineis */
+  {id:'experience', label:'Experience', href:'experience.html', nomenu:true},
 
-  {id:'cantine', label:'Cantine', href:'cantina.html',
+  {id:'cantine', label:'Cantine', href:'regioni.html',
    cols:[
      {title:'Per regione', items:[
        {l:'Piemonte', h:'regioni.html', n:'22'},
@@ -1016,8 +1005,8 @@ const MENU = [
      ]},
      {title:'Da conoscere', items:[
        {l:'Tutte le 320 cantine', soon:true},
+       {l:'Le collezioni delle cantine', soon:true},
        {l:'Scheda cantina', h:'cantina.html'},
-       {l:'Vendi su Stappando', soon:true},
      ]},
    ],
    promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
@@ -1086,12 +1075,13 @@ function pannelloHTML(v){
   const mega = document.createElement('div');
   mega.className = 'mega';
   mega.id = 'mega';
-  mega.innerHTML = MENU.map(pannelloHTML).join('');
+  mega.innerHTML = MENU.filter(v => !v.nomenu).map(pannelloHTML).join('');
   topbar.appendChild(mega);
 
   /* le voci della barra diventano interruttori della tendina */
   const trigger = {};
   MENU.forEach(v => {
+    if(v.nomenu) return;          /* voce semplice, nessun pannello */
     const a = [...topnav.querySelectorAll('a')].find(x => x.textContent.trim().startsWith(v.label));
     if(!a) return;
     a.classList.add('has-menu');
@@ -1142,9 +1132,10 @@ function pannelloHTML(v){
     .map(a => a.outerHTML).join('');
 
   mobnav.innerHTML = MENU.map(v => {
-    if(v.ext){
-      return `<div class="acc"><a href="${v.href}" target="_blank" rel="noopener"
-        style="border:none">${esc(v.label)} ↗</a></div>`;
+    if(v.nomenu || v.ext){
+      const t = v.ext ? ' target="_blank" rel="noopener"' : '';
+      return `<div class="acc"><a href="${v.href}"${t}
+        style="border:none">${esc(v.label)}${v.ext ? ' ↗' : ''}</a></div>`;
     }
     const body = v.cols.map(c => `
       <p class="grp">${esc(c.title)}</p>

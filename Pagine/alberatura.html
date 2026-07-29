@@ -293,10 +293,6 @@ footer a:hover{text-decoration:underline}
           Profilo
         </span>
         <span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
-          Preferiti
-        </span>
-        <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
           Carrello
         </span>
@@ -385,45 +381,44 @@ footer a:hover{text-decoration:underline}
 const ALBERO = {
   mainNav: [
     {lvl:'Voce 1', name:'Shop', href:'catalogo.html', stato:'ok',
-     desc:'Il catalogo con i filtri: tipologia, regione, prezzo, formato.',
+     desc:'Una pagina sola per categorie e risultati di ricerca, con i filtri.',
      figli:[
-       {name:'Tipologie', href:'catalogo.html', stato:'ok', sub:'Rossi, bianchi, bollicine, rosati, dolci — viste filtrate del catalogo'},
-       {name:'Distillati', stato:'todo', sub:'Whisky, gin, rum, grappe'},
-       {name:'Collezioni', stato:'todo', sub:'Es. “L’estate di Podere Cigli”'},
-       {name:'Idee regalo', stato:'todo'},
-       {name:'Scheda prodotto', href:'prodotto.html', stato:'ok', sub:'Barolo Bussia 2019'},
-       {name:'Risultati di ricerca', stato:'todo'},
+       {name:'Vini', href:'catalogo.html', stato:'ok', sub:'Rossi, bianchi, bollicine, rosati, dolci'},
+       {name:'Spirits', href:'spirits.html', stato:'ok', sub:'Whisky, gin, rum, grappe'},
+       {name:'Da regalare', href:'da-regalare.html', stato:'ok'},
+       {name:'Per tutti i giorni', href:'per-tutti-i-giorni.html', stato:'ok'},
+       {name:'Risultati di ricerca', href:'catalogo.html', stato:'ok', sub:'È la stessa pagina delle categorie, con la ricerca applicata'},
      ]},
     {lvl:'Voce 2', name:'Storie', stato:'todo',
      desc:'Il blog: territori, vitigni, abbinamenti, interviste ai produttori.',
      figli:[
-       {name:'Indice dei racconti', stato:'todo'},
-       {name:'Territori', stato:'todo'},
-       {name:'Enocultura', stato:'todo'},
-       {name:'Abbinamenti', stato:'todo'},
-       {name:'Articolo', stato:'todo', sub:'Pagina di lettura'},
+       {name:'Indice dei racconti', href:'storie.html', stato:'ok'},
+       {name:'Territori', href:'storie-territori.html', stato:'ok'},
+       {name:'Enocultura', href:'storie-enocultura.html', stato:'ok'},
+       {name:'Abbinamenti', href:'storie-abbinamenti.html', stato:'ok'},
+       {name:'Articolo', href:'storia.html', stato:'ok', sub:'Le Langhe in cinque cantine'},
      ]},
-    {lvl:'Voce 3', name:'Experience', href:'https://vineis.eu', stato:'ext',
-     desc:'Esce dal sito: porta su vineis.eu, in una scheda nuova.',
+    {lvl:'Voce 3', name:'Experience', href:'experience.html', stato:'ok',
+     desc:'Nessuna tendina: una pagina ponte che spiega Vineis e poi manda fuori.',
      figli:[
-       {name:'vineis.eu', href:'https://vineis.eu', stato:'ext', sub:'Visite, degustazioni, eventi in cantina'},
-       {name:'Pagina ponte “Cos’è Vineis”', stato:'todo', sub:'Da decidere se serve'},
+       {name:'Pagina ponte “Cos’è Vineis”', href:'experience.html', stato:'ok', sub:'Nessuna tendina: la voce porta qui, poi si esce'},
      ]},
-    {lvl:'Voce 4', name:'Cantine', stato:'todo',
-     desc:'Chi fa il vino. Manca l’indice che le raccoglie tutte.',
+    {lvl:'Voce 4', name:'Cantine', href:'regioni.html', stato:'ok',
+     desc:'La voce porta alla mappa delle regioni. Manca l’indice che le raccoglie tutte.',
      figli:[
-       {name:'Indice delle 320 cantine', stato:'todo', sub:'Con filtri per regione e tipo'},
+       {name:'Indice delle 320 cantine', href:'cantine.html', stato:'ok', sub:'Con filtri per regione e tipo'},
+       {name:'Collezioni delle cantine', href:'collezioni.html', stato:'ok', sub:'Le crea il vendor dal suo pannello'},
+       {name:'Scheda prodotto', href:'prodotto.html', stato:'ok', sub:'Ci si arriva dal catalogo'},
        {name:'Scheda cantina', href:'cantina.html', stato:'ok', sub:'Cascina Rivetto'},
        {name:'Regioni del vino', href:'regioni.html', stato:'ok', sub:'Mappa interattiva'},
-       {name:'Vendi su Stappando', stato:'todo', sub:'Pagina per i produttori'},
      ]},
     {lvl:'Voce 5', name:'Wine Club', stato:'todo',
      desc:'L’abbonamento: sei bottiglie al mese scelte sul tuo gusto.',
      figli:[
-       {name:'Come funziona', stato:'todo'},
-       {name:'I piani', stato:'todo', sub:'Scoperta · Cantina · Collezione'},
-       {name:'Domande frequenti', stato:'todo'},
-       {name:'Attiva l’abbonamento', stato:'todo'},
+       {name:'Come funziona', href:'wineclub.html', stato:'ok'},
+       {name:'I piani', href:'wineclub-piani.html', stato:'ok', sub:'Scoperta · Cantina · Collezione'},
+       {name:'Domande frequenti', href:'wineclub-faq.html', stato:'ok'},
+       {name:'Attiva l’abbonamento', href:'wineclub-attiva.html', stato:'ok'},
      ]},
   ],
 
@@ -432,31 +427,25 @@ const ALBERO = {
      desc:'Suggerimenti raggruppati per vino, cantina, tipologia e regione.',
      figli:[
        {name:'Tendina dei suggerimenti', href:'homepage.html', stato:'ok'},
-       {name:'Pagina dei risultati', stato:'todo'},
+       {name:'Pagina dei risultati', href:'catalogo.html', stato:'ok', sub:'È il catalogo con la ricerca applicata'},
      ]},
     {lvl:'Account', name:'Profilo', href:'../Dashboards/dashboard-user.html', stato:'ok',
      desc:'Accesso e area personale del cliente.',
      figli:[
-       {name:'Accedi / Registrati', stato:'todo'},
+       {name:'Accedi / Registrati', href:'accedi.html', stato:'ok'},
        {name:'Il mio account', href:'../Dashboards/dashboard-user.html', stato:'ok'},
        {name:'Ordini e resi', href:'../Dashboards/dashboard-user.html', stato:'ok'},
-       {name:'Dettaglio ordine e tracking', stato:'todo'},
-       {name:'Indirizzi e pagamenti', stato:'todo'},
-     ]},
-    {lvl:'Salvati', name:'Preferiti', stato:'todo',
-     desc:'La lista dei desideri, già presente come contatore nella barra.',
-     figli:[
-       {name:'Lista dei preferiti', stato:'todo'},
-       {name:'Avviso “torna disponibile”', stato:'todo'},
+       {name:'Dettaglio ordine e tracking', href:'ordine.html', stato:'ok'},
+       {name:'Indirizzi e pagamenti', href:'indirizzi-pagamenti.html', stato:'ok'},
      ]},
     {lvl:'Acquisto', name:'Carrello', href:'carrello.html', stato:'ok',
      desc:'Il percorso fino alla conferma dell’ordine.',
      figli:[
        {name:'Carrello', href:'carrello.html', stato:'ok'},
-       {name:'Indirizzo e spedizione', stato:'todo'},
-       {name:'Pagamento', stato:'todo'},
-       {name:'Ordine confermato', stato:'todo'},
-       {name:'Traccia il tuo ordine', stato:'todo'},
+       {name:'Indirizzo e spedizione', href:'checkout-indirizzo.html', stato:'ok'},
+       {name:'Pagamento', href:'checkout-pagamento.html', stato:'ok'},
+       {name:'Ordine confermato', href:'ordine-confermato.html', stato:'ok'},
+       {name:'Traccia il tuo ordine', href:'tracking.html', stato:'ok'},
      ]},
   ],
 
@@ -466,39 +455,35 @@ const ALBERO = {
      figli:[{name:'Dashboard cliente', href:'../Dashboards/dashboard-user.html', stato:'ok'}]},
     {lvl:'B2B', name:'Horeca', href:'../Dashboards/dashboard-horeca.html', stato:'ok',
      desc:'Ristoranti e enoteche: catalogo, riordini, storico.',
-     figli:[{name:'Area Horeca', href:'../Dashboards/dashboard-horeca.html', stato:'ok'},
-            {name:'Listino riservato', stato:'todo'}]},
+     figli:[{name:'Area Horeca', href:'../Dashboards/dashboard-horeca.html', stato:'ok'}]},
     {lvl:'Produttore', name:'Cantina', href:'../Dashboards/dashboard-vendor-owner.html', stato:'ok',
      desc:'Il pannello della cantina, con due livelli di permessi.',
      figli:[{name:'Vendor owner', href:'../Dashboards/dashboard-vendor-owner.html', stato:'ok'},
-            {name:'Vendor manager', href:'../Dashboards/dashboard-vendor-manager.html', stato:'ok'},
-            {name:'Catalogo prodotti della cantina', stato:'todo'}]},
+            {name:'Vendor manager', href:'../Dashboards/dashboard-vendor-manager.html', stato:'ok'}]},
     {lvl:'Interno', name:'Piattaforma', href:'../Dashboards/dashboard-admin.html', stato:'ok',
      desc:'Back-office: utenti, cantine, commissioni, log.',
      figli:[{name:'Admin (super/owner)', href:'../Dashboards/dashboard-admin.html', stato:'ok'},
-            {name:'Manager admin', href:'../Dashboards/dashboard-manager-admin.html', stato:'ok'},
-            {name:'Contenuti e racconti', stato:'todo'}]},
+            {name:'Manager admin', href:'../Dashboards/dashboard-manager-admin.html', stato:'ok'}]},
   ],
 
   serviceNav: [
     {lvl:'Azienda', name:'Chi siamo', stato:'todo',
      desc:'La storia di Roberto e Claudio e il metodo di selezione.',
-     figli:[{name:'Chi siamo', stato:'todo'},
-            {name:'Il nostro metodo di selezione', stato:'todo'},
-            {name:'Lavora con noi', stato:'todo'},
-            {name:'Contatti', stato:'todo'}]},
+     figli:[{name:'Chi siamo', href:'chi-siamo.html', stato:'ok'},
+            {name:'Lavora con noi', href:'lavora-con-noi.html', stato:'ok'},
+            {name:'Contatti', href:'contatti.html', stato:'ok'}]},
     {lvl:'Assistenza', name:'Aiuto', stato:'todo',
      desc:'Tutto quello che serve dopo l’ordine.',
-     figli:[{name:'Spedizioni e consegne', stato:'todo'},
-            {name:'Resi e rimborsi', stato:'todo'},
-            {name:'Metodi di pagamento', stato:'todo'},
-            {name:'Domande frequenti', stato:'todo'}]},
+     figli:[{name:'Spedizioni e consegne', href:'spedizioni.html', stato:'ok'},
+            {name:'Resi e rimborsi', href:'resi.html', stato:'ok'},
+            {name:'Metodi di pagamento', href:'pagamenti.html', stato:'ok'},
+            {name:'Domande frequenti', href:'faq.html', stato:'ok'}]},
     {lvl:'Legali', name:'Note legali', stato:'todo',
      desc:'Obbligatorie, più la pagina di errore.',
-     figli:[{name:'Termini e condizioni', stato:'todo'},
-            {name:'Privacy policy', stato:'todo'},
-            {name:'Cookie policy', stato:'todo'},
-            {name:'404 · Pagina non trovata', stato:'todo'}]},
+     figli:[{name:'Termini e condizioni', href:'termini.html', stato:'ok'},
+            {name:'Privacy policy', href:'privacy.html', stato:'ok'},
+            {name:'Cookie policy', href:'cookie.html', stato:'ok'},
+            {name:'404 · Pagina non trovata', href:'404.html', stato:'ok'}]},
   ],
 };
 
@@ -555,30 +540,26 @@ document.getElementById('tally').innerHTML = [
    lì, va cambiata qui — è l'unico punto in cui i due si toccano. */
 const MENU_GER = [
   {label:'Shop', href:'catalogo.html', cols:[
-    {title:'Per tipologia', items:[
-      {l:'Rossi', h:'catalogo.html'},{l:'Bianchi', h:'catalogo.html'},{l:'Bollicine', h:'catalogo.html'},
-      {l:'Rosati', h:'catalogo.html'},{l:'Dolci e passiti', h:'catalogo.html'},{l:'Distillati', soon:true}]},
+    {title:'Categorie', items:[
+      {l:'Vini', h:'catalogo.html'},{l:'Rossi', h:'catalogo.html'},{l:'Bianchi', h:'catalogo.html'},
+      {l:'Bollicine', h:'catalogo.html'},{l:'Rosati', h:'catalogo.html'},{l:'Dolci e passiti', h:'catalogo.html'},
+      {l:'Spirits', h:'spirits.html'}]},
     {title:'Per occasione', items:[
-      {l:'Da regalare', soon:true},{l:'Per tutti i giorni', soon:true},{l:'Da collezione', soon:true},
+      {l:'Da regalare', h:'da-regalare.html'},{l:'Per tutti i giorni', h:'per-tutti-i-giorni.html'},
       {l:'Sotto i 15 €', h:'catalogo.html'},{l:'Bio e biodinamici', h:'catalogo.html'}]},
     {title:'In evidenza', items:[
-      {l:'Novità', h:'catalogo.html'},{l:'I più venduti', h:'catalogo.html'},{l:'In offerta', h:'catalogo.html'},
-      {l:'Collezioni', soon:true},{l:'Scheda prodotto', h:'prodotto.html'}]},
+      {l:'Novità', h:'catalogo.html'},{l:'I più venduti', h:'catalogo.html'},{l:'In offerta', h:'catalogo.html'}]},
   ]},
   {label:'Storie', cols:[
     {title:'Le rubriche', items:[
-      {l:'Territori', soon:true},{l:'Enocultura', soon:true},{l:'Abbinamenti', soon:true},
-      {l:'Interviste ai produttori', soon:true}]},
+      {l:'Territori', h:'storie-territori.html'},{l:'Enocultura', h:'storie-enocultura.html'},{l:'Abbinamenti', h:'storie-abbinamenti.html'},
+      {l:'Interviste ai produttori', h:'storie.html'}]},
     {title:'Da leggere adesso', items:[
       {l:'Le Langhe in cinque cantine', soon:true},{l:'Se hai bevuto un Chianti…', soon:true},
       {l:'Il rosso della domenica', soon:true}]},
   ]},
-  {label:'Experience', href:'https://vineis.eu', ext:true, cols:[
-    {title:'Cosa trovi su Vineis', items:[
-      {l:'Visite in cantina', h:'https://vineis.eu', ext:true},{l:'Degustazioni guidate', h:'https://vineis.eu', ext:true},
-      {l:'Eventi e vendemmie aperte', h:'https://vineis.eu', ext:true},{l:'Esperienze da regalare', h:'https://vineis.eu', ext:true}]},
-  ]},
-  {label:'Cantine', href:'cantina.html', cols:[
+  {label:'Experience', href:'experience.html', cols:[]},
+  {label:'Cantine', href:'regioni.html', cols:[
     {title:'Per regione', items:[
       {l:'Piemonte', h:'regioni.html'},{l:'Toscana', h:'regioni.html'},{l:'Veneto', h:'regioni.html'},
       {l:'Sicilia', h:'regioni.html'},{l:'Mappa delle regioni', h:'regioni.html'}]},
@@ -586,15 +567,16 @@ const MENU_GER = [
       {l:'Piccoli produttori', soon:true},{l:'Bio e biodinamici', soon:true},
       {l:'Cantine verificate', soon:true},{l:'Cantine storiche', soon:true}]},
     {title:'Da conoscere', items:[
-      {l:'Tutte le 320 cantine', soon:true},{l:'Scheda cantina', h:'cantina.html'},
-      {l:'Vendi su Stappando', soon:true}]},
+      {l:'Tutte le 320 cantine', h:'cantine.html'},{l:'Le collezioni delle cantine', h:'collezioni.html'},
+      {l:'Scheda cantina', h:'cantina.html'},
+      {l:'Le collezioni delle cantine', h:'collezioni.html'}]},
   ]},
   {label:'Wine Club', cols:[
     {title:'L’abbonamento', items:[
-      {l:'Come funziona', soon:true},{l:'Domande frequenti', soon:true},
-      {l:'Regala il Wine Club', soon:true},{l:'Attiva l’abbonamento', soon:true}]},
+      {l:'Come funziona', h:'wineclub.html'},{l:'Domande frequenti', h:'wineclub-faq.html'},
+      {l:'Regala il Wine Club', h:'wineclub-attiva.html'},{l:'Attiva l’abbonamento', h:'wineclub-attiva.html'}]},
     {title:'I piani', items:[
-      {l:'Scoperta', soon:true},{l:'Cantina', soon:true},{l:'Collezione', soon:true}]},
+      {l:'Scoperta', h:'wineclub-piani.html'},{l:'Cantina', h:'wineclub-piani.html'},{l:'Collezione', h:'wineclub-piani.html'}]},
   ]},
 ];
 

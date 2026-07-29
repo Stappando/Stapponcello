@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+.card-cantina .cn a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:.15s}
+.card-cantina .cn a:hover{color:var(--primary);border-bottom-color:currentColor}
 :root{
   --primary:#005f73;
   --primary-dark:#003d4d;
@@ -305,8 +307,8 @@ footer a:hover{text-decoration:underline}
   <nav class="topnav">
     <a href="catalogo.html">Shop</a>
     <a href="javascript:void(0)">Storie</a>
-    <a href="https://vineis.eu" target="_blank" rel="noopener">Experience</a>
-    <a href="cantina.html" class="on">Cantine</a>
+    <a href="experience.html">Experience</a>
+    <a href="regioni.html" class="on">Cantine</a>
     <a href="javascript:void(0)">Wine Club</a>
   </nav>
   <div class="top-icons">
@@ -551,7 +553,7 @@ function cantineView(){
   const cards = reg.cantine.map(c=>`
     <article class="tile card-cantina" data-winery="${esc(c.name)}" tabindex="0" role="button">
       ${crestSVG(c.initials, accent)}
-      <p class="cn">${esc(c.name)}</p>
+      <p class="cn"><a href="cantina.html" data-stop>${esc(c.name)}</a></p>
       <div class="cmeta">dal ${c.founded}</div>
       <span class="cbadge">${c.bottles.length} etichett${c.bottles.length===1?'a':'e'}
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -644,6 +646,10 @@ document.addEventListener('click', e=>{
 
   const reg = e.target.closest('.region');
   if(reg){ selectRegion(reg.dataset.region); return; }
+
+  /* il nome della cantina porta alla sua pagina, il resto della tessera
+     apre le etichette qui dentro */
+  if(e.target.closest('[data-stop]')) return;
 
   const win = e.target.closest('[data-winery]');
   if(win){ state.winery = win.dataset.winery; renderPanel(); return; }

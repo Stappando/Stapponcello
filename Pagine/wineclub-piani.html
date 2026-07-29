@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Wine Club · I piani</title>
+<meta name="description" content="Scoperta, Cantina, Collezione: i tre piani a confronto." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<style>
+.piani{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.piano{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px;
+  box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.18s;position:relative}
+.piano:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.piano.top{border-color:var(--primary);box-shadow:var(--shadow-lg)}
+.piano.top::before{content:"Il più scelto";position:absolute;top:-11px;left:26px;background:var(--primary);
+  color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+.piano h3{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.03em}
+.piano .pz{font-family:var(--font-display);font-size:34px;font-weight:600;color:var(--primary);letter-spacing:-.04em;margin-top:12px}
+.piano .pz small{font-size:13px;font-weight:500;color:var(--muted-fg);font-family:var(--font-sans);letter-spacing:0}
+.piano p.sub{font-size:13.5px;color:var(--muted-fg);margin-top:8px;line-height:1.55}
+.piano ul{margin-top:18px;flex:1}
+.piano li{display:flex;gap:9px;font-size:13.5px;line-height:1.5;padding:5px 0}
+.piano li svg{flex:none;color:var(--ok);margin-top:3px}
+.passi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.passo{background:var(--card);border:1px solid var(--border-soft);border-radius:var(--r-lg);padding:24px}
+.passo b.n{font-family:var(--font-display);font-size:30px;font-weight:600;color:var(--accent);letter-spacing:-.04em;display:block;line-height:1}
+.passo h3{font-size:15px;font-weight:700;margin-top:10px}
+.passo p{font-size:13px;color:var(--muted-fg);margin-top:7px;line-height:1.55}
+</style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema")||"classico";document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>Marketplace di <b>320 cantine</b> · dal produttore a casa tua</span>
+    <span>Corriere a scelta: BRT, TNT, Poste</span>
+    <span><b>4,7/5</b> su 3.482 recensioni verificate</span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+    <nav class="topnav" aria-label="Navigazione principale">
+      <a href="catalogo.html">Shop</a>
+      <a href="storie.html">Storie</a>
+      <a href="experience.html">Experience</a>
+      <a href="regioni.html">Cantine</a>
+      <a href="wineclub.html" class="on" aria-current="page">Wine Club</a>
+    </nav>
+    <div class="top-icons">
+      <a class="iconbtn" href="catalogo.html" aria-label="Cerca">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </a>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b>3</b>
+      </a>
+    </div>
+  </div>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="wineclub.html">Wine Club</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span>I piani</span>
+    </nav>
+    <span class="eyebrow">Wine Club</span>
+    <h1>Scegli la misura della tua cantina</h1>
+    <p class="lead">Tre piani, nessun vincolo. Si cambia o si disdice quando vuoi, dalla tua area personale.</p>
+    
+  </div>
+</header>
+
+<main>
+<div class="wrap"><div class="piani"><article class="piano "><h3>Scoperta</h3><p class="pz">19 € <small>al mese</small></p><p class="sub">Tre bottiglie, tutte sotto i 15 €. Per cominciare senza impegnarsi.</p><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>3 bottiglie al mese</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Schede di degustazione</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Salti un mese quando vuoi</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Spedizione gratuita</span></li></ul><a class="btn btn-ghost" style="margin-top:20px" href="wineclub-attiva.html">Attiva Scoperta <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></article><article class="piano top"><h3>Cantina</h3><p class="pz">39 € <small>al mese</small></p><p class="sub">Sei bottiglie scelte sul tuo gusto, con almeno una cantina nuova ogni mese.</p><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>6 bottiglie al mese</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Schede + audio del produttore</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sconto 10% su tutto il catalogo</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Accesso alle collezioni in anteprima</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Spedizione gratuita</span></li></ul><a class="btn btn-dark" style="margin-top:20px" href="wineclub-attiva.html">Attiva Cantina <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></article><article class="piano "><h3>Collezione</h3><p class="pz">89 € <small>al mese</small></p><p class="sub">Sei etichette che non finiscono in catalogo: verticali, annate limitate, piccole produzioni.</p><ul><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>6 bottiglie rare al mese</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Verticali e annate limitate</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sconto 15% su tutto il catalogo</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Una visita in cantina l’anno con Vineis</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Spedizione gratuita</span></li></ul><a class="btn btn-ghost" style="margin-top:20px" href="wineclub-attiva.html">Attiva Collezione <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></article></div><div class="sec"><div class="tablewrap"><table><thead><tr><th>Cosa include</th><th>Scoperta</th><th>Cantina</th><th>Collezione</th></tr></thead><tbody><tr><td>Bottiglie al mese</td><td>3</td><td>6</td><td>6</td></tr><tr><td>Prezzo medio a bottiglia</td><td>~ 6,30 €</td><td>~ 6,50 €</td><td>~ 14,80 €</td></tr><tr><td>Schede di degustazione</td><td>Sì</td><td>Sì, con audio</td><td>Sì, con audio</td></tr><tr><td>Sconto sul catalogo</td><td>—</td><td>10%</td><td>15%</td></tr><tr><td>Annate limitate e verticali</td><td>—</td><td>—</td><td>Sì</td></tr><tr><td>Visita in cantina con Vineis</td><td>—</td><td>—</td><td>Una l’anno</td></tr><tr><td>Salta un mese</td><td>Sì</td><td>Sì</td><td>Sì</td></tr></tbody></table></div></div><div class="sec panel"><div class="prose"><p><b>Un consiglio.</b> Se è la prima volta, parti da Scoperta: costa poco e serve soprattutto a capire cosa ti piace. Il passaggio a Cantina lo fanno quasi tutti dopo il terzo mese, e a quel punto è una scelta informata.</p></div></div></div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="spirits.html">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>
