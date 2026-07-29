@@ -156,6 +156,7 @@ img{display:block;max-width:100%}
 .p-attivo{background:#ecfdf5;color:#047857}
 .p-esaurito{background:#fef2f2;color:#dc2626}
 .p-bozza{background:#f3f4f6;color:#6b7280}
+.p-oscurato{background:#ede9fe;color:#5b21b6}
 
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:72px 0;text-align:center;gap:12px;color:var(--muted-fg)}
 .empty p{font-size:14px;font-weight:500}
@@ -232,6 +233,11 @@ img{display:block;max-width:100%}
 .pcard{background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);transition:.15s}
 .pcard:hover{box-shadow:var(--shadow-md)}
 .pcard.bozza{border-style:dashed;border-color:#d1d5db;opacity:.78}
+.pcard.oscurato{border-color:#ddd6fe;background:#faf8ff}
+.pcard.oscurato .pimg img{filter:grayscale(.9);opacity:.6}
+.prow.oscurato{border-color:#ddd6fe;background:#faf8ff}
+.prow.oscurato .thumb img{filter:grayscale(.9);opacity:.6}
+.pacts button.hide:hover{background:#f5f3ff;color:#5b21b6}
 .pimg{position:relative;height:176px;background:var(--muted);overflow:hidden}
 .pimg img{width:100%;height:100%;object-fit:cover;object-position:top}
 .pimg .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.2),transparent)}
@@ -300,6 +306,22 @@ img{display:block;max-width:100%}
 .select{appearance:none;padding:6px 26px 6px 12px;background:#fff;border:1px solid var(--border);border-radius:var(--r-sm);font-size:12px;outline:none}
 .selwrap{position:relative}
 .selwrap .ic{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--muted-fg);pointer-events:none}
+/* risposta alla recensione */
+.replybox{margin-left:16px;padding:14px 16px;border-left:2px solid rgba(0,95,115,.35);border-radius:0 var(--r-sm) var(--r-sm) 0;
+  background:rgba(0,95,115,.04);display:flex;flex-direction:column;gap:10px}
+.replybox textarea{width:100%;min-height:84px;resize:vertical;line-height:1.5;padding:10px 12px;font-size:13px;
+  border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;outline:none;transition:.15s}
+.replybox textarea:focus{border-color:rgba(0,95,115,.4);box-shadow:0 0 0 3px rgba(0,95,115,.12)}
+.revacts{display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--border-soft)}
+.revacts .btn{padding:8px 12px;font-size:12px;gap:6px}
+
+/* banner informativo (come nell'area cliente) */
+.banner{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-radius:var(--r);
+  border:1px solid rgba(0,95,115,.18);background:linear-gradient(135deg,rgba(0,95,115,.06),rgba(201,168,124,.08))}
+.banner .bi{width:38px;height:38px;border-radius:var(--r-sm);background:rgba(0,95,115,.12);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.banner h4{font-size:14px;font-weight:600}
+.banner p{font-size:12px;color:var(--muted-fg);margin-top:3px;line-height:1.5}
 
 /* ── statistiche ─────────────────────────────────────── */
 .kpi{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;gap:16px;align-items:flex-start}
@@ -448,6 +470,7 @@ const P = {
   wine:'<path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/>',
   plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
   eye:'<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  eyeOff:'<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>',
   pencil:'<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
   search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
   pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
@@ -579,7 +602,8 @@ const WINE_TYPE_CFG = {
   rosso:{label:"Rosso",color:"#7f1d1d"},bianco:{label:"Bianco",color:"#78350f"},
   "rosé":{label:"Rosé",color:"#9d174d"},spumante:{label:"Spumante",color:"#1e3a5f"},
 };
-const PRODUCT_STATUS_CFG = {attivo:{label:"Attivo"},esaurito:{label:"Esaurito"},bozza:{label:"Bozza"}};
+const PRODUCT_STATUS_CFG = {attivo:{label:"Attivo"},esaurito:{label:"Esaurito"},bozza:{label:"Bozza"},
+  oscurato:{label:"Oscurato"}};
 const TEAL="#005f73", GOLD="#c9a87c";
 
 /* ── Navigazione per ruolo ──────────────────────────────────── */
@@ -592,7 +616,6 @@ const NAV_ALL = [
   {id:"sponsorizza",label:"Sponsorizza",icon:"megaphone"},
 ];
 const NAV_BOTTOM = [
-  {id:"impostazioni",label:"Impostazioni",icon:"settings"},
   {id:"supporto",label:"Supporto",icon:"headset"},
 ];
 const OWNER_SECTIONS   = ["panoramica","ordini","prodotti","recensioni","statistiche","sponsorizza"];
@@ -624,10 +647,11 @@ const S = {
   roleMenu:false, mobMenu:false,
   products: JSON.parse(JSON.stringify(INITIAL_PRODUCTS)),
   orders: JSON.parse(JSON.stringify(ORDERS_DATA)),
+  reviews: JSON.parse(JSON.stringify(REVIEWS_DATA)),
   ord:{tab:"all",search:"",selected:null,mobile:false,statusMenu:false},
   prod:{search:"",type:"all",sort:"bestseller",view:"grid",sortMenu:false,
         modal:null,form:null,imgPicker:false,deleteId:null,editing:null},
-  rev:{rating:"all",product:"all"},
+  rev:{rating:"all",product:"all",replyTo:null,replyText:""},
   stats:{period:"6m"},
   spon:{selected:new Set(),products:new Set(),notes:"",submitted:false,showProducts:false},
 };
@@ -807,6 +831,7 @@ function viewProdotti(){
   const bestId=best?best.id:null;
   const activeCount=S.products.filter(x=>x.status==="attivo").length;
   const esaurito=S.products.filter(x=>x.status==="esaurito").length;
+  const oscurati=S.products.filter(x=>x.status==="oscurato").length;
   const totSold=S.products.reduce((s,x)=>s+x.sold,0);
 
   const body = list.length===0
@@ -817,10 +842,14 @@ function viewProdotti(){
         : '<div class="stack-sm" style="gap:8px">'+list.map(x=>productRow(x,x.id===bestId)).join("")+'</div>');
 
   return '<div class="wrap stack">'+
-    '<div class="grid3">'+
-      [["Prodotti attivi",activeCount],["Esauriti",esaurito],["Bottiglie vendute",totSold]]
+    '<div class="grid4">'+
+      [["Prodotti attivi",activeCount],["Esauriti",esaurito],["Oscurati",oscurati],["Bottiglie vendute",totSold]]
         .map(s=>'<div class="ministat"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join("")+
     '</div>'+
+    (oscurati>0?'<div class="infobox">'+ic("eyeOff",15)+
+      '<span><b>'+oscurati+' '+(oscurati===1?"prodotto oscurato":"prodotti oscurati")+'.</b> '+
+      'Restano nel tuo catalogo con giacenza e statistiche, ma non sono visibili né acquistabili sullo shop. '+
+      'Riportali online quando vuoi con “Mostra”.</span></div>':'')+
     '<div class="toolbar">'+
       '<div class="search">'+ic("search",14)+'<input class="input" data-input="prod-search" data-focus-key="prodsearch" placeholder="Cerca per nome, denominazione, annata..." value="'+esc(p.search)+'"></div>'+
       '<div class="dropdown"><button class="sortbtn" data-act="sort-toggle">'+ic("sort",14)+
@@ -842,13 +871,17 @@ function viewProdotti(){
 function productCard(x,isBest){
   const t=WINE_TYPE_CFG[x.type], st=PRODUCT_STATUS_CFG[x.status];
   const low=x.stock>0&&x.stock<=5;
-  return '<div class="pcard '+(x.status==="bozza"?"bozza":"")+'">'+
+  const oscurato=x.status==="oscurato";
+  return '<div class="pcard '+cls(x.status==="bozza"&&"bozza",oscurato&&"oscurato")+'">'+
     '<div class="pimg"><img src="'+x.imageUrl+'" alt="'+esc(x.name)+'" loading="lazy"><span class="shade"></span>'+
       '<div class="pbadges">'+
-        (isBest?'<span class="pill" style="background:var(--accent);color:#fff">'+ic("award",10)+' Più venduto</span>':'')+
-        '<span class="pill p-'+x.status+'">'+st.label+'</span></div>'+
+        (isBest&&!oscurato?'<span class="pill" style="background:var(--accent);color:#fff">'+ic("award",10)+' Più venduto</span>':'')+
+        '<span class="pill p-'+x.status+'">'+(oscurato?ic("eyeOff",10):"")+st.label+'</span></div>'+
       '<span class="ptype" style="background:'+t.color+'">'+t.label+'</span>'+
-      '<div class="pacts"><button data-act="prod-edit" data-id="'+x.id+'" title="Modifica">'+ic("pencil",13)+'</button>'+
+      '<div class="pacts">'+
+        '<button class="hide" data-act="prod-hide" data-id="'+x.id+'" title="'+(oscurato?"Mostra sullo shop":"Oscura sullo shop")+'">'+
+          ic(oscurato?"eye":"eyeOff",13)+'</button>'+
+        '<button data-act="prod-edit" data-id="'+x.id+'" title="Modifica">'+ic("pencil",13)+'</button>'+
         '<button class="del" data-act="prod-del" data-id="'+x.id+'" title="Elimina">'+ic("trash",13)+'</button></div>'+
     '</div>'+
     '<div class="pbody">'+
@@ -857,28 +890,35 @@ function productCard(x,isBest){
       '<div class="pmetrics"><div><p class="k">Prezzo</p><div style="color:var(--primary)">'+inlineEdit("price:"+x.id,x.price,"€ ","")+'</div></div>'+
       '<div style="text-align:right"><p class="k">Giacenza</p><div class="'+(low?"low":x.stock===0?"zero":"")+'">'+inlineEdit("stock:"+x.id,x.stock,""," bt.")+'</div>'+
       (low?'<p class="lowtxt">Scorta bassa</p>':'')+'</div></div>'+
-      '<div class="psold">'+ic("up",11,"color:#10b981")+'<span>'+x.sold+' vendute</span></div>'+
+      '<div class="spread">'+
+        '<div class="psold">'+ic("up",11,"color:#10b981")+'<span>'+x.sold+' vendute</span></div>'+
+        '<button class="btn btn-ghost" style="padding:6px 10px;font-size:11px;gap:5px" data-act="prod-hide" data-id="'+x.id+'">'+
+          ic(oscurato?"eye":"eyeOff",12)+(oscurato?" Mostra":" Oscura")+'</button></div>'+
     '</div></div>';
 }
 
 function productRow(x,isBest){
   const t=WINE_TYPE_CFG[x.type], st=PRODUCT_STATUS_CFG[x.status];
   const low=x.stock>0&&x.stock<=5;
-  return '<div class="prow '+(x.status==="bozza"?"bozza":"")+'">'+
+  const oscurato=x.status==="oscurato";
+  return '<div class="prow '+cls(x.status==="bozza"&&"bozza",oscurato&&"oscurato")+'">'+
     '<div class="thumb" style="width:56px;height:72px"><img src="'+x.imageUrl+'" alt="" loading="lazy"></div>'+
     '<div style="flex:1;min-width:0">'+
       '<div class="row" style="gap:8px;flex-wrap:wrap"><p style="font-size:14px;font-weight:600">'+esc(x.name)+'</p>'+
-      (isBest?'<span class="pill" style="background:var(--accent);color:#fff">'+ic("award",9)+' Più venduto</span>':'')+'</div>'+
+      (isBest&&!oscurato?'<span class="pill" style="background:var(--accent);color:#fff">'+ic("award",9)+' Più venduto</span>':'')+'</div>'+
       '<div class="row" style="gap:8px;margin-top:3px;flex-wrap:wrap"><span class="tag" style="background:'+t.color+'">'+t.label+'</span>'+
       '<span style="font-size:12px;color:var(--muted-fg)">'+x.denomination+' · '+x.vintage+'</span>'+
-      '<span class="pill p-'+x.status+'">'+st.label+'</span></div></div>'+
+      '<span class="pill p-'+x.status+'">'+(oscurato?ic("eyeOff",9):"")+st.label+'</span></div></div>'+
     '<div style="text-align:center;flex:none"><p style="font-size:10px;color:var(--muted-fg);margin-bottom:2px">Prezzo</p>'+
       '<div style="color:var(--primary)">'+inlineEdit("price:"+x.id,x.price,"€ ","")+'</div></div>'+
     '<div style="text-align:center;flex:none"><p style="font-size:10px;color:var(--muted-fg);margin-bottom:2px">Giacenza</p>'+
       '<div class="'+(low?"low":x.stock===0?"zero":"")+'">'+inlineEdit("stock:"+x.id,x.stock,"","")+'</div></div>'+
     '<div style="text-align:center;flex:none"><p style="font-size:10px;color:var(--muted-fg);margin-bottom:2px">Vendute</p>'+
       '<p style="font-size:14px;font-weight:600">'+x.sold+'</p></div>'+
-    '<div class="row" style="gap:4px;flex:none"><button class="iconbtn" data-act="prod-edit" data-id="'+x.id+'">'+ic("pencil",15)+'</button>'+
+    '<div class="row" style="gap:4px;flex:none">'+
+      '<button class="iconbtn" data-act="prod-hide" data-id="'+x.id+'" title="'+(oscurato?"Mostra sullo shop":"Oscura sullo shop")+'">'+
+        ic(oscurato?"eye":"eyeOff",15)+'</button>'+
+      '<button class="iconbtn" data-act="prod-edit" data-id="'+x.id+'">'+ic("pencil",15)+'</button>'+
       '<button class="iconbtn" data-act="prod-del" data-id="'+x.id+'">'+ic("trash",15)+'</button></div>'+
   '</div>';
 }
@@ -915,9 +955,13 @@ function productModal(){
         '<div class="field"><label class="eyebrow">Giacenza (bt.)</label><input class="input" type="number" min="0" data-form="stock" data-focus-key="fstock" value="'+(f.stock||"")+'" placeholder="0"></div>'+
       '</div>'+
       '<div class="field"><label class="eyebrow">Stato pubblicazione</label>'+
-        '<div class="row" style="gap:8px">'+["attivo","bozza"].map(s=>
-          '<button class="btn '+(f.status===s?"":"btn-ghost")+'" style="flex:1'+(f.status===s?";background:"+(s==="attivo"?"#ecfdf5":"#f3f4f6")+";color:"+(s==="attivo"?"#047857":"#6b7280"):"")+'" data-act="form-status" data-id="'+s+'">'+
-          PRODUCT_STATUS_CFG[s].label+'</button>').join("")+'</div></div>'+
+        '<div class="row" style="gap:8px">'+[["attivo","#ecfdf5","#047857"],["bozza","#f3f4f6","#6b7280"],["oscurato","#ede9fe","#5b21b6"]].map(s=>
+          '<button class="btn '+(f.status===s[0]?"":"btn-ghost")+'" style="flex:1;font-size:13px;gap:6px'+
+          (f.status===s[0]?";background:"+s[1]+";color:"+s[2]:"")+'" data-act="form-status" data-id="'+s[0]+'">'+
+          (s[0]==="oscurato"?ic("eyeOff",13):"")+PRODUCT_STATUS_CFG[s[0]].label+'</button>').join("")+'</div>'+
+        '<p style="font-size:11px;color:var(--muted-fg);margin-top:8px;line-height:1.45">'+
+        'Un prodotto <b>oscurato</b> resta nel tuo catalogo ma non compare sullo shop: usalo per sospendere una vendita '+
+        'senza perdere giacenza, storico e recensioni.</p></div>'+
     '</div>'+
     '<div class="modal-f"><button class="btn btn-ghost" data-act="modal-close">Annulla</button>'+
       '<button class="btn btn-primary" data-act="modal-save" '+(valid?"":"disabled")+'>'+(isNew?"Aggiungi prodotto":"Salva modifiche")+'</button></div>'+
@@ -937,7 +981,7 @@ function deleteConfirm(){
 
 /* ═══ RECENSIONI ════════════════════════════════════════════ */
 function viewRecensioni(){
-  const R=REVIEWS_DATA;
+  const R=S.reviews;
   const avg=(R.reduce((s,r)=>s+r.rating,0)/R.length).toFixed(1);
   const counts={1:0,2:0,3:0,4:0,5:0}; R.forEach(r=>counts[r.rating]++);
   const seen=new Set(), prods=[];
@@ -971,17 +1015,47 @@ function viewRecensioni(){
     '<p style="font-size:12px;color:var(--muted-fg)">'+filtered.length+' recension'+(filtered.length===1?"e":"i")+'</p>'+
     (filtered.length===0
       ? '<div class="empty">'+ic("star",36,"opacity:.3")+'<p>Nessuna recensione trovata</p></div>'
-      : '<div class="stack-sm">'+filtered.map(r=>'<div class="review">'+
-          '<div class="row" style="align-items:flex-start">'+avatar(r.customer)+
-          '<div style="flex:1;min-width:0"><div class="spread" style="flex-wrap:wrap">'+
-            '<p style="font-size:14px;font-weight:600">'+r.customer+'</p>'+
-            '<span class="row" style="gap:8px">'+stars(r.rating,13)+'<span style="font-size:12px;color:var(--muted-fg)">'+r.date+'</span></span></div>'+
-            '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px">su <b style="color:var(--primary);font-weight:500">'+esc(r.product)+'</b></p></div></div>'+
-          '<p style="font-size:14px;line-height:1.6">'+esc(r.text)+'</p>'+
-          (r.reply?'<div class="reply"><div class="row" style="gap:6px">'+ic("wine",12,"color:var(--accent)")+
-            '<p style="font-size:11px;font-weight:600;color:var(--accent)">Risposta della cantina</p></div>'+
-            '<p style="font-size:12px;color:rgba(26,26,26,.8);line-height:1.6">'+esc(r.reply)+'</p></div>':'')+
-        '</div>').join("")+'</div>')+
+      : '<div class="stack-sm">'+filtered.map(reviewCard).join("")+'</div>')+
+  '</div>';
+}
+
+/* singola recensione con risposta della cantina e form di risposta */
+function reviewCard(r){
+  const inRisposta = S.rev.replyTo===r.id;
+  return '<div class="review">'+
+    '<div class="row" style="align-items:flex-start">'+avatar(r.customer)+
+    '<div style="flex:1;min-width:0"><div class="spread" style="flex-wrap:wrap">'+
+      '<p style="font-size:14px;font-weight:600">'+r.customer+'</p>'+
+      '<span class="row" style="gap:8px">'+stars(r.rating,13)+'<span style="font-size:12px;color:var(--muted-fg)">'+r.date+'</span></span></div>'+
+      '<p style="font-size:12px;color:var(--muted-fg);margin-top:2px">su <b style="color:var(--primary);font-weight:500">'+esc(r.product)+'</b></p></div></div>'+
+    '<p style="font-size:14px;line-height:1.6">'+esc(r.text)+'</p>'+
+
+    (r.reply&&!inRisposta
+      ? '<div class="reply"><div class="row" style="gap:6px">'+ic("wine",12,"color:var(--accent)")+
+        '<p style="font-size:11px;font-weight:600;color:var(--accent)">Risposta della cantina</p></div>'+
+        '<p style="font-size:12px;color:rgba(26,26,26,.8);line-height:1.6">'+esc(r.reply)+'</p></div>'
+      : '')+
+
+    (inRisposta
+      ? '<div class="replybox">'+
+          '<div class="row" style="gap:6px">'+ic("msg",12,"color:var(--primary)")+
+            '<p style="font-size:11px;font-weight:600;color:var(--primary)">'+(r.reply?"Modifica la risposta":"La tua risposta pubblica")+'</p></div>'+
+          '<textarea data-input="rev-reply" data-focus-key="revreply" '+
+            'placeholder="Rispondi a '+esc(r.customer.split(" ")[0])+': ringrazia, spiega, proponi una soluzione...">'+esc(S.rev.replyText)+'</textarea>'+
+          '<div class="row" style="gap:8px;flex-wrap:wrap">'+
+            '<button class="btn btn-primary" style="padding:8px 14px;font-size:12px;gap:6px" data-act="rev-reply-send" data-id="'+r.id+'"'+
+              (S.rev.replyText.trim().length<3?" disabled":"")+'>'+ic("send",13)+' Pubblica risposta</button>'+
+            '<button class="btn btn-ghost" style="padding:8px 14px;font-size:12px" data-act="rev-reply-cancel">Annulla</button>'+
+            '<span class="muted" style="font-size:11px;margin-left:auto">La risposta è visibile a tutti sotto la recensione</span></div>'+
+        '</div>'
+      : '<div class="revacts">'+
+          (r.reply
+            ? '<button class="btn btn-ghost" data-act="rev-reply-open" data-id="'+r.id+'">'+ic("pencil",13)+' Modifica risposta</button>'+
+              '<button class="btn btn-ghost" style="color:#dc2626;border-color:#fecaca" data-act="rev-reply-del" data-id="'+r.id+'">'+
+                ic("trash",13)+' Elimina risposta</button>'
+            : '<button class="btn btn-primary" data-act="rev-reply-open" data-id="'+r.id+'">'+ic("msg",13)+' Rispondi</button>')+
+          '<span class="muted" style="font-size:11px;margin-left:auto;align-self:center">'+
+            (r.reply?"Hai già risposto":"Non hai ancora risposto")+'</span></div>')+
   '</div>';
 }
 </script>
@@ -1190,6 +1264,50 @@ function viewSponsorizza(){
   '</div>';
 }
 
+/* ═══ SUPPORTO (stessa struttura dell'area cliente B2C) ═════ */
+function viewSupporto(){
+  const canale=(icona,color,t,d,cta)=>'<div class="quick" style="cursor:default">'+
+    '<span class="quick-ic" style="background:'+color+'1a;color:'+color+'">'+ic(icona,20)+'</span>'+
+    '<span>'+t+'</span><p style="font-size:12px;color:var(--muted-fg);line-height:1.5">'+d+'</p>'+
+    '<button class="btn btn-ghost" style="width:100%">'+cta+'</button></div>';
+  const faq=[
+    ["Come aggiorno prezzo e giacenza?","Dalla sezione Prodotti: clicca direttamente sul prezzo o sulla giacenza nella card e modificali senza aprire nulla. "+
+      "Quando la giacenza va a zero il prodotto passa automaticamente in “Esaurito”."],
+    ["Come nascondo un vino dallo shop?","Usa “Oscura” sul prodotto: resta nel tuo catalogo con giacenza, storico e recensioni, "+
+      "ma non è visibile né acquistabile. Con “Mostra” torna online in un attimo."],
+    ["Posso rispondere alle recensioni?","Sì, sotto ogni recensione trovi “Rispondi”. La risposta compare pubblicamente sotto la recensione "+
+      "come “Risposta della cantina” e puoi modificarla o eliminarla quando vuoi."],
+    ["Quando devo spedire un ordine?","Entro 2 giorni lavorativi dalla conferma. Aggiorna lo stato in “Spedito” dal dettaglio dell'ordine: "+
+      "il cliente riceve automaticamente l'email con il tracking."],
+    ["Come funzionano le sponsorizzazioni?","Scegli i servizi dalla sezione Sponsorizza e invia la richiesta: il team commerciale ti risponde "+
+      "con preventivo e date entro un giorno lavorativo."],
+    ["Un cliente segnala una bottiglia difettosa","Ce ne occupiamo noi: rimborsiamo o sostituiamo la bottiglia e ti avvisiamo. "+
+      "Se il difetto è ricorrente su un'annata, contattaci per sospenderne la vendita."],
+  ];
+  return '<div class="wrap stack">'+
+    '<div class="banner">'+
+      '<span class="bi">'+ic("headset",18)+'</span>'+
+      '<div><h4>Siamo qui dal lunedì al venerdì, 9:00–18:00</h4>'+
+      '<p>Rispondiamo entro un giorno lavorativo. Se scrivi da qui vediamo già la tua cantina, i tuoi ordini e i tuoi prodotti: '+
+      'non devi ricopiare codici o date.</p></div>'+
+    '</div>'+
+    '<div class="grid3">'+
+      canale("msg",TEAL,"Chat","Il modo più rapido per un ordine in corso o un problema sul catalogo.","Apri la chat")+
+      canale("mail",GOLD,"Email","cantine@stappando.it — allega foto o numero d'ordine.","Scrivi una email")+
+      canale("phone","#8B2635","Telefono","02 8055 1230 — lun–ven 9:00–18:00, costo urbano.","Chiama ora")+
+    '</div>'+
+    '<div class="card">'+
+      '<div class="card-h"><h3>Domande frequenti</h3></div>'+
+      faq.map(f=>'<div style="padding:16px 20px;border-bottom:1px solid var(--border-soft)">'+
+        '<p style="font-size:13px;font-weight:600">'+f[0]+'</p>'+
+        '<p style="font-size:12px;color:var(--muted-fg);margin-top:4px;line-height:1.55">'+f[1]+'</p></div>').join("")+
+    '</div>'+
+    '<div class="infobox">'+ic("info",15)+
+      '<span><b>Bevi responsabilmente.</b> La vendita di alcolici è vietata ai minori di 18 anni: '+
+      'al momento della consegna il corriere può chiedere un documento.</span></div>'+
+  '</div>';
+}
+
 /* ═══ PLACEHOLDER ═══════════════════════════════════════════ */
 function viewPlaceholder(id){
   const item=NAV_ALL.concat(NAV_BOTTOM).find(n=>n.id===id)||{label:id,icon:"settings"};
@@ -1257,7 +1375,7 @@ function mobileNav(){
 
 function view(){
   let body;
-  if(!RC.sections.includes(S.section) && !["impostazioni","supporto"].includes(S.section)) S.section=RC.home;
+  if(!RC.sections.includes(S.section) && S.section!=="supporto") S.section=RC.home;
   switch(S.section){
     case "panoramica": body=viewPanoramica(); break;
     case "ordini":     body=viewOrdini(); break;
@@ -1265,6 +1383,7 @@ function view(){
     case "recensioni": body=viewRecensioni(); break;
     case "statistiche":body=viewStatistiche(); break;
     case "sponsorizza":body=viewSponsorizza(); break;
+    case "supporto":   body=viewSupporto(); break;
     default:           body=viewPlaceholder(S.section);
   }
   return sidebar()+
@@ -1300,7 +1419,10 @@ function commitInline(el){
     if(field==="price"&&n>0) p.price=n;
     if(field==="stock"){
       const v=Math.round(n); p.stock=v;
-      if(v===0) p.status="esaurito"; else if(p.status==="esaurito") p.status="attivo";
+      /* un prodotto oscurato resta oscurato: la giacenza aggiorna solo lo stato di ritorno */
+      if(p.status==="oscurato") p.prevStatus = v===0 ? "esaurito" : "attivo";
+      else if(v===0) p.status="esaurito";
+      else if(p.status==="esaurito") p.status="attivo";
     }
   }
   S.prod.editing=null;
@@ -1319,7 +1441,7 @@ root.addEventListener("click",e=>{
 
   switch(act){
     case "nav":
-      if(RC.sections.includes(id)||["impostazioni","supporto"].includes(id)){S.section=id;S.mobMenu=false;closeMenus();}
+      if(RC.sections.includes(id)||id==="supporto"){S.section=id;S.mobMenu=false;closeMenus();}
       break;
     case "role-toggle": S.roleMenu=!S.roleMenu; break;
     case "mob-open": S.mobMenu=true; break;
@@ -1361,8 +1483,37 @@ root.addEventListener("click",e=>{
     case "del-cancel": S.prod.deleteId=null; break;
     case "del-confirm": S.products=S.products.filter(x=>x.id!==S.prod.deleteId); S.prod.deleteId=null; break;
     case "edit-start": S.prod.editing=el.dataset.key; break;
+    case "prod-hide": {
+      /* oscura o rimette online: lo stato precedente viene conservato */
+      const p=S.products.find(x=>x.id===id);
+      if(p){
+        if(p.status==="oscurato") p.status = p.prevStatus || (p.stock===0?"esaurito":"attivo");
+        else { p.prevStatus=p.status; p.status="oscurato"; }
+      }
+      break;
+    }
 
     case "rev-rating": S.rev.rating=id; break;
+    case "rev-reply-open": {
+      const r=S.reviews.find(x=>x.id===id);
+      S.rev.replyTo=id; S.rev.replyText=(r&&r.reply)||"";
+      break;
+    }
+    case "rev-reply-cancel": S.rev.replyTo=null; S.rev.replyText=""; break;
+    case "rev-reply-send": {
+      const r=S.reviews.find(x=>x.id===id);
+      if(r&&S.rev.replyText.trim().length>=3){
+        r.reply=S.rev.replyText.trim();
+        S.rev.replyTo=null; S.rev.replyText="";
+      }
+      break;
+    }
+    case "rev-reply-del": {
+      const r=S.reviews.find(x=>x.id===id);
+      if(r) delete r.reply;
+      if(S.rev.replyTo===id){S.rev.replyTo=null;S.rev.replyText="";}
+      break;
+    }
     case "period": S.stats.period=id; break;
 
     case "spon-toggle":
@@ -1384,7 +1535,8 @@ root.addEventListener("input",e=>{
   const t=e.target;
   if(t.dataset.input){
     const map={"ord-search":()=>S.ord.search=t.value,"prod-search":()=>S.prod.search=t.value,
-      "rev-product":()=>S.rev.product=t.value,"spon-notes":()=>S.spon.notes=t.value};
+      "rev-product":()=>S.rev.product=t.value,"rev-reply":()=>S.rev.replyText=t.value,
+      "spon-notes":()=>S.spon.notes=t.value};
     if(map[t.dataset.input]){map[t.dataset.input]();render();}
     return;
   }
@@ -1406,8 +1558,9 @@ root.addEventListener("keydown",e=>{
     if(e.key==="Escape"){S.prod.editing=null;render();}
   }
   if(e.key==="Escape"){
-    if(S.prod.modal||S.prod.deleteId||S.mobMenu||S.roleMenu){
-      S.prod.modal=null;S.prod.form=null;S.prod.deleteId=null;S.mobMenu=false;S.roleMenu=false;render();
+    if(S.prod.modal||S.prod.deleteId||S.mobMenu||S.roleMenu||S.rev.replyTo){
+      S.prod.modal=null;S.prod.form=null;S.prod.deleteId=null;S.mobMenu=false;S.roleMenu=false;
+      S.rev.replyTo=null;S.rev.replyText="";render();
     }
   }
 });
