@@ -7,7 +7,7 @@
 <meta name="description" content="Scheda prodotto: Barolo Bussia 2019 di Cascina Vergne — note di degustazione, abbinamenti, recensioni verificate." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);
   font-size:14px;line-height:1.45;
   -webkit-font-smoothing:antialiased;
@@ -46,10 +46,10 @@ img,svg{display:block}
 
 .wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
 .eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
-.h2{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(21px,2.4vw,27px);font-weight:700;line-height:1.14}
+.h2{font-family:var(--font-display);font-size:clamp(21px,2.4vw,27px);font-weight:700;line-height:1.14}
 
 /* ── topbar ───────────────────────────────────────────── */
-.topbar{position:sticky;top:0;z-index:40;flex:none;background:#fff;border-bottom:1px solid var(--border)}
+.topbar{position:sticky;top:0;z-index:40;flex:none;background:var(--card);border-bottom:1px solid var(--border)}
 .topbar-in{height:72px;display:flex;align-items:center;gap:24px;max-width:1240px;margin:0 auto;padding:0 28px}
 .logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
 .logo em{font-style:normal;color:var(--accent)}
@@ -71,7 +71,7 @@ img,svg{display:block}
 }
 .iconbtn.heart b{background:var(--accent-dark)}
 .burger{display:none}
-.mobnav{display:none;border-top:1px solid var(--border);background:#fff;padding:8px 28px 16px}
+.mobnav{display:none;border-top:1px solid var(--border);background:var(--card);padding:8px 28px 16px}
 .mobnav.open{display:block}
 .mobnav a{
   display:flex;align-items:center;justify-content:space-between;padding:13px 2px;
@@ -137,7 +137,7 @@ main{flex:1;padding-bottom:72px}
   color:var(--primary);background:var(--primary-soft);border:1px solid rgba(0,95,115,.16);
 }
 .pill.green{color:#2d6a4f;background:rgba(45,106,79,.1);border-color:rgba(45,106,79,.22)}
-h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1}
+h1{font-family:var(--font-display);font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1}
 .byline{font-size:13.5px;color:var(--muted-fg);margin-top:8px}
 .byline a{color:var(--primary);font-weight:600}
 .byline a:hover{text-decoration:underline}
@@ -151,7 +151,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
   box-shadow:var(--shadow-md);padding:24px;
 }
 .pricerow{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
-.price{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:34px;font-weight:700;color:var(--primary);line-height:1}
+.price{font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--primary);line-height:1}
 .price-old{font-size:15px;color:var(--muted-fg);text-decoration:line-through}
 .save{
   font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
@@ -163,7 +163,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
 .stock.low{color:#8b2635}
 
 .qtyrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:#fff;flex:none}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:var(--card);flex:none}
 .qty button{width:42px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.14s}
 .qty button:hover{color:var(--primary)}
 .qty button[disabled]{opacity:.35;cursor:default}
@@ -177,7 +177,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
 }
 .btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9);flex:1;min-width:180px;height:48px}
 .btn-dark:hover{background:var(--primary-dark)}
-.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost{border:1px solid var(--border);background:var(--card);color:var(--fg)}
 .btn-ghost:hover{background:var(--muted)}
 .btn-gold{background:var(--accent);color:var(--primary-dark)}
 .btn-gold:hover{background:#d8bb94}
@@ -239,7 +239,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
   background:var(--bg);border:1px solid var(--border-soft);
   display:flex;gap:22px;flex-wrap:wrap;
 }
-.serve div b{display:block;font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:20px;color:var(--primary)}
+.serve div b{display:block;font-family:var(--font-display);font-size:20px;color:var(--primary)}
 .serve div span{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg)}
 
 .pairs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
@@ -258,16 +258,16 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
 /* cantina */
 .winery{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:center}
 .crest-wrap{display:flex;align-items:center;justify-content:center}
-.winery h3{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:24px;font-weight:600}
+.winery h3{font-family:var(--font-display);font-size:24px;font-weight:600}
 .winery p{font-size:14px;color:var(--muted-fg);line-height:1.65;margin-top:12px;max-width:62ch}
 .winery-meta{display:flex;gap:26px;margin-top:20px;flex-wrap:wrap}
-.winery-meta b{display:block;font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:19px;color:var(--primary)}
+.winery-meta b{display:block;font-family:var(--font-display);font-size:19px;color:var(--primary)}
 .winery-meta span{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg)}
 
 /* recensioni */
 .rev-top{display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
 .rating-big{display:flex;align-items:center;gap:16px}
-.rating-big b{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:44px;font-weight:700;line-height:1;color:var(--primary)}
+.rating-big b{font-family:var(--font-display);font-size:44px;font-weight:700;line-height:1;color:var(--primary)}
 .bars{flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px}
 .bar{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--muted-fg)}
 .bar-t{height:6px;border-radius:999px;background:var(--muted);flex:1;overflow:hidden}
@@ -292,7 +292,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
 .prod-art{position:relative;height:190px;flex:none;display:flex;align-items:center;justify-content:center}
 .prod-art .btl{height:150px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22))}
 .prod-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
-.prod-body .bn{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:15.5px;font-weight:600;line-height:1.2;margin-top:8px}
+.prod-body .bn{font-family:var(--font-display);font-size:15.5px;font-weight:600;line-height:1.2;margin-top:8px}
 .prod-body .bc{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
 .prod-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:13px;border-top:1px solid var(--border-soft)}
 .prod-foot .price{font-size:18px}
@@ -305,7 +305,7 @@ h1{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:c
 /* barra acquisto sticky su mobile */
 .stickybuy{
   position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
-  background:#fff;border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.1);
+  background:var(--card);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(0,0,0,.1);
   padding:12px 18px;align-items:center;gap:14px;
 }
 .stickybuy .price{font-size:22px}
@@ -371,7 +371,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 
 .mega{
   position:absolute;left:0;right:0;top:100%;z-index:45;
-  background:#fff;border-top:1px solid var(--border);
+  background:var(--card);border-top:1px solid var(--border);
   box-shadow:0 26px 50px -26px rgba(0,61,77,.35);
   opacity:0;visibility:hidden;transform:translateY(-10px);
   transition:opacity .18s ease,transform .18s ease,visibility .18s;
@@ -417,7 +417,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 .mega-promo > *{position:relative;z-index:1}
 .mega-promo .eyebrow{color:rgba(255,255,255,.72)}
 .mega-promo h5{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:20px;font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:10px;
 }
 .mega-promo p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:8px}
@@ -455,6 +455,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
   .mega-promo{grid-column:1/-1;min-height:0}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -1391,5 +1392,6 @@ function pannelloHTML(v){
 })();
 </script>
 
+<script src="temi/skin.js"></script>
 </body>
 </html>

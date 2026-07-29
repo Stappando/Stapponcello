@@ -7,7 +7,7 @@
 <meta name="description" content="Indice dei mockup e prototipi HTML di Stappando." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -27,7 +27,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);
   font-size:15px;line-height:1.5;
   -webkit-font-smoothing:antialiased;
@@ -52,7 +52,7 @@ ul{list-style:none}
 .logo em{font-style:normal;color:var(--accent)}
 .logo-sub{font-size:9px;letter-spacing:.34em;color:rgba(255,255,255,.5);margin-top:6px;font-weight:500;text-transform:uppercase}
 .hero h1{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:clamp(30px,5vw,44px);font-weight:700;line-height:1.15;
   margin-top:36px;max-width:18ch;
 }
@@ -65,7 +65,7 @@ section + section{margin-top:52px}
 .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
 section + section .sec-head{margin-bottom:18px}
 .sec-head h2{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:24px;font-weight:600;
 }
 .count{
@@ -122,6 +122,7 @@ footer a:hover{text-decoration:underline}
   main{padding:0 20px 48px}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="Pagine/temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="Pagine/temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="Pagine/temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -388,5 +389,6 @@ footer a:hover{text-decoration:underline}
   Stappando · mockup interni — codice su <a href="https://github.com/Stappando/Stapponcello">GitHub</a>
 </footer>
 
+<script src="Pagine/temi/skin.js"></script>
 </body>
 </html>

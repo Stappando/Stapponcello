@@ -7,7 +7,7 @@
 <meta name="description" content="Il vino giusto, scelto con chi se ne intende. Ogni etichetta è scelta e degustata dal nostro team di sommelier." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);
   font-size:14px;line-height:1.45;
   -webkit-font-smoothing:antialiased;
@@ -46,12 +46,12 @@ img,svg{display:block}
 
 .wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
 .eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
-.h2{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.12}
+.h2{font-family:var(--font-display);font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.12}
 
 /* ── topbar ───────────────────────────────────────────── */
 .topbar{
   position:sticky;top:0;z-index:40;flex:none;
-  background:#fff;border-bottom:1px solid var(--border);
+  background:var(--card);border-bottom:1px solid var(--border);
 }
 .topbar-in{
   height:72px;display:flex;align-items:center;gap:24px;
@@ -74,7 +74,7 @@ img,svg{display:block}
   display:flex;align-items:center;gap:9px;height:42px;padding:0 14px;
   background:var(--muted);border:1px solid transparent;border-radius:999px;transition:.16s;
 }
-.search-box:focus-within{background:#fff;border-color:rgba(0,95,115,.32);box-shadow:0 0 0 3px rgba(0,95,115,.08)}
+.search-box:focus-within{background:var(--card);border-color:rgba(0,95,115,.32);box-shadow:0 0 0 3px rgba(0,95,115,.08)}
 .search-box svg{flex:none;color:var(--muted-fg)}
 .search-box input{border:none;background:none;outline:none;flex:1;min-width:0;font-size:13.5px}
 .search-box input::placeholder{color:var(--muted-fg)}
@@ -84,7 +84,7 @@ img,svg{display:block}
 
 .results{
   position:absolute;top:calc(100% + 10px);left:0;right:0;z-index:50;
-  background:#fff;border:1px solid var(--border);border-radius:var(--r);
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
   box-shadow:var(--shadow-lg);padding:8px;max-height:min(70vh,460px);overflow:auto;display:none;
 }
 .results.open{display:block}
@@ -120,7 +120,7 @@ img,svg{display:block}
 
 /* menu mobile: compare quando la topnav è nascosta */
 .mobnav{
-  display:none;border-top:1px solid var(--border);background:#fff;
+  display:none;border-top:1px solid var(--border);background:var(--card);
   padding:8px 28px 16px;
 }
 .mobnav.open{display:block}
@@ -148,7 +148,7 @@ img,svg{display:block}
 }
 .hero-copy .eyebrow{color:var(--accent)}
 .hero h1{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:clamp(30px,3.8vw,46px);font-weight:600;line-height:1.1;
   letter-spacing:-.035em;margin-top:16px;max-width:19ch;
 }
@@ -160,7 +160,7 @@ img,svg{display:block}
   border-top:1px solid rgba(255,255,255,.16);flex-wrap:wrap;
 }
 .hero-trust div{min-width:0}
-.hero-trust b{display:block;font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:22px;font-weight:700}
+.hero-trust b{display:block;font-family:var(--font-display);font-size:22px;font-weight:700}
 .hero-trust span{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 
 /* ── buttons ──────────────────────────────────────────── */
@@ -177,7 +177,7 @@ img,svg{display:block}
 .btn-outline:hover{background:rgba(255,255,255,.12)}
 .btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9)}
 .btn-dark:hover{background:var(--primary-dark)}
-.btn-ghost{border:1px solid var(--border);background:#fff;color:var(--fg)}
+.btn-ghost{border:1px solid var(--border);background:var(--card);color:var(--fg)}
 .btn-ghost:hover{background:var(--muted)}
 
 /* ── barra di servizio ────────────────────────────────── */
@@ -215,7 +215,7 @@ img,svg{display:block}
 .pick-body{padding:20px 22px 22px}
 .pick-kicker{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-fg)}
 .pick-body h3{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:21px;font-weight:600;line-height:1.16;margin-top:7px;letter-spacing:-.025em;
 }
 .pick-body p{font-size:13.5px;color:var(--muted-fg);margin-top:8px;line-height:1.55}
@@ -260,10 +260,10 @@ main{flex:1}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 /* ── la nostra idea ───────────────────────────────────── */
-.why{background:#fff;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
+.why{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
 .idea-head{max-width:56ch}
 .claim{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:clamp(24px,3vw,36px);font-weight:600;line-height:1.16;
   letter-spacing:-.035em;margin-top:14px;
 }
@@ -296,7 +296,7 @@ main{flex:1}
 }
 .step.on .lbl{color:var(--accent)}
 .step h3{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:19px;font-weight:600;line-height:1.22;margin-top:9px;letter-spacing:-.03em;
 }
 .step p{margin-top:9px;font-size:13.5px;color:var(--muted-fg);line-height:1.6}
@@ -365,7 +365,7 @@ main{flex:1}
   font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-dark);
 }
 .prod-body .bn{
-  display:block;font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  display:block;font-family:var(--font-display);
   font-size:17px;font-weight:600;line-height:1.26;margin-top:7px;letter-spacing:-.028em;
 }
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
@@ -421,7 +421,7 @@ main{flex:1}
   display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;
 }
 .coll-head h3{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.1;letter-spacing:-.035em;
 }
 /* solo il sottotitolo accanto al titolo, non il crest */
@@ -436,23 +436,23 @@ main{flex:1}
 .coll-bottles .btl:nth-child(2){height:238px}
 
 /* ── cantine da conoscere ─────────────────────────────── */
-.explore{background:#fff;border-top:1px solid var(--border-soft)}
+.explore{background:var(--card);border-top:1px solid var(--border-soft)}
 .win-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
 .win{
   position:relative;background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r-lg);
   padding:20px;display:flex;flex-direction:column;gap:14px;
   transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
 }
-.win:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(201,168,124,.6);background:#fff}
+.win:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(201,168,124,.6);background:var(--card)}
 .win-top{display:flex;align-items:center;gap:14px}
 .win-crest{
   width:54px;height:54px;border-radius:var(--r-sm);flex:none;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:21px;font-weight:600;letter-spacing:-.02em;
 }
 .win-top h3{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:17px;font-weight:600;line-height:1.2;letter-spacing:-.03em;
 }
 .win-meta{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted-fg);margin-top:5px;flex-wrap:wrap}
@@ -475,7 +475,7 @@ main{flex:1}
   padding:32px 34px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:34px;align-items:center;
 }
 .seller h3{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:24px;font-weight:600;line-height:1.14;letter-spacing:-.035em;margin-top:10px;
 }
 .seller p{font-size:14px;color:var(--muted-fg);line-height:1.65;margin-top:10px;max-width:46ch}
@@ -491,7 +491,7 @@ main{flex:1}
   display:flex;align-items:center;gap:14px;background:var(--card);
   border:1px solid var(--border);border-radius:999px;padding:10px 20px 10px 14px;box-shadow:var(--shadow-sm);
 }
-.rating-big b{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:30px;font-weight:700;line-height:1;color:var(--primary)}
+.rating-big b{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--primary)}
 .rating-big span{font-size:11.5px;color:var(--muted-fg);font-weight:600}
 .rev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
 .rev{
@@ -523,7 +523,7 @@ main{flex:1}
   background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
 }
 .news > *{position:relative;z-index:1}
-.news h2{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:clamp(24px,2.6vw,32px);font-weight:700;line-height:1.14;margin-top:12px}
+.news h2{font-family:var(--font-display);font-size:clamp(24px,2.6vw,32px);font-weight:700;line-height:1.14;margin-top:12px}
 .news p{margin-top:12px;color:rgba(255,255,255,.75);font-size:14.5px;line-height:1.6;max-width:46ch}
 .news .eyebrow{color:var(--accent)}
 .news-form{display:flex;gap:10px;flex-wrap:wrap}
@@ -619,7 +619,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 
 .mega{
   position:absolute;left:0;right:0;top:100%;z-index:45;
-  background:#fff;border-top:1px solid var(--border);
+  background:var(--card);border-top:1px solid var(--border);
   box-shadow:0 26px 50px -26px rgba(0,61,77,.35);
   opacity:0;visibility:hidden;transform:translateY(-10px);
   transition:opacity .18s ease,transform .18s ease,visibility .18s;
@@ -665,7 +665,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 .mega-promo > *{position:relative;z-index:1}
 .mega-promo .eyebrow{color:rgba(255,255,255,.72)}
 .mega-promo h5{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:20px;font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:10px;
 }
 .mega-promo p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:8px}
@@ -703,6 +703,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   .mega-promo{grid-column:1/-1;min-height:0}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -1743,5 +1744,6 @@ function pannelloHTML(v){
 })();
 </script>
 
+<script src="temi/skin.js"></script>
 </body>
 </html>

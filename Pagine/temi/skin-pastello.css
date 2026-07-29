@@ -1,0 +1,35 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · tema PASTELLO — fresco, pesca e salvia
+   Un solo file per tutto il sito: ridefinisce le variabili che
+   tutte le pagine usano già. Si cambia dal selettore in basso
+   e la scelta resta mentre navighi.
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --primary:#c9718a;
+  --primary-dark:#a8536c;
+  --primary-soft:rgba(201,113,138,.09);
+  --accent:#e8b04b;
+  --accent-dark:#bd8623;
+  --bg:#fdfaf7;
+  --card:#ffffff;
+  --fg:#3d3a44;
+  --muted-fg:#7d7889;
+  --muted:#f4eff2;
+  --border:rgba(61,58,68,.09);
+  --border-soft:rgba(61,58,68,.05);
+  --ok:#4f9d76;
+  --r:22px;
+  --r-sm:16px;
+  --r-lg:30px;
+  --shadow-sm:0 2px 8px -4px rgba(120,90,110,.3);
+  --shadow-md:0 10px 30px -14px rgba(120,90,110,.4);
+  --shadow-lg:0 26px 60px -22px rgba(120,90,110,.5);
+  --font-sans:Poppins,Montserrat,system-ui,sans-serif;
+  --font-display:Poppins,Montserrat,system-ui,sans-serif;
+}
+
+/* le macchie di colore diluite dietro la pagina */
+body{background-image:
+  radial-gradient(680px 460px at 88% -4%,rgba(246,217,204,.6),transparent 62%),
+  radial-gradient(560px 420px at -6% 24%,rgba(212,229,219,.55),transparent 60%);
+  background-attachment:fixed}

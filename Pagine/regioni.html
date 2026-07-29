@@ -7,7 +7,7 @@
 <meta name="description" content="Mappa interattiva dell'Italia: scegli una regione e scopri le cantine o le bottiglie del territorio." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --primary:#005f73;
@@ -31,7 +31,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:var(--font-sans);
   background:var(--bg);color:var(--fg);
   font-size:14px;line-height:1.45;
   -webkit-font-smoothing:antialiased;
@@ -46,7 +46,7 @@ img,svg{display:block}
 /* ── topbar ───────────────────────────────────────────── */
 .topbar{
   position:sticky;top:0;z-index:30;flex:none;
-  height:64px;background:#fff;border-bottom:1px solid var(--border);
+  height:64px;background:var(--card);border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:28px;padding:0 28px;
 }
 .logo{font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1;flex:none}
@@ -84,7 +84,7 @@ img,svg{display:block}
 }
 .ph-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
 .pagehead h1{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-family:var(--font-display);
   font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.1;margin-top:12px;
 }
 .pagehead p{margin-top:10px;color:rgba(255,255,255,.72);max-width:52ch;font-size:14.5px}
@@ -96,7 +96,7 @@ img,svg{display:block}
   border-radius:999px;padding:5px;height:48px;user-select:none;backdrop-filter:blur(6px);
 }
 .toggle-knob{
-  position:absolute;top:5px;bottom:5px;border-radius:999px;background:#fff;
+  position:absolute;top:5px;bottom:5px;border-radius:999px;background:var(--card);
   box-shadow:0 4px 14px -4px rgba(0,0,0,.4);
   transition:transform .32s cubic-bezier(.65,.05,.2,1),width .32s cubic-bezier(.65,.05,.2,1);
 }
@@ -156,7 +156,7 @@ img,svg{display:block}
 }
 .map-sel{min-width:0}
 .map-sel span{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
-.map-sel p{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:18px;font-weight:600;line-height:1.2;margin-top:2px}
+.map-sel p{font-family:var(--font-display);font-size:18px;font-weight:600;line-height:1.2;margin-top:2px}
 .map-stats{
   margin-top:12px;display:flex;gap:8px;
 }
@@ -171,7 +171,7 @@ img,svg{display:block}
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   padding:8px 14px;border-radius:var(--r-sm);font-size:12.5px;font-weight:600;transition:.15s;flex:none;
 }
-.btn-ghost{border:1px solid var(--border);color:var(--muted-fg);background:#fff}
+.btn-ghost{border:1px solid var(--border);color:var(--muted-fg);background:var(--card)}
 .btn-ghost:hover{background:var(--muted);color:var(--fg)}
 .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
 
@@ -192,11 +192,11 @@ img,svg{display:block}
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
 }
 .panel-title{
-  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:30px;font-weight:700;line-height:1.05;
+  font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1.05;
   display:flex;align-items:center;gap:12px;flex-wrap:wrap;
 }
 .istat{
-  font-family:Montserrat,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.1em;
   color:var(--primary);background:var(--primary-soft);border:1px solid rgba(0,95,115,.16);
   border-radius:999px;padding:4px 10px;
 }
@@ -217,7 +217,7 @@ img,svg{display:block}
   background:var(--primary-soft);color:var(--primary);
   display:flex;align-items:center;justify-content:center;
 }
-.empty h3{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:22px;font-weight:600;color:var(--fg);margin-bottom:6px}
+.empty h3{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--fg);margin-bottom:6px}
 .empty p{font-size:13.5px;max-width:34ch;margin:0 auto;line-height:1.5}
 
 /* ── grids & tiles ────────────────────────────────────── */
@@ -234,7 +234,7 @@ img,svg{display:block}
 
 .card-cantina{padding:22px 16px 16px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .card-cantina .crest{width:66px;height:66px;margin-bottom:12px}
-.card-cantina .cn{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:17px;font-weight:600;line-height:1.2}
+.card-cantina .cn{font-family:var(--font-display);font-size:17px;font-weight:600;line-height:1.2}
 .card-cantina .cmeta{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);margin-top:5px}
 .card-cantina .cbadge{
   margin-top:14px;padding-top:12px;width:100%;border-top:1px solid var(--border-soft);
@@ -250,7 +250,7 @@ img,svg{display:block}
   font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   padding:3px 9px;border-radius:999px;margin-bottom:8px;border:1px solid;
 }
-.card-bottle .bn{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:16px;font-weight:600;line-height:1.2}
+.card-bottle .bn{font-family:var(--font-display);font-size:16px;font-weight:600;line-height:1.2}
 .card-bottle .bc{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin-top:4px}
 .card-bottle .brow{
   display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;
@@ -266,7 +266,7 @@ img,svg{display:block}
   display:flex;align-items:center;gap:18px;
 }
 .detail-head .crest{width:60px;height:60px;flex:none}
-.detail-head .dh-name{font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;font-size:26px;font-weight:700;line-height:1.1}
+.detail-head .dh-name{font-family:var(--font-display);font-size:26px;font-weight:700;line-height:1.1}
 .detail-head .dh-meta{font-size:12px;color:var(--muted-fg);margin-top:5px}
 .detail-head .dh-back{margin-left:auto}
 
@@ -293,6 +293,7 @@ footer a:hover{text-decoration:underline}
   .layout{padding:0 18px 48px}
 }
 </style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 </head>
 <body>
 
@@ -674,5 +675,6 @@ renderPanel();
 positionKnob();
 setTimeout(positionKnob, 200);   // riposiziona quando i font sono pronti
 </script>
+<script src="temi/skin.js"></script>
 </body>
 </html>

@@ -237,6 +237,8 @@ document.querySelector('.switcher').addEventListener('click', e => {
   b.setAttribute('aria-pressed','true');
   themeLink.href = 'temi/' + b.dataset.theme + '.css';
   history.replaceState(null,'','?tema=' + b.dataset.theme);
+  /* stessa chiave usata dalle pagine del sito: la scelta ti segue */
+  try{ localStorage.setItem('stappando-tema', b.dataset.theme); }catch(e){}
 });
 
 /* il tema può arrivare dall'indirizzo: ?tema=noir */
