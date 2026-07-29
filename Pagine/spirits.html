@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Spirits</title>
+<meta name="description" content="Distillati, amari e vermouth scelti come i vini." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<style>
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.p{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
+   box-shadow:var(--shadow-sm);display:flex;flex-direction:column;transition:.18s}
+.p:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:rgba(201,168,124,.6)}
+.p-art{position:relative;height:210px;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.9),transparent 62%),
+             color-mix(in srgb,var(--hue) 12%,var(--bg))}
+.p-art .btl{height:168px;filter:drop-shadow(0 12px 16px rgba(0,0,0,.2))}
+.p-badge{position:absolute;top:12px;left:12px;font-size:9.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--primary-dark);color:#fff}
+.p-badge.gold{background:var(--accent);color:var(--primary-dark)}
+.p-body{padding:15px 17px 17px;display:flex;flex-direction:column;flex:1}
+.p-maker{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-dark)}
+.p-body h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.028em;line-height:1.25;margin-top:7px}
+.p-meta{font-size:12px;color:var(--muted-fg);margin-top:6px}
+.p-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px}
+.p-price{font-size:19px;font-weight:700;color:var(--primary)}
+.p-add{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;display:flex;
+  align-items:center;justify-content:center;transition:.15s;flex:none}
+.p-add:hover{background:var(--primary-dark);transform:scale(1.08)}
+.filtri{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filtri a{padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:var(--card);
+  font-size:12.5px;font-weight:600;color:var(--muted-fg);transition:.15s}
+.filtri a:hover{border-color:var(--primary);color:var(--primary)}
+.filtri a.on{background:var(--primary);border-color:var(--primary);color:#fff}
+</style>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema")||"classico";document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>Marketplace di <b>320 cantine</b> · dal produttore a casa tua</span>
+    <span>Corriere a scelta: BRT, TNT, Poste</span>
+    <span><b>4,7/5</b> su 3.482 recensioni verificate</span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+    <nav class="topnav" aria-label="Navigazione principale">
+      <a href="catalogo.html" class="on" aria-current="page">Shop</a>
+      <a href="storie.html">Storie</a>
+      <a href="experience.html">Experience</a>
+      <a href="regioni.html">Cantine</a>
+      <a href="wineclub.html">Wine Club</a>
+    </nav>
+    <div class="top-icons">
+      <a class="iconbtn" href="catalogo.html" aria-label="Cerca">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </a>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b>3</b>
+      </a>
+    </div>
+  </div>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="catalogo.html">Shop</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span>Spirits</span>
+    </nav>
+    <span class="eyebrow">Categoria</span>
+    <h1>Spirits</h1>
+    <p class="lead">Grappe, gin, rum, whisky e amari. Stesso metodo dei vini: assaggiati prima, spiegati poi.</p>
+    <div class="headstats"><div><b>86</b><span>Etichette</span></div><div><b>24</b><span>Distillerie</span></div><div><b>4,7/5</b><span>Media voti</span></div></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap"><div class="filtri"><a href="spirits.html" class="on">Tutti</a><a href="spirits.html">Grappe</a><a href="spirits.html">Gin</a><a href="spirits.html">Rum</a><a href="spirits.html">Whisky</a><a href="spirits.html">Amari</a><a href="spirits.html">Vermouth</a></div><div class="pgrid" id="g"></div><div class="sec panel"><div class="sec-head"><span class="eyebrow">Come li scegliamo</span><h2>Un distillato non è un vino, ma il metodo è lo stesso</h2><p>Assaggiamo alla cieca, chiediamo alla distilleria perché ha fatto una certa scelta, e teniamo solo quello che apriremmo a fine cena. Nessuna bottiglia entra qui perché fa scena sullo scaffale.</p></div><a class="btn btn-ghost" href="chi-siamo.html">Come lavoriamo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></div></div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="spirits.html">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+<script>function btl(c1,c2,tag){return '<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
+ '<defs><linearGradient id="g'+(++uid)+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="'+c1+'"/>'+
+ '<stop offset="42%" stop-color="'+c2+'"/><stop offset="58%" stop-color="'+c2+'"/><stop offset="100%" stop-color="'+c1+'"/></linearGradient></defs>'+
+ '<path d="M22 6 h12 v20 h-12 z" fill="'+tag+'"/><rect x="21" y="4" width="14" height="5" rx="1.5" fill="'+tag+'"/>'+
+ '<path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z" fill="url(#g'+uid+')" stroke="rgba(0,0,0,.3)" stroke-width="1"/>'+
+ '<rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/><rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>'+
+ '<rect x="12" y="92" width="32" height="2.4" fill="'+tag+'"/><rect x="12" y="133" width="32" height="2.4" fill="'+tag+'"/></svg>'}
+var uid=0;
+function scheda(p){return '<article class="p" style="--hue:'+p.h+'">'+
+ '<div class="p-art">'+(p.b?'<span class="p-badge '+(p.g?'gold':'')+'">'+p.b+'</span>':'')+btl(p.c1,p.c2,p.t)+'</div>'+
+ '<div class="p-body"><span class="p-maker">'+p.m+'</span><h3>'+p.n+'</h3>'+
+ '<p class="p-meta">'+p.meta+'</p><div class="p-foot"><span class="p-price">'+p.p+'</span>'+
+ '<button class="p-add" aria-label="Aggiungi al carrello"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div></article>'}
+function stampa(id,dati){document.getElementById(id).innerHTML=dati.map(scheda).join('')}
+var SPIRITS=[
+{m:'Distilleria Vergnano',n:'Grappa di Nebbiolo Riserva',meta:'Piemonte · 42% vol · 5 anni in barrique',p:'€ 38,00',b:'Il più scelto',c1:'#6b4f28',c2:'#a8814f',t:'#6b4f28',h:'#a8814f'},
+{m:'Nonino',n:'Gin botanico alle erbe alpine',meta:'Friuli · 43% vol · 14 botaniche',p:'€ 34,00',b:'',c1:'#2b4a63',c2:'#5c7d92',t:'#1e3a5f',h:'#5c7d92'},
+{m:'Marzadro',n:'Grappa di Teroldego',meta:'Trentino · 41% vol · affinata in ciliegio',p:'€ 29,00',b:'Novità',g:1,c1:'#5c1717',c2:'#8f2222',t:'#7f1d1d',h:'#8f2222'},
+{m:'Isola Ventosa',n:'Rum agricolo invecchiato 8 anni',meta:'Sicilia · 45% vol · botti ex-marsala',p:'€ 52,00',b:'',c1:'#7a5321',c2:'#c39a4a',t:'#a16207',h:'#c39a4a'},
+{m:'Sibona',n:'Whisky italiano single malt',meta:'Piemonte · 46% vol · 6 anni',p:'€ 64,00',b:'Da collezione',g:1,c1:'#6b4f28',c2:'#c9a227',t:'#8a6c12',h:'#c9a227'},
+{m:'Antico Palmento',n:'Amaro alle erbe dell’Etna',meta:'Sicilia · 30% vol · 22 erbe',p:'€ 26,00',b:'',c1:'#2d4a38',c2:'#4d7a5f',t:'#2d6a4f',h:'#4d7a5f'},
+{m:'Vigne di Ronco',n:'Grappa di Ribolla in anfora',meta:'Friuli · 40% vol · non filtrata',p:'€ 44,00',b:'Bio',c1:'#8d7333',c2:'#d3c179',t:'#78350f',h:'#d3c179'},
+{m:'Corte Rossa',n:'Vermouth rosso artigianale',meta:'Emilia · 18% vol · da Lambrusco',p:'€ 22,00',b:'',c1:'#5c1717',c2:'#a83030',t:'#7f1d1d',h:'#a83030'}];
+stampa('g',SPIRITS);</script>
+</body>
+</html>
