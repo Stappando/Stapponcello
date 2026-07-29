@@ -362,6 +362,98 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
+
+/* ── menu espanso ─────────────────────────────────────── */
+.topnav a.has-menu{display:inline-flex;align-items:center;gap:5px}
+.topnav a.has-menu .caret{transition:transform .2s ease;opacity:.55}
+.topnav a.has-menu[aria-expanded="true"] .caret{transform:rotate(180deg);opacity:1}
+.topnav a.has-menu[aria-expanded="true"]{color:var(--primary);border-color:var(--accent)}
+
+.mega{
+  position:absolute;left:0;right:0;top:100%;z-index:45;
+  background:#fff;border-top:1px solid var(--border);
+  box-shadow:0 26px 50px -26px rgba(0,61,77,.35);
+  opacity:0;visibility:hidden;transform:translateY(-10px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s;
+}
+.mega.open{opacity:1;visibility:visible;transform:none}
+.mega-panel{display:none}
+.mega-panel.on{display:block}
+.mega-in{
+  max-width:1240px;margin:0 auto;padding:30px 28px 32px;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 320px;gap:34px;align-items:start;
+}
+.mega-in.slim{grid-template-columns:minmax(0,1fr) 320px;max-width:900px}
+.mega-col h4{
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted-fg);padding-bottom:10px;border-bottom:1px solid var(--border-soft);
+}
+.mega-col ul{margin-top:8px}
+.mega-col li a{
+  display:flex;align-items:center;gap:8px;padding:8px 10px;margin:0 -10px;
+  border-radius:var(--r-sm);font-size:13.5px;font-weight:500;transition:.14s;
+}
+.mega-col li a:hover{background:var(--muted);color:var(--primary)}
+.mega-col li a .soon{
+  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-dark);background:rgba(201,168,124,.16);padding:2px 7px;border-radius:999px;margin-left:auto;
+}
+.mega-col li a em{font-style:normal;color:var(--muted-fg);font-size:12px;font-weight:400;margin-left:auto}
+.mega-col .all{
+  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+  font-size:12.5px;font-weight:600;color:var(--primary);
+}
+.mega-col .all svg{transition:transform .18s ease}
+.mega-col .all:hover svg{transform:translateX(3px)}
+
+.mega-promo{
+  border-radius:var(--r-lg);padding:24px;color:#fff;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;min-height:210px;
+}
+.mega-promo::after{
+  content:"";position:absolute;right:-70px;top:-90px;width:250px;height:250px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);
+}
+.mega-promo > *{position:relative;z-index:1}
+.mega-promo .eyebrow{color:rgba(255,255,255,.72)}
+.mega-promo h5{
+  font-family:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  font-size:20px;font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:10px;
+}
+.mega-promo p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:8px}
+.mega-promo .go{
+  margin-top:auto;padding-top:16px;display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;font-weight:600;
+}
+.mega-promo .go svg{transition:transform .18s ease}
+.mega-promo:hover .go svg{transform:translateX(3px)}
+
+/* nel menù mobile le voci si aprono a fisarmonica */
+.mobnav .acc{border-bottom:1px solid var(--border-soft)}
+.mobnav .acc:last-child{border-bottom:none}
+.mobnav .acc > button{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:13px 2px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);
+}
+.mobnav .acc > button svg{color:var(--muted-fg);transition:transform .2s ease}
+.mobnav .acc.open > button svg{transform:rotate(180deg)}
+.mobnav .acc-body{display:none;padding:2px 0 12px}
+.mobnav .acc.open .acc-body{display:block}
+.mobnav .acc-body a{
+  display:block;padding:9px 12px;border:none;font-size:13px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--muted-fg);
+}
+.mobnav .acc-body a:hover{color:var(--primary)}
+.mobnav .acc-body .grp{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);padding:12px 12px 4px;
+}
+
+@media(max-width:1080px){ .mega{display:none} }
+@media(max-width:900px){
+  .mega-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+  .mega-promo{grid-column:1/-1;min-height:0}
+}
 </style>
 </head>
 <body>
@@ -1065,6 +1157,238 @@ burger.addEventListener('click', () => {
 });
 
 syncQty();
+
+/* ══════════════════════════════════════════════════════════
+   Menu espanso — un solo elenco di dati per la tendina del
+   desktop e per la fisarmonica del mobile.
+   `soon:true` = pagina non ancora disegnata.
+   ══════════════════════════════════════════════════════════ */
+const MENU = [
+  {id:'shop', label:'Shop', href:'catalogo.html',
+   cols:[
+     {title:'Per tipologia', items:[
+       {l:'Rossi', h:'catalogo.html', n:'218'},
+       {l:'Bianchi', h:'catalogo.html', n:'164'},
+       {l:'Bollicine', h:'catalogo.html', n:'92'},
+       {l:'Rosati', h:'catalogo.html', n:'41'},
+       {l:'Dolci e passiti', h:'catalogo.html', n:'28'},
+       {l:'Distillati', soon:true},
+     ], all:{l:'Tutto il catalogo', h:'catalogo.html'}},
+     {title:'Per occasione', items:[
+       {l:'Da regalare', soon:true},
+       {l:'Per tutti i giorni', soon:true},
+       {l:'Da collezione', soon:true},
+       {l:'Sotto i 15 €', h:'catalogo.html'},
+       {l:'Bio e biodinamici', h:'catalogo.html'},
+     ]},
+     {title:'In evidenza', items:[
+       {l:'Novità', h:'catalogo.html'},
+       {l:'I più venduti', h:'catalogo.html'},
+       {l:'In offerta', h:'catalogo.html'},
+       {l:'Collezioni', soon:true},
+       {l:'Scheda prodotto', h:'prodotto.html'},
+     ]},
+   ],
+   promo:{eyebrow:'La collezione', title:"L'estate di Podere Cigli",
+          text:'Sei etichette per le sere lunghe: fresche, sapide, da bere senza pensarci.',
+          cta:'Scopri la collezione', h:'catalogo.html', from:'#2f4a3a', to:'#22382c'}},
+
+  {id:'storie', label:'Storie',
+   cols:[
+     {title:'Le rubriche', items:[
+       {l:'Territori', soon:true},
+       {l:'Enocultura', soon:true},
+       {l:'Abbinamenti', soon:true},
+       {l:'Interviste ai produttori', soon:true},
+     ], all:{l:'Tutti i racconti', h:'javascript:void(0)'}},
+     {title:'Da leggere adesso', items:[
+       {l:'Le Langhe in cinque cantine', soon:true},
+       {l:'Se hai bevuto un Chianti, conosci già il Sangiovese', soon:true},
+       {l:'Il rosso della domenica dell’arrosto', soon:true},
+     ]},
+   ],
+   promo:{eyebrow:'La lettera del giovedì', title:'Una storia a settimana',
+          text:'Una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.',
+          cta:'Iscriviti', h:'javascript:void(0)', from:'#003d4d', to:'#005f73'}},
+
+  {id:'experience', label:'Experience', href:'https://vineis.eu', ext:true,
+   cols:[
+     {title:'Cosa trovi su Vineis', items:[
+       {l:'Visite in cantina', h:'https://vineis.eu', ext:true},
+       {l:'Degustazioni guidate', h:'https://vineis.eu', ext:true},
+       {l:'Eventi e vendemmie aperte', h:'https://vineis.eu', ext:true},
+       {l:'Esperienze da regalare', h:'https://vineis.eu', ext:true},
+     ]},
+   ],
+   promo:{eyebrow:'Sito esterno', title:'Vai a conoscere chi lo produce',
+          text:'Quando un vino ti entra nel cuore, con Vineis puoi andare a trovare la cantina di persona.',
+          cta:'Apri vineis.eu', h:'https://vineis.eu', ext:true, from:'#4a3b63', to:'#2e2440'}},
+
+  {id:'cantine', label:'Cantine', href:'cantina.html',
+   cols:[
+     {title:'Per regione', items:[
+       {l:'Piemonte', h:'regioni.html', n:'22'},
+       {l:'Toscana', h:'regioni.html', n:'19'},
+       {l:'Veneto', h:'regioni.html', n:'14'},
+       {l:'Sicilia', h:'regioni.html', n:'11'},
+     ], all:{l:'Mappa delle regioni', h:'regioni.html'}},
+     {title:'Per tipo di produttore', items:[
+       {l:'Piccoli produttori', soon:true},
+       {l:'Bio e biodinamici', soon:true},
+       {l:'Cantine verificate', soon:true},
+       {l:'Cantine storiche', soon:true},
+     ]},
+     {title:'Da conoscere', items:[
+       {l:'Tutte le 320 cantine', soon:true},
+       {l:'Scheda cantina', h:'cantina.html'},
+       {l:'Vendi su Stappando', soon:true},
+     ]},
+   ],
+   promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
+          text:'Piemonte · Langhe · dal 1919. Nebbiolo in purezza da una collina sola.',
+          cta:'Visita la cantina', h:'cantina.html', from:'#6d1f2c', to:'#40121b'}},
+
+  {id:'wineclub', label:'Wine Club',
+   cols:[
+     {title:'L’abbonamento', items:[
+       {l:'Come funziona', soon:true},
+       {l:'Domande frequenti', soon:true},
+       {l:'Regala il Wine Club', soon:true},
+       {l:'Attiva l’abbonamento', soon:true},
+     ]},
+     {title:'I piani', items:[
+       {l:'Scoperta', soon:true},
+       {l:'Cantina', soon:true},
+       {l:'Collezione', soon:true},
+     ]},
+   ],
+   promo:{eyebrow:'Wine Club', title:'Sei bottiglie al mese, scelte per te',
+          text:'Racconti i tuoi gusti, i produttori selezionano, tu valuti e il mese dopo ci prendiamo meglio.',
+          cta:'Scopri il club', h:'javascript:void(0)', from:'#a8814f', to:'#6b4f28'}},
+];
+
+/* ── costruzione della tendina ─────────────────────────── */
+const ARROW_S = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
+const CARET = `<svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`;
+
+function voceHTML(it){
+  const attrs = it.ext ? ' target="_blank" rel="noopener"' : '';
+  const href = it.soon ? 'javascript:void(0)' : (it.h || 'javascript:void(0)');
+  return `<li><a href="${href}"${attrs}>${esc(it.l)}${
+    it.soon ? '<span class="soon">Da fare</span>' : it.n ? `<em>${it.n}</em>` : ''}</a></li>`;
+}
+
+function pannelloHTML(v){
+  const cols = v.cols.map(c => `
+    <div class="mega-col">
+      <h4>${esc(c.title)}</h4>
+      <ul>${c.items.map(voceHTML).join('')}</ul>
+      ${c.all ? `<a class="all" href="${c.all.h}">${esc(c.all.l)} ${ARROW_S}</a>` : ''}
+    </div>`).join('');
+  const p = v.promo;
+  const pattrs = p.ext ? ' target="_blank" rel="noopener"' : '';
+  return `<div class="mega-panel" id="panel-${v.id}" role="region" aria-label="${esc(v.label)}">
+    <div class="mega-in" style="grid-template-columns:repeat(${v.cols.length},minmax(0,1fr)) 320px">
+      ${cols}
+      <a class="mega-promo" href="${p.h}"${pattrs}
+         style="background:linear-gradient(155deg,${p.from},${p.to})">
+        <span class="eyebrow">${esc(p.eyebrow)}</span>
+        <h5>${esc(p.title)}</h5>
+        <p>${esc(p.text)}</p>
+        <span class="go">${esc(p.cta)} ${ARROW_S}</span>
+      </a>
+    </div>
+  </div>`;
+}
+
+(function montaMenu(){
+  const topnav = document.querySelector('.topnav');
+  const topbar = document.querySelector('.topbar');
+  if(!topnav || !topbar) return;
+
+  /* pannelli */
+  const mega = document.createElement('div');
+  mega.className = 'mega';
+  mega.id = 'mega';
+  mega.innerHTML = MENU.map(pannelloHTML).join('');
+  topbar.appendChild(mega);
+
+  /* le voci della barra diventano interruttori della tendina */
+  const trigger = {};
+  MENU.forEach(v => {
+    const a = [...topnav.querySelectorAll('a')].find(x => x.textContent.trim().startsWith(v.label));
+    if(!a) return;
+    a.classList.add('has-menu');
+    a.dataset.menu = v.id;
+    a.setAttribute('aria-expanded','false');
+    a.setAttribute('aria-controls','panel-' + v.id);
+    a.insertAdjacentHTML('beforeend', CARET);
+    trigger[v.id] = a;
+  });
+
+  let aperto = null, timerApri, timerChiudi;
+
+  function apri(id){
+    clearTimeout(timerChiudi);
+    if(aperto === id) return;
+    aperto = id;
+    mega.querySelectorAll('.mega-panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + id));
+    mega.classList.add('open');
+    Object.entries(trigger).forEach(([k, a]) => a.setAttribute('aria-expanded', String(k === id)));
+  }
+  function chiudi(){
+    clearTimeout(timerApri);
+    aperto = null;
+    mega.classList.remove('open');
+    Object.values(trigger).forEach(a => a.setAttribute('aria-expanded','false'));
+  }
+
+  Object.entries(trigger).forEach(([id, a]) => {
+    a.addEventListener('mouseenter', () => { clearTimeout(timerApri); timerApri = setTimeout(() => apri(id), 90); });
+    a.addEventListener('focus', () => apri(id));
+    /* da tastiera: la freccia in giù apre senza seguire il link */
+    a.addEventListener('keydown', e => {
+      if(e.key === 'ArrowDown'){ e.preventDefault(); apri(id); mega.querySelector('.mega-panel.on a')?.focus(); }
+    });
+  });
+
+  topbar.addEventListener('mouseleave', () => { clearTimeout(timerApri); timerChiudi = setTimeout(chiudi, 180); });
+  mega.addEventListener('mouseenter', () => clearTimeout(timerChiudi));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') chiudi(); });
+  document.addEventListener('click', e => { if(!e.target.closest('.topbar')) chiudi(); });
+  document.addEventListener('focusin', e => { if(!e.target.closest('.topbar')) chiudi(); });
+
+  /* ── fisarmonica del menù mobile ─────────────────────── */
+  const mobnav = document.querySelector('.mobnav');
+  if(!mobnav) return;
+  const extra = [...mobnav.querySelectorAll('a')]
+    .filter(a => !MENU.some(v => a.textContent.trim().startsWith(v.label)))
+    .map(a => a.outerHTML).join('');
+
+  mobnav.innerHTML = MENU.map(v => {
+    if(v.ext){
+      return `<div class="acc"><a href="${v.href}" target="_blank" rel="noopener"
+        style="border:none">${esc(v.label)} ↗</a></div>`;
+    }
+    const body = v.cols.map(c => `
+      <p class="grp">${esc(c.title)}</p>
+      ${c.items.map(i => `<a href="${i.soon ? 'javascript:void(0)' : (i.h || 'javascript:void(0)')}">${esc(i.l)}${i.soon ? ' ·' : ''}</a>`).join('')}`).join('');
+    return `<div class="acc">
+      <button type="button" aria-expanded="false">${esc(v.label)}
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body">${body}</div>
+    </div>`;
+  }).join('') + extra;
+
+  mobnav.addEventListener('click', e => {
+    const b = e.target.closest('.acc > button');
+    if(!b) return;
+    const acc = b.parentElement;
+    const on = acc.classList.toggle('open');
+    b.setAttribute('aria-expanded', String(on));
+  });
+})();
 </script>
 
 </body>
