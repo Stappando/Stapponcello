@@ -236,8 +236,66 @@ footer a:hover{text-decoration:underline}
 }
 </style>
 <script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+<link rel="stylesheet" href="temi/header.css">
 </head>
-<body>
+<body data-nav="">
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Corriere a scelta: BRT, TNT, Poste
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
 
 <!-- ══ TESTATA ══════════════════════════════════════════ -->
 <header class="head">
@@ -383,8 +441,8 @@ const ALBERO = {
     {lvl:'Voce 1', name:'Shop', href:'catalogo.html', stato:'ok',
      desc:'Una pagina sola per categorie e risultati di ricerca, con i filtri.',
      figli:[
-       {name:'Vini', href:'catalogo.html', stato:'ok', sub:'Rossi, bianchi, bollicine, rosati, dolci'},
-       {name:'Spirits', href:'spirits.html', stato:'ok', sub:'Whisky, gin, rum, grappe'},
+       {name:'Vini', href:'catalogo.html?cat=vini', stato:'ok', sub:'Rossi, bianchi, bollicine, rosati, dolci'},
+       {name:'Spirits', href:'catalogo.html?cat=spirits', stato:'ok', sub:'Stessa pagina dei vini, filtro Categoria'},
        {name:'Da regalare', href:'da-regalare.html', stato:'ok'},
        {name:'Per tutti i giorni', href:'per-tutti-i-giorni.html', stato:'ok'},
        {name:'Risultati di ricerca', href:'catalogo.html', stato:'ok', sub:'È la stessa pagina delle categorie, con la ricerca applicata'},
@@ -403,22 +461,18 @@ const ALBERO = {
      figli:[
        {name:'Pagina ponte “Cos’è Vineis”', href:'experience.html', stato:'ok', sub:'Nessuna tendina: la voce porta qui, poi si esce'},
      ]},
-    {lvl:'Voce 4', name:'Cantine', href:'regioni.html', stato:'ok',
-     desc:'La voce porta alla mappa delle regioni. Manca l’indice che le raccoglie tutte.',
+    {lvl:'Voce 4', name:'Cantine', href:'cantine.html', stato:'ok',
+     desc:'Due sole voci: l’elenco delle cantine e la scheda di una.',
      figli:[
-       {name:'Indice delle 320 cantine', href:'cantine.html', stato:'ok', sub:'Con filtri per regione e tipo'},
-       {name:'Collezioni delle cantine', href:'collezioni.html', stato:'ok', sub:'Le crea il vendor dal suo pannello'},
-       {name:'Scheda prodotto', href:'prodotto.html', stato:'ok', sub:'Ci si arriva dal catalogo'},
+       {name:'Indice delle cantine', href:'cantine.html', stato:'ok', sub:'Tutte e 320, con i filtri'},
        {name:'Scheda cantina', href:'cantina.html', stato:'ok', sub:'Cascina Rivetto'},
-       {name:'Regioni del vino', href:'regioni.html', stato:'ok', sub:'Mappa interattiva'},
      ]},
-    {lvl:'Voce 5', name:'Wine Club', stato:'todo',
-     desc:'L’abbonamento: sei bottiglie al mese scelte sul tuo gusto.',
+    {lvl:'Voce 5', name:'Wine Club', href:'wineclub.html', stato:'ok',
+     desc:'Una landing sola: come funziona, i tre piani e l’abbonamento.',
      figli:[
-       {name:'Come funziona', href:'wineclub.html', stato:'ok'},
-       {name:'I piani', href:'wineclub-piani.html', stato:'ok', sub:'Scoperta · Cantina · Collezione'},
-       {name:'Domande frequenti', href:'wineclub-faq.html', stato:'ok'},
+       {name:'Landing con i tre piani', href:'wineclub.html', stato:'ok', sub:'Scoperta · Cantina · Collezione'},
        {name:'Attiva l’abbonamento', href:'wineclub-attiva.html', stato:'ok'},
+       {name:'Domande frequenti', href:'wineclub-faq.html', stato:'ok'},
      ]},
   ],
 
@@ -543,7 +597,7 @@ const MENU_GER = [
     {title:'Categorie', items:[
       {l:'Vini', h:'catalogo.html'},{l:'Rossi', h:'catalogo.html'},{l:'Bianchi', h:'catalogo.html'},
       {l:'Bollicine', h:'catalogo.html'},{l:'Rosati', h:'catalogo.html'},{l:'Dolci e passiti', h:'catalogo.html'},
-      {l:'Spirits', h:'spirits.html'}]},
+      {l:'Spirits', h:'catalogo.html?cat=spirits'}]},
     {title:'Per occasione', items:[
       {l:'Da regalare', h:'da-regalare.html'},{l:'Per tutti i giorni', h:'per-tutti-i-giorni.html'},
       {l:'Sotto i 15 €', h:'catalogo.html'},{l:'Bio e biodinamici', h:'catalogo.html'}]},
@@ -571,13 +625,7 @@ const MENU_GER = [
       {l:'Scheda cantina', h:'cantina.html'},
       {l:'Le collezioni delle cantine', h:'collezioni.html'}]},
   ]},
-  {label:'Wine Club', cols:[
-    {title:'L’abbonamento', items:[
-      {l:'Come funziona', h:'wineclub.html'},{l:'Domande frequenti', h:'wineclub-faq.html'},
-      {l:'Regala il Wine Club', h:'wineclub-attiva.html'},{l:'Attiva l’abbonamento', h:'wineclub-attiva.html'}]},
-    {title:'I piani', items:[
-      {l:'Scoperta', h:'wineclub-piani.html'},{l:'Cantina', h:'wineclub-piani.html'},{l:'Collezione', h:'wineclub-piani.html'}]},
-  ]},
+  {label:'Wine Club', href:'wineclub.html', cols:[]},
 ];
 
 function destHTML(x){
@@ -628,5 +676,6 @@ document.getElementById('gerTally').innerHTML = [
 </script>
 
 <script src="temi/skin.js"></script>
+<script src="temi/header.js"></script>
 </body>
 </html>
