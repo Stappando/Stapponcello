@@ -403,14 +403,13 @@ const ALBERO = {
      figli:[
        {name:'Pagina ponte “Cos’è Vineis”', href:'experience.html', stato:'ok', sub:'Nessuna tendina: la voce porta qui, poi si esce'},
      ]},
-    {lvl:'Voce 4', name:'Cantine', href:'regioni.html', stato:'ok',
-     desc:'La voce porta alla mappa delle regioni. Manca l’indice che le raccoglie tutte.',
+    {lvl:'Voce 4', name:'Cantine', href:'cantine.html', stato:'ok',
+     desc:'Mappa e indice stanno nella stessa pagina: si sceglie la regione sulla mappa o si filtra dal catalogo.',
      figli:[
-       {name:'Indice delle 320 cantine', href:'cantine.html', stato:'ok', sub:'Con filtri per regione e tipo'},
+       {name:'Indice delle cantine', href:'cantine.html', stato:'ok', sub:'Mappa cliccabile più filtri per pratica, tipologia e nome'},
        {name:'Collezioni delle cantine', href:'collezioni.html', stato:'ok', sub:'Le crea il vendor dal suo pannello'},
        {name:'Scheda prodotto', href:'prodotto.html', stato:'ok', sub:'Ci si arriva dal catalogo'},
        {name:'Scheda cantina', href:'cantina.html', stato:'ok', sub:'Cascina Rivetto'},
-       {name:'Regioni del vino', href:'regioni.html', stato:'ok', sub:'Mappa interattiva'},
      ]},
     {lvl:'Voce 5', name:'Wine Club', stato:'todo',
      desc:'L’abbonamento: sei bottiglie al mese scelte sul tuo gusto.',
@@ -559,10 +558,10 @@ const MENU_GER = [
       {l:'Il rosso della domenica', soon:true}]},
   ]},
   {label:'Experience', href:'experience.html', cols:[]},
-  {label:'Cantine', href:'regioni.html', cols:[
+  {label:'Cantine', href:'cantine.html', cols:[
     {title:'Per regione', items:[
-      {l:'Piemonte', h:'regioni.html'},{l:'Toscana', h:'regioni.html'},{l:'Veneto', h:'regioni.html'},
-      {l:'Sicilia', h:'regioni.html'},{l:'Mappa delle regioni', h:'regioni.html'}]},
+      {l:'Piemonte', h:'cantine.html#Piemonte'},{l:'Toscana', h:'cantine.html#Toscana'},{l:'Veneto', h:'cantine.html#Veneto'},
+      {l:'Sicilia', h:'cantine.html#Sicilia'},{l:'Tutte le regioni sulla mappa', h:'cantine.html'}]},
     {title:'Per tipo di produttore', items:[
       {l:'Piccoli produttori', soon:true},{l:'Bio e biodinamici', soon:true},
       {l:'Cantine verificate', soon:true},{l:'Cantine storiche', soon:true}]},
