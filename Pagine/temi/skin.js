@@ -6,6 +6,7 @@
    ══════════════════════════════════════════════════════════ */
 (function(){
   const TEMI = [
+    {id:'definitivo',    nome:'Definitivo',    a:'#055667', b:'#b8973f'},
     {id:'classico',      nome:'Classico',      a:'#005f73', b:'#c9a87c'},
     {id:'noir',          nome:'Noir',          a:'#0b0d0f', b:'#e0bd85'},
     {id:'soft',          nome:'Soft',          a:'#7b2d3b', b:'#f2ece6'},

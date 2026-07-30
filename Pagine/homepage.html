@@ -614,6 +614,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 <script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
 <link rel="stylesheet" href="temi/header.css">
 <link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
 </head>
 <body data-nav="">
 
@@ -626,7 +627,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     </span>
     <span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-      Corriere a scelta: BRT, TNT, Poste
+      Spedizione gratis da 69 € su ogni cantina
     </span>
     <span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
@@ -805,7 +806,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
       </a>
     </div>
 
-    <div class="prod-grid" id="prodGrid"></div>
+    <div id="prodGrid"></div>
 
     <!-- banner collezione -->
     <a class="collection" href="catalogo.html">
@@ -829,12 +830,48 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   </div>
 </section>
 
-<!-- ══ 03 · LE CANTINE ══════════════════════════════════ -->
-<section class="sec explore">
+<!-- ══ CAROSELLO · BOLLICINE ════════════════════════════ -->
+<section class="sec">
   <div class="wrap">
     <div class="sec-top">
       <div class="sec-head">
         <p class="sec-num">— 03</p>
+        <p class="eyebrow">Da aprire senza motivo</p>
+        <h2 class="h2">Bollicine</h2>
+        <p>Metodo classico e Prosecco che teniamo sempre in frigo. Scorri: sono più di quelle che stanno in una riga.</p>
+      </div>
+      <a class="link" href="catalogo.html?cat=bollicine">Vedi tutte
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div id="carBollicine"></div>
+  </div>
+</section>
+
+<!-- ══ CAROSELLO · UNA CANTINA, UNA SPEDIZIONE ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-top">
+      <div class="sec-head">
+        <p class="sec-num">— 04</p>
+        <p class="eyebrow">Conviene riempire una cassa sola</p>
+        <h2 class="h2">Torre dei Falchi, dal Lazio</h2>
+        <p>Ogni cantina spedisce per conto suo: prendendo più bottiglie dalla stessa cantina paghi <b>una spedizione sola</b> — e sopra 69 € non la paghi affatto.</p>
+      </div>
+      <a class="link" href="cantina.html">Vai alla cantina
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div id="carLazio"></div>
+  </div>
+</section>
+
+<!-- ══ 05 · LE CANTINE ══════════════════════════════════ -->
+<section class="sec explore">
+  <div class="wrap">
+    <div class="sec-top">
+      <div class="sec-head">
+        <p class="sec-num">— 05</p>
         <p class="eyebrow">Dietro ogni bottiglia, delle mani</p>
         <h2 class="h2">Le cantine da conoscere</h2>
         <p>I produttori che ci hanno convinto non dicono «io faccio il vino migliore». Dicono «io il mio vino lo faccio così, perché mi piace questo».</p>
@@ -1147,51 +1184,20 @@ function sceneProdotto(style){
 document.getElementById('pickArt').insertAdjacentHTML(
   'afterbegin', sceneProdotto('rosso') + bottleSVG('rosso'));
 
-/* ══ GRIGLIA PRODOTTI ═════════════════════════════════ */
-/* prezzo con il simbolo in coda, come sulle schede del sito */
-const eurPost = n => Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €';
-
-const STAR = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
-const TREND = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17 10 11l4 4 6-6"/><path d="M15 9h5v5"/></svg>`;
-const CART = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>`;
-
-function prodHTML(p){
-  const m = STYLE_META[p.style];
-  const sconto = p.old ? Math.round((1 - p.price / p.old) * 100) : 0;
-  return `<article class="prod" style="--hue:${m.wine}">
-    <div class="prod-art">
-      ${p.score ? `<span class="tag-l score">${esc(p.score)}</span>`
-                : p.bio ? `<span class="tag-l">Bio</span>` : ''}
-      ${p.flag ? `<span class="tag-r ${p.flagKind || ''}">${esc(p.flag)}</span>` : ''}
-      ${bottleSVG(p.style)}
-    </div>
-    <div class="prod-body">
-      <span class="maker">${esc(p.winery)}</span>
-      <a class="bn prod-link" href="prodotto.html">${esc(p.name)}</a>
-      <div class="chips">
-        <span class="chip">${esc(p.region)}</span>
-        <span class="chip">${esc(p.abv)}</span>
-        <span class="chip rate">${STAR}${p.rating.toLocaleString('it-IT',{minimumFractionDigits:1})}</span>
-      </div>
-      <p class="sales">${TREND}${p.sales} acquisti · ultimi 7 giorni</p>
-      <div class="prod-foot">
-        <span class="price">
-          ${p.old ? `<s>${eurPost(p.old)}</s>` : ''}${eurPost(p.price)}
-          ${sconto ? `<span class="off">−${sconto}%</span>` : ''}
-        </span>
-        <button class="buy" data-add="${p.id}">${CART}<span>Aggiungi al carrello</span></button>
-      </div>
-    </div>
-  </article>`;
-}
-
-document.getElementById('prodGrid').innerHTML = PRODUCTS.map(prodHTML).join('');
-
-/* le bottiglie che sbucano dal banner della collezione */
-document.getElementById('collBottles').innerHTML =
-  bottleSVG('bianco') + bottleSVG('rosato') + bottleSVG('bianco');
+/* ══ SCHEDE PRODOTTO ══════════════════════════════════
+   Le schede arrivano da temi/card.js: foto vere, stesso
+   aspetto in home, catalogo e caroselli. */
+/* i file condivisi si caricano dopo questo blocco: aspettiamo il via */
+document.addEventListener('DOMContentLoaded', function(){
+  grigliaProdotti(document.getElementById('prodGrid'), PRODOTTI.slice(0,8), 'p4');
+  caroselloProdotti(document.getElementById('carBollicine'),
+    PRODOTTI.filter(function(p){return p.cat === 'bollicine'}).concat(PRODOTTI.slice(0,3)));
+  caroselloProdotti(document.getElementById('carLazio'),
+    PRODOTTI.filter(function(p){return p.regione === 'Lazio'}).concat(PRODOTTI.slice(1,4)));
+});
 
 /* ══ GRIGLIA CANTINE ══════════════════════════════════ */
+const STAR = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
 document.getElementById('winGrid').innerHTML = CANTINE.map(c => `
   <a class="win" href="cantina.html">
     <div class="win-top">
@@ -1247,5 +1253,7 @@ document.getElementById('newsForm').addEventListener('submit', e => {
 <script src="temi/skin.js"></script>
 <script src="temi/header.js"></script>
 <script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
 </body>
 </html>

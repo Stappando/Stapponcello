@@ -1,0 +1,109 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · la scheda prodotto definitiva
+   Una sola scheda per home, catalogo, correlati e caroselli.
+   Foto vera, cantina sopra il nome, chip, prezzo e pulsante.
+   ══════════════════════════════════════════════════════════ */
+
+.pgrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(232px,1fr))}
+.pgrid.p4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pgrid.p3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.pc{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(184,151,63,.55)}
+
+/* ── la foto ──────────────────────────────────────────── */
+.pc-foto{
+  position:relative;aspect-ratio:1/1;flex:none;display:flex;align-items:center;justify-content:center;
+  padding:18px;background:
+    radial-gradient(circle at 50% 46%,rgba(255,255,255,.96),transparent 62%),
+    linear-gradient(180deg,var(--muted),var(--bg));
+  border-bottom:1px solid var(--border-soft);
+}
+.pc-foto img{
+  max-width:100%;max-height:100%;width:auto;height:100%;object-fit:contain;
+  filter:drop-shadow(0 12px 18px rgba(0,0,0,.16));
+  transition:transform .28s cubic-bezier(.2,.8,.3,1);
+}
+.pc:hover .pc-foto img{transform:translateY(-5px) scale(1.03)}
+
+/* etichette: chiara a sinistra, piena a destra */
+.pc-l,.pc-r{
+  position:absolute;top:12px;z-index:2;font-size:10px;font-weight:700;
+  letter-spacing:.05em;padding:5px 10px;border-radius:999px;
+}
+.pc-l{left:12px;background:rgba(255,255,255,.94);color:var(--fg);border:1px solid var(--border);font-variant-numeric:tabular-nums}
+.pc-r{right:12px;letter-spacing:.11em;text-transform:uppercase;background:var(--primary);color:#fff}
+.pc-r.gold{background:var(--accent);color:#fff}
+.pc-r.bio{background:#2d6a4f;color:#fff}
+.pc-r.sale{background:#c0392b;color:#fff}
+
+/* ── il testo ─────────────────────────────────────────── */
+.pc-body{padding:15px 17px 17px;display:flex;flex-direction:column;flex:1}
+.pc-cantina{
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-dark);
+}
+.pc-nome{
+  display:block;font-family:var(--font-display);font-size:16px;font-weight:600;
+  line-height:1.28;letter-spacing:-.025em;margin-top:7px;
+}
+.pc:hover .pc-nome{color:var(--primary)}
+.pc-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.pc-chip{
+  display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:500;
+  color:var(--muted-fg);border:1px solid var(--border);border-radius:999px;padding:3px 8px;
+}
+.pc-chip.voto{color:var(--fg);font-weight:600}
+.pc-chip.voto svg{color:var(--accent)}
+.pc-sales{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--muted-fg)}
+.pc-sales svg{color:#2d6a4f;flex:none}
+.pc-foot{margin-top:auto;padding-top:13px}
+.pc-prezzo{font-size:20px;font-weight:700;color:var(--primary);letter-spacing:-.02em}
+.pc-prezzo s{font-size:12.5px;font-weight:500;color:var(--muted-fg);margin-right:7px;letter-spacing:0}
+.pc-buy{
+  width:100%;height:44px;margin-top:11px;border:none;border-radius:var(--r-sm);
+  background:var(--primary);color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:9px;transition:.16s;
+}
+.pc-buy:hover{background:var(--primary-dark)}
+.pc-buy.fatto{background:#2d6a4f}
+
+/* la spedizione della singola cantina, dentro la scheda */
+.pc-sped{
+  font-size:10.5px;color:var(--muted-fg);margin-top:9px;display:flex;align-items:center;gap:6px;line-height:1.4;
+}
+.pc-sped svg{flex:none;color:var(--muted-fg)}
+.pc-sped b{color:var(--fg);font-weight:600}
+
+/* ── carosello ────────────────────────────────────────── */
+.pcar{position:relative}
+.pcar-track{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(232px,1fr);gap:18px;
+  overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.pcar-track::-webkit-scrollbar{display:none}
+.pcar-track > *{scroll-snap-align:start}
+.pcar-nav{
+  position:absolute;top:38%;z-index:3;width:40px;height:40px;border:1px solid var(--border);
+  border-radius:50%;background:var(--card);color:var(--fg);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-md);transition:.15s;
+}
+.pcar-nav:hover{background:var(--primary);color:#fff;border-color:transparent}
+.pcar-nav.prev{left:-14px}
+.pcar-nav.next{right:-14px}
+@media(max-width:1080px){
+  .pgrid.p4{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pcar-nav{display:none}
+}
+@media(max-width:720px){
+  .pgrid,.pgrid.p4,.pgrid.p3{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .pc-foto{padding:12px}
+  .pcar-track{grid-auto-columns:minmax(190px,1fr)}
+}
+@media(max-width:420px){.pgrid,.pgrid.p4,.pgrid.p3{grid-template-columns:1fr}}

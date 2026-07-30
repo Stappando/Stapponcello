@@ -623,13 +623,13 @@ const NAV_ALL = [
   {id:"prodotti",label:"Prodotti",icon:"box"},
   {id:"recensioni",label:"Recensioni",icon:"star"},
   {id:"statistiche",label:"Statistiche",icon:"chart"},
-  {id:"sponsorizza",label:"Sponsorizza",icon:"megaphone"},
 ];
 const NAV_BOTTOM = [
   {id:"supporto",label:"Supporto",icon:"headset"},
 ];
 const OWNER_SECTIONS   = ["panoramica","ordini","prodotti","recensioni","statistiche","sponsorizza"];
-const MANAGER_SECTIONS = ["panoramica","ordini","prodotti","recensioni","sponsorizza"];
+const MANAGER_SECTIONS = ["panoramica","ordini","prodotti","recensioni","statistiche"];
+/* la sponsorizzazione è del titolare: al manager non compare */
 const ROLE_CFG = {
   owner:{label:"Titolare",initial:"T",color:"var(--primary)",
     sections:OWNER_SECTIONS, home:"panoramica",
@@ -638,7 +638,7 @@ const ROLE_CFG = {
   manager:{label:"Manager",initial:"M",color:"var(--accent)",
     sections:MANAGER_SECTIONS, home:"panoramica",
     mobile:["panoramica","ordini","prodotti"],
-    desc:"Gestisce ordini, prodotti, recensioni e sponsorizzazioni"},
+    desc:"Gestisce ordini, prodotti, giacenze e recensioni"},
 };
 const RC = ROLE_CFG[ROLE];
 
@@ -837,7 +837,6 @@ function viewPanoramicaManager(){
       quick("Gestisci ordini","bag","#005f73","ordini")+
       quick("Aggiungi prodotto","plus","#8B2635","prodotti","prod-new")+
       quick("Rispondi alle recensioni","star","#c9a87c","recensioni")+
-      quick("Sponsorizza","megaphone","#2d6a4f","sponsorizza")+
     '</div></div>';
 }
 
