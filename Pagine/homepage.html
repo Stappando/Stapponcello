@@ -610,104 +610,13 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
-
-/* ── menu espanso ─────────────────────────────────────── */
-.topnav a.has-menu{display:inline-flex;align-items:center;gap:5px}
-.topnav a.has-menu .caret{transition:transform .2s ease;opacity:.55}
-.topnav a.has-menu[aria-expanded="true"] .caret{transform:rotate(180deg);opacity:1}
-.topnav a.has-menu[aria-expanded="true"]{color:var(--primary);border-color:var(--accent)}
-
-.mega{
-  position:absolute;left:0;right:0;top:100%;z-index:45;
-  background:var(--card);border-top:1px solid var(--border);
-  box-shadow:0 26px 50px -26px rgba(0,61,77,.35);
-  opacity:0;visibility:hidden;transform:translateY(-10px);
-  transition:opacity .18s ease,transform .18s ease,visibility .18s;
-}
-.mega.open{opacity:1;visibility:visible;transform:none}
-.mega-panel{display:none}
-.mega-panel.on{display:block}
-.mega-in{
-  max-width:1240px;margin:0 auto;padding:30px 28px 32px;
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 320px;gap:34px;align-items:start;
-}
-.mega-in.slim{grid-template-columns:minmax(0,1fr) 320px;max-width:900px}
-.mega-col h4{
-  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted-fg);padding-bottom:10px;border-bottom:1px solid var(--border-soft);
-}
-.mega-col ul{margin-top:8px}
-.mega-col li a{
-  display:flex;align-items:center;gap:8px;padding:8px 10px;margin:0 -10px;
-  border-radius:var(--r-sm);font-size:13.5px;font-weight:500;transition:.14s;
-}
-.mega-col li a:hover{background:var(--muted);color:var(--primary)}
-.mega-col li a .soon{
-  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent-dark);background:rgba(201,168,124,.16);padding:2px 7px;border-radius:999px;margin-left:auto;
-}
-.mega-col li a em{font-style:normal;color:var(--muted-fg);font-size:12px;font-weight:400;margin-left:auto}
-.mega-col .all{
-  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
-  font-size:12.5px;font-weight:600;color:var(--primary);
-}
-.mega-col .all svg{transition:transform .18s ease}
-.mega-col .all:hover svg{transform:translateX(3px)}
-
-.mega-promo{
-  border-radius:var(--r-lg);padding:24px;color:#fff;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;min-height:210px;
-}
-.mega-promo::after{
-  content:"";position:absolute;right:-70px;top:-90px;width:250px;height:250px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);
-}
-.mega-promo > *{position:relative;z-index:1}
-.mega-promo .eyebrow{color:rgba(255,255,255,.72)}
-.mega-promo h5{
-  font-family:var(--font-display);
-  font-size:20px;font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:10px;
-}
-.mega-promo p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:8px}
-.mega-promo .go{
-  margin-top:auto;padding-top:16px;display:inline-flex;align-items:center;gap:7px;
-  font-size:12.5px;font-weight:600;
-}
-.mega-promo .go svg{transition:transform .18s ease}
-.mega-promo:hover .go svg{transform:translateX(3px)}
-
-/* nel menù mobile le voci si aprono a fisarmonica */
-.mobnav .acc{border-bottom:1px solid var(--border-soft)}
-.mobnav .acc:last-child{border-bottom:none}
-.mobnav .acc > button{
-  width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:13px 2px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);
-}
-.mobnav .acc > button svg{color:var(--muted-fg);transition:transform .2s ease}
-.mobnav .acc.open > button svg{transform:rotate(180deg)}
-.mobnav .acc-body{display:none;padding:2px 0 12px}
-.mobnav .acc.open .acc-body{display:block}
-.mobnav .acc-body a{
-  display:block;padding:9px 12px;border:none;font-size:13px;font-weight:500;
-  letter-spacing:0;text-transform:none;color:var(--muted-fg);
-}
-.mobnav .acc-body a:hover{color:var(--primary)}
-.mobnav .acc-body .grp{
-  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted-fg);padding:12px 12px 4px;
-}
-
-@media(max-width:1080px){ .mega{display:none} }
-@media(max-width:900px){
-  .mega-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-  .mega-promo{grid-column:1/-1;min-height:0}
-}
 </style>
 <script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+<link rel="stylesheet" href="temi/header.css">
 </head>
-<body>
+<body data-nav="">
 
-<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
     <span>
@@ -732,51 +641,37 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
       <div class="logo-sub">Enoteca</div>
     </a>
 
-    <nav class="topnav" aria-label="Navigazione principale">
-      <a href="catalogo.html">Shop</a>
-      <a href="javascript:void(0)">Storie</a>
-      <a href="experience.html">Experience</a>
-      <a href="cantine.html">Cantine</a>
-      <a href="javascript:void(0)">Wine Club</a>
-    </nav>
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
 
-    <div class="search" id="search">
-      <div class="search-box" id="searchBox">
+    <div class="search">
+      <div class="search-box" id="hbox">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" autocomplete="off" role="combobox" aria-expanded="false"
-               aria-controls="results" aria-label="Cerca per uvaggio, regione o produttore"
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
                placeholder="Cerca per uvaggio, regione o produttore…">
-        <button class="search-clear" id="clearBtn" aria-label="Cancella la ricerca">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="results" id="results" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
     </div>
 
     <div class="top-icons">
-      <button class="iconbtn burger" id="burger" aria-label="Apri il menu"
-              aria-expanded="false" aria-controls="mobnav">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <button class="iconbtn" aria-label="Area personale">
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </button>
-      <a class="iconbtn" href="carrello.html" aria-label="Carrello" id="cartBtn">
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
         <b id="cartCount">3</b>
       </a>
     </div>
   </div>
 
-  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
-    <a href="catalogo.html">Shop <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Storie <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="experience.html">Experience <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="cantine.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Wine Club <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="carrello.html">Carrello <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-  </nav>
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
 </header>
+
 
 <main>
 
@@ -1098,7 +993,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
       <ul>
         <li><a href="catalogo.html">Prodotti</a></li>
         <li><a href="cantina.html">Cantine</a></li>
-        <li><a href="cantine.html">Tutte le cantine</a></li>
+        <li><a href="cantine.html">Regioni del vino</a></li>
         <li><a href="javascript:void(0)">Storie</a></li>
         <li><a href="javascript:void(0)">Eventi</a></li>
         <li><a href="javascript:void(0)">Wine Club</a></li>
@@ -1193,55 +1088,6 @@ const CANTINE = [
   {id:'c6', initial:'F', name:'Domaine François 1er', region:'Beaujolais (FR)',rating:4.9, labels:20, badge:'ver',  crest:'#4a3b63'},
 ];
 const BADGE_LABEL = {ver:'Verificata', bio:'Bio', small:'Piccolo produttore'};
-
-/* ── indice di ricerca ──────────────────────────────────
-   Si cerca per uvaggio, regione e produttore: sono i tre modi
-   in cui la gente descrive un vino quando non ne ricorda il nome. */
-const SEARCH_INDEX = [
-  {type:'uvaggio', label:'Nebbiolo',        sub:'Piemonte · 34 etichette',            kw:'barolo barbaresco langhe rosso'},
-  {type:'uvaggio', label:'Sangiovese',      sub:'Toscana ed Emilia · 41 etichette',   kw:'chianti brunello romagna rosso'},
-  {type:'uvaggio', label:'Primitivo',       sub:'Puglia · 18 etichette',              kw:'manduria rosso'},
-  {type:'uvaggio', label:'Corvina',         sub:'Veneto · 22 etichette',              kw:'amarone valpolicella ripasso rosso'},
-  {type:'uvaggio', label:'Nerello Mascalese', sub:'Sicilia · 12 etichette',           kw:'etna rosso vulcanico'},
-  {type:'uvaggio', label:'Verdicchio',      sub:'Marche · 14 etichette',              kw:'jesi matelica bianco'},
-  {type:'uvaggio', label:'Ribolla Gialla',  sub:'Friuli Venezia Giulia · 9 etichette',kw:'collio anfora macerato bianco orange'},
-  {type:'uvaggio', label:'Vermentino',      sub:'Sardegna e Liguria · 16 etichette',  kw:'gallura bianco'},
-  {type:'uvaggio', label:'Glera',           sub:'Veneto · 11 etichette',              kw:'prosecco bollicine spumante'},
-  {type:'uvaggio', label:'Chardonnay',      sub:'Lombardia e Trentino · 19 etichette',kw:'franciacorta trentodoc bollicine metodo classico'},
-  {type:'uvaggio', label:'Zibibbo',         sub:'Sicilia · 5 etichette',              kw:'pantelleria passito moscato dolce'},
-  {type:'uvaggio', label:'Sagrantino',      sub:'Umbria · 6 etichette',               kw:'montefalco rosso tannico'},
-
-  {type:'regione', label:'Piemonte',              sub:'22 cantine · 96 etichette', kw:'langhe barolo barbaresco nebbiolo'},
-  {type:'regione', label:'Toscana',               sub:'19 cantine · 88 etichette', kw:'chianti bolgheri maremma sangiovese'},
-  {type:'regione', label:'Veneto',                sub:'14 cantine · 71 etichette', kw:'valpolicella amarone prosecco'},
-  {type:'regione', label:'Sicilia',               sub:'11 cantine · 54 etichette', kw:'etna pantelleria nero d avola'},
-  {type:'regione', label:'Lombardia',             sub:'9 cantine · 42 etichette',  kw:'franciacorta oltrepo'},
-  {type:'regione', label:'Marche',                sub:'8 cantine · 33 etichette',  kw:'verdicchio jesi'},
-  {type:'regione', label:'Friuli Venezia Giulia', sub:'7 cantine · 31 etichette',  kw:'collio ribolla'},
-  {type:'regione', label:'Emilia-Romagna',        sub:'7 cantine · 29 etichette',  kw:'lambrusco sangiovese di romagna'},
-  {type:'regione', label:'Puglia',                sub:'6 cantine · 27 etichette',  kw:'primitivo manduria salento'},
-  {type:'regione', label:'Campania',              sub:'6 cantine · 24 etichette',  kw:'greco di tufo fiano aglianico'},
-
-  {type:'produttore', label:'Cascina Rivetto',      sub:'La Morra, Piemonte · 34 etichette'},
-  {type:'produttore', label:'Cascina Vergne',       sub:'La Morra, Piemonte · 6 etichette'},
-  {type:'produttore', label:'Podere Cigli',         sub:'Maremma, Toscana · 22 etichette'},
-  {type:'produttore', label:'Tenuta Coccapane',     sub:'Emilia · 18 etichette'},
-  {type:'produttore', label:'Casale Marchese',      sub:'Frascati, Lazio · 16 etichette'},
-  {type:'produttore', label:'Borgo del Baccano',    sub:'Lazio · 12 etichette'},
-  {type:'produttore', label:'Antonio Buccoliero',   sub:'Manduria, Puglia · 9 etichette'},
-  {type:'produttore', label:'Tenuta Sant\u2019Urbano', sub:'Jesi, Marche · 5 etichette'},
-  {type:'produttore', label:'Ca\u2019 del Lago',       sub:'Erbusco, Lombardia · 4 etichette'},
-  {type:'produttore', label:'Palmento Nero',        sub:'Etna, Sicilia · 7 etichette'},
-  {type:'produttore', label:'Vigne di Ronco',       sub:'Collio, Friuli · 4 etichette'},
-  {type:'produttore', label:'Domaine Fran\u00e7ois 1er', sub:'Beaujolais (FR) · 20 etichette'},
-];
-
-const GROUP_LABEL = {uvaggio:'Uvaggio', regione:'Regione', produttore:'Produttore'};
-const GROUP_ICON = {
-  uvaggio:'<path d="M12 3v4"/><circle cx="9" cy="10" r="2.1"/><circle cx="15" cy="10" r="2.1"/><circle cx="12" cy="14" r="2.1"/><circle cx="8" cy="17" r="2.1"/><circle cx="16" cy="17" r="2.1"/>',
-  regione:'<path d="M12 2a7 7 0 0 0-7 7c0 1.6.6 2.7 1.2 3.4L12 22l5.8-9.6c.6-.7 1.2-1.8 1.2-3.4a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.4"/>',
-  produttore:'<path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/>',
-};
 
 /* ── utility ──────────────────────────────────────────── */
 const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -1378,129 +1224,6 @@ document.getElementById('prodGrid').addEventListener('click', e => {
   setTimeout(() => { add.classList.remove('done'); label.textContent = 'Aggiungi al carrello'; }, 1400);
 });
 
-/* ══ MENU MOBILE ══════════════════════════════════════ */
-const burger = document.getElementById('burger');
-const mobnav = document.getElementById('mobnav');
-burger.addEventListener('click', () => {
-  const open = mobnav.classList.toggle('open');
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
-});
-/* si richiude quando la topnav torna visibile */
-window.addEventListener('resize', () => {
-  if(window.innerWidth > 1080 && mobnav.classList.contains('open')){
-    mobnav.classList.remove('open');
-    burger.setAttribute('aria-expanded','false');
-    burger.setAttribute('aria-label','Apri il menu');
-  }
-});
-
-/* ══ RICERCA ══════════════════════════════════════════ */
-const qEl = document.getElementById('q');
-const boxEl = document.getElementById('searchBox');
-const resEl = document.getElementById('results');
-const clearBtn = document.getElementById('clearBtn');
-let selIdx = -1;
-
-function matches(term){
-  const t = norm(term.trim());
-  const pool = t
-    ? SEARCH_INDEX.filter(x =>
-        norm(x.label).includes(t) ||
-        norm(x.sub).includes(t) ||
-        norm(x.kw || '').includes(t) ||
-        norm(GROUP_LABEL[x.type]).includes(t))
-    : [
-        ...SEARCH_INDEX.filter(x => x.type === 'uvaggio').slice(0,3),
-        ...SEARCH_INDEX.filter(x => x.type === 'regione').slice(0,2),
-        ...SEARCH_INDEX.filter(x => x.type === 'produttore').slice(0,2),
-      ];
-  return pool.slice(0, 10);
-}
-
-function renderResults(term){
-  const found = matches(term);
-  selIdx = -1;
-
-  if(!found.length){
-    resEl.innerHTML = `<p class="res-empty">Nessun risultato per “${esc(term)}”.<br>Prova con un uvaggio (Nebbiolo), una regione (Toscana) o un produttore.</p>`;
-    return;
-  }
-
-  const head = term.trim() ? '' :
-    `<p class="res-group">Suggerimenti</p>`;
-
-  let html = head;
-  let last = null;
-  found.forEach(x => {
-    if(term.trim() && x.type !== last){
-      html += `<p class="res-group">${GROUP_LABEL[x.type]}</p>`;
-      last = x.type;
-    }
-    html += `<button class="res-item" role="option" aria-selected="false" data-label="${esc(x.label)}">
-      <span class="res-ic" aria-hidden="true">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${GROUP_ICON[x.type]}</svg>
-      </span>
-      <span class="res-txt"><b>${esc(x.label)}</b><span>${esc(x.sub)}</span></span>
-    </button>`;
-  });
-  resEl.innerHTML = html;
-}
-
-function openResults(){
-  renderResults(qEl.value);
-  resEl.classList.add('open');
-  qEl.setAttribute('aria-expanded','true');
-}
-function closeResults(){
-  resEl.classList.remove('open');
-  qEl.setAttribute('aria-expanded','false');
-  selIdx = -1;
-}
-
-qEl.addEventListener('focus', openResults);
-qEl.addEventListener('input', () => {
-  boxEl.classList.toggle('filled', qEl.value.length > 0);
-  openResults();
-});
-qEl.addEventListener('keydown', e => {
-  const items = [...resEl.querySelectorAll('.res-item')];
-  if(e.key === 'Escape'){ closeResults(); qEl.blur(); return; }
-  if(!items.length) return;
-  if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
-    e.preventDefault();
-    selIdx = (selIdx + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
-    items.forEach((el,i) => {
-      el.classList.toggle('sel', i === selIdx);
-      el.setAttribute('aria-selected', String(i === selIdx));
-    });
-    items[selIdx].scrollIntoView({block:'nearest'});
-  }
-  if(e.key === 'Enter' && selIdx > -1){
-    e.preventDefault();
-    items[selIdx].click();
-  }
-});
-
-resEl.addEventListener('click', e => {
-  const item = e.target.closest('.res-item');
-  if(!item) return;
-  qEl.value = item.dataset.label;
-  boxEl.classList.add('filled');
-  closeResults();
-});
-
-clearBtn.onclick = () => {
-  qEl.value = '';
-  boxEl.classList.remove('filled');
-  qEl.focus();
-  openResults();
-};
-
-document.addEventListener('click', e => {
-  if(!e.target.closest('#search')) closeResults();
-});
-
 /* ══ NEWSLETTER ═══════════════════════════════════════ */
 document.getElementById('newsForm').addEventListener('submit', e => {
   e.preventDefault();
@@ -1517,230 +1240,10 @@ document.getElementById('newsForm').addEventListener('submit', e => {
   email.value = '';
 });
 
-/* ══════════════════════════════════════════════════════════
-   Menu espanso — un solo elenco di dati per la tendina del
-   desktop e per la fisarmonica del mobile.
-   `soon:true` = pagina non ancora disegnata.
-   ══════════════════════════════════════════════════════════ */
-const MENU = [
-  {id:'shop', label:'Shop', href:'catalogo.html',
-   cols:[
-     {title:'Categorie', items:[
-       {l:'Vini', h:'catalogo.html', n:'543'},
-       {l:'Rossi', h:'catalogo.html', n:'218'},
-       {l:'Bianchi', h:'catalogo.html', n:'164'},
-       {l:'Bollicine', h:'catalogo.html', n:'92'},
-       {l:'Rosati', h:'catalogo.html', n:'41'},
-       {l:'Dolci e passiti', h:'catalogo.html', n:'28'},
-       {l:'Spirits', h:'spirits.html', n:'86'},
-     ], all:{l:'Tutto il catalogo', h:'catalogo.html'}},
-     {title:'Per occasione', items:[
-       {l:'Da regalare', soon:true},
-       {l:'Per tutti i giorni', soon:true},
-       {l:'Da collezione', soon:true},
-       {l:'Sotto i 15 €', h:'catalogo.html'},
-       {l:'Bio e biodinamici', h:'catalogo.html'},
-     ]},
-     {title:'In evidenza', items:[
-       {l:'Novità', h:'catalogo.html'},
-       {l:'I più venduti', h:'catalogo.html'},
-       {l:'In offerta', h:'catalogo.html'},
-     ]},
-   ],
-   promo:{eyebrow:'La collezione', title:"L'estate di Podere Cigli",
-          text:'Sei etichette per le sere lunghe: fresche, sapide, da bere senza pensarci.',
-          cta:'Scopri la collezione', h:'catalogo.html', from:'#2f4a3a', to:'#22382c'}},
 
-  {id:'storie', label:'Storie',
-   cols:[
-     {title:'Le rubriche', items:[
-       {l:'Territori', soon:true},
-       {l:'Enocultura', soon:true},
-       {l:'Abbinamenti', soon:true},
-       {l:'Interviste ai produttori', soon:true},
-     ], all:{l:'Tutti i racconti', h:'javascript:void(0)'}},
-     {title:'Da leggere adesso', items:[
-       {l:'Le Langhe in cinque cantine', soon:true},
-       {l:'Se hai bevuto un Chianti, conosci già il Sangiovese', soon:true},
-       {l:'Il rosso della domenica dell’arrosto', soon:true},
-     ]},
-   ],
-   promo:{eyebrow:'La lettera del giovedì', title:'Una storia a settimana',
-          text:'Una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.',
-          cta:'Iscriviti', h:'javascript:void(0)', from:'#003d4d', to:'#005f73'}},
-
-  /* Experience non ha tendina: è una pagina ponte che spiega Vineis */
-  {id:'experience', label:'Experience', href:'experience.html', nomenu:true},
-
-  {id:'cantine', label:'Cantine', href:'cantine.html',
-   cols:[
-     {title:'Per regione', items:[
-       {l:'Piemonte', h:'cantine.html#Piemonte', n:'22'},
-       {l:'Toscana', h:'cantine.html#Toscana', n:'19'},
-       {l:'Veneto', h:'cantine.html#Veneto', n:'14'},
-       {l:'Sicilia', h:'cantine.html#Sicilia', n:'11'},
-     ], all:{l:'Mappa delle regioni', h:'cantine.html'}},
-     {title:'Per tipo di produttore', items:[
-       {l:'Piccoli produttori', soon:true},
-       {l:'Bio e biodinamici', soon:true},
-       {l:'Cantine verificate', soon:true},
-       {l:'Cantine storiche', soon:true},
-     ]},
-     {title:'Da conoscere', items:[
-       {l:'Tutte le 320 cantine', soon:true},
-       {l:'Le collezioni delle cantine', soon:true},
-       {l:'Scheda cantina', h:'cantina.html'},
-     ]},
-   ],
-   promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
-          text:'Piemonte · Langhe · dal 1919. Nebbiolo in purezza da una collina sola.',
-          cta:'Visita la cantina', h:'cantina.html', from:'#6d1f2c', to:'#40121b'}},
-
-  {id:'wineclub', label:'Wine Club',
-   cols:[
-     {title:'L’abbonamento', items:[
-       {l:'Come funziona', soon:true},
-       {l:'Domande frequenti', soon:true},
-       {l:'Regala il Wine Club', soon:true},
-       {l:'Attiva l’abbonamento', soon:true},
-     ]},
-     {title:'I piani', items:[
-       {l:'Scoperta', soon:true},
-       {l:'Cantina', soon:true},
-       {l:'Collezione', soon:true},
-     ]},
-   ],
-   promo:{eyebrow:'Wine Club', title:'Sei bottiglie al mese, scelte per te',
-          text:'Racconti i tuoi gusti, i produttori selezionano, tu valuti e il mese dopo ci prendiamo meglio.',
-          cta:'Scopri il club', h:'javascript:void(0)', from:'#a8814f', to:'#6b4f28'}},
-];
-
-/* ── costruzione della tendina ─────────────────────────── */
-const ARROW_S = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
-const CARET = `<svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`;
-
-function voceHTML(it){
-  const attrs = it.ext ? ' target="_blank" rel="noopener"' : '';
-  const href = it.soon ? 'javascript:void(0)' : (it.h || 'javascript:void(0)');
-  return `<li><a href="${href}"${attrs}>${esc(it.l)}${
-    it.soon ? '<span class="soon">Da fare</span>' : it.n ? `<em>${it.n}</em>` : ''}</a></li>`;
-}
-
-function pannelloHTML(v){
-  const cols = v.cols.map(c => `
-    <div class="mega-col">
-      <h4>${esc(c.title)}</h4>
-      <ul>${c.items.map(voceHTML).join('')}</ul>
-      ${c.all ? `<a class="all" href="${c.all.h}">${esc(c.all.l)} ${ARROW_S}</a>` : ''}
-    </div>`).join('');
-  const p = v.promo;
-  const pattrs = p.ext ? ' target="_blank" rel="noopener"' : '';
-  return `<div class="mega-panel" id="panel-${v.id}" role="region" aria-label="${esc(v.label)}">
-    <div class="mega-in" style="grid-template-columns:repeat(${v.cols.length},minmax(0,1fr)) 320px">
-      ${cols}
-      <a class="mega-promo" href="${p.h}"${pattrs}
-         style="background:linear-gradient(155deg,${p.from},${p.to})">
-        <span class="eyebrow">${esc(p.eyebrow)}</span>
-        <h5>${esc(p.title)}</h5>
-        <p>${esc(p.text)}</p>
-        <span class="go">${esc(p.cta)} ${ARROW_S}</span>
-      </a>
-    </div>
-  </div>`;
-}
-
-(function montaMenu(){
-  const topnav = document.querySelector('.topnav');
-  const topbar = document.querySelector('.topbar');
-  if(!topnav || !topbar) return;
-
-  /* pannelli */
-  const mega = document.createElement('div');
-  mega.className = 'mega';
-  mega.id = 'mega';
-  mega.innerHTML = MENU.filter(v => !v.nomenu).map(pannelloHTML).join('');
-  topbar.appendChild(mega);
-
-  /* le voci della barra diventano interruttori della tendina */
-  const trigger = {};
-  MENU.forEach(v => {
-    if(v.nomenu) return;          /* voce semplice, nessun pannello */
-    const a = [...topnav.querySelectorAll('a')].find(x => x.textContent.trim().startsWith(v.label));
-    if(!a) return;
-    a.classList.add('has-menu');
-    a.dataset.menu = v.id;
-    a.setAttribute('aria-expanded','false');
-    a.setAttribute('aria-controls','panel-' + v.id);
-    a.insertAdjacentHTML('beforeend', CARET);
-    trigger[v.id] = a;
-  });
-
-  let aperto = null, timerApri, timerChiudi;
-
-  function apri(id){
-    clearTimeout(timerChiudi);
-    if(aperto === id) return;
-    aperto = id;
-    mega.querySelectorAll('.mega-panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + id));
-    mega.classList.add('open');
-    Object.entries(trigger).forEach(([k, a]) => a.setAttribute('aria-expanded', String(k === id)));
-  }
-  function chiudi(){
-    clearTimeout(timerApri);
-    aperto = null;
-    mega.classList.remove('open');
-    Object.values(trigger).forEach(a => a.setAttribute('aria-expanded','false'));
-  }
-
-  Object.entries(trigger).forEach(([id, a]) => {
-    a.addEventListener('mouseenter', () => { clearTimeout(timerApri); timerApri = setTimeout(() => apri(id), 90); });
-    a.addEventListener('focus', () => apri(id));
-    /* da tastiera: la freccia in giù apre senza seguire il link */
-    a.addEventListener('keydown', e => {
-      if(e.key === 'ArrowDown'){ e.preventDefault(); apri(id); mega.querySelector('.mega-panel.on a')?.focus(); }
-    });
-  });
-
-  topbar.addEventListener('mouseleave', () => { clearTimeout(timerApri); timerChiudi = setTimeout(chiudi, 180); });
-  mega.addEventListener('mouseenter', () => clearTimeout(timerChiudi));
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') chiudi(); });
-  document.addEventListener('click', e => { if(!e.target.closest('.topbar')) chiudi(); });
-  document.addEventListener('focusin', e => { if(!e.target.closest('.topbar')) chiudi(); });
-
-  /* ── fisarmonica del menù mobile ─────────────────────── */
-  const mobnav = document.querySelector('.mobnav');
-  if(!mobnav) return;
-  const extra = [...mobnav.querySelectorAll('a')]
-    .filter(a => !MENU.some(v => a.textContent.trim().startsWith(v.label)))
-    .map(a => a.outerHTML).join('');
-
-  mobnav.innerHTML = MENU.map(v => {
-    if(v.nomenu || v.ext){
-      const t = v.ext ? ' target="_blank" rel="noopener"' : '';
-      return `<div class="acc"><a href="${v.href}"${t}
-        style="border:none">${esc(v.label)}${v.ext ? ' ↗' : ''}</a></div>`;
-    }
-    const body = v.cols.map(c => `
-      <p class="grp">${esc(c.title)}</p>
-      ${c.items.map(i => `<a href="${i.soon ? 'javascript:void(0)' : (i.h || 'javascript:void(0)')}">${esc(i.l)}${i.soon ? ' ·' : ''}</a>`).join('')}`).join('');
-    return `<div class="acc">
-      <button type="button" aria-expanded="false">${esc(v.label)}
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div class="acc-body">${body}</div>
-    </div>`;
-  }).join('') + extra;
-
-  mobnav.addEventListener('click', e => {
-    const b = e.target.closest('.acc > button');
-    if(!b) return;
-    const acc = b.parentElement;
-    const on = acc.classList.toggle('open');
-    b.setAttribute('aria-expanded', String(on));
-  });
-})();
 </script>
 
 <script src="temi/skin.js"></script>
+<script src="temi/header.js"></script>
 </body>
 </html>

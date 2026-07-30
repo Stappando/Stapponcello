@@ -414,104 +414,30 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
-
-/* ── menu espanso ─────────────────────────────────────── */
-.topnav a.has-menu{display:inline-flex;align-items:center;gap:5px}
-.topnav a.has-menu .caret{transition:transform .2s ease;opacity:.55}
-.topnav a.has-menu[aria-expanded="true"] .caret{transform:rotate(180deg);opacity:1}
-.topnav a.has-menu[aria-expanded="true"]{color:var(--primary);border-color:var(--accent)}
-
-.mega{
-  position:absolute;left:0;right:0;top:100%;z-index:45;
-  background:var(--card);border-top:1px solid var(--border);
-  box-shadow:0 26px 50px -26px rgba(0,61,77,.35);
-  opacity:0;visibility:hidden;transform:translateY(-10px);
-  transition:opacity .18s ease,transform .18s ease,visibility .18s;
-}
-.mega.open{opacity:1;visibility:visible;transform:none}
-.mega-panel{display:none}
-.mega-panel.on{display:block}
-.mega-in{
-  max-width:1240px;margin:0 auto;padding:30px 28px 32px;
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 320px;gap:34px;align-items:start;
-}
-.mega-in.slim{grid-template-columns:minmax(0,1fr) 320px;max-width:900px}
-.mega-col h4{
-  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted-fg);padding-bottom:10px;border-bottom:1px solid var(--border-soft);
-}
-.mega-col ul{margin-top:8px}
-.mega-col li a{
-  display:flex;align-items:center;gap:8px;padding:8px 10px;margin:0 -10px;
-  border-radius:var(--r-sm);font-size:13.5px;font-weight:500;transition:.14s;
-}
-.mega-col li a:hover{background:var(--muted);color:var(--primary)}
-.mega-col li a .soon{
-  font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent-dark);background:rgba(201,168,124,.16);padding:2px 7px;border-radius:999px;margin-left:auto;
-}
-.mega-col li a em{font-style:normal;color:var(--muted-fg);font-size:12px;font-weight:400;margin-left:auto}
-.mega-col .all{
-  display:inline-flex;align-items:center;gap:6px;margin-top:12px;
-  font-size:12.5px;font-weight:600;color:var(--primary);
-}
-.mega-col .all svg{transition:transform .18s ease}
-.mega-col .all:hover svg{transform:translateX(3px)}
-
-.mega-promo{
-  border-radius:var(--r-lg);padding:24px;color:#fff;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;min-height:210px;
-}
-.mega-promo::after{
-  content:"";position:absolute;right:-70px;top:-90px;width:250px;height:250px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);
-}
-.mega-promo > *{position:relative;z-index:1}
-.mega-promo .eyebrow{color:rgba(255,255,255,.72)}
-.mega-promo h5{
-  font-family:var(--font-display);
-  font-size:20px;font-weight:600;line-height:1.16;letter-spacing:-.03em;margin-top:10px;
-}
-.mega-promo p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.55;margin-top:8px}
-.mega-promo .go{
-  margin-top:auto;padding-top:16px;display:inline-flex;align-items:center;gap:7px;
-  font-size:12.5px;font-weight:600;
-}
-.mega-promo .go svg{transition:transform .18s ease}
-.mega-promo:hover .go svg{transform:translateX(3px)}
-
-/* nel menù mobile le voci si aprono a fisarmonica */
-.mobnav .acc{border-bottom:1px solid var(--border-soft)}
-.mobnav .acc:last-child{border-bottom:none}
-.mobnav .acc > button{
-  width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:13px 2px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);
-}
-.mobnav .acc > button svg{color:var(--muted-fg);transition:transform .2s ease}
-.mobnav .acc.open > button svg{transform:rotate(180deg)}
-.mobnav .acc-body{display:none;padding:2px 0 12px}
-.mobnav .acc.open .acc-body{display:block}
-.mobnav .acc-body a{
-  display:block;padding:9px 12px;border:none;font-size:13px;font-weight:500;
-  letter-spacing:0;text-transform:none;color:var(--muted-fg);
-}
-.mobnav .acc-body a:hover{color:var(--primary)}
-.mobnav .acc-body .grp{
-  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted-fg);padding:12px 12px 4px;
-}
-
-@media(max-width:1080px){ .mega{display:none} }
-@media(max-width:900px){
-  .mega-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-  .mega-promo{grid-column:1/-1;min-height:0}
-}
 </style>
 <script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+<link rel="stylesheet" href="temi/header.css">
 </head>
-<body>
+<body data-nav="shop">
 
-<!-- ══ HEADER ═══════════════════════════════════════════ -->
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Corriere a scelta: BRT, TNT, Poste
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
 <header class="topbar">
   <div class="topbar-in">
     <a href="homepage.html" aria-label="Stappando, home">
@@ -519,48 +445,37 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
       <div class="logo-sub">Enoteca</div>
     </a>
 
-    <nav class="topnav" aria-label="Navigazione principale">
-      <a href="catalogo.html" class="on" aria-current="page">Shop</a>
-      <a href="javascript:void(0)">Storie</a>
-      <a href="experience.html">Experience</a>
-      <a href="cantine.html">Cantine</a>
-      <a href="javascript:void(0)">Wine Club</a>
-    </nav>
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
 
-    <div class="search" id="search">
-      <div class="search-box" id="searchBox">
+    <div class="search">
+      <div class="search-box" id="hbox">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
                placeholder="Cerca per uvaggio, regione o produttore…">
-        <button class="search-clear" id="clearBtn" aria-label="Cancella la ricerca">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
     </div>
 
     <div class="top-icons">
-      <button class="iconbtn burger" id="burger" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <button class="iconbtn" aria-label="Area personale">
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </button>
-      <button class="iconbtn" aria-label="Carrello">
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
         <b id="cartCount">3</b>
-      </button>
+      </a>
     </div>
   </div>
 
-  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)">
-    <a href="catalogo.html">Shop <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Storie <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="experience.html">Experience <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="cantine.html">Cantine <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="javascript:void(0)">Wine Club <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-    <a href="carrello.html">Carrello <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></a>
-  </nav>
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
 </header>
+
 
 <main>
 
@@ -605,6 +520,14 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
     </div>
 
     <div class="filters-body">
+      <details class="fgroup" open>
+        <summary>
+          Categoria
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fCat"></div>
+      </details>
+
       <details class="fgroup" open>
         <summary>
           Tipologia
@@ -744,7 +667,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
       <ul>
         <li><a href="catalogo.html">Tutti i prodotti</a></li>
         <li><a href="javascript:void(0)">Cantine</a></li>
-        <li><a href="cantine.html">Tutte le cantine</a></li>
+        <li><a href="cantine.html">Regioni del vino</a></li>
         <li><a href="javascript:void(0)">Storie</a></li>
         <li><a href="javascript:void(0)">Eventi</a></li>
         <li><a href="javascript:void(0)">Wine Club</a></li>
@@ -807,78 +730,97 @@ const STYLE_META = {
    `nuovo` ordina gli ultimi arrivati (numero più alto = più recente),
    `stock` alimenta l'indicatore di disponibilità della card. */
 const CATALOGO = [
-  {id:'c01', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+  /* categoria: 'vini' oppure 'spirits' — atterrano sulla stessa pagina */
+  {id:'c01', cat:'vini', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
    grape:'Nebbiolo', format:'0,75 L', price:48.00, old:null, rating:4.9, votes:212, bio:false, stock:24, nuovo:6,
    ribbon:'Best seller', desc:'Tre anni di botte grande e una tannicità già composta. Il rosso che da noi finisce sempre per primo.'},
-  {id:'c02', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
+  {id:'c02', cat:'vini', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
    grape:'Verdicchio', format:'0,75 L', price:16.50, old:null, rating:4.7, votes:168, bio:true, stock:61, nuovo:5,
    ribbon:'Best seller', desc:'Mandorla, agrume e una salinità che chiama il secondo bicchiere. Rapporto qualità-prezzo difficile da battere.'},
-  {id:'c03', name:'Franciacorta Brut Millesimato 2020', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
+  {id:'c03', cat:'bollicine', name:'Franciacorta Brut Millesimato 2020', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
    grape:'Chardonnay', format:'0,75 L', price:32.00, old:38.00, rating:4.8, votes:141, bio:false, stock:18, nuovo:4,
    ribbon:'-16%', sale:true, desc:'Trentasei mesi sui lieviti, perlage fine e chiusura secca. Le bollicine da tenere sempre in frigo.'},
-  {id:'c04', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
+  {id:'c04', cat:'vini', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
    grape:'Nerello Mascalese', format:'0,75 L', price:27.00, old:null, rating:4.8, votes:63, bio:true, stock:9, nuovo:9,
    ribbon:'Sponsorizzato', gold:true, desc:'Vigne a 800 metri sul versante nord. Frutto rosso croccante, cenere vulcanica e tanta beva.'},
-  {id:'c05', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli Venezia Giulia', style:'bianco',
+  {id:'c05', cat:'vini', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli Venezia Giulia', style:'bianco',
    grape:'Ribolla Gialla', format:'0,75 L', price:24.00, old:null, rating:4.6, votes:29, bio:true, stock:12, nuovo:10,
    ribbon:'Ultimo arrivato', gold:true, desc:'Trenta giorni di macerazione in anfora interrata. Buccia d’arancia, camomilla e un tannino gentile.'},
-  {id:'c06', name:'Chianti Classico Riserva 2020', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
+  {id:'c06', cat:'vini', name:'Chianti Classico Riserva 2020', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
    grape:'Sangiovese', format:'0,75 L', price:29.50, old:null, rating:4.7, votes:97, bio:true, stock:33, nuovo:3,
    desc:'Maremma a 300 metri, nessun diserbante dal 2009. Amarena, tabacco dolce e la spina acida giusta.'},
-  {id:'c07', name:'Lambrusco di Sorbara 2023', winery:'Corte Rossa', region:'Emilia-Romagna', style:'rosato',
+  {id:'c07', cat:'vini', name:'Lambrusco di Sorbara 2023', winery:'Corte Rossa', region:'Emilia-Romagna', style:'rosato',
    grape:'Lambrusco', format:'0,75 L', price:13.00, old:null, rating:4.5, votes:88, bio:false, stock:74, nuovo:7,
    desc:'Rosa tenue, bolla fine e acidità tagliente. Da bere freddo su tutto quello che è fritto.'},
-  {id:'c08', name:'Amarone della Valpolicella 2018', winery:'Villa Grezzana', region:'Veneto', style:'rosso',
+  {id:'c08', cat:'vini', name:'Amarone della Valpolicella 2018', winery:'Villa Grezzana', region:'Veneto', style:'rosso',
    grape:'Corvina', format:'0,75 L', price:62.00, old:null, rating:4.8, votes:74, bio:false, stock:11, nuovo:2,
    desc:'Appassimento di 110 giorni e quattro anni di legno. Potente ma mai stucchevole, con un finale amaricante.'},
-  {id:'c09', name:'Vermentino di Gallura 2023', winery:'Nuraghe Bianco', region:'Sardegna', style:'bianco',
+  {id:'c09', cat:'vini', name:'Vermentino di Gallura 2023', winery:'Nuraghe Bianco', region:'Sardegna', style:'bianco',
    grape:'Vermentino', format:'0,75 L', price:15.00, old:null, rating:4.4, votes:52, bio:false, stock:48, nuovo:8,
    desc:'Granito, macchia mediterranea e un sorso teso. Il bianco che regge il pesce crudo senza coprirlo.'},
-  {id:'c10', name:'Trentodoc Riserva 2017', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'spumante',
+  {id:'c10', cat:'bollicine', name:'Trentodoc Riserva 2017', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'spumante',
    grape:'Chardonnay', format:'0,75 L', price:44.00, old:null, rating:4.9, votes:41, bio:true, stock:7, nuovo:5,
    desc:'Sessanta mesi in cantina a 600 metri. Crosta di pane, nocciola e una lunghezza che sorprende.'},
-  {id:'c11', name:'Primitivo di Manduria 2021', winery:'Masseria Trulla', region:'Puglia', style:'rosso',
+  {id:'c11', cat:'vini', name:'Primitivo di Manduria 2021', winery:'Masseria Trulla', region:'Puglia', style:'rosso',
    grape:'Primitivo', format:'0,75 L', price:18.50, old:22.00, rating:4.5, votes:130, bio:false, stock:55, nuovo:3,
    ribbon:'-16%', sale:true, desc:'Prugna matura, liquirizia e un alcol ben portato. Il rosso da tavola imbandita.'},
-  {id:'c12', name:'Cerasuolo d’Abruzzo 2023', winery:'Colle Fiorito', region:'Abruzzo', style:'rosato',
+  {id:'c12', cat:'vini', name:'Cerasuolo d’Abruzzo 2023', winery:'Colle Fiorito', region:'Abruzzo', style:'rosato',
    grape:'Montepulciano', format:'0,75 L', price:14.50, old:null, rating:4.6, votes:64, bio:true, stock:39, nuovo:8,
    desc:'Rosa intenso, ciliegia e una struttura che regge anche i piatti di terra. Il rosato meno banale che abbiamo.'},
-  {id:'c13', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+  {id:'c13', cat:'vini', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
    grape:'Nebbiolo', format:'0,75 L', price:54.00, old:null, rating:4.8, votes:58, bio:false, stock:14, nuovo:4,
    desc:'Il fratello più agile del Barolo di casa: rosa appassita, arancia sanguinella e tannino di seta.'},
-  {id:'c14', name:'Greco di Tufo 2022', winery:'Antico Palmento', region:'Campania', style:'bianco',
+  {id:'c14', cat:'vini', name:'Greco di Tufo 2022', winery:'Antico Palmento', region:'Campania', style:'bianco',
    grape:'Greco', format:'0,75 L', price:19.00, old:null, rating:4.6, votes:71, bio:false, stock:27, nuovo:6,
    desc:'Zolfo, pesca gialla e una spalla acida importante. Uno dei pochi bianchi del Sud che invecchia bene.'},
-  {id:'c15', name:'Passito di Pantelleria 2019', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
+  {id:'c15', cat:'vini', name:'Passito di Pantelleria 2019', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
    grape:'Zibibbo', format:'0,50 L', price:34.00, old:null, rating:4.9, votes:36, bio:true, stock:6, nuovo:2,
    desc:'Uva appassita al sole su graticci. Albicocca secca, miele di corbezzolo e una dolcezza mai pesante.'},
-  {id:'c16', name:'Prosecco Superiore Extra Brut', winery:'Rive di Sant’Anna', region:'Veneto', style:'spumante',
+  {id:'c16', cat:'bollicine', name:'Prosecco Superiore Extra Brut', winery:'Rive di Sant’Anna', region:'Veneto', style:'spumante',
    grape:'Glera', format:'0,75 L', price:17.50, old:null, rating:4.4, votes:154, bio:false, stock:82, nuovo:7,
    desc:'Cartizze in miniatura: mela verde, fiori bianchi e un residuo zuccherino quasi assente.'},
-  {id:'c17', name:'Nero d’Avola Riserva 2020', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
+  {id:'c17', cat:'vini', name:'Nero d’Avola Riserva 2020', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
    grape:'Nero d’Avola', format:'0,75 L', price:23.00, old:null, rating:4.5, votes:83, bio:true, stock:31, nuovo:5,
    desc:'Vecchie vigne ad alberello e sole in bottiglia, senza le durezze del legno nuovo.'},
-  {id:'c18', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso',
+  {id:'c18', cat:'vini', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso',
    grape:'Sagrantino', format:'0,75 L', price:39.00, old:null, rating:4.7, votes:45, bio:false, stock:16, nuovo:1,
    desc:'Il tannino più muscolare d’Italia, addomesticato da cinque anni di attesa. Da carne e da pazienza.'},
-  {id:'c19', name:'Gewürztraminer 2022', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'bianco',
+  {id:'c19', cat:'vini', name:'Gewürztraminer 2022', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'bianco',
    grape:'Gewürztraminer', format:'0,75 L', price:21.00, old:null, rating:4.5, votes:59, bio:true, stock:22, nuovo:6,
    desc:'Litchi, rosa e zenzero candito. Aromatico ma asciutto: funziona meglio a tavola di quanto si creda.'},
-  {id:'c20', name:'Bolgheri Superiore 2019', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
+  {id:'c20', cat:'vini', name:'Bolgheri Superiore 2019', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
    grape:'Cabernet Sauvignon', format:'0,75 L', price:78.00, old:null, rating:4.9, votes:38, bio:false, stock:5, nuovo:3,
    desc:'Cassis, grafite e cedro. Il taglio bordolese di casa nostra, con il mare a due chilometri.'},
-  {id:'c21', name:'Barolo Bussia 2019 · Magnum', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
+  {id:'c21', cat:'vini', name:'Barolo Bussia 2019 · Magnum', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
    grape:'Nebbiolo', format:'1,5 L', price:104.00, old:null, rating:4.9, votes:19, bio:false, stock:4, nuovo:4,
    ribbon:'Formato regalo', gold:true, desc:'La stessa annata in magnum: evolve più lentamente e fa un’altra figura in tavola.'},
-  {id:'c22', name:'Falanghina del Sannio 2023', winery:'Antico Palmento', region:'Campania', style:'bianco',
+  {id:'c22', cat:'vini', name:'Falanghina del Sannio 2023', winery:'Antico Palmento', region:'Campania', style:'bianco',
    grape:'Falanghina', format:'0,75 L', price:12.50, old:null, rating:4.3, votes:112, bio:false, stock:90, nuovo:7,
    desc:'Il bianco quotidiano: agrume, erbe e nessuna pretesa. Sotto i 13 euro non troviamo di meglio.'},
-  {id:'c23', name:'Chiaretto di Bardolino 2023', winery:'Villa Grezzana', region:'Veneto', style:'rosato',
+  {id:'c23', cat:'vini', name:'Chiaretto di Bardolino 2023', winery:'Villa Grezzana', region:'Veneto', style:'rosato',
    grape:'Corvina', format:'0,75 L', price:15.50, old:null, rating:4.4, votes:47, bio:false, stock:36, nuovo:8,
    desc:'Buccia di pesca, lampone e una chiusura salina. Rosato da aperitivo lungo, non da foto.'},
-  {id:'c24', name:'Recioto della Valpolicella 2019', winery:'Villa Grezzana', region:'Veneto', style:'dolce',
+  {id:'c24', cat:'vini', name:'Recioto della Valpolicella 2019', winery:'Villa Grezzana', region:'Veneto', style:'dolce',
    grape:'Corvina', format:'0,50 L', price:28.00, old:null, rating:4.6, votes:24, bio:false, stock:8, nuovo:1,
    desc:'Le stesse uve dell’Amarone, fermate prima. Ciliegia sotto spirito e cioccolato: sul dolce non sbaglia.'},
+  {id:'s01', cat:'distillati', name:'Grappa di Nebbiolo Riserva', winery:'Distilleria Vergnano', region:'Piemonte', style:'dolce',
+   grape:'Nebbiolo', format:'0,70 L', price:38.00, old:null, rating:4.7, votes:64, bio:false, stock:19, nuovo:6,
+   ribbon:'Il più scelto', desc:'Cinque anni in barrique, naso di frutta secca e un finale asciutto. La grappa che convince chi dice di non bere grappa.'},
+  {id:'s02', cat:'distillati', name:'Gin botanico alle erbe alpine', winery:'Nonino', region:'Friuli Venezia Giulia', style:'bianco',
+   grape:'14 botaniche', format:'0,70 L', price:34.00, old:null, rating:4.6, votes:48, bio:false, stock:27, nuovo:7,
+   desc:'Ginepro, genziana e fieno di montagna. Regge il tonica ma sta benissimo anche liscio, molto freddo.'},
+  {id:'s03', cat:'distillati', name:'Rum agricolo invecchiato 8 anni', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
+   grape:'Canna da zucchero', format:'0,70 L', price:52.00, old:null, rating:4.8, votes:31, bio:false, stock:8, nuovo:5,
+   desc:'Otto anni in botti ex-marsala: vaniglia, tabacco dolce e una nota salina che sorprende.'},
+  {id:'s04', cat:'distillati', name:'Whisky italiano single malt', winery:'Sibona', region:'Piemonte', style:'dolce',
+   grape:'Orzo maltato', format:'0,70 L', price:64.00, old:null, rating:4.7, votes:22, bio:false, stock:6, nuovo:4,
+   ribbon:'Da collezione', gold:true, desc:'Sei anni, torba appena accennata, malto e miele. La prova che il whisky italiano esiste.'},
+  {id:'s05', cat:'liquori', name:'Amaro alle erbe dell’Etna', winery:'Antico Palmento', region:'Sicilia', style:'dolce',
+   grape:'22 erbe', format:'0,50 L', price:26.00, old:null, rating:4.6, votes:57, bio:true, stock:34, nuovo:8,
+   ribbon:'Bio', desc:'Ventidue erbe raccolte sul vulcano. Amaro vero, non dolce mascherato: da fine pasto, senza ghiaccio.'},
+  {id:'s06', cat:'aperitivi', name:'Vermouth rosso artigianale', winery:'Corte Rossa', region:'Emilia-Romagna', style:'dolce',
+   grape:'Lambrusco', format:'0,75 L', price:22.00, old:null, rating:4.5, votes:41, bio:false, stock:45, nuovo:7,
+   desc:'Fatto con Lambrusco invece del solito bianco neutro: più frutto, meno zucchero. Ottimo nel Negroni.'},
 ];
 
 /* ── utility ──────────────────────────────────────────── */
@@ -953,6 +895,7 @@ const PAGE = 9;
 
 const state = {
   q: '',
+  cat: '',            /* vini · spirits · vuoto = tutto */
   styles: new Set(),
   regions: new Set(),
   formats: new Set(),
@@ -978,6 +921,15 @@ function optionHTML({group, value, label, count, type = 'checkbox', dot}){
     ${count != null ? `<em>${count}</em>` : ''}
   </label>`;
 }
+
+const catCounts = countBy('cat');
+/* le famiglie della tassonomia dello shop */
+const FAMIGLIE = [['','Tutto il catalogo'],['vini','Vini'],['bollicine','Bollicine'],
+                  ['distillati','Distillati'],['liquori','Liquori e amari'],['aperitivi','Aperitivi e vermouth']];
+document.getElementById('fCat').innerHTML = FAMIGLIE.map(([v,l]) =>
+  optionHTML({group:'cat', value:v, label:l, type:'radio',
+              count: v ? (catCounts[v] || 0) : CATALOGO.length})).join('');
+document.querySelector('#fCat input[value=""]').checked = true;
 
 const styleCounts = countBy('style');
 document.getElementById('fStyle').innerHTML = Object.keys(STYLE_META)
@@ -1019,6 +971,7 @@ document.getElementById('statRegioni').textContent = Object.keys(regionCounts).l
 function filtered(){
   const t = norm(state.q);
   let out = CATALOGO.filter(p => {
+    if(state.cat && p.cat !== state.cat)                   return false;
     if(state.styles.size  && !state.styles.has(p.style))   return false;
     if(state.regions.size && !state.regions.has(p.region)) return false;
     if(state.formats.size && !state.formats.has(p.format)) return false;
@@ -1095,6 +1048,7 @@ function cardHTML(p){
 function activeChips(){
   const chips = [];
   if(state.q) chips.push({k:'q', label:`“${state.q}”`});
+  if(state.cat) chips.push({k:'cat', label:(FAMIGLIE.find(f => f[0] === state.cat)||['','']) [1]});
   state.styles.forEach(s  => chips.push({k:'style',  v:s, label:STYLE_META[s].label}));
   state.regions.forEach(r => chips.push({k:'region', v:r, label:r}));
   state.formats.forEach(f => chips.push({k:'format', v:f, label:f}));
@@ -1147,7 +1101,9 @@ const SET_OF = {style:'styles', region:'regions', format:'formats', flag:'flags'
 
 document.getElementById('filters').addEventListener('change', e => {
   const el = e.target;
-  if(el.name === 'rating'){
+  if(el.name === 'cat'){
+    state.cat = el.value;
+  } else if(el.name === 'rating'){
     state.rating = parseFloat(el.value);
   } else if(SET_OF[el.name]){
     const set = state[SET_OF[el.name]];
@@ -1176,21 +1132,11 @@ document.getElementById('sort').addEventListener('change', e => {
   render();
 });
 
-/* ricerca nel catalogo */
-const qEl = document.getElementById('q');
-const boxEl = document.getElementById('searchBox');
-qEl.addEventListener('input', () => {
-  state.q = qEl.value.trim();
-  boxEl.classList.toggle('filled', qEl.value.length > 0);
+/* la ricerca sta nella testata comune: qui filtra la pagina */
+window.onHeaderSearch = function(testo){
+  state.q = String(testo).trim();
   state.shown = PAGE;
   render();
-});
-document.getElementById('clearBtn').onclick = () => {
-  qEl.value = ''; state.q = '';
-  boxEl.classList.remove('filled');
-  state.shown = PAGE;
-  render();
-  qEl.focus();
 };
 
 /* rimozione di un singolo filtro dal chip */
@@ -1202,6 +1148,9 @@ document.getElementById('chips').addEventListener('click', e => {
 
   if(chip === 'q'){
     qEl.value = ''; state.q = ''; boxEl.classList.remove('filled');
+  } else if(chip === 'cat'){
+    state.cat = '';
+    document.querySelector('#fCat input[value=""]').checked = true;
   } else if(chip === 'rating'){
     state.rating = 0;
     document.querySelector('#fRating input[value="0"]').checked = true;
@@ -1220,12 +1169,14 @@ function resetAll(){
   state.q = '';
   state.styles.clear(); state.regions.clear(); state.formats.clear(); state.flags.clear();
   state.rating = 0;
+  state.cat = '';
   state.shown = PAGE;
 
   qEl.value = '';
   boxEl.classList.remove('filled');
   document.querySelectorAll('#filters input[type=checkbox]').forEach(i => i.checked = false);
   document.querySelector('#fRating input[value="0"]').checked = true;
+  document.querySelector('#fCat input[value=""]').checked = true;
   priceRange.value = PRICE_MAX;
   syncPrice();
   render();
@@ -1290,13 +1241,6 @@ const paint = new MutationObserver(() => {
 paint.observe(gridEl, {childList:true});
 
 /* ══ MENU MOBILE E DRAWER DEI FILTRI ══════════════════ */
-const burger = document.getElementById('burger');
-const mobnav = document.getElementById('mobnav');
-burger.addEventListener('click', () => {
-  const open = mobnav.classList.toggle('open');
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
-});
 
 const filtersEl = document.getElementById('filters');
 const backdrop = document.getElementById('backdrop');
@@ -1321,242 +1265,24 @@ document.addEventListener('keydown', e => {
 window.addEventListener('resize', () => {
   if(window.innerWidth > 1080){
     if(filtersEl.classList.contains('open')) closeDrawer();
-    if(mobnav.classList.contains('open')){
-      mobnav.classList.remove('open');
-      burger.setAttribute('aria-expanded','false');
-      burger.setAttribute('aria-label','Apri il menu');
-    }
   }
 });
 
 /* ══ AVVIO ════════════════════════════════════════════ */
+/* la voce Spirits del menù porta qui: stessa pagina, filtro già messo */
+const catIniziale = new URLSearchParams(location.search).get('cat');
+if(catIniziale && FAMIGLIE.some(f => f[0] === catIniziale)){
+  state.cat = catIniziale;
+  const r = document.querySelector(`#fCat input[value="${catIniziale}"]`);
+  if(r) r.checked = true;
+}
 syncPrice();
 render();
 
-/* ══════════════════════════════════════════════════════════
-   Menu espanso — un solo elenco di dati per la tendina del
-   desktop e per la fisarmonica del mobile.
-   `soon:true` = pagina non ancora disegnata.
-   ══════════════════════════════════════════════════════════ */
-const MENU = [
-  {id:'shop', label:'Shop', href:'catalogo.html',
-   cols:[
-     {title:'Categorie', items:[
-       {l:'Vini', h:'catalogo.html', n:'543'},
-       {l:'Rossi', h:'catalogo.html', n:'218'},
-       {l:'Bianchi', h:'catalogo.html', n:'164'},
-       {l:'Bollicine', h:'catalogo.html', n:'92'},
-       {l:'Rosati', h:'catalogo.html', n:'41'},
-       {l:'Dolci e passiti', h:'catalogo.html', n:'28'},
-       {l:'Spirits', h:'spirits.html', n:'86'},
-     ], all:{l:'Tutto il catalogo', h:'catalogo.html'}},
-     {title:'Per occasione', items:[
-       {l:'Da regalare', soon:true},
-       {l:'Per tutti i giorni', soon:true},
-       {l:'Da collezione', soon:true},
-       {l:'Sotto i 15 €', h:'catalogo.html'},
-       {l:'Bio e biodinamici', h:'catalogo.html'},
-     ]},
-     {title:'In evidenza', items:[
-       {l:'Novità', h:'catalogo.html'},
-       {l:'I più venduti', h:'catalogo.html'},
-       {l:'In offerta', h:'catalogo.html'},
-     ]},
-   ],
-   promo:{eyebrow:'La collezione', title:"L'estate di Podere Cigli",
-          text:'Sei etichette per le sere lunghe: fresche, sapide, da bere senza pensarci.',
-          cta:'Scopri la collezione', h:'catalogo.html', from:'#2f4a3a', to:'#22382c'}},
 
-  {id:'storie', label:'Storie',
-   cols:[
-     {title:'Le rubriche', items:[
-       {l:'Territori', soon:true},
-       {l:'Enocultura', soon:true},
-       {l:'Abbinamenti', soon:true},
-       {l:'Interviste ai produttori', soon:true},
-     ], all:{l:'Tutti i racconti', h:'javascript:void(0)'}},
-     {title:'Da leggere adesso', items:[
-       {l:'Le Langhe in cinque cantine', soon:true},
-       {l:'Se hai bevuto un Chianti, conosci già il Sangiovese', soon:true},
-       {l:'Il rosso della domenica dell’arrosto', soon:true},
-     ]},
-   ],
-   promo:{eyebrow:'La lettera del giovedì', title:'Una storia a settimana',
-          text:'Una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.',
-          cta:'Iscriviti', h:'javascript:void(0)', from:'#003d4d', to:'#005f73'}},
-
-  /* Experience non ha tendina: è una pagina ponte che spiega Vineis */
-  {id:'experience', label:'Experience', href:'experience.html', nomenu:true},
-
-  {id:'cantine', label:'Cantine', href:'cantine.html',
-   cols:[
-     {title:'Per regione', items:[
-       {l:'Piemonte', h:'cantine.html#Piemonte', n:'22'},
-       {l:'Toscana', h:'cantine.html#Toscana', n:'19'},
-       {l:'Veneto', h:'cantine.html#Veneto', n:'14'},
-       {l:'Sicilia', h:'cantine.html#Sicilia', n:'11'},
-     ], all:{l:'Mappa delle regioni', h:'cantine.html'}},
-     {title:'Per tipo di produttore', items:[
-       {l:'Piccoli produttori', soon:true},
-       {l:'Bio e biodinamici', soon:true},
-       {l:'Cantine verificate', soon:true},
-       {l:'Cantine storiche', soon:true},
-     ]},
-     {title:'Da conoscere', items:[
-       {l:'Tutte le 320 cantine', soon:true},
-       {l:'Le collezioni delle cantine', soon:true},
-       {l:'Scheda cantina', h:'cantina.html'},
-     ]},
-   ],
-   promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
-          text:'Piemonte · Langhe · dal 1919. Nebbiolo in purezza da una collina sola.',
-          cta:'Visita la cantina', h:'cantina.html', from:'#6d1f2c', to:'#40121b'}},
-
-  {id:'wineclub', label:'Wine Club',
-   cols:[
-     {title:'L’abbonamento', items:[
-       {l:'Come funziona', soon:true},
-       {l:'Domande frequenti', soon:true},
-       {l:'Regala il Wine Club', soon:true},
-       {l:'Attiva l’abbonamento', soon:true},
-     ]},
-     {title:'I piani', items:[
-       {l:'Scoperta', soon:true},
-       {l:'Cantina', soon:true},
-       {l:'Collezione', soon:true},
-     ]},
-   ],
-   promo:{eyebrow:'Wine Club', title:'Sei bottiglie al mese, scelte per te',
-          text:'Racconti i tuoi gusti, i produttori selezionano, tu valuti e il mese dopo ci prendiamo meglio.',
-          cta:'Scopri il club', h:'javascript:void(0)', from:'#a8814f', to:'#6b4f28'}},
-];
-
-/* ── costruzione della tendina ─────────────────────────── */
-const ARROW_S = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>`;
-const CARET = `<svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>`;
-
-function voceHTML(it){
-  const attrs = it.ext ? ' target="_blank" rel="noopener"' : '';
-  const href = it.soon ? 'javascript:void(0)' : (it.h || 'javascript:void(0)');
-  return `<li><a href="${href}"${attrs}>${esc(it.l)}${
-    it.soon ? '<span class="soon">Da fare</span>' : it.n ? `<em>${it.n}</em>` : ''}</a></li>`;
-}
-
-function pannelloHTML(v){
-  const cols = v.cols.map(c => `
-    <div class="mega-col">
-      <h4>${esc(c.title)}</h4>
-      <ul>${c.items.map(voceHTML).join('')}</ul>
-      ${c.all ? `<a class="all" href="${c.all.h}">${esc(c.all.l)} ${ARROW_S}</a>` : ''}
-    </div>`).join('');
-  const p = v.promo;
-  const pattrs = p.ext ? ' target="_blank" rel="noopener"' : '';
-  return `<div class="mega-panel" id="panel-${v.id}" role="region" aria-label="${esc(v.label)}">
-    <div class="mega-in" style="grid-template-columns:repeat(${v.cols.length},minmax(0,1fr)) 320px">
-      ${cols}
-      <a class="mega-promo" href="${p.h}"${pattrs}
-         style="background:linear-gradient(155deg,${p.from},${p.to})">
-        <span class="eyebrow">${esc(p.eyebrow)}</span>
-        <h5>${esc(p.title)}</h5>
-        <p>${esc(p.text)}</p>
-        <span class="go">${esc(p.cta)} ${ARROW_S}</span>
-      </a>
-    </div>
-  </div>`;
-}
-
-(function montaMenu(){
-  const topnav = document.querySelector('.topnav');
-  const topbar = document.querySelector('.topbar');
-  if(!topnav || !topbar) return;
-
-  /* pannelli */
-  const mega = document.createElement('div');
-  mega.className = 'mega';
-  mega.id = 'mega';
-  mega.innerHTML = MENU.filter(v => !v.nomenu).map(pannelloHTML).join('');
-  topbar.appendChild(mega);
-
-  /* le voci della barra diventano interruttori della tendina */
-  const trigger = {};
-  MENU.forEach(v => {
-    if(v.nomenu) return;          /* voce semplice, nessun pannello */
-    const a = [...topnav.querySelectorAll('a')].find(x => x.textContent.trim().startsWith(v.label));
-    if(!a) return;
-    a.classList.add('has-menu');
-    a.dataset.menu = v.id;
-    a.setAttribute('aria-expanded','false');
-    a.setAttribute('aria-controls','panel-' + v.id);
-    a.insertAdjacentHTML('beforeend', CARET);
-    trigger[v.id] = a;
-  });
-
-  let aperto = null, timerApri, timerChiudi;
-
-  function apri(id){
-    clearTimeout(timerChiudi);
-    if(aperto === id) return;
-    aperto = id;
-    mega.querySelectorAll('.mega-panel').forEach(p => p.classList.toggle('on', p.id === 'panel-' + id));
-    mega.classList.add('open');
-    Object.entries(trigger).forEach(([k, a]) => a.setAttribute('aria-expanded', String(k === id)));
-  }
-  function chiudi(){
-    clearTimeout(timerApri);
-    aperto = null;
-    mega.classList.remove('open');
-    Object.values(trigger).forEach(a => a.setAttribute('aria-expanded','false'));
-  }
-
-  Object.entries(trigger).forEach(([id, a]) => {
-    a.addEventListener('mouseenter', () => { clearTimeout(timerApri); timerApri = setTimeout(() => apri(id), 90); });
-    a.addEventListener('focus', () => apri(id));
-    /* da tastiera: la freccia in giù apre senza seguire il link */
-    a.addEventListener('keydown', e => {
-      if(e.key === 'ArrowDown'){ e.preventDefault(); apri(id); mega.querySelector('.mega-panel.on a')?.focus(); }
-    });
-  });
-
-  topbar.addEventListener('mouseleave', () => { clearTimeout(timerApri); timerChiudi = setTimeout(chiudi, 180); });
-  mega.addEventListener('mouseenter', () => clearTimeout(timerChiudi));
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') chiudi(); });
-  document.addEventListener('click', e => { if(!e.target.closest('.topbar')) chiudi(); });
-  document.addEventListener('focusin', e => { if(!e.target.closest('.topbar')) chiudi(); });
-
-  /* ── fisarmonica del menù mobile ─────────────────────── */
-  const mobnav = document.querySelector('.mobnav');
-  if(!mobnav) return;
-  const extra = [...mobnav.querySelectorAll('a')]
-    .filter(a => !MENU.some(v => a.textContent.trim().startsWith(v.label)))
-    .map(a => a.outerHTML).join('');
-
-  mobnav.innerHTML = MENU.map(v => {
-    if(v.nomenu || v.ext){
-      const t = v.ext ? ' target="_blank" rel="noopener"' : '';
-      return `<div class="acc"><a href="${v.href}"${t}
-        style="border:none">${esc(v.label)}${v.ext ? ' ↗' : ''}</a></div>`;
-    }
-    const body = v.cols.map(c => `
-      <p class="grp">${esc(c.title)}</p>
-      ${c.items.map(i => `<a href="${i.soon ? 'javascript:void(0)' : (i.h || 'javascript:void(0)')}">${esc(i.l)}${i.soon ? ' ·' : ''}</a>`).join('')}`).join('');
-    return `<div class="acc">
-      <button type="button" aria-expanded="false">${esc(v.label)}
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div class="acc-body">${body}</div>
-    </div>`;
-  }).join('') + extra;
-
-  mobnav.addEventListener('click', e => {
-    const b = e.target.closest('.acc > button');
-    if(!b) return;
-    const acc = b.parentElement;
-    const on = acc.classList.toggle('open');
-    b.setAttribute('aria-expanded', String(on));
-  });
-})();
 </script>
 
 <script src="temi/skin.js"></script>
+<script src="temi/header.js"></script>
 </body>
 </html>

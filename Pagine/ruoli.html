@@ -179,8 +179,66 @@ footer a:hover{text-decoration:underline}
 }
 </style>
 <script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+<link rel="stylesheet" href="temi/header.css">
 </head>
-<body>
+<body data-nav="">
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Corriere a scelta: BRT, TNT, Poste
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
 
 <header class="head">
   <div class="wrap">
@@ -239,7 +297,7 @@ footer a:hover{text-decoration:underline}
     </div>
     <div class="legend">
       <span><i class="mark yes">✓</i> permesso pieno</span>
-      <span><i class="mark part">◐</i> parziale, o con approvazione</span>
+      <span><i class="mark part">◐</i> concesso dall’admin, o con approvazione</span>
       <span><i class="mark no">—</i> non accede</span>
     </div>
   </section>
@@ -283,13 +341,14 @@ const RUOLI = [
   {id:'guest', k:'guest', col:'#8a8375', nome:'Visitatore', tipo:'Non registrato',
    who:'Chiunque arrivi sul sito senza account. È il 90% del traffico: deve poter capire tutto prima di dare un indirizzo email.',
    entry:{l:'Homepage', h:'homepage.html'},
-   can:['Sfogliare catalogo, schede vino e cantine','Leggere i Racconti e la mappa delle regioni','Cercare e filtrare','Riempire il carrello'],
-   cant:['Concludere l’ordine senza registrarsi (da decidere)','Vedere i prezzi del listino Horeca','Scrivere recensioni']},
+   can:['Sfogliare catalogo, schede vino e cantine','Leggere le Storie e la mappa delle regioni','Cercare per uvaggio, regione o produttore','Riempire il carrello','<b>Concludere l’ordine senza registrarsi</b>, con la sola email'],
+   cant:['Ritrovare gli ordini passati senza account','Vedere i prezzi del listino Horeca','Scrivere recensioni']},
 
   {id:'cliente', k:'user', col:'#005f73', nome:'Cliente', tipo:'B2C · registrato',
    who:'Il privato che compra per sé o per regalo. La sua area è "Il mio Stappando": ordini, resi, buoni, Wine Club.',
    entry:{l:'Il mio Stappando', h:'../Dashboards/dashboard-user.html'},
-   can:['Ordinare, tracciare le spedizioni, aprire un reso con motivo','Gestire indirizzi, punti di ritiro e dati di fatturazione','Usare codici sconto e buoni','Iscriversi al Wine Club e saltare un mese','Scrivere recensioni sugli acquisti fatti'],
+   can:['Ordinare, tracciare le spedizioni, aprire un reso con motivo','Gestire indirizzi e dati di fatturazione','Tenere una wishlist di bottiglie',
+         'Usare codici sconto e buoni','Iscriversi al Wine Club e saltare un mese','Scrivere recensioni sugli acquisti fatti'],
    cant:['Vedere i prezzi riservati Horeca','Accedere ai dati di altri clienti']},
 
   {id:'horeca', k:'horeca', col:'#6d1f2c', nome:'Horeca', tipo:'B2B · account approvato',
@@ -301,13 +360,13 @@ const RUOLI = [
   {id:'vmanager', k:'vmanager', col:'#2d6a4f', nome:'Vendor manager', tipo:'Cantina · operativo',
    who:'Chi in cantina lavora tutti i giorni: carica i vini, prepara gli ordini, risponde alle recensioni. Non è il titolare.',
    entry:{l:'Pannello cantina', h:'../Dashboards/dashboard-vendor-manager.html'},
-   can:['Creare e modificare i prodotti della propria cantina','Comporre le collezioni della cantina (es. “L’estate di Podere Cigli”)','Gestire giacenze e stato degli ordini','Vedere statistiche e recensioni della cantina','Aprire una richiesta di sponsorizzazione'],
+   can:['Creare e modificare i prodotti della propria cantina','Gestire giacenze e stato degli ordini','Vedere statistiche e recensioni della cantina','Aprire una richiesta di sponsorizzazione'],
    cant:['Toccare le impostazioni della cantina (payout, dati fiscali)','Vedere le cantine altrui']},
 
   {id:'vowner', k:'vowner', col:'#a8814f', nome:'Vendor owner', tipo:'Cantina · titolare',
    who:'Il titolare della cantina. Fa tutto quello che fa il manager, più le impostazioni che riguardano soldi e contratto.',
    entry:{l:'Pannello titolare', h:'../Dashboards/dashboard-vendor-owner.html'},
-   can:['Tutto quello che può il vendor manager','Impostazioni della cantina: payout, dati fiscali, anagrafica','Vedere il fatturato e i costi delle sponsorizzazioni'],
+   can:['Tutto quello che può il vendor manager','<b>Sponsorizzare le proprie etichette</b> e decidere il budget','Impostazioni della cantina: payout, dati fiscali, anagrafica','Vedere il fatturato e i costi delle sponsorizzazioni'],
    cant:['Vedere le cantine altrui','Cambiare le commissioni concordate']},
 
   {id:'madmin', k:'madmin', col:'#4a3b63', nome:'Manager admin', tipo:'Piattaforma · operativo',
@@ -319,8 +378,8 @@ const RUOLI = [
   {id:'admin', k:'admin', col:'#003d4d', nome:'Admin', tipo:'Piattaforma · super/owner',
    who:'Il ruolo radice. Ha le cinque chiavi che il manager admin non ha, ed è l’unico che può darle a qualcun altro.',
    entry:{l:'Dashboard Admin', h:'../Dashboards/dashboard-admin.html'},
-   can:['Tutto quello che può il manager admin','Ruoli e permessi: chi diventa cosa','Commissioni e contratti con le cantine','Feature flag e integrazioni / API','Log e audit di ogni azione','Approvare i rimborsi oltre soglia'],
-   cant:['Niente: è il livello più alto — per questo ogni sua azione finisce nel log']},
+   can:['Tutto quello che può il manager admin','<b>Concedere o negare al manager admin l’accesso a ogni singolo modulo</b>','Ruoli e permessi: chi diventa cosa','Commissioni e contratti con le cantine','Feature flag e integrazioni / API','Log e audit di ogni azione','Approvare i rimborsi oltre soglia'],
+   cant:['Niente: è il livello più alto — per questo ogni sua azione finisce nel log. <b>È lui che decide, modulo per modulo, cosa vede il manager admin.</b>']},
 ];
 
 /* ── matrice: y sì · p parziale · n no ────────────────── */
@@ -329,8 +388,9 @@ const MATRICE = [
   {grp:'Acquisto'},
   {c:'Sfogliare catalogo, vini e cantine',      v:'yyyyyyy'},
   {c:'Prezzi e listino riservato Horeca',       v:'nnynnyy'},
-  {c:'Concludere un ordine',                    v:'pyynnnn'},
+  {c:'Concludere un ordine (anche senza account)', v:'yyynnnn'},
   {c:'Wine Club: iscrizione e gestione',        v:'nynnnyy'},
+  {c:'Wishlist personale',                      v:'nyynnnn'},
   {c:'Scrivere recensioni',                     v:'nyynnnn'},
   {c:'Rispondere alle recensioni',              v:'nnnyyyy'},
 
@@ -338,23 +398,22 @@ const MATRICE = [
   {c:'Prodotti: creare, modificare, giacenze',  v:'nnnyyyy'},
   {c:'Ordini della cantina',                    v:'nnnyyyy'},
   {c:'Statistiche della cantina',               v:'nnnyyyy'},
-  {c:'Collezioni della cantina',                v:'nnnyyyy'},
-  {c:'Sponsorizzazioni',                        v:'nnnyyyy'},
+  {c:'Sponsorizzare le proprie etichette',      v:'nnnpyyy'},
   {c:'Impostazioni cantina: payout, dati fiscali', v:'nnnnyyy'},
 
   {grp:'Piattaforma'},
-  {c:'Utenti',                                  v:'nnnnnyy'},
-  {c:'Vendor e cantine',                        v:'nnnnnyy'},
-  {c:'Catalogo globale',                        v:'nnnnnyy'},
-  {c:'Ordini globali',                          v:'nnnnnyy'},
-  {c:'Pagamenti',                               v:'nnnnnyy'},
+  {c:'Utenti',                                  v:'nnnnnpy'},
+  {c:'Vendor e cantine',                        v:'nnnnnpy'},
+  {c:'Catalogo globale',                        v:'nnnnnpy'},
+  {c:'Ordini globali',                          v:'nnnnnpy'},
+  {c:'Pagamenti',                               v:'nnnnnpy'},
   {c:'Rimborsi oltre soglia',                   v:'nnnnnpy'},
-  {c:'Spedizioni e corrieri',                   v:'nnnnnyy'},
-  {c:'Promozioni e codici sconto',              v:'nnnnnyy'},
-  {c:'Marketing, blog e contenuti (CMS)',       v:'nnnnnyy'},
-  {c:'Moderazione recensioni',                  v:'nnnnnyy'},
-  {c:'Report e analytics',                      v:'nnnnnyy'},
-  {c:'Impostazioni di sistema',                 v:'nnnnnyy'},
+  {c:'Spedizioni e corrieri',                   v:'nnnnnpy'},
+  {c:'Promozioni e codici sconto',              v:'nnnnnpy'},
+  {c:'Marketing, blog e contenuti (CMS)',       v:'nnnnnpy'},
+  {c:'Moderazione recensioni',                  v:'nnnnnpy'},
+  {c:'Report e analytics',                      v:'nnnnnpy'},
+  {c:'Impostazioni di sistema',                 v:'nnnnnpy'},
 
   {grp:'Solo il ruolo radice'},
   {c:'Ruoli e permessi',                        v:'nnnnnny'},
@@ -365,8 +424,10 @@ const MATRICE = [
 ];
 
 const NOTE = [
+  {t:'I moduli del manager admin li accende l’admin',
+   p:'Il manager admin non ha permessi fissi: l’admin decide modulo per modulo cosa può vedere — utenti, cantine, catalogo, ordini, pagamenti, spedizioni, promozioni, contenuti, recensioni, Wine Club, report, impostazioni. Nella matrice sono segnati come concedibili, non come acquisiti.'},
   {ask:true, t:'Owner e manager di cantina si somigliano troppo',
-   p:'Confrontando i due pannelli, l’unica differenza è la voce “Impostazioni”. Il manager vede quindi fatturato, statistiche e costi delle sponsorizzazioni come il titolare. Va deciso se è voluto o se al manager vanno tolti i numeri di soldi.'},
+   p:'Ora al manager restano prodotti, ordini, statistiche e recensioni: le collezioni gliele abbiamo tolte e le sponsorizzazioni sono del titolare. Resta da decidere se deve vedere il fatturato.'},
   {ask:true, t:'Si può comprare senza registrarsi?',
    p:'Oggi il carrello è aperto a tutti ma il checkout non esiste ancora. Prima di disegnarlo serve la risposta: ordine come ospite con la sola email, oppure registrazione obbligatoria?'},
   {t:'Manca tutta la porta d’ingresso',
@@ -450,5 +511,6 @@ document.getElementById('notes').innerHTML = NOTE.map(n => `
 </script>
 
 <script src="temi/skin.js"></script>
+<script src="temi/header.js"></script>
 </body>
 </html>
