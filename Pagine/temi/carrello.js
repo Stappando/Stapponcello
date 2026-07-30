@@ -9,7 +9,8 @@
 (function(){
 'use strict';
 
-var SOGLIA = 79;                 /* sopra questa cifra la spedizione è gratis */
+var SOGLIA = 69;   /* ogni cantina spedisce per conto suo: gratis da 69 € su QUELLA cantina */
+var COSTO_SPED = 6.9;
 var BUONI = {BENVENUTO10:{tipo:'perc', v:10}, STAPP5:{tipo:'fisso', v:5}};
 
 var HUE = {rosso:'#8f2222', bianco:'#d3c179', rosato:'#dd97a8',
@@ -29,7 +30,7 @@ var RIGHE = [
   prezzo:32.00, prima:38.00, q:1, scorte:4, nota:'Ultime 4 bottiglie in cantina', poche:true}
 ];
 
-var passo = 1, buono = null, spedizione = 6.9, freeOver = true, uid = 0;
+var passo = 1, buono = null, ritiro = false, uid = 0;
 
 var eur = function(n){return '€ ' + Number(n).toLocaleString('it-IT',
   {minimumFractionDigits:2, maximumFractionDigits:2});};
@@ -58,6 +59,28 @@ function subtotale(){return RIGHE.reduce(function(s,r){return s + r.prezzo * r.q
 function sconto(sub){
   if(!buono) return 0;
   return buono.tipo === 'perc' ? sub * buono.v / 100 : Math.min(buono.v, sub);
+}
+
+/* Ogni cantina spedisce dal suo magazzino: il conto della spedizione
+   si fa cantina per cantina, non sul totale del carrello. */
+function perCantina(){
+  var g = {};
+  RIGHE.forEach(function(r){
+    if(!g[r.cantina]) g[r.cantina] = {cantina:r.cantina, tot:0, righe:0};
+    g[r.cantina].tot += r.prezzo * r.q;
+    g[r.cantina].righe += r.q;
+  });
+  return Object.keys(g).map(function(k){
+    var x = g[k];
+    x.gratis = x.tot >= SOGLIA;
+    x.sped = x.gratis ? 0 : COSTO_SPED;
+    x.manca = Math.max(0, SOGLIA - x.tot);
+    return x;
+  });
+}
+function spedizioneTotale(){
+  if(ritiro) return 0;                         /* ritiro in enoteca: nessuna spedizione */
+  return perCantina().reduce(function(s,x){return s + x.sped}, 0);
 }
 
 /* ── la finestra ──────────────────────────────────────── */
@@ -153,12 +176,20 @@ function righeHTML(){
 }
 
 function sogliaHTML(){
-  var manca = Math.max(0, SOGLIA - (subtotale() - sconto(subtotale())));
-  return '<div class="cart-free'+(manca === 0 ? ' done' : '')+'">'+
-    '<p>'+(manca === 0
-      ? 'Spedizione gratuita <b>sbloccata</b>. Le bottiglie viaggiano nell’imballo a sei scomparti.'
-      : 'Ti mancano <b>'+eur(manca)+'</b> alla spedizione gratuita.')+'</p>'+
-    '<div class="track"><i style="width:'+Math.min(100, Math.round((subtotale()-sconto(subtotale()))/SOGLIA*100))+'%"></i></div></div>';
+  var g = perCantina();
+  var quante = g.filter(function(x){return !x.gratis}).length;
+  var testa = g.length > 1
+    ? '<p style="font-size:12px;color:var(--muted-fg);margin-bottom:10px">'+
+      'Stai comprando da <b>'+g.length+' cantine</b>: ognuna spedisce dal suo magazzino, quindi '+
+      (quante === 0 ? 'nessuna spedizione da pagare.' :
+       'paghi <b>'+quante+' spedizion'+(quante===1?'e':'i')+'</b>.')+'</p>'
+    : '';
+  return '<div style="margin-top:16px">'+testa+ g.map(function(x){
+    return '<div class="cart-free'+(x.gratis ? ' done' : '')+'" style="margin-top:8px">'+
+      '<p><b>'+esc(x.cantina)+'</b> · '+eur(x.tot)+' — '+
+      (x.gratis ? 'spedizione <b>gratis</b>' : 'ti mancano <b>'+eur(x.manca)+'</b>, altrimenti '+eur(COSTO_SPED))+
+      '</p><div class="track"><i style="width:'+Math.min(100, Math.round(x.tot/SOGLIA*100))+'%"></i></div></div>';
+  }).join('')+'</div>';
 }
 
 function paneCarrello(){
@@ -179,16 +210,17 @@ function paneIndirizzo(){
     '<div class="cart-field"><label for="ctel">Telefono</label><input id="ctel" value="333 1234567"></div>'+
     '<p style="font-size:11.5px;color:var(--muted-fg);margin-top:8px">Serve al corriere per avvisarti della consegna.</p>'+
     '<h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-top:22px">Come lo spediamo</h3>'+
-    '<label class="cart-opt'+(freeOver ? ' on' : '')+'"><input type="radio" name="csp" value="6.9" data-free="1"'+(freeOver?' checked':'')+'>'+
-      '<span class="t"><b>Corriere espresso · 48 ore</b><span>Imballo antiurto, tracciabile</span></span>'+
-      '<span class="c'+(subtotale()-sconto(subtotale()) >= SOGLIA ? ' free' : '')+'">'+
-      (subtotale()-sconto(subtotale()) >= SOGLIA ? 'Gratis' : '€ 6,90')+'</span></label>'+
-    '<label class="cart-opt'+(!freeOver && spedizione === 12.9 ? ' on' : '')+'"><input type="radio" name="csp" value="12.9"'+(!freeOver && spedizione===12.9?' checked':'')+'>'+
-      '<span class="t"><b>Consegna su appuntamento</b><span>Scegli giorno e fascia, anche il sabato</span></span>'+
-      '<span class="c">€ 12,90</span></label>'+
-    '<label class="cart-opt'+(!freeOver && spedizione === 0 ? ' on' : '')+'"><input type="radio" name="csp" value="0"'+(!freeOver && spedizione===0?' checked':'')+'>'+
+    '<label class="cart-opt'+(!ritiro ? ' on' : '')+'"><input type="radio" name="csp" value="corriere"'+(!ritiro?' checked':'')+'>'+
+      '<span class="t"><b>Corriere espresso · 48 ore</b><span>Una spedizione per cantina, imballo antiurto</span></span>'+
+      '<span class="c'+(spedizioneTotale() === 0 ? ' free' : '')+'">'+
+      (spedizioneTotale() === 0 ? 'Gratis' : eur(spedizioneTotale()))+'</span></label>'+
+    '<label class="cart-opt'+(ritiro ? ' on' : '')+'"><input type="radio" name="csp" value="ritiro"'+(ritiro?' checked':'')+'>'+
       '<span class="t"><b>Ritiro in enoteca · Milano</b><span>Via della Vite 12, pronto in 3 ore</span></span>'+
-      '<span class="c free">Gratis</span></label>';
+      '<span class="c free">Gratis</span></label>'+
+    (perCantina().length > 1 && !ritiro
+      ? '<div class="cart-free" style="margin-top:12px"><p>Le bottiglie arrivano in '+perCantina().length+
+        ' pacchi diversi, uno per cantina: ognuno parte dal suo magazzino e può arrivare in giorni diversi.</p></div>'
+      : '');
 }
 
 function panePagamento(){
@@ -218,8 +250,8 @@ function paneConferma(){
 
 function piedeHTML(){
   var sub = subtotale(), sc = sconto(sub);
-  var gratis = (sub - sc) >= SOGLIA;
-  var sped = RIGHE.length ? (freeOver && gratis ? 0 : spedizione) : 0;
+  var sped = RIGHE.length ? spedizioneTotale() : 0;
+  var gruppi = perCantina();
   var tot = Math.max(0, sub - sc + sped);
 
   if(passo === 4){
@@ -231,7 +263,8 @@ function piedeHTML(){
                 : 'Paga ' + eur(tot);
   return '<div class="cart-tot"><span>Subtotale ('+bottiglie()+' bottiglie)</span><b>'+eur(sub)+'</b></div>'+
     (sc ? '<div class="cart-tot"><span>Sconto</span><b class="sc">– '+eur(sc)+'</b></div>' : '')+
-    '<div class="cart-tot"><span>Spedizione</span><b'+(sped===0?' class="sc"':'')+'>'+(sped === 0 ? 'Gratis' : eur(sped))+'</b></div>'+
+    '<div class="cart-tot"><span>Spedizione'+(gruppi.length > 1 ? ' · '+gruppi.length+' cantine' : '')+'</span>'+
+    '<b'+(sped===0?' class="sc"':'')+'>'+(sped === 0 ? 'Gratis' : eur(sped))+'</b></div>'+
     '<div class="cart-tot big"><span>Totale</span><b>'+eur(tot)+'</b></div>'+
     '<div class="cart-actions">'+
       (passo > 1 ? '<button class="cart-btn back" type="button" data-indietro>Indietro</button>' : '')+
@@ -306,8 +339,7 @@ function click(e){
 function change(e){
   var r = e.target.closest('input[name="csp"]');
   if(!r) return;
-  spedizione = parseFloat(r.value) || 0;
-  freeOver = r.dataset.free === '1';
+  ritiro = r.value === 'ritiro';
   disegna();
 }
 

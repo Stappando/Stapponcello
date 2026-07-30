@@ -26,5 +26,8 @@
   --shadow-md:0 4px 16px rgba(0,0,0,.07);
   --shadow-lg:0 16px 44px rgba(0,61,77,.16);
   --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
-  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --font-display:Montserrat,system-ui,-apple-system,sans-serif;
 }
+
+/* i titoli seguono i caratteri dell'istituzionale: Montserrat anche in display */
+h1,h2,h3,h4{font-weight:600;letter-spacing:-.03em}
