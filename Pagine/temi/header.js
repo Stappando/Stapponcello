@@ -107,16 +107,9 @@ var MENU = [
  /* Experience non ha tendina: è una pagina ponte */
  {id:'experience', label:'Experience', href:'experience.html', nomenu:true},
 
- {id:'cantine', label:'Cantine', href:'cantine.html',
-  cols:[
-   /* solo due voci: l'elenco e una scheda d'esempio */
-   {title:'Le cantine', items:[
-     {l:'Indice delle cantine', h:'cantine.html', n:'320'},
-     {l:'Scheda cantina', h:'cantina.html'}],
-    all:{l:'Cercale sulla mappa', h:'cantine.html'}}],
-  promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
-   text:'Piemonte · Langhe · dal 1919. Nebbiolo in purezza da una collina sola.',
-   cta:'Visita la cantina', h:'cantina.html', from:'#6d1f2c', to:'#40121b'}},
+ /* Cantine è solo un link: la pagina tiene mappa del territorio,
+    filtri e schede, quindi non serve una tendina */
+ {id:'cantine', label:'Cantine', href:'cantine.html', nomenu:true},
 
  /* Wine Club è una landing: ci si abbona ai tre piani lì, niente tendina */
  {id:'wineclub', label:'Wine Club', href:'wineclub.html', nomenu:true}
