@@ -113,7 +113,7 @@ var MENU = [
    {title:'Le cantine', items:[
      {l:'Indice delle cantine', h:'cantine.html', n:'320'},
      {l:'Scheda cantina', h:'cantina.html'}],
-    all:{l:'Cercale sulla mappa', h:'regioni.html'}}],
+    all:{l:'Cercale sulla mappa', h:'cantine.html'}}],
   promo:{eyebrow:'Cantina del mese', title:'Cascina Rivetto',
    text:'Piemonte · Langhe · dal 1919. Nebbiolo in purezza da una collina sola.',
    cta:'Visita la cantina', h:'cantina.html', from:'#6d1f2c', to:'#40121b'}},
