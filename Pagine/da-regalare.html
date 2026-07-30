@@ -56,6 +56,12 @@
 </head>
 <body data-nav="shop">
 
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
 <!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
@@ -129,7 +135,7 @@
 </header>
 
 <main>
-<div class="wrap"><div class="pgrid" id="g"></div><div class="sec grid two"><div class="panel"><span class="eyebrow">Il buono regalo</span><h2 class="h2" style="margin-top:10px">Quando non sai cosa scegliere</h2><div class="prose" style="margin-top:12px"><p>Un buono da 30, 50 o 100 €, valido un anno, che arriva via email o stampato su carta spessa. Chi lo riceve sceglie da solo — e nel frattempo legge le storie delle cantine.</p></div><a class="btn btn-dark" style="margin-top:16px" href="carrello.html">Compra un buono <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></div><div class="panel"><span class="eyebrow">Per le aziende</span><h2 class="h2" style="margin-top:10px">Regali di Natale, ma fatti bene</h2><div class="prose" style="margin-top:12px"><p>Dalle dieci cassette in su prepariamo una selezione su misura, con biglietto personalizzato e consegna programmata a indirizzi diversi.</p></div><a class="btn btn-ghost" style="margin-top:16px" href="contatti.html">Parliamone <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></div></div></div>
+<div class="wrap"><div id="g"></div><div class="sec grid two"><div class="panel"><span class="eyebrow">Il buono regalo</span><h2 class="h2" style="margin-top:10px">Quando non sai cosa scegliere</h2><div class="prose" style="margin-top:12px"><p>Un buono da 30, 50 o 100 €, valido un anno, che arriva via email o stampato su carta spessa. Chi lo riceve sceglie da solo — e nel frattempo legge le storie delle cantine.</p></div><a class="btn btn-dark" style="margin-top:16px" href="carrello.html">Compra un buono <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></div><div class="panel"><span class="eyebrow">Per le aziende</span><h2 class="h2" style="margin-top:10px">Regali di Natale, ma fatti bene</h2><div class="prose" style="margin-top:12px"><p>Dalle dieci cassette in su prepariamo una selezione su misura, con biglietto personalizzato e consegna programmata a indirizzi diversi.</p></div><a class="btn btn-ghost" style="margin-top:16px" href="contatti.html">Parliamone <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a></div></div></div>
 </main>
 
 <footer class="site">
@@ -184,32 +190,13 @@
   </div>
 </footer>
 
-<script src="temi/header.js"></script>
-<script src="temi/carrello.js"></script>
-<script src="temi/prodotti.js"></script>
-<script src="temi/card.js"></script>
 <script src="temi/skin.js"></script>
-<script>function btl(c1,c2,tag){return '<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
- '<defs><linearGradient id="g'+(++uid)+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="'+c1+'"/>'+
- '<stop offset="42%" stop-color="'+c2+'"/><stop offset="58%" stop-color="'+c2+'"/><stop offset="100%" stop-color="'+c1+'"/></linearGradient></defs>'+
- '<path d="M22 6 h12 v20 h-12 z" fill="'+tag+'"/><rect x="21" y="4" width="14" height="5" rx="1.5" fill="'+tag+'"/>'+
- '<path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z" fill="url(#g'+uid+')" stroke="rgba(0,0,0,.3)" stroke-width="1"/>'+
- '<rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/><rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>'+
- '<rect x="12" y="92" width="32" height="2.4" fill="'+tag+'"/><rect x="12" y="133" width="32" height="2.4" fill="'+tag+'"/></svg>'}
-var uid=0;
-function scheda(p){return '<article class="p" style="--hue:'+p.h+'">'+
- '<div class="p-art">'+(p.b?'<span class="p-badge '+(p.g?'gold':'')+'">'+p.b+'</span>':'')+btl(p.c1,p.c2,p.t)+'</div>'+
- '<div class="p-body"><span class="p-maker">'+p.m+'</span><h3>'+p.n+'</h3>'+
- '<p class="p-meta">'+p.meta+'</p><div class="p-foot"><span class="p-price">'+p.p+'</span>'+
- '<button class="p-add" aria-label="Aggiungi al carrello"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div></article>'}
-function stampa(id,dati){document.getElementById(id).innerHTML=dati.map(scheda).join('')}
-var REGALO=[
-{m:'Cascina Vergne',n:'Barolo Bussia 2019 · cofanetto',meta:'Scatola rigida · biglietto scritto a mano',p:'€ 54,00',b:'Il regalo sicuro',c1:'#5c1717',c2:'#8f2222',t:'#7f1d1d',h:'#8f2222'},
-{m:'Ca’ del Lago',n:'Franciacorta Brut · duo',meta:'Due bottiglie in astuccio · per un brindisi',p:'€ 68,00',b:'',c1:'#2b4a63',c2:'#5c7d92',t:'#c9a87c',h:'#5c7d92'},
-{m:'Selezione Stappando',n:'Tris del Sud',meta:'Tre rossi di Puglia, Sicilia e Campania',p:'€ 58,00',b:'Novità',g:1,c1:'#5c1717',c2:'#a83030',t:'#7f1d1d',h:'#a83030'},
-{m:'Isola Ventosa',n:'Passito di Pantelleria · astuccio',meta:'0,5 L · con due calici da dessert',p:'€ 44,00',b:'',c1:'#7a5321',c2:'#c39a4a',t:'#a16207',h:'#c39a4a'},
-{m:'Selezione Stappando',n:'Cassetta di legno da sei',meta:'Sei etichette scelte da noi · con schede',p:'€ 119,00',b:'Il più regalato',c1:'#6b4f28',c2:'#a8814f',t:'#6b4f28',h:'#a8814f'},
-{m:'Podere Cigli',n:'L’estate di Podere Cigli',meta:'Sei bianchi e rosati della collezione',p:'€ 96,00',b:'Collezione',g:1,c1:'#8d7333',c2:'#d3c179',t:'#78350f',h:'#d3c179'}];
-stampa('g',REGALO);</script>
+<script>
+/* schede unificate, come in tutto il resto del sito */
+document.addEventListener('DOMContentLoaded', function(){
+  var lista = PRODOTTI.filter(function(p){ return p.prezzo >= 20; });
+  grigliaProdotti(document.getElementById('g'), lista.slice(0, 8), 'p4');
+});
+</script>
 </body>
 </html>
