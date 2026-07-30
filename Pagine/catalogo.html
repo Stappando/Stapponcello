@@ -422,6 +422,12 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 </head>
 <body data-nav="shop">
 
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
 <!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
@@ -622,7 +628,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 
     <div class="chips" id="chips"></div>
 
-    <div class="grid" id="grid"></div>
+    <div id="grid"></div>
 
     <div class="empty" id="empty">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8.5 11h5"/></svg>
@@ -720,110 +726,12 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
    ══════════════════════════════════════════════════════════ */
 
 /* Palette per stile di vino, coerente con homepage e pagina Regioni */
-const STYLE_META = {
-  rosso:   {label:'Rosso',    tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
-  bianco:  {label:'Bianco',   tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
-  rosato:  {label:'Rosato',   tag:'#9d174d', glass:'#a8546a', wine:'#dd97a8', foil:'#9d174d', bg1:'#fae9ee', bg2:'#f0d0da'},
-  spumante:{label:'Spumante', tag:'#1e3a5f', glass:'#2b4a63', wine:'#5c7d92', foil:'#c9a87c', bg1:'#e6eef3', bg2:'#cddbe5'},
-  dolce:   {label:'Dolce',    tag:'#a16207', glass:'#7a5321', wine:'#c39a4a', foil:'#a8814f', bg1:'#f7eeda', bg2:'#ecd9b3'},
-};
 
-/* ── catalogo ─────────────────────────────────────────────
-   `nuovo` ordina gli ultimi arrivati (numero più alto = più recente),
-   `stock` alimenta l'indicatore di disponibilità della card. */
-const CATALOGO = [
-  /* categoria: 'vini' oppure 'spirits' — atterrano sulla stessa pagina */
-  {id:'c01', cat:'vini', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
-   grape:'Nebbiolo', format:'0,75 L', price:48.00, old:null, rating:4.9, votes:212, bio:false, stock:24, nuovo:6,
-   ribbon:'Best seller', desc:'Tre anni di botte grande e una tannicità già composta. Il rosso che da noi finisce sempre per primo.'},
-  {id:'c02', cat:'vini', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
-   grape:'Verdicchio', format:'0,75 L', price:16.50, old:null, rating:4.7, votes:168, bio:true, stock:61, nuovo:5,
-   ribbon:'Best seller', desc:'Mandorla, agrume e una salinità che chiama il secondo bicchiere. Rapporto qualità-prezzo difficile da battere.'},
-  {id:'c03', cat:'bollicine', name:'Franciacorta Brut Millesimato 2020', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
-   grape:'Chardonnay', format:'0,75 L', price:32.00, old:38.00, rating:4.8, votes:141, bio:false, stock:18, nuovo:4,
-   ribbon:'-16%', sale:true, desc:'Trentasei mesi sui lieviti, perlage fine e chiusura secca. Le bollicine da tenere sempre in frigo.'},
-  {id:'c04', cat:'vini', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
-   grape:'Nerello Mascalese', format:'0,75 L', price:27.00, old:null, rating:4.8, votes:63, bio:true, stock:9, nuovo:9,
-   ribbon:'Sponsorizzato', gold:true, desc:'Vigne a 800 metri sul versante nord. Frutto rosso croccante, cenere vulcanica e tanta beva.'},
-  {id:'c05', cat:'vini', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli Venezia Giulia', style:'bianco',
-   grape:'Ribolla Gialla', format:'0,75 L', price:24.00, old:null, rating:4.6, votes:29, bio:true, stock:12, nuovo:10,
-   ribbon:'Ultimo arrivato', gold:true, desc:'Trenta giorni di macerazione in anfora interrata. Buccia d’arancia, camomilla e un tannino gentile.'},
-  {id:'c06', cat:'vini', name:'Chianti Classico Riserva 2020', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
-   grape:'Sangiovese', format:'0,75 L', price:29.50, old:null, rating:4.7, votes:97, bio:true, stock:33, nuovo:3,
-   desc:'Maremma a 300 metri, nessun diserbante dal 2009. Amarena, tabacco dolce e la spina acida giusta.'},
-  {id:'c07', cat:'vini', name:'Lambrusco di Sorbara 2023', winery:'Corte Rossa', region:'Emilia-Romagna', style:'rosato',
-   grape:'Lambrusco', format:'0,75 L', price:13.00, old:null, rating:4.5, votes:88, bio:false, stock:74, nuovo:7,
-   desc:'Rosa tenue, bolla fine e acidità tagliente. Da bere freddo su tutto quello che è fritto.'},
-  {id:'c08', cat:'vini', name:'Amarone della Valpolicella 2018', winery:'Villa Grezzana', region:'Veneto', style:'rosso',
-   grape:'Corvina', format:'0,75 L', price:62.00, old:null, rating:4.8, votes:74, bio:false, stock:11, nuovo:2,
-   desc:'Appassimento di 110 giorni e quattro anni di legno. Potente ma mai stucchevole, con un finale amaricante.'},
-  {id:'c09', cat:'vini', name:'Vermentino di Gallura 2023', winery:'Nuraghe Bianco', region:'Sardegna', style:'bianco',
-   grape:'Vermentino', format:'0,75 L', price:15.00, old:null, rating:4.4, votes:52, bio:false, stock:48, nuovo:8,
-   desc:'Granito, macchia mediterranea e un sorso teso. Il bianco che regge il pesce crudo senza coprirlo.'},
-  {id:'c10', cat:'bollicine', name:'Trentodoc Riserva 2017', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'spumante',
-   grape:'Chardonnay', format:'0,75 L', price:44.00, old:null, rating:4.9, votes:41, bio:true, stock:7, nuovo:5,
-   desc:'Sessanta mesi in cantina a 600 metri. Crosta di pane, nocciola e una lunghezza che sorprende.'},
-  {id:'c11', cat:'vini', name:'Primitivo di Manduria 2021', winery:'Masseria Trulla', region:'Puglia', style:'rosso',
-   grape:'Primitivo', format:'0,75 L', price:18.50, old:22.00, rating:4.5, votes:130, bio:false, stock:55, nuovo:3,
-   ribbon:'-16%', sale:true, desc:'Prugna matura, liquirizia e un alcol ben portato. Il rosso da tavola imbandita.'},
-  {id:'c12', cat:'vini', name:'Cerasuolo d’Abruzzo 2023', winery:'Colle Fiorito', region:'Abruzzo', style:'rosato',
-   grape:'Montepulciano', format:'0,75 L', price:14.50, old:null, rating:4.6, votes:64, bio:true, stock:39, nuovo:8,
-   desc:'Rosa intenso, ciliegia e una struttura che regge anche i piatti di terra. Il rosato meno banale che abbiamo.'},
-  {id:'c13', cat:'vini', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
-   grape:'Nebbiolo', format:'0,75 L', price:54.00, old:null, rating:4.8, votes:58, bio:false, stock:14, nuovo:4,
-   desc:'Il fratello più agile del Barolo di casa: rosa appassita, arancia sanguinella e tannino di seta.'},
-  {id:'c14', cat:'vini', name:'Greco di Tufo 2022', winery:'Antico Palmento', region:'Campania', style:'bianco',
-   grape:'Greco', format:'0,75 L', price:19.00, old:null, rating:4.6, votes:71, bio:false, stock:27, nuovo:6,
-   desc:'Zolfo, pesca gialla e una spalla acida importante. Uno dei pochi bianchi del Sud che invecchia bene.'},
-  {id:'c15', cat:'vini', name:'Passito di Pantelleria 2019', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
-   grape:'Zibibbo', format:'0,50 L', price:34.00, old:null, rating:4.9, votes:36, bio:true, stock:6, nuovo:2,
-   desc:'Uva appassita al sole su graticci. Albicocca secca, miele di corbezzolo e una dolcezza mai pesante.'},
-  {id:'c16', cat:'bollicine', name:'Prosecco Superiore Extra Brut', winery:'Rive di Sant’Anna', region:'Veneto', style:'spumante',
-   grape:'Glera', format:'0,75 L', price:17.50, old:null, rating:4.4, votes:154, bio:false, stock:82, nuovo:7,
-   desc:'Cartizze in miniatura: mela verde, fiori bianchi e un residuo zuccherino quasi assente.'},
-  {id:'c17', cat:'vini', name:'Nero d’Avola Riserva 2020', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
-   grape:'Nero d’Avola', format:'0,75 L', price:23.00, old:null, rating:4.5, votes:83, bio:true, stock:31, nuovo:5,
-   desc:'Vecchie vigne ad alberello e sole in bottiglia, senza le durezze del legno nuovo.'},
-  {id:'c18', cat:'vini', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso',
-   grape:'Sagrantino', format:'0,75 L', price:39.00, old:null, rating:4.7, votes:45, bio:false, stock:16, nuovo:1,
-   desc:'Il tannino più muscolare d’Italia, addomesticato da cinque anni di attesa. Da carne e da pazienza.'},
-  {id:'c19', cat:'vini', name:'Gewürztraminer 2022', winery:'Maso Alteno', region:'Trentino-Alto Adige', style:'bianco',
-   grape:'Gewürztraminer', format:'0,75 L', price:21.00, old:null, rating:4.5, votes:59, bio:true, stock:22, nuovo:6,
-   desc:'Litchi, rosa e zenzero candito. Aromatico ma asciutto: funziona meglio a tavola di quanto si creda.'},
-  {id:'c20', cat:'vini', name:'Bolgheri Superiore 2019', winery:'Podere Fontesecca', region:'Toscana', style:'rosso',
-   grape:'Cabernet Sauvignon', format:'0,75 L', price:78.00, old:null, rating:4.9, votes:38, bio:false, stock:5, nuovo:3,
-   desc:'Cassis, grafite e cedro. Il taglio bordolese di casa nostra, con il mare a due chilometri.'},
-  {id:'c21', cat:'vini', name:'Barolo Bussia 2019 · Magnum', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
-   grape:'Nebbiolo', format:'1,5 L', price:104.00, old:null, rating:4.9, votes:19, bio:false, stock:4, nuovo:4,
-   ribbon:'Formato regalo', gold:true, desc:'La stessa annata in magnum: evolve più lentamente e fa un’altra figura in tavola.'},
-  {id:'c22', cat:'vini', name:'Falanghina del Sannio 2023', winery:'Antico Palmento', region:'Campania', style:'bianco',
-   grape:'Falanghina', format:'0,75 L', price:12.50, old:null, rating:4.3, votes:112, bio:false, stock:90, nuovo:7,
-   desc:'Il bianco quotidiano: agrume, erbe e nessuna pretesa. Sotto i 13 euro non troviamo di meglio.'},
-  {id:'c23', cat:'vini', name:'Chiaretto di Bardolino 2023', winery:'Villa Grezzana', region:'Veneto', style:'rosato',
-   grape:'Corvina', format:'0,75 L', price:15.50, old:null, rating:4.4, votes:47, bio:false, stock:36, nuovo:8,
-   desc:'Buccia di pesca, lampone e una chiusura salina. Rosato da aperitivo lungo, non da foto.'},
-  {id:'c24', cat:'vini', name:'Recioto della Valpolicella 2019', winery:'Villa Grezzana', region:'Veneto', style:'dolce',
-   grape:'Corvina', format:'0,50 L', price:28.00, old:null, rating:4.6, votes:24, bio:false, stock:8, nuovo:1,
-   desc:'Le stesse uve dell’Amarone, fermate prima. Ciliegia sotto spirito e cioccolato: sul dolce non sbaglia.'},
-  {id:'s01', cat:'distillati', name:'Grappa di Nebbiolo Riserva', winery:'Distilleria Vergnano', region:'Piemonte', style:'dolce',
-   grape:'Nebbiolo', format:'0,70 L', price:38.00, old:null, rating:4.7, votes:64, bio:false, stock:19, nuovo:6,
-   ribbon:'Il più scelto', desc:'Cinque anni in barrique, naso di frutta secca e un finale asciutto. La grappa che convince chi dice di non bere grappa.'},
-  {id:'s02', cat:'distillati', name:'Gin botanico alle erbe alpine', winery:'Nonino', region:'Friuli Venezia Giulia', style:'bianco',
-   grape:'14 botaniche', format:'0,70 L', price:34.00, old:null, rating:4.6, votes:48, bio:false, stock:27, nuovo:7,
-   desc:'Ginepro, genziana e fieno di montagna. Regge il tonica ma sta benissimo anche liscio, molto freddo.'},
-  {id:'s03', cat:'distillati', name:'Rum agricolo invecchiato 8 anni', winery:'Isola Ventosa', region:'Sicilia', style:'dolce',
-   grape:'Canna da zucchero', format:'0,70 L', price:52.00, old:null, rating:4.8, votes:31, bio:false, stock:8, nuovo:5,
-   desc:'Otto anni in botti ex-marsala: vaniglia, tabacco dolce e una nota salina che sorprende.'},
-  {id:'s04', cat:'distillati', name:'Whisky italiano single malt', winery:'Sibona', region:'Piemonte', style:'dolce',
-   grape:'Orzo maltato', format:'0,70 L', price:64.00, old:null, rating:4.7, votes:22, bio:false, stock:6, nuovo:4,
-   ribbon:'Da collezione', gold:true, desc:'Sei anni, torba appena accennata, malto e miele. La prova che il whisky italiano esiste.'},
-  {id:'s05', cat:'liquori', name:'Amaro alle erbe dell’Etna', winery:'Antico Palmento', region:'Sicilia', style:'dolce',
-   grape:'22 erbe', format:'0,50 L', price:26.00, old:null, rating:4.6, votes:57, bio:true, stock:34, nuovo:8,
-   ribbon:'Bio', desc:'Ventidue erbe raccolte sul vulcano. Amaro vero, non dolce mascherato: da fine pasto, senza ghiaccio.'},
-  {id:'s06', cat:'aperitivi', name:'Vermouth rosso artigianale', winery:'Corte Rossa', region:'Emilia-Romagna', style:'dolce',
-   grape:'Lambrusco', format:'0,75 L', price:22.00, old:null, rating:4.5, votes:41, bio:false, stock:45, nuovo:7,
-   desc:'Fatto con Lambrusco invece del solito bianco neutro: più frutto, meno zucchero. Ottimo nel Negroni.'},
-];
+
+/* ── catalogo: i prodotti veri, condivisi con tutto il sito ──
+   Vengono da temi/prodotti.js, così la scheda e i dati sono gli
+   stessi in home, catalogo, scheda prodotto, cantina e carrello. */
+const CATALOGO = window.PRODOTTI;
 
 /* ── utility ──────────────────────────────────────────── */
 const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -838,58 +746,6 @@ const norm = s => String(s).toLowerCase().normalize('NFD')
 
 let uid = 0;
 const nextId = p => p + (++uid);
-
-/* ── SVG: bottiglia (stessa forma di homepage e Regioni) ─ */
-function bottleSVG(style){
-  const m = STYLE_META[style];
-  const id = nextId('btl');
-  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="${m.glass}"/>
-        <stop offset="42%" stop-color="${m.wine}"/>
-        <stop offset="58%" stop-color="${m.wine}"/>
-        <stop offset="100%" stop-color="${m.glass}"/>
-      </linearGradient>
-    </defs>
-    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
-    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
-    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
-      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
-    <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
-    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
-    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
-  </svg>`;
-}
-
-function sceneProdotto(style){
-  const m = STYLE_META[style];
-  const id = nextId('pr');
-  return `<svg class="scene" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid slice"
-               style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
-    <rect width="320" height="210" fill="url(#${id})"/>
-    <circle cx="160" cy="118" r="82" fill="rgba(255,255,255,.42)"/>
-    <ellipse cx="160" cy="186" rx="70" ry="10" fill="rgba(0,0,0,.1)"/>
-  </svg>`;
-}
-
-function starsSVG(rating, votes){
-  const full = Math.round(rating);
-  let s = '';
-  for(let i=1;i<=5;i++){
-    s += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${i<=full?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
-  }
-  return `<div class="stars"><span class="s">${s}</span>${rating.toLocaleString('it-IT',{minimumFractionDigits:1})} <span style="font-weight:500">(${votes})</span></div>`;
-}
-
-function styleTag(style){
-  const m = STYLE_META[style];
-  return `<span class="style-tag" style="color:${m.tag};border-color:${m.tag}33;background:${m.tag}12">${m.label}</span>`;
-}
 
 /* ══ STATO DEI FILTRI ═════════════════════════════════ */
 const PRICE_MAX = 120;
@@ -933,20 +789,20 @@ document.getElementById('fCat').innerHTML = FAMIGLIE.map(([v,l]) =>
               count: v ? (catCounts[v] || 0) : CATALOGO.length})).join('');
 document.querySelector('#fCat input[value=""]').checked = true;
 
-const styleCounts = countBy('style');
-document.getElementById('fStyle').innerHTML = Object.keys(STYLE_META)
-  .filter(s => styleCounts[s])
-  .map(s => optionHTML({group:'style', value:s, label:esc(STYLE_META[s].label),
-                        count:styleCounts[s], dot:STYLE_META[s].tag}))
-  .join('');
+const styleCounts = countBy('tipo');
+const COLORE = {Rosso:'#7f1d1d', Bianco:'#a8814f', Rosato:'#c9718a', Spumante:'#1e3a5f',
+                Dolce:'#a16207', Grappa:'#6b4f28', Gin:'#2b4a63', Amaro:'#2d6a4f'};
+document.getElementById('fStyle').innerHTML = Object.keys(styleCounts).sort()
+  .map(t => optionHTML({group:'style', value:t, label:esc(t),
+                        count:styleCounts[t], dot:COLORE[t] || '#7a7060'})).join('');
 
-const regionCounts = countBy('region');
+const regionCounts = countBy('regione');
 document.getElementById('fRegion').innerHTML = Object.keys(regionCounts)
   .sort((a,b) => regionCounts[b] - regionCounts[a] || a.localeCompare(b,'it'))
   .map(r => optionHTML({group:'region', value:r, label:esc(r), count:regionCounts[r]}))
   .join('');
 
-const formatCounts = countBy('format');
+const formatCounts = countBy('formato');
 document.getElementById('fFormat').innerHTML = Object.keys(formatCounts)
   .sort((a,b) => parseFloat(a.replace(',','.')) - parseFloat(b.replace(',','.')))
   .map(f => optionHTML({group:'format', value:f, label:esc(f), count:formatCounts[f]}))
@@ -961,12 +817,12 @@ document.querySelector('#fRating input[value="0"]').checked = true;
 
 document.getElementById('fFlags').innerHTML = [
   {v:'bio',     l:'Bio o biodinamico', c:CATALOGO.filter(p => p.bio).length},
-  {v:'offerta', l:'In offerta',        c:CATALOGO.filter(p => p.old).length},
+  {v:'offerta', l:'In offerta',        c:CATALOGO.filter(p => p.prima).length},
 ].map(o => optionHTML({group:'flag', value:o.v, label:o.l, count:o.c})).join('');
 
 /* statistiche di testata */
 document.getElementById('statTot').textContent = CATALOGO.length;
-document.getElementById('statCantine').textContent = new Set(CATALOGO.map(p => p.winery)).size;
+document.getElementById('statCantine').textContent = new Set(CATALOGO.map(p => p.cantina)).size;
 document.getElementById('statRegioni').textContent = Object.keys(regionCounts).length;
 
 /* ══ FILTRO + ORDINAMENTO ═════════════════════════════ */
@@ -974,30 +830,30 @@ function filtered(){
   const t = norm(state.q);
   let out = CATALOGO.filter(p => {
     if(state.cat && p.cat !== state.cat)                   return false;
-    if(state.styles.size  && !state.styles.has(p.style))   return false;
-    if(state.regions.size && !state.regions.has(p.region)) return false;
-    if(state.formats.size && !state.formats.has(p.format)) return false;
+    if(state.styles.size  && !state.styles.has(p.tipo))   return false;
+    if(state.regions.size && !state.regions.has(p.regione)) return false;
+    if(state.formats.size && !state.formats.has(p.formato)) return false;
     if(state.flags.has('bio') && !p.bio)                   return false;
-    if(state.flags.has('offerta') && !p.old)               return false;
-    if(p.rating < state.rating)                            return false;
+    if(state.flags.has('offerta') && !p.prima)               return false;
+    if(p.voto < state.rating)                            return false;
     /* il massimo dello slider vale "nessun tetto" */
-    if(state.price < PRICE_MAX && p.price > state.price)   return false;
+    if(state.price < PRICE_MAX && p.prezzo > state.price)   return false;
     if(t){
       /* si cerca per uvaggio, regione e produttore, come nella barra in alto */
-      const hay = norm(`${p.grape} ${p.region} ${p.winery}`);
+      const hay = norm(`${p.uvaggio} ${p.regione} ${p.cantina}`);
       if(!hay.includes(t)) return false;
     }
     return true;
   });
 
   const by = {
-    'prezzo-asc':  (a,b) => a.price - b.price,
-    'prezzo-desc': (a,b) => b.price - a.price,
-    'rating':      (a,b) => b.rating - a.rating || b.votes - a.votes,
-    'novita':      (a,b) => b.nuovo - a.nuovo || b.rating - a.rating,
+    'prezzo-asc':  (a,b) => a.prezzo - b.prezzo,
+    'prezzo-desc': (a,b) => b.prezzo - a.prezzo,
+    'rating':      (a,b) => b.voto - a.voto || b.acquisti - a.acquisti,
+    'novita':      (a,b) => b.acquisti - a.acquisti || b.voto - a.voto,
     /* "consigliati": prima chi ha più voti a parità di giudizio alto */
-    'consigliati': (a,b) => (b.rating * 20 + Math.min(b.votes,200) / 20)
-                          - (a.rating * 20 + Math.min(a.votes,200) / 20),
+    'consigliati': (a,b) => (b.voto * 20 + Math.min(b.acquisti,200) / 20)
+                          - (a.voto * 20 + Math.min(a.acquisti,200) / 20),
   };
   return out.sort(by[state.sort]);
 }
@@ -1008,43 +864,8 @@ const emptyEl = document.getElementById('empty');
 const moreEl  = document.getElementById('more');
 const countEl = document.getElementById('count');
 
-function cardHTML(p){
-  const ribbon = p.ribbon
-    ? `<span class="ribbon${p.gold ? ' gold' : ''}${p.sale ? ' sale' : ''}">${esc(p.ribbon)}</span>`
-    : '';
-  const stock = p.stock <= 10
-    ? `<span class="stock low"><i></i>Ultime ${p.stock} bottiglie</span>`
-    : `<span class="stock"><i></i>Disponibile</span>`;
-
-  return `<article class="prod">
-    <div class="prod-art">
-      ${sceneProdotto(p.style)}
-      ${ribbon}
-      <button class="fav" data-fav="${p.id}" aria-label="Aggiungi ${esc(p.name)} ai preferiti" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 2 1 3.5 2.5 5l7 7 7-7Z"/></svg>
-      </button>
-      ${bottleSVG(p.style)}
-    </div>
-    <div class="prod-body">
-      <div class="tags">
-        ${styleTag(p.style)}
-        ${p.bio ? `<span class="bio-tag">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Bio</span>` : ''}
-      </div>
-      <a class="bn prod-link" href="javascript:void(0)">${esc(p.name)}</a>
-      <span class="bc">${esc(p.winery)} · ${esc(p.region)} · ${esc(p.grape)}</span>
-      ${starsSVG(p.rating, p.votes)}
-      <p class="prod-desc">${esc(p.desc)}</p>
-      ${stock}
-      <div class="prod-foot">
-        <span class="price">${p.old ? `<s>${eur(p.old)}</s>` : ''}${eur(p.price)}</span>
-        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-      </div>
-    </div>
-  </article>`;
-}
+/* la scheda è quella di temi/card.js: identica in tutto il sito */
+const cardHTML = p => schedaProdotto(p);
 
 /* etichette dei chip dei filtri attivi */
 function activeChips(){
@@ -1064,7 +885,8 @@ function render(){
   const list = filtered();
   const page = list.slice(0, state.shown);
 
-  gridEl.innerHTML = page.map(cardHTML).join('');
+  gridEl.className = 'pgrid' + (gridEl.classList.contains('list') ? ' list' : '');
+  gridEl.innerHTML = page.map(schedaProdotto).join('');
   emptyEl.classList.toggle('on', list.length === 0);
 
   countEl.innerHTML = list.length
@@ -1285,9 +1107,5 @@ render();
 </script>
 
 <script src="temi/skin.js"></script>
-<script src="temi/header.js"></script>
-<script src="temi/carrello.js"></script>
-<script src="temi/prodotti.js"></script>
-<script src="temi/card.js"></script>
 </body>
 </html>

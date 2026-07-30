@@ -300,6 +300,12 @@ footer{background:#12181a;color:rgba(255,255,255,.62);flex:none;padding:34px 0}
 </head>
 <body data-nav="">
 
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
 <!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
@@ -521,7 +527,7 @@ footer{background:#12181a;color:rgba(255,255,255,.62);flex:none;padding:34px 0}
   <section class="cross">
     <h2>Completa la cassa da sei</h2>
     <p class="sub">Con sei bottiglie l'imballo è lo stesso e la spedizione resta gratuita.</p>
-    <div class="grid4" id="cross"></div>
+    <div id="cross"></div>
   </section>
 
 </div>
@@ -811,48 +817,14 @@ document.getElementById('payBtn').onclick = () => {
   });
 };
 
-/* ── cross-sell ───────────────────────────────────────── */
-document.getElementById('cross').innerHTML = CROSS.map(p => `
-  <article class="prod">
-    <div class="prod-art">
-      ${sceneSVG(p.style, 180)}
-      ${bottleSVG(p.style)}
-    </div>
-    <div class="prod-body">
-      <a class="bn" href="prodotto.html">${esc(p.name)}</a>
-      <span class="bc">${esc(p.winery)}</span>
-      <div class="prod-foot">
-        <b>${eur(p.price)}</b>
-        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-      </div>
-    </div>
-  </article>`).join('');
-
-document.getElementById('cross').addEventListener('click', e => {
-  const add = e.target.closest('[data-add]');
-  if(!add) return;
-  const p = CROSS.find(x => x.id === add.dataset.add);
-  const esistente = CART.find(i => i.name === p.name);
-  if(esistente){
-    esistente.qty = Math.min(esistente.stock, esistente.qty + 1);
-  } else {
-    CART.push({id:p.id, name:p.name, winery:p.winery, region:'Italia', style:p.style,
-               price:p.price, old:null, qty:1, stock:24,
-               note:'Disponibile, pronto per la spedizione'});
-  }
-  add.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
-  render();
+/* ── cross-sell: schede unificate ─────────────────────── */
+document.addEventListener('DOMContentLoaded', function(){
+  caroselloProdotti(document.getElementById('cross'), PRODOTTI.slice(2, 10));
 });
 
 render();
 </script>
 
 <script src="temi/skin.js"></script>
-<script src="temi/header.js"></script>
-<script src="temi/carrello.js"></script>
-<script src="temi/prodotti.js"></script>
-<script src="temi/card.js"></script>
 </body>
 </html>

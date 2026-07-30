@@ -370,6 +370,12 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 </head>
 <body data-nav="shop">
 
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
 <!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
@@ -639,13 +645,6 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
           il sorso dritto fino a un finale lungo e amaricante. La 2019 in Bussia ha dato vini
           più immediati del solito: <b>si beve bene adesso, ma ha vent'anni davanti</b>.
         </p>
-        <div class="signature">
-          <span class="avatar">MC</span>
-          <div>
-            <b>Marco C. — capo sommelier</b>
-            <span>Ha selezionato 212 delle 640 etichette in catalogo</span>
-          </div>
-        </div>
       </div>
 
       <div>
@@ -675,7 +674,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
         <div class="serve">
           <div><b>16-18 °C</b><span>Temperatura</span></div>
           <div><b>60 min</b><span>Decantazione</span></div>
-          <div><b>2026-2045</b><span>Finestra di beva</span></div>
+          
         </div>
       </div>
     </div>
@@ -695,28 +694,28 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v7a4 4 0 0 0 8 0V4"/><path d="M8 11v9"/><path d="M18 4c-1.5 2-2 4-2 6s.5 3 2 3 2-1 2-3-.5-4-2-6Z"/><path d="M18 13v7"/></svg>
         </span>
         <h3>Brasato al Barolo</h3>
-        <p>L'abbinamento di casa: la stessa bottiglia in pentola e nel bicchiere.</p>
+        <p>La stessa bottiglia in pentola e nel bicchiere.</p>
       </article>
       <article class="pair">
         <span class="ic" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-4 4-7 9-7s9 3 9 7-4 7-9 7-9-3-9-7Z"/><path d="M8 12h8"/></svg>
         </span>
         <h3>Tajarin al tartufo</h3>
-        <p>Burro, tuorlo e tartufo bianco: il piatto che questo vino aspetta da tre anni.</p>
+        <p>Burro, tuorlo, tartufo bianco. Nient’altro.</p>
       </article>
       <article class="pair">
         <span class="ic" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18 19 6"/><path d="M7 6h12v12"/></svg>
         </span>
         <h3>Formaggi stagionati</h3>
-        <p>Castelmagno d'alpeggio o un toma di 24 mesi, senza confetture.</p>
+        <p>Castelmagno d’alpeggio. Niente confetture.</p>
       </article>
       <article class="pair">
         <span class="ic" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14c1.5 1.5 6.5 1.5 8 0"/><path d="M9 9h.01M15 9h.01"/></svg>
         </span>
         <h3>Da solo, con calma</h3>
-        <p>Dopo un'ora di caraffa regge benissimo anche senza niente intorno.</p>
+        <p>Un’ora di caraffa e regge benissimo.</p>
       </article>
     </div>
   </section>
@@ -871,7 +870,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
       </div>
       <a class="btn btn-ghost" href="catalogo.html">Vai al catalogo</a>
     </div>
-    <div class="grid4" id="related"></div>
+    <div id="related"></div>
   </section>
 
 </div>
@@ -1002,74 +1001,10 @@ giftBtn.onclick = () => {
     on ? 'Confezione regalo aggiunta' : 'Confezione regalo';
 };
 
-/* ── vini correlati ───────────────────────────────────── */
-const STYLE_META = {
-  rosso:  {label:'Rosso',  tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d', bg1:'#f3e6e6', bg2:'#e2cccc'},
-  bianco: {label:'Bianco', tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f', bg1:'#f6f0dd', bg2:'#e8dcbb'},
-};
-
-const RELATED = [
-  {id:'r1', name:'Barbaresco Roncaglie 2020', winery:'Cascina Vergne', region:'Piemonte', style:'rosso', price:54.00},
-  {id:'r2', name:'Etna Rosso Contrada 2021',  winery:'Palmento Nero',  region:'Sicilia',  style:'rosso', price:27.00},
-  {id:'r3', name:'Sagrantino di Montefalco 2017', winery:'Torre del Sagrato', region:'Umbria', style:'rosso', price:39.00},
-  {id:'r4', name:'Ribolla Gialla in anfora 2021', winery:'Vigne di Ronco', region:'Friuli', style:'bianco', price:24.00},
-];
-
-let uid = 0;
-function bottleSVG(style){
-  const m = STYLE_META[style];
-  const id = 'b' + (++uid);
-  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${m.glass}"/><stop offset="42%" stop-color="${m.wine}"/>
-      <stop offset="58%" stop-color="${m.wine}"/><stop offset="100%" stop-color="${m.glass}"/>
-    </linearGradient></defs>
-    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
-    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
-    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
-      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
-    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
-    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
-  </svg>`;
-}
-function sceneSVG(style){
-  const m = STYLE_META[style];
-  const id = 's' + (++uid);
-  return `<svg viewBox="0 0 320 190" preserveAspectRatio="xMidYMid slice"
-    style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${m.bg1}"/><stop offset="100%" stop-color="${m.bg2}"/></linearGradient></defs>
-    <rect width="320" height="190" fill="url(#${id})"/>
-    <circle cx="160" cy="106" r="74" fill="rgba(255,255,255,.42)"/>
-    <ellipse cx="160" cy="168" rx="64" ry="9" fill="rgba(0,0,0,.1)"/>
-  </svg>`;
-}
-
-document.getElementById('related').innerHTML = RELATED.map(p => `
-  <article class="prod">
-    <div class="prod-art">
-      ${sceneSVG(p.style)}
-      ${bottleSVG(p.style)}
-    </div>
-    <div class="prod-body">
-      <a class="bn" href="prodotto.html">${esc(p.name)}</a>
-      <span class="bc">${esc(p.winery)} · ${esc(p.region)}</span>
-      <div class="prod-foot">
-        <span class="price">${eur(p.price)}</span>
-        <button class="addbtn" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-      </div>
-    </div>
-  </article>`).join('');
-
-document.getElementById('related').addEventListener('click', e => {
-  const add = e.target.closest('[data-add]');
-  if(!add) return;
-  cartCount.textContent = +cartCount.textContent + 1;
-  add.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
+/* ── vini correlati: stesse schede del resto del sito ──── */
+document.addEventListener('DOMContentLoaded', function(){
+  caroselloProdotti(document.getElementById('related'),
+    PRODOTTI.filter(function(p){return p.id !== 'p13'}).slice(0, 8));
 });
 
 /* ── menu mobile ──────────────────────────────────────── */
@@ -1080,9 +1015,5 @@ syncQty();
 </script>
 
 <script src="temi/skin.js"></script>
-<script src="temi/header.js"></script>
-<script src="temi/carrello.js"></script>
-<script src="temi/prodotti.js"></script>
-<script src="temi/card.js"></script>
 </body>
 </html>
