@@ -60,6 +60,23 @@
 }
 .pc-chip.voto{color:var(--fg);font-weight:600}
 .pc-chip.voto svg{color:var(--accent)}
+/* premi e certificazioni, accanto al bio */
+.pc-premi{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.pc-premio{
+  display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;
+  letter-spacing:.04em;padding:3px 8px;border-radius:999px;
+  color:var(--accent-dark);background:rgba(184,151,63,.14);border:1px solid rgba(184,151,63,.28);
+}
+.pc-premio.verde{color:#2d6a4f;background:rgba(45,106,79,.1);border-color:rgba(45,106,79,.24)}
+.pc-premio svg{flex:none}
+
+/* la descrizione, sempre due righe */
+.pc-desc{
+  font-size:12.5px;line-height:1.5;color:var(--muted-fg);margin-top:10px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  min-height:calc(2 * 1.5 * 12.5px);
+}
+
 .pc-sales{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--muted-fg)}
 .pc-sales svg{color:#2d6a4f;flex:none}
 .pc-foot{margin-top:auto;padding-top:13px}

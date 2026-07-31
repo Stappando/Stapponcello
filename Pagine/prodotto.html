@@ -96,9 +96,16 @@ main{flex:1;padding-bottom:72px}
 .stage{
   position:relative;border-radius:var(--r);overflow:hidden;height:420px;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(165deg,#f3e6e6,#e2cccc);
+  background:radial-gradient(circle at 50% 44%,#fff,transparent 62%),linear-gradient(165deg,#f3e6e6,#e2cccc);
 }
 .stage .btl{height:330px;filter:drop-shadow(0 22px 30px rgba(0,0,0,.28));transition:transform .3s ease}
+.stage .btl-foto{
+  max-height:82%;width:auto;object-fit:contain;position:relative;
+  filter:drop-shadow(0 20px 26px rgba(0,0,0,.24));transition:transform .3s ease;
+}
+.stage:hover .btl-foto{transform:translateY(-6px) scale(1.02)}
+.stage.view-calice .btl-foto,.stage.view-vigna .btl-foto{display:none}
+.thumb img{max-height:56px;width:auto;object-fit:contain}
 .stage:hover .btl{transform:translateY(-6px) scale(1.02)}
 .stage .glass,.stage .vine{display:none}
 .stage.view-calice .btl{display:none}
@@ -136,6 +143,9 @@ main{flex:1;padding-bottom:72px}
   letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
   color:var(--primary);background:var(--primary-soft);border:1px solid rgba(0,95,115,.16);
 }
+.pill.premio{
+  color:var(--accent-dark);background:rgba(184,151,63,.14);border-color:rgba(184,151,63,.3);
+}
 .pill.green{color:#2d6a4f;background:rgba(45,106,79,.1);border-color:rgba(45,106,79,.22)}
 h1{font-family:var(--font-display);font-size:clamp(28px,3.4vw,38px);font-weight:700;line-height:1.1}
 .byline{font-size:13.5px;color:var(--muted-fg);margin-top:8px}
@@ -162,6 +172,13 @@ h1{font-family:var(--font-display);font-size:clamp(28px,3.4vw,38px);font-weight:
 .stock i{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
 .stock.low{color:#8b2635}
 
+.venditore{
+  display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 14px;
+  background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r-sm);
+  font-size:12.5px;color:var(--muted-fg);line-height:1.5;
+}
+.venditore svg{flex:none;color:var(--primary);margin-top:1px}
+.venditore b{color:var(--fg);font-weight:600}
 .qtyrow{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
 .qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;background:var(--card);flex:none}
 .qty button{width:42px;height:48px;display:flex;align-items:center;justify-content:center;color:var(--muted-fg);transition:.14s}
@@ -453,26 +470,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
       <div class="stage" id="stage">
         <span class="stage-badge"><i></i>Assaggiato dal nostro team</span>
 
-        <svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bottiglia di Barolo Bussia 2019">
-          <defs>
-            <linearGradient id="gBtl" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#5c1717"/><stop offset="42%" stop-color="#8f2222"/>
-              <stop offset="58%" stop-color="#8f2222"/><stop offset="100%" stop-color="#5c1717"/>
-            </linearGradient>
-          </defs>
-          <path d="M22 6 h12 v20 h-12 z" fill="#7f1d1d"/>
-          <rect x="21" y="4" width="14" height="5" rx="1.5" fill="#7f1d1d"/>
-          <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
-                fill="url(#gBtl)" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
-          <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-          <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
-          <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
-          <rect x="12" y="92" width="32" height="2.4" fill="#7f1d1d"/>
-          <rect x="12" y="133" width="32" height="2.4" fill="#7f1d1d"/>
-          <text x="28" y="108" text-anchor="middle" font-family="Bricolage Grotesque, Montserrat, sans-serif" font-size="7" fill="#3a2a2a">BAROLO</text>
-          <text x="28" y="118" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="4.6" fill="#7a7060">BUSSIA</text>
-          <text x="28" y="128" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="5" fill="#7f1d1d">2019</text>
-        </svg>
+        <img class="btl-foto" src="foto/colle-pisano.png" alt="Barolo Bussia 2019 · Cascina Vergne">
 
         <svg class="glass" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Il vino nel calice">
           <path d="M22 16h76c0 52-24 74-34 82v78h26v8H30v-8h26v-78C46 90 22 68 22 16Z"
@@ -503,11 +501,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 
       <div class="thumbs" role="tablist" aria-label="Immagini del prodotto">
         <button class="thumb on" data-view="" role="tab" aria-selected="true" aria-label="La bottiglia">
-          <svg viewBox="0 0 56 172" fill="none" aria-hidden="true">
-            <path d="M22 6 h12 v20 h-12 z" fill="#7f1d1d"/>
-            <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z" fill="#8f2222"/>
-            <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
-          </svg>
+          <img src="foto/colle-pisano.png" alt="">
         </button>
         <button class="thumb" data-view="view-calice" role="tab" aria-selected="false" aria-label="Il vino nel calice">
           <svg viewBox="0 0 120 220" fill="none" aria-hidden="true">
@@ -530,7 +524,9 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
       <div class="tags">
         <span class="style-tag">Rosso</span>
         <span class="pill">Barolo DOCG</span>
-        <span class="pill green">Vendemmia manuale</span>
+        <span class="pill green">Bio</span>
+        <span class="pill premio">Tre Bicchieri 2026</span>
+        <span class="pill premio">Luca M. 95</span>
       </div>
 
       <div>
@@ -561,6 +557,11 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
         <p class="vat">IVA inclusa · € 64,00 al litro · spedizione calcolata al checkout</p>
 
         <p class="stock low"><i></i>Ultime 24 bottiglie in cantina</p>
+
+        <p class="venditore">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+          <span>Venduto e spedito da <b>Cascina Vergne</b> · spedizione gratis da 69 € su questa cantina</span>
+        </p>
 
         <div class="qtyrow">
           <div class="qty">
