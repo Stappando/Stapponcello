@@ -102,7 +102,7 @@ var MENU = [
      {l:'Interviste ai produttori', h:'storie.html'}]}],
   promo:{eyebrow:'La lettera del giovedì', title:'Una storia a settimana',
    text:'Una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.',
-   cta:'Iscriviti', h:'homepage.html', from:'#003d4d', to:'#005f73'}},
+   cta:'Iscriviti', h:'homepage.html'}},
 
  /* Experience non ha tendina: è una pagina ponte */
  {id:'experience', label:'Experience', href:'experience.html', nomenu:true},
@@ -186,7 +186,8 @@ document.addEventListener('DOMContentLoaded', function(){
       return '<div class="mega-col">'+blocchi+'</div>';
     }).join('');
     var p = v.promo;
-    var promo = p ? '<a class="mega-promo" href="'+p.h+'" style="background:linear-gradient(155deg,'+p.from+','+p.to+')">'+
+    /* niente colori scritti a mano: il riquadro segue il tema */
+    var promo = p ? '<a class="mega-promo" href="'+p.h+'">'+
       '<span class="eyebrow">'+esc(p.eyebrow)+'</span><h5>'+esc(p.title)+'</h5>'+
       '<p>'+esc(p.text)+'</p><span class="go">'+esc(p.cta)+' '+ARROW+'</span></a>' : '';
     var griglia = 'repeat('+v.cols.length+',minmax(0,1fr))'+(p ? ' 320px' : '');

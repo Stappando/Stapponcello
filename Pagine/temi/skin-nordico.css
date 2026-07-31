@@ -1,24 +1,88 @@
 /* ══════════════════════════════════════════════════════════
    Stappando · tema NORDICO
    Freddo e pulitissimo: bianco, grigio-azzurro e un accento
-   rame. Poco colore, molta aria. Caratteri Poppins.
+   rame. Titoli piccoli in Montserrat maiuscolo spaziato,
+   testo in Poppins leggero, fasce chiare invece che scure.
    ══════════════════════════════════════════════════════════ */
 :root{
   --sidebar-bg:#1b2430;
   --primary:#25415c; --primary-dark:#152738; --primary-soft:rgba(37,65,92,.07);
   --accent:#b1714a; --accent-dark:#8c552f;
   --bg:#f4f6f8; --card:#ffffff; --fg:#141a20; --muted-fg:#697683; --muted:#e7ecf1;
-  --border:rgba(20,26,32,.1); --border-soft:rgba(20,26,32,.06); --ok:#2f7d63;
-  --r:8px; --r-sm:6px; --r-lg:12px;
+  --border:rgba(20,26,32,.12); --border-soft:rgba(20,26,32,.06); --ok:#2f7d63;
+  --r:4px; --r-sm:3px; --r-lg:6px;
   --shadow-sm:0 1px 2px rgba(20,26,32,.05);
   --shadow-md:0 4px 18px -8px rgba(20,26,32,.16);
   --shadow-lg:0 18px 40px -20px rgba(20,26,32,.28);
   --font-sans:Poppins,Montserrat,system-ui,sans-serif;
-  --font-display:Poppins,Montserrat,system-ui,sans-serif;
+  --font-display:Montserrat,system-ui,sans-serif;
 }
+
+/* ── caratteri: titoli sobri, maiuscoli e spaziati ────── */
+body{font-weight:300;letter-spacing:-.004em}
+body b,body strong{font-weight:600}
+body h1,body h2,body h3{font-weight:600;letter-spacing:.02em;line-height:1.24}
+body .hero h1{font-size:clamp(26px,3vw,38px);text-transform:none;max-width:24ch}
+body .pagehead h1{font-size:clamp(22px,2.4vw,31px);letter-spacing:.04em;text-transform:uppercase;max-width:26ch}
+body .sec-head h2{font-size:clamp(16px,1.7vw,21px);letter-spacing:.14em;text-transform:uppercase}
+body .eyebrow{font-size:9.5px;font-weight:600;letter-spacing:.34em;color:var(--muted-fg)}
+
+/* ── fasce chiare: molta aria, nessun colore pieno ────── */
+body .hero,body .pagehead{
+  background:var(--bg);color:var(--fg);border-bottom:1px solid var(--border);
+}
+body .hero::after,body .pagehead::after{display:none}
+body .hero{padding:74px 0 82px}
+body .pagehead{padding:30px 0 58px}
+/* dentro le fasce non c'è nessuna scheda: si può ricolorare tutto */
+body .pagehead p,body .pagehead span,body .pagehead li,
+body .hero-copy p,body .hero-copy span{color:var(--muted-fg)}
+body .pagehead h1,body .pagehead h2,body .pagehead b,body .pagehead a,
+body .hero-copy h1,body .hero-copy b,body .hero-copy strong{color:var(--fg)}
+body .pagehead .crumbs span[aria-current]{color:var(--fg)}
+body .crumbs a:hover{color:var(--primary)}
+body .pagehead .eyebrow,body .hero-copy .eyebrow{color:var(--accent-dark)}
+
+/* i numeri di fiducia diventano una griglia divisa */
+body .hero-trust,body .headstats,body .ph-stats{
+  border-top:1px solid var(--border);gap:0;padding-top:0;margin-top:34px;
+}
+body .hero-trust div,body .headstats div,body .ph-stats div{
+  padding:18px 26px 0;border-left:1px solid var(--border);
+}
+body .hero-trust div:first-child,body .headstats div:first-child,
+body .ph-stats div:first-child{padding-left:0;border-left:none}
+body .hero-trust span,body .headstats span,body .ph-stats span{
+  color:var(--muted-fg);letter-spacing:.2em;
+}
+body .hero-trust b,body .headstats b,body .ph-stats b{color:var(--fg)}
+
+/* il riquadro trasparente della cantina del mese torna scheda */
+body .wmonth{background:var(--card);border-color:var(--border);backdrop-filter:none}
+body .wmonth .txt{color:var(--fg)}
+body .wmonth .txt span,body .wmonth > svg{color:var(--muted-fg)}
+
+/* bottoni squadrati, il contorno torna scuro sul chiaro */
+body .btn{border-radius:2px;letter-spacing:.07em;text-transform:uppercase;font-size:11px;font-weight:600;padding:12px 18px}
+body .btn-primary{background:var(--primary);color:#fff;box-shadow:none}
+body .btn-primary:hover{background:var(--primary-dark)}
+body .btn-outline{border:1px solid var(--border);color:var(--fg)}
+body .btn-outline:hover{background:var(--muted)}
+
+/* barra di servizio chiara, solo un filetto sotto */
+body .utilbar{background:var(--card);color:var(--muted-fg);border-bottom:1px solid var(--border)}
+body .utilbar b{color:var(--fg)}
+body .utilbar svg{color:var(--accent-dark)}
+
+/* la banda del menù: niente riempimento, solo contorno */
+body .mega-promo{
+  border-radius:0;border-left:3px solid var(--accent);
+  background:var(--primary-dark);
+}
+body .mega-promo h5{letter-spacing:.06em;text-transform:uppercase;font-size:16px}
+body .mega-col h4{letter-spacing:.24em}
+
 /* squadrato e silenzioso: niente ombre morbide sulle schede */
-body{letter-spacing:-.004em}
-h1,h2,h3{font-weight:500;letter-spacing:-.03em}
-.pc,.card,.panel{box-shadow:none;border-color:var(--border)}
-.pc:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}
-.pc-foto{background:linear-gradient(180deg,#eef2f6,#e4eaf0)}
+body .pc,body .card,body .panel{box-shadow:none;border-color:var(--border)}
+body .pc:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}
+body .pc-foto{background:linear-gradient(180deg,#eef2f6,#e4eaf0)}

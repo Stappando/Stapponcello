@@ -4,367 +4,397 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Stappando · Temi grafici</title>
-<meta name="description" content="Sei direzioni grafiche per Stappando: Noir, Bold, Soft, Elegante, Pastello e Istituzionale. Stesso contenuto, sei CSS diversi." />
+<meta name="description" content="Le quattro direzioni grafiche di Stappando: Definitivo, Pastello, Terra e Nordico. Stesso sito, quattro fogli di stile." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,200..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- il tema è tutto qui: cambiando questo file cambia l'intera pagina -->
-<link id="theme" rel="stylesheet" href="temi/soft.css">
-
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── selettore dei temi ───────────────────────────────────
-   Ha uno stile proprio, indipendente dal tema caricato,
-   così resta leggibile su fondo chiaro e su fondo scuro. */
-.switcher{
-  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:900;
-  display:flex;align-items:center;justify-content:center;gap:4px;padding:7px;
-  max-width:calc(100vw - 28px);flex-wrap:wrap;
-  background:rgba(22,22,24,.86);backdrop-filter:blur(20px) saturate(160%);
-  -webkit-backdrop-filter:blur(20px) saturate(160%);
-  border:1px solid rgba(255,255,255,.14);border-radius:999px;
-  box-shadow:0 20px 50px -16px rgba(0,0,0,.65);
-  font-family:"Montserrat",system-ui,sans-serif;
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
 }
-.switcher .lbl{
-  font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.44);padding:0 10px 0 12px;white-space:nowrap;
-}
-.switcher button{
-  display:flex;align-items:center;gap:7px;padding:9px 13px;border-radius:999px;
-  font:inherit;font-size:12.5px;font-weight:550;color:rgba(255,255,255,.72);
-  background:none;border:none;cursor:pointer;transition:.2s;white-space:nowrap;
-}
-.switcher button:hover{color:#fff;background:rgba(255,255,255,.08)}
-.switcher button.on{background:#fff;color:#161618;font-weight:600}
-.switcher i{width:11px;height:11px;border-radius:50%;flex:none;display:block}
-.switcher .sw-noir i{background:linear-gradient(135deg,#e0bd85 48%,#0b0d0f 48%)}
-.switcher .sw-bold i{background:linear-gradient(135deg,#d9f24a 48%,#8b1e2d 48%)}
-.switcher .sw-soft i{background:linear-gradient(135deg,#7b2d3b 48%,#f2ece6 48%)}
-.switcher .sw-elegante i{background:linear-gradient(135deg,#9c7c3c 48%,#6d1f2c 48%)}
-.switcher .sw-pastello i{background:linear-gradient(135deg,#f6d9cc 34%,#d4e5db 34% 67%,#e0dbf0 67%)}
-.switcher .sw-istituzionale i{background:linear-gradient(135deg,#b8973f 48%,#055667 48%)}
-.switcher a.back{
-  display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
-  color:rgba(255,255,255,.5);transition:.2s;margin-left:2px;
-}
-.switcher a.back:hover{color:#fff;background:rgba(255,255,255,.08)}
-@media(max-width:700px){
-  .switcher{left:14px;right:14px;transform:none;justify-content:center;flex-wrap:wrap;bottom:14px}
-  .switcher .lbl{display:none}
-  .switcher button{padding:9px 12px;font-size:12px}
-}
-body{padding-bottom:96px}
 </style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+/* ── le quattro direzioni, una accanto all'altra ──────── */
+.temi{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.tema{
+  border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--card);display:flex;flex-direction:column;transition:.18s;
+}
+.tema:hover{box-shadow:var(--shadow-md)}
+.tema-txt{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.tema-txt h3{font-family:var(--font-display);font-size:21px;font-weight:600;letter-spacing:-.03em}
+.tema-txt .ruolo{
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-dark);margin-top:5px;
+}
+.tema-txt > p{font-size:13.5px;line-height:1.6;color:var(--muted-fg);margin-top:12px}
+.specs{margin-top:16px;border-top:1px solid var(--border-soft)}
+.specs li{
+  display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:12.5px;
+}
+.specs li span{color:var(--muted-fg);flex:none}
+.specs li b{font-weight:600;text-align:right}
+.swatch{display:flex;gap:6px;margin-top:16px}
+.swatch i{width:28px;height:28px;border-radius:8px;flex:none}
+.tema .usa{margin-top:auto;align-self:flex-start;margin-top:20px}
+.tema.attivo{border-color:var(--primary);box-shadow:var(--shadow-md)}
+.tema.attivo .usa{pointer-events:none;opacity:.5}
+
+/* il francobollo: una pagina finta con le forme del tema */
+.mini{padding:0;border-bottom:1px solid var(--border-soft)}
+.mini-bar{display:flex;gap:6px;padding:10px 14px;align-items:center}
+.mini-bar i{height:5px;border-radius:99px;background:currentColor;opacity:.5}
+.mini-bar i:nth-child(1){width:34px;opacity:.9}
+.mini-bar i:nth-child(2){width:22px}
+.mini-bar i:nth-child(3){width:18px}
+.mini-band{padding:18px 16px 20px;display:flex;flex-direction:column;gap:6px}
+.mini-eye{font-size:8px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.mini-band b{font-size:20px;line-height:1.05}
+.mini-lead{font-size:9.5px;line-height:1.4;opacity:.72}
+.mini-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 14px 16px}
+.mini-cards i{height:44px;display:block}
+
+.mini-definitivo .mini-bar{background:#fff;color:#003d4d}
+.mini-definitivo .mini-band{background:linear-gradient(160deg,#003d4d,#005f73);color:#fff;font-family:Poppins,sans-serif}
+.mini-definitivo .mini-eye{color:#c9a87c}
+.mini-definitivo .mini-cards{background:#f7f3ee}
+.mini-definitivo .mini-cards i{background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,61,77,.12)}
+
+.mini-pastello .mini-bar{background:#fff;color:#9d4f66}
+.mini-pastello .mini-band{background:linear-gradient(160deg,#e7c3ce,#d4e5db);color:#5b3a44;font-family:Poppins,sans-serif}
+.mini-pastello .mini-eye{color:#9d4f66}
+.mini-pastello .mini-cards{background:#fdf8f5}
+.mini-pastello .mini-cards i{background:#fff;border-radius:16px;box-shadow:0 4px 12px rgba(157,79,102,.1)}
+
+.mini-terra .mini-bar{background:#fffdf9;color:#3f2015}
+.mini-terra .mini-band{background:#3f2015;border-bottom:5px solid #93a06a;color:#fff;font-family:"Bricolage Grotesque",Montserrat,sans-serif}
+.mini-terra .mini-band b{font-variation-settings:"wdth" 100;font-weight:700;letter-spacing:-.035em;font-size:23px}
+.mini-terra .mini-eye{color:#93a06a}
+.mini-terra .mini-cards{background:#f6f1e8}
+.mini-terra .mini-cards i{background:#fffdf9;border-radius:8px;box-shadow:0 4px 12px rgba(43,38,32,.14)}
+
+.mini-nordico .mini-bar{background:#fff;color:#25415c;border-bottom:1px solid rgba(20,26,32,.1)}
+.mini-nordico .mini-band{background:#f4f6f8;border-bottom:1px solid rgba(20,26,32,.12);color:#141a20;font-family:Montserrat,sans-serif}
+.mini-nordico .mini-band b{font-size:15px;font-weight:600;letter-spacing:.08em}
+.mini-nordico .mini-eye{color:#8c552f;letter-spacing:.3em}
+.mini-nordico .mini-lead{font-family:Poppins,sans-serif;font-weight:300}
+.mini-nordico .mini-cards{background:#fff}
+.mini-nordico .mini-cards i{background:#fff;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(20,26,32,.12)}
+
+/* ── tabella del confronto ────────────────────────────── */
+.tab-wrap{overflow-x:auto;margin-top:6px}
+.tab{width:100%;border-collapse:collapse;min-width:640px;font-size:13px}
+.tab th,.tab td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-soft)}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);
+}
+.tab tbody th{font-weight:600;color:var(--fg);width:190px}
+.tab td{color:var(--muted-fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.nota{font-size:12px;color:var(--muted-fg);margin-top:16px;line-height:1.6}
+</style>
+
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}})();</script>
 </head>
 <body>
 
-<!-- ══ BARRA ════════════════════════════════════════════ -->
-<header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="homepage.html">STAPP<em>ANDO</em><small>Enoteca</small></a>
-    <nav class="links">
-      <a href="catalogo.html" class="on">Prodotti</a>
-      <a href="cantina.html">Cantine</a>
-      <a href="cantine.html">Regioni</a>
-      <a href="javascript:void(0)">Storie</a>
-      <a href="javascript:void(0)">Wine Club</a>
-    </nav>
-    <div class="actions">
-      <button class="icon" aria-label="Cerca">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <button class="icon" aria-label="Area personale">
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </button>
-      <a class="icon" href="carrello.html" aria-label="Carrello">
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
         <b id="cartCount">3</b>
       </a>
     </div>
   </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
 </header>
 
-<!-- ══ HERO ═════════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-in">
-    <div class="hero-copy">
-      <p class="kicker">Selezione curata da sommelier</p>
-      <h1>Il vino giusto, scelto con <em>chi se ne intende</em></h1>
-      <p class="lead">
-        Ogni etichetta è degustata alla cieca dal nostro team prima di entrare in catalogo.
-        Se non la berremmo noi, qui non la trovi.
-      </p>
-      <div class="cta">
-        <a class="btn primary" href="catalogo.html">
-          Esplora il catalogo
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="btn ghost" href="javascript:void(0)">Scopri il Wine Club</a>
-      </div>
-      <ul class="stats">
-        <li><b>640+</b><span>Etichette assaggiate</span></li>
-        <li><b>128</b><span>Cantine indipendenti</span></li>
-        <li><b>4,8/5</b><span>Su 1.284 recensioni</span></li>
-      </ul>
-    </div>
 
-    <div class="hero-art" id="heroArt" style="--hue:#8f2222">
-      <div class="tagline">
-        <div>
-          <b>Barolo Bussia 2019</b>
-          <span>Cascina Vergne · La Morra</span>
-        </div>
-        <span class="price">€ 48,00</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SCAFFALE ═════════════════════════════════════════ -->
-<section class="shelf wrap">
-  <div class="shelf-head">
-    <div>
-      <h2>La selezione della settimana</h2>
-      <p>I più bevuti per colore, più due etichette che ci hanno convinto al primo sorso.</p>
-    </div>
-    <div class="chips" id="chips">
-      <button class="on" data-f="tutti">Tutti</button>
-      <button data-f="rosso">Rossi</button>
-      <button data-f="bianco">Bianchi</button>
-      <button data-f="spumante">Bollicine</button>
-    </div>
-  </div>
-
-  <div class="cards" id="cards"></div>
-</section>
-
-<!-- ══ FASCIA ═══════════════════════════════════════════ -->
-<section class="wrap">
-  <div class="band">
-    <div>
-      <p class="kicker">La lettera del giovedì</p>
-      <h2>Una mail a settimana, solo se abbiamo qualcosa da dire</h2>
-      <p>Le nuove etichette in catalogo, gli eventi in arrivo e una storia dal blog. Niente “ultimi 3 pezzi”.</p>
-    </div>
-    <div>
-      <form id="newsForm" novalidate>
-        <input type="email" id="newsEmail" placeholder="la-tua@email.it" aria-label="Il tuo indirizzo email">
-        <button class="btn primary" type="submit">Iscrivimi</button>
-      </form>
-      <p class="note" id="newsNote">Puoi disiscriverti da ogni email con un clic.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ PIEDE ════════════════════════════════════════════ -->
-<footer class="foot-wrap">
+<header class="pagehead">
   <div class="wrap">
-    <div class="foot-cols">
-      <div class="foot-brand">
-        <span class="brand">STAPP<em>ANDO</em><small>Enoteca</small></span>
-        <p>Enoteca online di vini italiani da cantine indipendenti. Ogni etichetta è degustata dal nostro team prima di essere messa in vendita.</p>
-      </div>
-      <nav class="foot-col" aria-label="Esplora">
-        <h4>Esplora</h4>
-        <ul>
-          <li><a href="catalogo.html">Catalogo</a></li>
-          <li><a href="cantina.html">Cantine</a></li>
-          <li><a href="cantine.html">Regioni</a></li>
-          <li><a href="prodotto.html">Scheda prodotto</a></li>
-        </ul>
-      </nav>
-      <nav class="foot-col" aria-label="Assistenza">
-        <h4>Assistenza</h4>
-        <ul>
-          <li><a href="javascript:void(0)">Spedizioni</a></li>
-          <li><a href="javascript:void(0)">Resi e rimborsi</a></li>
-          <li><a href="javascript:void(0)">Domande frequenti</a></li>
-          <li><a href="carrello.html">Carrello</a></li>
-        </ul>
-      </nav>
-      <nav class="foot-col" aria-label="Azienda">
-        <h4>Azienda</h4>
-        <ul>
-          <li><a href="javascript:void(0)">Chi siamo</a></li>
-          <li><a href="javascript:void(0)">Il metodo di selezione</a></li>
-          <li><a href="javascript:void(0)">Vendi su Stappando</a></li>
-          <li><a href="../index.html">Indice dei mockup</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Temi grafici</span>
+    </nav>
+    <span class="eyebrow">Direzioni grafiche</span>
+    <h1>Quattro vestiti, lo stesso sito</h1>
+    <p class="lead">Cambia un solo foglio di stile e cambia tutto: colori, caratteri, forma delle fasce. Il contenuto e le schede restano identici, così il confronto è onesto. Il tema scelto qui vale su tutte le pagine.</p>
+    <div class="headstats"><div><b>4</b><span>Temi</span></div><div><b>3</b><span>Caratteri</span></div><div><b>40</b><span>Pagine</span></div></div>
+  </div>
+</header>
 
-    <div class="legal">
+<main>
+<div class="wrap">
+
+  <div class="panel lift">
+    <div class="sec-head" style="margin-bottom:20px">
+      <span class="eyebrow">Come si prova</span>
+      <h2>Scegli e naviga</h2>
+      <p>Premi <b>Usa questo tema</b>: il sito si ricarica vestito così e resta così finché non ne scegli un altro. La stessa scelta è sempre a portata di mano dal selettore in basso a destra, su ogni pagina.</p>
+    </div>
+    <div class="temi">
+
+      <article class="tema" id="t-definitivo">
+        <div class="mini mini-definitivo">
+          <div class="mini-bar"><i></i><i></i><i></i></div>
+          <div class="mini-band">
+            <span class="mini-eye">Direzione</span>
+            <b>Il catalogo</b>
+            <span class="mini-lead">Fascia piena in gradiente, titolo tondo.</span>
+          </div>
+          <div class="mini-cards"><i></i><i></i><i></i></div>
+        </div>
+        <div class="tema-txt">
+          <h3>Definitivo</h3>
+          <p class="ruolo">Quello di serie</p>
+          <p>Il petrolio e l'oro di shop.stappando.it con i caratteri più morbidi. Fasce scure in gradiente, angoli tondi, ombre gentili. È il tema che vede chi arriva la prima volta.</p>
+          <ul class="specs">
+            <li><span>Caratteri</span><b>Poppins</b></li>
+            <li><span>Fasce</span><b>Gradiente petrolio, alone dorato</b></li>
+            <li><span>Angoli</span><b>14 px</b></li>
+          </ul>
+          <div class="swatch"><i style="background:#005f73"></i><i style="background:#003d4d"></i><i style="background:#c9a87c"></i><i style="background:#f7f3ee"></i><i style="background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)"></i></div>
+          <button class="btn btn-dark usa" data-tema="definitivo">Usa questo tema</button>
+        </div>
+      </article>
+
+      <article class="tema" id="t-pastello">
+        <div class="mini mini-pastello">
+          <div class="mini-bar"><i></i><i></i><i></i></div>
+          <div class="mini-band">
+            <span class="mini-eye">Direzione</span>
+            <b>Il catalogo</b>
+            <span class="mini-lead">Tutto arrotondato, colori tenui.</span>
+          </div>
+          <div class="mini-cards"><i></i><i></i><i></i></div>
+        </div>
+        <div class="tema-txt">
+          <h3>Pastello</h3>
+          <p class="ruolo">Il più leggero</p>
+          <p>Rosa antico e verde salvia su fondo crema. Angoli molto tondi, niente contrasti duri: la bottiglia resta la cosa più scura della pagina. Va bene per regali e occasioni.</p>
+          <ul class="specs">
+            <li><span>Caratteri</span><b>Poppins</b></li>
+            <li><span>Fasce</span><b>Sfumature tenui, nessun nero</b></li>
+            <li><span>Angoli</span><b>22 px</b></li>
+          </ul>
+          <div class="swatch"><i style="background:#c9718a"></i><i style="background:#9d4f66"></i><i style="background:#d4e5db"></i><i style="background:#fdf8f5"></i><i style="background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)"></i></div>
+          <button class="btn btn-dark usa" data-tema="pastello">Usa questo tema</button>
+        </div>
+      </article>
+
+      <article class="tema" id="t-terra">
+        <div class="mini mini-terra">
+          <div class="mini-bar"><i></i><i></i><i></i></div>
+          <div class="mini-band">
+            <span class="mini-eye">— Direzione</span>
+            <b>Il catalogo</b>
+            <span class="mini-lead">Fascia piatta, filetto oliva, titolo largo.</span>
+          </div>
+          <div class="mini-cards"><i></i><i></i><i></i></div>
+        </div>
+        <div class="tema-txt">
+          <h3>Terra</h3>
+          <p class="ruolo">Da rivista</p>
+          <p>Terracotta, oliva e sabbia: il colore viene dal vigneto, non dal marchio. Le fasce sono tinte piatte chiuse da un filetto oliva, i titoli sono grandi e larghi, l'occhiello ha il trattino come nei sommari.</p>
+          <ul class="specs">
+            <li><span>Caratteri</span><b>Bricolage Grotesque + Montserrat</b></li>
+            <li><span>Fasce</span><b>Tinta piatta, filetto oliva, niente aloni</b></li>
+            <li><span>Angoli</span><b>10 px</b></li>
+          </ul>
+          <div class="swatch"><i style="background:#7a3b26"></i><i style="background:#3f2015"></i><i style="background:#93a06a"></i><i style="background:#f6f1e8"></i><i style="background:#fffdf9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)"></i></div>
+          <button class="btn btn-dark usa" data-tema="terra">Usa questo tema</button>
+        </div>
+      </article>
+
+      <article class="tema" id="t-nordico">
+        <div class="mini mini-nordico">
+          <div class="mini-bar"><i></i><i></i><i></i></div>
+          <div class="mini-band">
+            <span class="mini-eye">D I R E Z I O N E</span>
+            <b>IL CATALOGO</b>
+            <span class="mini-lead">Fascia chiara, numeri divisi da filetti.</span>
+          </div>
+          <div class="mini-cards"><i></i><i></i><i></i></div>
+        </div>
+        <div class="tema-txt">
+          <h3>Nordico</h3>
+          <p class="ruolo">Il più asciutto</p>
+          <p>Qui la fascia non è scura: è chiara, con un filetto sotto e i numeri divisi da righe verticali. Titoli piccoli in maiuscolo spaziato, testo leggero, quasi nessuna ombra. Molta aria, poco colore.</p>
+          <ul class="specs">
+            <li><span>Caratteri</span><b>Montserrat + Poppins</b></li>
+            <li><span>Fasce</span><b>Chiare, con filetto e testo scuro</b></li>
+            <li><span>Angoli</span><b>4 px</b></li>
+          </ul>
+          <div class="swatch"><i style="background:#25415c"></i><i style="background:#152738"></i><i style="background:#b1714a"></i><i style="background:#f4f6f8"></i><i style="background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)"></i></div>
+          <button class="btn btn-dark usa" data-tema="nordico">Usa questo tema</button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Cosa cambia davvero</span>
+      <h2>Il confronto, riga per riga</h2>
+      <p>Nessun tema tocca i contenuti: cambiano solo i valori del foglio di stile. Quello che vedi qui vale su tutte le pagine, dalla home al carrello.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>&nbsp;</th><th>Definitivo</th><th>Pastello</th><th>Terra</th><th>Nordico</th></tr></thead>
+        <tbody>
+          <tr><th>Carattere dei titoli</th><td>Poppins</td><td>Poppins</td><td>Bricolage Grotesque</td><td>Montserrat maiuscolo</td></tr>
+          <tr><th>Carattere del testo</th><td>Poppins</td><td>Poppins</td><td>Montserrat</td><td>Poppins leggero</td></tr>
+          <tr><th>Fascia di testata</th><td>Gradiente scuro</td><td>Gradiente tenue</td><td>Tinta piatta + filetto</td><td>Chiara + filetto</td></tr>
+          <tr><th>Riquadro del menù</th><td>Gradiente petrolio</td><td>Gradiente rosa</td><td>Piatto, filetto oliva</td><td>Piatto, barra rame</td></tr>
+          <tr><th>Angoli</th><td>14 px</td><td>22 px</td><td>10 px</td><td>4 px</td></tr>
+          <tr><th>Ombre</th><td>Morbide</td><td>Morbide</td><td>Morbide</td><td>Quasi assenti</td></tr>
+          <tr><th>Bottoni</th><td>Tondi</td><td>Tondi</td><td>Tondi</td><td>Squadrati, maiuscolo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">I caratteri restano sempre e solo tre: Bricolage Grotesque, Montserrat e Poppins. Nessun tema usa caratteri con grazie.</p>
+  </div>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
       <div>
         Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
         © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
       </div>
-      <span class="age"><i>18+</i> Bevi responsabilmente</span>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
     </div>
   </div>
 </footer>
 
-<!-- ══ SELETTORE DEI TEMI ═══════════════════════════════ -->
-<div class="switcher" role="group" aria-label="Scegli il tema grafico">
-  <span class="lbl">Tema</span>
-  <button class="sw-soft on" data-theme="soft" aria-pressed="true"><i></i>Soft</button>
-  <button class="sw-noir" data-theme="noir" aria-pressed="false"><i></i>Noir</button>
-  <button class="sw-bold" data-theme="bold" aria-pressed="false"><i></i>Bold</button>
-  <button class="sw-elegante" data-theme="elegante" aria-pressed="false"><i></i>Elegante</button>
-  <button class="sw-pastello" data-theme="pastello" aria-pressed="false"><i></i>Pastello</button>
-  <button class="sw-istituzionale" data-theme="istituzionale" aria-pressed="false"><i></i>Istituzionale</button>
-  <a class="back" href="../index.html" aria-label="Torna all'indice dei mockup">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M11 18l-6-6 6-6"/></svg>
-  </a>
-</div>
 
 <script>
-/* ══════════════════════════════════════════════════════════
-   Stappando · vetrina dei temi
-   Il markup è identico per tutti e tre: cambia solo il CSS.
-   ══════════════════════════════════════════════════════════ */
-
-/* ── selettore ────────────────────────────────────────── */
-const themeLink = document.getElementById('theme');
-document.querySelector('.switcher').addEventListener('click', e => {
-  const b = e.target.closest('[data-theme]');
-  if(!b) return;
-  document.querySelectorAll('.switcher [data-theme]').forEach(x => {
-    x.classList.remove('on');
-    x.setAttribute('aria-pressed','false');
+/* il tema si sceglie qui e vale su tutto il sito */
+(function(){
+  var CHIAVE='stappando-tema';
+  var attuale=(function(){try{return localStorage.getItem(CHIAVE)||'definitivo'}catch(e){return 'definitivo'}})();
+  document.querySelectorAll('.tema').forEach(function(t){
+    if(t.id==='t-'+attuale) t.classList.add('attivo');
   });
-  b.classList.add('on');
-  b.setAttribute('aria-pressed','true');
-  themeLink.href = 'temi/' + b.dataset.theme + '.css';
-  history.replaceState(null,'','?tema=' + b.dataset.theme);
-  /* stessa chiave usata dalle pagine del sito: la scelta ti segue */
-  try{ localStorage.setItem('stappando-tema', b.dataset.theme); }catch(e){}
-});
-
-/* il tema può arrivare dall'indirizzo: ?tema=noir */
-const wanted = new URLSearchParams(location.search).get('tema');
-if(wanted && ['noir','bold','soft','elegante','pastello','istituzionale'].includes(wanted)){
-  document.querySelector(`.switcher [data-theme="${wanted}"]`).click();
-}
-
-/* ── dati ─────────────────────────────────────────────── */
-const STYLE_META = {
-  rosso:   {label:'Rosso',    tag:'#7f1d1d', glass:'#5c1717', wine:'#8f2222', foil:'#7f1d1d'},
-  bianco:  {label:'Bianco',   tag:'#78350f', glass:'#8d7333', wine:'#d3c179', foil:'#a8814f'},
-  spumante:{label:'Spumante', tag:'#1e3a5f', glass:'#2b4a63', wine:'#5c7d92', foil:'#c9a87c'},
-};
-
-const VINI = [
-  {id:'v1', name:'Barolo Bussia 2019', winery:'Cascina Vergne', region:'Piemonte', style:'rosso',
-   price:48.00, old:56.00, rating:4.9, votes:212, badge:'Best seller'},
-  {id:'v2', name:'Verdicchio Superiore 2022', winery:'Tenuta Sant’Urbano', region:'Marche', style:'bianco',
-   price:16.50, old:null, rating:4.7, votes:168, badge:'Miglior prezzo'},
-  {id:'v3', name:'Franciacorta Brut Millesimato', winery:'Ca’ del Lago', region:'Lombardia', style:'spumante',
-   price:32.00, old:38.00, rating:4.8, votes:141, badge:'-16%', gold:true},
-  {id:'v4', name:'Etna Rosso Contrada 2021', winery:'Palmento Nero', region:'Sicilia', style:'rosso',
-   price:27.00, old:null, rating:4.8, votes:63, badge:'Novità', gold:true},
-  {id:'v5', name:'Ribolla Gialla in anfora', winery:'Vigne di Ronco', region:'Friuli', style:'bianco',
-   price:24.00, old:null, rating:4.6, votes:29, badge:'Macerato'},
-  {id:'v6', name:'Trentodoc Riserva 2017', winery:'Maso Alteno', region:'Trentino', style:'spumante',
-   price:44.00, old:null, rating:4.9, votes:41, badge:'60 mesi sui lieviti'},
-];
-
-const eur = n => '€ ' + Number(n).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
-const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-
-let uid = 0;
-function bottleSVG(style){
-  const m = STYLE_META[style];
-  const id = 'b' + (++uid);
-  return `<svg class="btl" viewBox="0 0 56 172" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="${m.glass}"/><stop offset="42%" stop-color="${m.wine}"/>
-      <stop offset="58%" stop-color="${m.wine}"/><stop offset="100%" stop-color="${m.glass}"/>
-    </linearGradient></defs>
-    <path d="M22 6 h12 v20 h-12 z" fill="${m.foil}"/>
-    <rect x="21" y="4" width="14" height="5" rx="1.5" fill="${m.foil}"/>
-    <path d="M23 24 h10 v16 c6 4 8 10 8 18 v96 a10 10 0 0 1 -10 10 h-14 a10 10 0 0 1 -10 -10 v-96 c0 -8 2 -14 8 -18 z"
-      fill="url(#${id})" stroke="rgba(0,0,0,.3)" stroke-width="1"/>
-    <path d="M18 60 v78" stroke="rgba(255,255,255,.18)" stroke-width="3" stroke-linecap="round"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="#f7f3ee"/>
-    <rect x="12" y="86" width="32" height="56" rx="2" fill="none" stroke="rgba(0,0,0,.12)"/>
-    <rect x="12" y="92" width="32" height="2.4" fill="${m.tag}"/>
-    <rect x="12" y="133" width="32" height="2.4" fill="${m.tag}"/>
-  </svg>`;
-}
-function starsSVG(rating, votes){
-  const full = Math.round(rating);
-  let s = '';
-  for(let i=1;i<=5;i++){
-    s += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${i<=full?'currentColor':'none'}" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
-  }
-  return `<span class="s">${s}</span>${rating.toLocaleString('it-IT',{minimumFractionDigits:1})} (${votes})`;
-}
-
-/* la bottiglia grande dell'hero */
-document.getElementById('heroArt').insertAdjacentHTML('afterbegin', bottleSVG('rosso'));
-
-/* ── griglia ──────────────────────────────────────────── */
-const cardsEl = document.getElementById('cards');
-
-function cardHTML(p){
-  const m = STYLE_META[p.style];
-  return `<article class="card" style="--hue:${m.wine}">
-    <div class="card-art">
-      <span class="badge${p.gold ? ' gold' : ''}">${esc(p.badge)}</span>
-      ${bottleSVG(p.style)}
-    </div>
-    <div class="card-body">
-      <span class="tag">${m.label}</span>
-      <h3>${esc(p.name)}</h3>
-      <p class="meta">${esc(p.winery)} · ${esc(p.region)}</p>
-      <p class="rating">${starsSVG(p.rating, p.votes)}</p>
-      <div class="foot">
-        <span class="price">${p.old ? `<s>${eur(p.old)}</s>` : ''}${eur(p.price)}</span>
-        <button class="add" data-add="${p.id}" aria-label="Aggiungi ${esc(p.name)} al carrello">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
-      </div>
-    </div>
-  </article>`;
-}
-
-function render(filtro){
-  const list = filtro === 'tutti' ? VINI : VINI.filter(p => p.style === filtro);
-  cardsEl.innerHTML = list.map(cardHTML).join('');
-}
-render('tutti');
-
-document.getElementById('chips').addEventListener('click', e => {
-  const b = e.target.closest('button');
-  if(!b) return;
-  document.querySelectorAll('#chips button').forEach(x => x.classList.remove('on'));
-  b.classList.add('on');
-  render(b.dataset.f);
-});
-
-/* ── carrello e newsletter (solo effetti del mockup) ──── */
-const cartCount = document.getElementById('cartCount');
-cardsEl.addEventListener('click', e => {
-  const add = e.target.closest('[data-add]');
-  if(!add) return;
-  cartCount.textContent = +cartCount.textContent + 1;
-  add.animate([{transform:'scale(1)'},{transform:'scale(1.3)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
-});
-
-document.getElementById('newsForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const email = document.getElementById('newsEmail');
-  const note = document.getElementById('newsNote');
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value)){
-    note.textContent = 'Serve un indirizzo email valido.';
-    email.focus();
-    return;
-  }
-  note.textContent = 'Ci siamo: controlla la posta per confermare l’iscrizione.';
-  email.value = '';
-});
+  document.querySelectorAll('.usa').forEach(function(b){
+    b.addEventListener('click',function(){
+      try{localStorage.setItem(CHIAVE,b.dataset.tema)}catch(e){}
+      location.reload();
+    });
+  });
+})();
 </script>
+<script src="temi/skin.js"></script>
 
 </body>
 </html>
