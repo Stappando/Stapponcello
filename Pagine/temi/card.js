@@ -16,6 +16,8 @@ var eur = function(n){return Number(n).toLocaleString('it-IT',
 var STELLA='<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>';
 var TREND='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17 10 11l4 4 6-6"/><path d="M15 9h5v5"/></svg>';
 var CAMION='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="13" height="10" rx="2"/><path d="M15 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>';
+var COPPA='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-1 6a4 4 0 0 1-6 0Z"/><path d="M12 13v6"/><path d="M8 21h8"/><path d="M16 5h3v2a3 3 0 0 1-3 3"/><path d="M8 5H5v2a3 3 0 0 0 3 3"/></svg>';
+var FOGLIA='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-6 7-9 16-9 0 9-3 16-9 16Z"/><path d="M4 20c3-6 7-8 11-9"/></svg>';
 var CART='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>';
 
 function scheda(p){
@@ -34,12 +36,21 @@ function scheda(p){
         '<span class="pc-chip">'+esc(p.regione)+'</span>'+
         '<span class="pc-chip voto">'+STELLA+p.voto.toLocaleString('it-IT',{minimumFractionDigits:1})+'</span>'+
       '</div>'+
+      (p.premi && p.premi.length
+        ? '<div class="pc-premi">'+p.premi.map(function(x){
+            var bio = /bio|vegan|sqnpi/i.test(x);
+            return '<span class="pc-premio'+(bio ? ' verde' : '')+'">'+
+              (bio ? FOGLIA : COPPA)+esc(x)+'</span>';
+          }).join('')+'</div>'
+        : '')+
+      (p.desc ? '<p class="pc-desc">'+esc(p.desc)+'</p>' : '')+
       '<p class="pc-sales">'+TREND+p.acquisti+' acquisti · ultimi 7 giorni</p>'+
       '<div class="pc-foot">'+
         '<span class="pc-prezzo">'+(p.prima ? '<s>'+eur(p.prima)+'</s>' : '')+eur(p.prezzo)+
         (sconto ? ' ' : '')+'</span>'+
         '<button class="pc-buy" type="button" data-add="'+p.id+'">'+CART+'<span>Aggiungi al carrello</span></button>'+
-        '<p class="pc-sped">'+CAMION+'<span>Spedizione gratis da <b>'+SOGLIA_CANTINA+' €</b> su '+esc(p.cantina)+'</span></p>'+
+        '<p class="pc-sped">'+CAMION+'<span>Venduto e spedito da <b>'+esc(p.venditore || p.cantina)+'</b>'+
+          ' · gratis da '+SOGLIA_CANTINA+' €</span></p>'+
       '</div>'+
     '</div></article>';
 }
