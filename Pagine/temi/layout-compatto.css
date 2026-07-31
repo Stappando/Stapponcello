@@ -1,0 +1,63 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · impaginazione COMPATTA
+   La colonna dei filtri resta, ma stretta. Le bottiglie
+   diventano righe: foto a sinistra, dati al centro, prezzo e
+   pulsante a destra. Se ne vedono molte più per schermata ed
+   è più facile confrontarle.
+   Si combina con qualunque tema: qui non si toccano colori
+   né caratteri, solo la disposizione.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── colonne più strette, tutto più vicino ────────────── */
+body .shop{grid-template-columns:222px minmax(0,1fr);gap:18px}
+body .filters-head{padding:14px 16px 10px}
+body .filters-body{padding:2px 16px 14px}
+body .fgroup{padding:12px 0}
+body .opt{padding:4px 8px}
+body .opt span{font-size:12.5px}
+body .toolbar{padding:10px 16px}
+
+/* ── la scheda diventa una riga ───────────────────────── */
+body #grid.pgrid{grid-template-columns:minmax(0,1fr);gap:10px}
+body #grid .pc{display:grid;grid-template-columns:130px minmax(0,1fr);align-items:stretch}
+body #grid .pc:hover{transform:none}
+body #grid .pc-foto{
+  aspect-ratio:auto;height:100%;min-height:158px;padding:12px;
+  border-bottom:none;border-right:1px solid var(--border-soft);
+}
+/* le etichette stanno strette: una in alto, una in basso */
+body #grid .pc-l{top:9px;left:9px;font-size:9px;padding:4px 7px}
+body #grid .pc-r{top:auto;right:auto;bottom:9px;left:9px;font-size:9px;padding:4px 7px}
+
+/* dentro: dati a sinistra, prezzo e pulsante a destra */
+body #grid .pc-body{
+  display:grid;grid-template-columns:minmax(0,1fr) 236px;
+  align-content:start;padding:14px 0 14px 18px;
+}
+body #grid .pc-buy span{white-space:nowrap}
+body #grid .pc-body > *{grid-column:1}
+body #grid .pc-desc{-webkit-line-clamp:2;margin-top:8px}
+body #grid .pc-foot{
+  grid-column:2;grid-row:1 / span 6;align-self:center;
+  margin-top:0;margin-left:18px;padding:0 18px;
+  border-left:1px solid var(--border-soft);
+}
+body #grid .pc-prezzo{font-size:22px}
+body #grid .pc-buy{margin-top:11px}
+
+/* ── anche il resto del sito sta più stretto ──────────── */
+body main .pgrid:not(.p3):not(.p4){grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:12px}
+body main .pc-body{padding:13px 14px 15px}
+body main .pc-foto{padding:14px}
+body main .pc-nome{font-size:14.5px}
+
+@media(max-width:820px){
+  body #grid .pc{grid-template-columns:104px minmax(0,1fr)}
+  body #grid .pc-foot{
+    grid-column:1 / -1;grid-row:2;border-left:none;
+    border-top:1px solid var(--border-soft);
+    flex-direction:row;align-items:center;justify-content:space-between;gap:12px;
+  }
+  body #grid .pc-buy{margin-top:0;width:auto;padding:0 18px}
+  body #grid .pc-prezzo{text-align:left}
+}

@@ -60,4 +60,23 @@ body .mega-promo{
 body .mega-promo h5{font-variation-settings:"wdth" 100;letter-spacing:-.035em}
 body .mega-col h4{letter-spacing:.2em;border-bottom-width:2px;border-bottom-color:var(--accent)}
 
+/* ── la barra sotto al titolo: un blocco di sabbia ────── */
+body .toolbar,body .tools{
+  background:var(--muted);border:none;box-shadow:none;
+  border-radius:0 6px 6px 0;border-left:4px solid var(--accent);
+  padding:14px 20px;
+}
+body .toolbar .tb-count b,body .tools b{font-weight:700}
+
+/* ── stondi appena accennati, niente pastiglie ────────── */
+body .btn,body select,body .chip,body .tagline,
+body .pc-l,body .pc-r,body .pc-chip,body .pc-premio,
+body .viewtoggle,body .viewtoggle button,
+body .tabs,body .tabs button,body .tipo-tag,body .filtri a,
+body .qty,body .bar-t,body .search-box,
+body .cart-qty,body .cart-coupon input,body .cart-coupon button,body .cart-btn{
+  border-radius:6px;
+}
+body .pc-l,body .pc-r,body .pc-chip,body .pc-premio{border-radius:4px}
+
 body .pc-foto{background:linear-gradient(180deg,#f2ece0,#e7dfd0)}

@@ -34,3 +34,14 @@ body{background-image:
   radial-gradient(680px 460px at 88% -4%,rgba(246,217,204,.6),transparent 62%),
   radial-gradient(560px 420px at -6% 24%,rgba(212,229,219,.55),transparent 60%);
   background-attachment:fixed}
+
+/* ── la barra sotto al titolo: una pastiglia intera ───── */
+body .toolbar,body .tools{
+  background:var(--muted);border:none;box-shadow:none;
+  border-radius:999px;padding:12px 24px;
+}
+
+/* qui è tondo tutto: anche la foto sta dentro alla scheda */
+body .pc-foto{
+  margin:7px 7px 0;border-radius:var(--r-sm);border-bottom:none;
+}
