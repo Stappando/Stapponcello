@@ -38,7 +38,7 @@
 .sep-or::before,.sep-or::after{content:"";flex:1;height:1px;background:var(--border)}
 @media(max-width:820px){.acc-wrap{grid-template-columns:1fr}}
 </style>
-<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}})();</script>
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
 </head>
 <body data-nav="">
 

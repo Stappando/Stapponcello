@@ -94,6 +94,26 @@
 .mini-nordico .mini-cards{background:#fff}
 .mini-nordico .mini-cards i{background:#fff;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(20,26,32,.12)}
 
+/* ── le tre impaginazioni ─────────────────────────────── */
+.lay{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:4px}
+.lay-c h3{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.03em;margin-top:14px}
+.lay-c p{font-size:13px;line-height:1.55;color:var(--muted-fg);margin-top:7px}
+.lay-c .btn{margin-top:14px}
+.lay-mock{
+  display:flex;gap:7px;padding:9px;height:132px;
+  background:var(--muted);border:1px solid var(--border);border-radius:var(--r-sm);
+}
+.lay-mock .side{width:26%;background:var(--card);border-radius:4px;flex:none}
+.lay-mock .side.thin{width:18%}
+.lay-mock .col{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start}
+.lay-mock .col.wide{grid-template-columns:1fr 1fr;gap:8px}
+.lay-mock .col .bar{grid-column:1 / -1;height:12px;background:var(--card);border-radius:4px}
+.lay-mock .col span{height:38px;background:var(--card);border-radius:4px}
+.lay-mock .col em{grid-column:1 / -1;height:19px;background:var(--card);border-radius:4px}
+.lay-mock .topbar{position:absolute;inset:9px 9px auto 9px;height:16px;background:var(--card);border-radius:4px}
+.lay-vet{position:relative;padding-top:31px}
+.lay-vet .col span{height:74px}
+
 /* ── tabella del confronto ────────────────────────────── */
 .tab-wrap{overflow-x:auto;margin-top:6px}
 .tab{width:100%;border-collapse:collapse;min-width:640px;font-size:13px}
@@ -108,7 +128,7 @@
 .nota{font-size:12px;color:var(--muted-fg);margin-top:16px;line-height:1.6}
 </style>
 
-<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}})();</script>
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
 </head>
 <body>
 
@@ -301,6 +321,34 @@
 
   <div class="sec panel">
     <div class="sec-head">
+      <span class="eyebrow">L'altra manopola</span>
+      <h2>Tre impaginazioni, da incrociare con i temi</h2>
+      <p>Il tema dà colori e caratteri, l'impaginazione dà la disposizione: sono due scelte separate, quindi si combinano tra loro. Dodici combinazioni in tutto, tutte dal selettore in basso. Si vedono meglio sul <a href="catalogo.html">catalogo</a>.</p>
+    </div>
+    <div class="lay">
+      <article class="lay-c">
+        <div class="lay-mock lay-std"><i class="side"></i><div class="col"><i class="bar"></i><span></span><span></span><span></span><span></span></div></div>
+        <h3>Standard</h3>
+        <p>Filtri nella colonna a sinistra, bottiglie in griglia da quattro. È come sta il sito adesso.</p>
+        <button class="btn btn-dark usaL" data-layout="standard">Usa questa</button>
+      </article>
+      <article class="lay-c">
+        <div class="lay-mock lay-vet"><i class="topbar"></i><div class="col wide"><span></span><span></span><span></span></div></div>
+        <h3>Vetrina</h3>
+        <p>Niente colonna: i filtri diventano tendine in una barra in alto. Le bottiglie prendono tutta la larghezza, poche per riga e grandi.</p>
+        <button class="btn btn-dark usaL" data-layout="vetrina">Usa questa</button>
+      </article>
+      <article class="lay-c">
+        <div class="lay-mock lay-cmp"><i class="side thin"></i><div class="col"><i class="bar"></i><em></em><em></em><em></em><em></em></div></div>
+        <h3>Compatto</h3>
+        <p>La colonna resta ma stretta e la scheda diventa una riga: foto, dati, prezzo e pulsante in fila. Se ne vedono molte di più per schermata.</p>
+        <button class="btn btn-dark usaL" data-layout="compatto">Usa questa</button>
+      </article>
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
       <span class="eyebrow">Cosa cambia davvero</span>
       <h2>Il confronto, riga per riga</h2>
       <p>Nessun tema tocca i contenuti: cambiano solo i valori del foglio di stile. Quello che vedi qui vale su tutte le pagine, dalla home al carrello.</p>
@@ -389,6 +437,16 @@
   document.querySelectorAll('.usa').forEach(function(b){
     b.addEventListener('click',function(){
       try{localStorage.setItem(CHIAVE,b.dataset.tema)}catch(e){}
+      location.reload();
+    });
+  });
+  /* l'impaginazione è una scelta a parte: si incrocia con il tema */
+  var CHIAVE_L='stappando-layout';
+  var attualeL=(function(){try{return localStorage.getItem(CHIAVE_L)||'standard'}catch(e){return 'standard'}})();
+  document.querySelectorAll('.usaL').forEach(function(b){
+    if(b.dataset.layout===attualeL){ b.textContent='In uso'; b.disabled=true; b.style.opacity=.5; }
+    b.addEventListener('click',function(){
+      try{localStorage.setItem(CHIAVE_L,b.dataset.layout)}catch(e){}
       location.reload();
     });
   });

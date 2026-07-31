@@ -82,6 +82,30 @@ body .mega-promo{
 body .mega-promo h5{letter-spacing:.06em;text-transform:uppercase;font-size:16px}
 body .mega-col h4{letter-spacing:.24em}
 
+/* ── la barra sotto al titolo: due filetti, niente scheda ─ */
+body .toolbar,body .tools{
+  background:none;border:none;box-shadow:none;border-radius:0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:12px 0;
+}
+body .toolbar > .sortwrap,body .toolbar > .viewtoggle{
+  border-left:1px solid var(--border);padding-left:16px;
+}
+body .toolbar label,body .tools label{letter-spacing:.16em;text-transform:uppercase;font-size:10px}
+
+/* ── spigolo vivo: nessuna pastiglia in tutto il sito ─── */
+body select,body .chip,body .tagline,
+body .pc-l,body .pc-r,body .pc-chip,body .pc-premio,
+body .viewtoggle,body .viewtoggle button,
+body .tabs,body .tabs button,body .tipo-tag,body .filtri a,
+body .qty,body .bar-t,body .search-box,
+body .cart-qty,body .cart-coupon input,body .cart-coupon button,body .cart-btn{
+  border-radius:2px;
+}
+body .viewtoggle{background:none;padding:0;gap:0}
+body .viewtoggle button{border:1px solid var(--border);margin-left:-1px}
+body .viewtoggle button.on{background:var(--muted);box-shadow:none}
+
 /* squadrato e silenzioso: niente ombre morbide sulle schede */
 body .pc,body .card,body .panel{box-shadow:none;border-color:var(--border)}
 body .pc:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}

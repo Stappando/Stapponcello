@@ -178,7 +178,7 @@ footer a:hover{text-decoration:underline}
   .rung{min-width:calc(50% - 4px)}
 }
 </style>
-<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}})();</script>
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
 <link rel="stylesheet" href="temi/header.css">
 <link rel="stylesheet" href="temi/carrello.css">
 <link rel="stylesheet" href="temi/card.css">

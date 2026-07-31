@@ -1,0 +1,57 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · impaginazione VETRINA
+   Niente colonna dei filtri: diventano una barra in alto con
+   le tendine. Le bottiglie prendono tutta la larghezza e
+   respirano, poche per riga e grandi.
+   Si combina con qualunque tema: qui non si toccano colori
+   né caratteri, solo la disposizione.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── una sola colonna, e la barra non sale sulla fascia ─ */
+body .shop{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:26px}
+
+/* ── i filtri diventano una barra ─────────────────────── */
+body .filters{
+  position:static;max-height:none;display:block;overflow:visible;
+  box-shadow:var(--shadow-sm);
+}
+body .filters-head{
+  padding:12px 18px;border-bottom:1px solid var(--border-soft);
+}
+body .filters-head .filter-open{display:none}
+body .filters-body{
+  overflow:visible;padding:12px 18px 14px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+}
+body .filters-body .fgroup{
+  position:relative;border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:8px 13px;background:var(--card);
+}
+body .filters-body .fgroup[open]{border-color:var(--primary)}
+body .filters-body .fgroup > summary{gap:10px;white-space:nowrap}
+body .filters-body .fbody{
+  position:absolute;top:calc(100% + 7px);left:-1px;z-index:30;
+  min-width:250px;max-height:320px;overflow:auto;margin-top:0;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
+  box-shadow:var(--shadow-lg);padding:12px 14px;
+}
+/* il prezzo ha bisogno di più spazio del resto */
+body .filters-body .fgroup:nth-child(4) .fbody{min-width:290px}
+
+/* ── le bottiglie in grande ───────────────────────────── */
+body .toolbar{margin-top:2px}
+body #grid.pgrid{grid-template-columns:repeat(auto-fill,minmax(304px,1fr));gap:26px}
+body #grid .pc-foto{aspect-ratio:4/5;padding:26px}
+body #grid .pc-body{padding:20px 20px 22px}
+body #grid .pc-nome{font-size:17px}
+body #grid .pc-desc{-webkit-line-clamp:3;min-height:0}
+
+/* ── il resto del sito segue lo stesso passo ──────────── */
+body main .pgrid{gap:24px}
+body main .pgrid:not(.p3):not(.p4){grid-template-columns:repeat(auto-fill,minmax(276px,1fr))}
+
+@media(max-width:900px){
+  body .filters-body{display:block}
+  body .filters-body .fgroup{border:none;border-bottom:1px solid var(--border-soft);border-radius:0;padding:14px 0}
+  body .filters-body .fbody{position:static;border:none;box-shadow:none;padding:10px 0 0;max-height:none;min-width:0}
+}
