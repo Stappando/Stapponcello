@@ -6,22 +6,23 @@
    ══════════════════════════════════════════════════════════ */
 (function(){
   const TEMI = [
-    {id:'definitivo',    nome:'Definitivo',    a:'#055667', b:'#b8973f'},
-    {id:'classico',      nome:'Classico',      a:'#005f73', b:'#c9a87c'},
-    {id:'noir',          nome:'Noir',          a:'#0b0d0f', b:'#e0bd85'},
-    {id:'soft',          nome:'Soft',          a:'#7b2d3b', b:'#f2ece6'},
-    {id:'bold',          nome:'Bold',          a:'#8b1e2d', b:'#c9a227'},
-    {id:'elegante',      nome:'Elegante',      a:'#6d1f2c', b:'#9c7c3c'},
-    {id:'pastello',      nome:'Pastello',      a:'#c9718a', b:'#d4e5db'},
-    {id:'istituzionale', nome:'Istituzionale', a:'#055667', b:'#b8973f'},
+    {id:'definitivo', nome:'Definitivo', a:'#055667', b:'#b8973f'},
+    {id:'pastello',   nome:'Pastello',   a:'#c9718a', b:'#d4e5db'},
+    {id:'terra',      nome:'Terra',      a:'#7a3b26', b:'#93a06a'},
+    {id:'nordico',    nome:'Nordico',    a:'#25415c', b:'#b1714a'},
   ];
+
   const CHIAVE = 'stappando-tema';
   const link = document.getElementById('skin');
   if(!link) return;
 
   /* la cartella dei temi cambia se la pagina sta nella radice */
   const base = link.getAttribute('href').replace(/skin-[a-z]+\.css$/, '');
-  const attuale = () => (localStorage.getItem(CHIAVE) || 'classico');
+  /* se in memoria c'è un tema che non esiste più, si torna al Definitivo */
+  const attuale = () => {
+    const t = localStorage.getItem(CHIAVE);
+    return TEMI.some(x => x.id === t) ? t : 'definitivo';
+  };
 
   function applica(id){
     link.href = base + 'skin-' + id + '.css';

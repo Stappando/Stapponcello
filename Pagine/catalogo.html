@@ -415,7 +415,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
 </style>
-<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-classico.css">');}})();</script>
+<script>/* il tema scelto prima del disegno, così non si vede il lampo */(function(){try{var t=localStorage.getItem("stappando-tema");if(t)document.write('<link rel="stylesheet" id="skin" href="temi/skin-'+t+'.css">');else document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="temi/skin-definitivo.css">');}})();</script>
 <link rel="stylesheet" href="temi/header.css">
 <link rel="stylesheet" href="temi/carrello.css">
 <link rel="stylesheet" href="temi/card.css">
@@ -538,18 +538,18 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 
       <details class="fgroup" open>
         <summary>
-          Tipologia
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </summary>
-        <div class="fbody" id="fStyle"></div>
-      </details>
-
-      <details class="fgroup" open>
-        <summary>
           Regione
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div class="fbody" id="fRegion"></div>
+        <div class="fbody" id="fRegione"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>
+          Vitigno
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fVitigno"></div>
       </details>
 
       <details class="fgroup" open>
@@ -558,10 +558,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
         <div class="fbody">
-          <div class="price-val">
-            <span>Fino a</span>
-            <b id="priceOut">€ 120</b>
-          </div>
+          <div class="price-val"><span>Fino a</span><b id="priceOut">€ 120</b></div>
           <input class="range" id="priceRange" type="range" min="8" max="120" step="1" value="120"
                  aria-label="Prezzo massimo in euro">
           <div class="range-ends"><span>€ 8</span><span>€ 120+</span></div>
@@ -570,26 +567,34 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
 
       <details class="fgroup">
         <summary>
-          Formato
+          Premi
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div class="fbody" id="fFormat"></div>
+        <div class="fbody" id="fPremi"></div>
       </details>
 
       <details class="fgroup">
         <summary>
-          Valutazione minima
+          Brand
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div class="fbody" id="fRating"></div>
+        <div class="fbody" id="fBrand"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>
+          Denominazione
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="fbody" id="fDen"></div>
       </details>
 
       <details class="fgroup" open>
         <summary>
-          Altro
+          Filosofia
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div class="fbody" id="fFlags"></div>
+        <div class="fbody" id="fFilo"></div>
       </details>
     </div>
   </aside>
@@ -754,11 +759,12 @@ const PAGE = 9;
 const state = {
   q: '',
   cat: '',            /* vini · spirits · vuoto = tutto */
-  styles: new Set(),
   regions: new Set(),
-  formats: new Set(),
-  flags: new Set(),      /* bio · offerta */
-  rating: 0,
+  uvaggi: new Set(),
+  brand: new Set(),
+  den: new Set(),
+  filo: new Set(),
+  premi: new Set(),
   price: PRICE_MAX,
   sort: 'consigliati',
   shown: PAGE,
@@ -789,53 +795,43 @@ document.getElementById('fCat').innerHTML = FAMIGLIE.map(([v,l]) =>
               count: v ? (catCounts[v] || 0) : CATALOGO.length})).join('');
 document.querySelector('#fCat input[value=""]').checked = true;
 
-const styleCounts = countBy('tipo');
-const COLORE = {Rosso:'#7f1d1d', Bianco:'#a8814f', Rosato:'#c9718a', Spumante:'#1e3a5f',
-                Dolce:'#a16207', Grappa:'#6b4f28', Gin:'#2b4a63', Amaro:'#2d6a4f'};
-document.getElementById('fStyle').innerHTML = Object.keys(styleCounts).sort()
-  .map(t => optionHTML({group:'style', value:t, label:esc(t),
-                        count:styleCounts[t], dot:COLORE[t] || '#7a7060'})).join('');
-
-const regionCounts = countBy('regione');
-document.getElementById('fRegion').innerHTML = Object.keys(regionCounts)
-  .sort((a,b) => regionCounts[b] - regionCounts[a] || a.localeCompare(b,'it'))
-  .map(r => optionHTML({group:'region', value:r, label:esc(r), count:regionCounts[r]}))
-  .join('');
-
-const formatCounts = countBy('formato');
-document.getElementById('fFormat').innerHTML = Object.keys(formatCounts)
-  .sort((a,b) => parseFloat(a.replace(',','.')) - parseFloat(b.replace(',','.')))
-  .map(f => optionHTML({group:'format', value:f, label:esc(f), count:formatCounts[f]}))
-  .join('');
-
-document.getElementById('fRating').innerHTML = [
-  {v:0,   l:'Tutte le valutazioni'},
-  {v:4.5, l:'Da 4,5 in su'},
-  {v:4.7, l:'Da 4,7 in su'},
-].map(o => optionHTML({group:'rating', value:o.v, label:o.l, type:'radio'})).join('');
-document.querySelector('#fRating input[value="0"]').checked = true;
-
-document.getElementById('fFlags').innerHTML = [
-  {v:'bio',     l:'Bio o biodinamico', c:CATALOGO.filter(p => p.bio).length},
-  {v:'offerta', l:'In offerta',        c:CATALOGO.filter(p => p.prima).length},
-].map(o => optionHTML({group:'flag', value:o.v, label:o.l, count:o.c})).join('');
+/* liste costruite dai dati: niente elenchi scritti a mano */
+function elenco(chiave){
+  const c = {};
+  CATALOGO.forEach(p => {
+    const v = p[chiave];
+    (Array.isArray(v) ? v : [v]).forEach(x => { if(x) c[x] = (c[x] || 0) + 1; });
+  });
+  return Object.keys(c).sort((a,b) => c[b] - c[a] || a.localeCompare(b,'it')).map(k => [k, c[k]]);
+}
+function riempi(idEl, gruppo, voci){
+  document.getElementById(idEl).innerHTML = voci
+    .map(([v,n]) => optionHTML({group:gruppo, value:v, label:esc(v), count:n})).join('');
+}
+riempi('fRegione','region', elenco('regione'));
+riempi('fVitigno','uvaggio', elenco('uvaggio'));
+riempi('fBrand','brand',   elenco('cantina'));
+riempi('fDen','den',       elenco('denominazione'));
+riempi('fFilo','filo',     elenco('filosofia'));
+/* fra i premi non rientrano le certificazioni: quelle stanno in Filosofia */
+riempi('fPremi','premio', elenco('premi').filter(([v]) => !/^(bio|vegan|sqnpi|biodinamico)$/i.test(v)));
 
 /* statistiche di testata */
 document.getElementById('statTot').textContent = CATALOGO.length;
-document.getElementById('statCantine').textContent = new Set(CATALOGO.map(p => p.cantina)).size;
-document.getElementById('statRegioni').textContent = Object.keys(regionCounts).length;
+document.getElementById('statCantine').textContent = elenco('cantina').length;
+document.getElementById('statRegioni').textContent = elenco('regione').length;
 
 /* ══ FILTRO + ORDINAMENTO ═════════════════════════════ */
 function filtered(){
   const t = norm(state.q);
   let out = CATALOGO.filter(p => {
     if(state.cat && p.cat !== state.cat)                   return false;
-    if(state.styles.size  && !state.styles.has(p.tipo))   return false;
-    if(state.regions.size && !state.regions.has(p.regione)) return false;
-    if(state.formats.size && !state.formats.has(p.formato)) return false;
-    if(state.flags.has('bio') && !p.bio)                   return false;
-    if(state.flags.has('offerta') && !p.prima)               return false;
-    if(p.voto < state.rating)                            return false;
+    if(state.regions.size && !state.regions.has(p.regione))      return false;
+    if(state.uvaggi.size  && !state.uvaggi.has(p.uvaggio))       return false;
+    if(state.brand.size   && !state.brand.has(p.cantina))        return false;
+    if(state.den.size     && !state.den.has(p.denominazione))    return false;
+    if(state.filo.size    && ![...state.filo].every(f => (p.filosofia||[]).includes(f)))  return false;
+    if(state.premi.size   && ![...state.premi].some(a => (p.premi||[]).includes(a)))      return false;
     /* il massimo dello slider vale "nessun tetto" */
     if(state.price < PRICE_MAX && p.prezzo > state.price)   return false;
     if(t){
@@ -872,11 +868,12 @@ function activeChips(){
   const chips = [];
   if(state.q) chips.push({k:'q', label:`“${state.q}”`});
   if(state.cat) chips.push({k:'cat', label:(FAMIGLIE.find(f => f[0] === state.cat)||['','']) [1]});
-  state.styles.forEach(s  => chips.push({k:'style',  v:s, label:STYLE_META[s].label}));
-  state.regions.forEach(r => chips.push({k:'region', v:r, label:r}));
-  state.formats.forEach(f => chips.push({k:'format', v:f, label:f}));
-  state.flags.forEach(f   => chips.push({k:'flag',   v:f, label:f === 'bio' ? 'Bio o biodinamico' : 'In offerta'}));
-  if(state.rating)             chips.push({k:'rating', label:`Da ${state.rating.toLocaleString('it-IT',{minimumFractionDigits:1})} in su`});
+  state.regions.forEach(r => chips.push({k:'region',  v:r, label:r}));
+  state.uvaggi.forEach(u  => chips.push({k:'uvaggio', v:u, label:u}));
+  state.brand.forEach(b   => chips.push({k:'brand',   v:b, label:b}));
+  state.den.forEach(d     => chips.push({k:'den',     v:d, label:d}));
+  state.filo.forEach(f    => chips.push({k:'filo',    v:f, label:f}));
+  state.premi.forEach(a   => chips.push({k:'premio',  v:a, label:a}));
   if(state.price < PRICE_MAX)  chips.push({k:'price',  label:`Fino a € ${state.price}`});
   return chips;
 }
@@ -921,14 +918,12 @@ function render(){
 }
 
 /* ══ EVENTI DEI FILTRI ════════════════════════════════ */
-const SET_OF = {style:'styles', region:'regions', format:'formats', flag:'flags'};
+const SET_OF = {region:'regions', uvaggio:'uvaggi', brand:'brand', den:'den', filo:'filo', premio:'premi'};
 
 document.getElementById('filters').addEventListener('change', e => {
   const el = e.target;
   if(el.name === 'cat'){
     state.cat = el.value;
-  } else if(el.name === 'rating'){
-    state.rating = parseFloat(el.value);
   } else if(SET_OF[el.name]){
     const set = state[SET_OF[el.name]];
     el.checked ? set.add(el.value) : set.delete(el.value);
@@ -975,9 +970,6 @@ document.getElementById('chips').addEventListener('click', e => {
   } else if(chip === 'cat'){
     state.cat = '';
     document.querySelector('#fCat input[value=""]').checked = true;
-  } else if(chip === 'rating'){
-    state.rating = 0;
-    document.querySelector('#fRating input[value="0"]').checked = true;
   } else if(chip === 'price'){
     priceRange.value = PRICE_MAX; syncPrice();
   } else if(SET_OF[chip]){
@@ -991,15 +983,14 @@ document.getElementById('chips').addEventListener('click', e => {
 
 function resetAll(){
   state.q = '';
-  state.styles.clear(); state.regions.clear(); state.formats.clear(); state.flags.clear();
-  state.rating = 0;
+  state.regions.clear(); state.uvaggi.clear(); state.brand.clear();
+  state.den.clear(); state.filo.clear(); state.premi.clear();
   state.cat = '';
   state.shown = PAGE;
 
   qEl.value = '';
   boxEl.classList.remove('filled');
   document.querySelectorAll('#filters input[type=checkbox]').forEach(i => i.checked = false);
-  document.querySelector('#fRating input[value="0"]').checked = true;
   document.querySelector('#fCat input[value=""]').checked = true;
   priceRange.value = PRICE_MAX;
   syncPrice();
