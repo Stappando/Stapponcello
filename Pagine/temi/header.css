@@ -135,6 +135,7 @@
 .mega-promo{
   border-radius:var(--r-lg);padding:24px;color:#fff;position:relative;overflow:hidden;
   display:flex;flex-direction:column;min-height:210px;
+  background:linear-gradient(155deg,var(--primary-dark),var(--primary));
 }
 .mega-promo::after{
   content:"";position:absolute;right:-70px;top:-90px;width:250px;height:250px;border-radius:50%;
