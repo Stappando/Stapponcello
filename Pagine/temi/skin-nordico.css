@@ -1,0 +1,24 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · tema NORDICO
+   Freddo e pulitissimo: bianco, grigio-azzurro e un accento
+   rame. Poco colore, molta aria. Caratteri Poppins.
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --sidebar-bg:#1b2430;
+  --primary:#25415c; --primary-dark:#152738; --primary-soft:rgba(37,65,92,.07);
+  --accent:#b1714a; --accent-dark:#8c552f;
+  --bg:#f4f6f8; --card:#ffffff; --fg:#141a20; --muted-fg:#697683; --muted:#e7ecf1;
+  --border:rgba(20,26,32,.1); --border-soft:rgba(20,26,32,.06); --ok:#2f7d63;
+  --r:8px; --r-sm:6px; --r-lg:12px;
+  --shadow-sm:0 1px 2px rgba(20,26,32,.05);
+  --shadow-md:0 4px 18px -8px rgba(20,26,32,.16);
+  --shadow-lg:0 18px 40px -20px rgba(20,26,32,.28);
+  --font-sans:Poppins,Montserrat,system-ui,sans-serif;
+  --font-display:Poppins,Montserrat,system-ui,sans-serif;
+}
+/* squadrato e silenzioso: niente ombre morbide sulle schede */
+body{letter-spacing:-.004em}
+h1,h2,h3{font-weight:500;letter-spacing:-.03em}
+.pc,.card,.panel{box-shadow:none;border-color:var(--border)}
+.pc:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}
+.pc-foto{background:linear-gradient(180deg,#eef2f6,#e4eaf0)}
