@@ -239,3 +239,43 @@ footer.site .foot-legal a{text-decoration:underline}
   footer.site .foot-in{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation:none !important}}
+
+/* ══════════════════════════════════════════════════════════
+   Su carta: via la navigazione, la fascia diventa chiara e
+   i riquadri non si spezzano a metà fra una pagina e l'altra.
+   ══════════════════════════════════════════════════════════ */
+@media print{
+  @page{margin:14mm 12mm}
+  html,body{background:#fff !important;color:#111 !important}
+  body{background-image:none !important}
+  .utilbar,.topbar,.mega,.mobnav,.skinbar,.cart,.cart-backdrop,
+  footer.site nav,.foot-brand .social,.filter-open{display:none !important}
+  .pagehead,.hero{
+    background:#fff !important;color:#111 !important;
+    border-bottom:2px solid #111 !important;padding:0 0 18px !important;
+  }
+  .pagehead::after,.hero::after{display:none !important}
+  .pagehead .lead,.pagehead p,.pagehead span,.crumbs{color:#444 !important}
+  .pagehead h1,.pagehead b{color:#111 !important}
+  .crumbs{display:none !important}
+  .headstats,.ph-stats{border-top:1px solid #ccc;padding-top:10px;margin-top:14px}
+  main{padding-bottom:0 !important}
+  .wrap{max-width:none !important;padding:0 !important}
+  .panel,.sec.panel{
+    break-inside:avoid;page-break-inside:avoid;
+    box-shadow:none !important;border:1px solid #ddd !important;
+    padding:16px 18px !important;margin-top:14px !important;
+  }
+  .panel.lift{margin-top:14px !important}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  table{break-inside:auto}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  thead{display:table-header-group}
+  .tab-wrap{overflow:visible !important}
+  .tab{min-width:0 !important;font-size:10.5px}
+  .tab th,.tab td{padding:6px 8px}
+  a{text-decoration:none;color:inherit}
+  footer.site{background:#fff !important;color:#666 !important;border-top:1px solid #ddd}
+  footer.site .foot-legal{border-top:none !important;padding:10px 0 0 !important;font-size:9px}
+  .foot-legal .age{color:#666 !important}
+}

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Direzioni grafiche e scelte stilistiche</title>
+<meta name="description" content="Documento di lavoro: i caratteri, i valori condivisi, gli otto temi con anteprima, le tre impaginazioni e le regole che non si toccano." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+.tipo-r{display:flex;gap:22px;padding:18px 0;border-bottom:1px solid var(--border-soft)}
+.tipo-r:last-child{border-bottom:none}
+.tipo-l{
+  flex:none;width:104px;font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted-fg);padding-top:8px;line-height:1.5;
+}
+.tipo-d{display:block;font-size:12.5px;color:var(--muted-fg);margin-top:9px;line-height:1.6;max-width:70ch}
+.passi-num{counter-reset:p}
+.passi-num li{counter-increment:p;position:relative;padding-left:40px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.passi-num li + li{margin-top:12px;padding-top:12px;border-top:1px solid var(--border-soft)}
+.passi-num li::before{
+  content:counter(p,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--accent-dark);
+}
+.passi-num li + li::before{top:12px}
+.passi-num b{color:var(--fg);font-weight:600}
+.lista li{position:relative;padding-left:22px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.lista li + li{margin-top:10px}
+.lista li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.lista b{color:var(--fg);font-weight:600}
+.lista em,.tab em{font-style:normal;font-weight:600;color:var(--fg)}
+.lista a,.nota a,.tl-txt a{color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+/* ── gli otto, uno sotto l'altro ──────────────────────── */
+.temi-lista{display:grid;gap:18px}
+.tl{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:center;
+  border:1px solid var(--border);border-radius:var(--r);padding:16px;background:var(--card);
+}
+.tl img{width:100%;height:auto;display:block;border-radius:var(--r-sm);border:1px solid var(--border-soft)}
+.tl-txt h3{font-family:var(--font-display);font-size:19px;font-weight:600;letter-spacing:-.03em}
+.tl-txt h3 em{font-style:normal;font-size:12px;font-weight:600;color:var(--muted-fg);letter-spacing:0}
+.tl-txt p{font-size:13.5px;line-height:1.65;color:var(--muted-fg);margin-top:10px}
+.sw{display:flex;gap:6px;margin-top:11px}
+.sw i{width:26px;height:26px;border-radius:7px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.tl-f{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-fg);margin-top:12px}
+
+.scarica{margin-top:22px}
+@media print{.scarica{display:none !important}}
+.tab-wrap{overflow-x:auto}
+.tab{width:100%;border-collapse:collapse;min-width:600px;font-size:13px}
+.tab th,.tab td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.tab tbody th{font-weight:600;color:var(--fg);white-space:nowrap}
+.tab td{color:var(--muted-fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.nota{font-size:12.5px;color:var(--muted-fg);margin-top:16px;line-height:1.65;max-width:80ch}
+.nota b{color:var(--fg)}
+.sec.panel + .sec.panel{margin-top:22px}
+@media(max-width:760px){ .tl{grid-template-columns:1fr} }
+@media print{
+  .tl{break-inside:avoid;page-break-inside:avoid;border:1px solid #ddd}
+  .tl img{border:1px solid #ccc}
+  .sw i{box-shadow:inset 0 0 0 1px #bbb}
+}
+</style>
+
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
+</head>
+<body>
+
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Direzioni grafiche</span>
+    </nav>
+    <span class="eyebrow">Documento di lavoro</span>
+    <h1>Le scelte stilistiche, in chiaro</h1>
+    <p class="lead">Perché il sito è fatto così: i tre caratteri, i valori condivisi da tutte le pagine, gli otto temi con la loro anteprima, le tre impaginazioni e le regole che non si toccano. Serve a chi disegna e a chi costruisce, per non dover indovinare.</p>
+    <div class="headstats"><div><b>8</b><span>Temi</span></div><div><b>3</b><span>Impaginazioni</span></div><div><b>3</b><span>Caratteri</span></div></div>
+  
+    <a class="btn btn-gold scarica" href="pdf/direzioni-grafiche.pdf" download>Scarica il PDF <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></a>
+</div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="panel lift">
+    <div class="sec-head" style="margin-bottom:16px">
+      <span class="eyebrow">Il punto di partenza</span>
+      <h2>Tre regole che tengono in piedi tutto</h2>
+    </div>
+    <ol class="passi-num">
+      <li><b>Niente caratteri con grazie.</b> Solo Bricolage Grotesque, Montserrat e Poppins. È la scelta che dà al sito un'aria contemporanea invece che da carta dei vini; vale su tutti e otto i temi, senza eccezioni.</li>
+      <li><b>Una sola scheda prodotto.</b> La stessa forma in home, nel catalogo, nei correlati e nei caroselli. Il cliente impara a leggerla una volta e la ritrova ovunque: cambiarla da una pagina all'altra è confusione mentale, non varietà.</li>
+      <li><b>Il tema è un file solo.</b> Ogni direzione grafica sta in un unico foglio che ridefinisce una ventina di valori. Nessuna pagina contiene colori suoi: se un colore è scritto dentro una pagina, è un errore da correggere.</li>
+    </ol>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">I caratteri</span><h2>Tre, e ognuno fa un mestiere</h2></div>
+    <div class="tipo">
+      <div class="tipo-r">
+        <span class="tipo-l">Bricolage<br>Grotesque</span>
+        <div><p style="font-family:'Bricolage Grotesque',Montserrat,sans-serif;font-size:32px;font-weight:700;letter-spacing:-.035em;line-height:1.05">Scegliere cosa bere</p>
+        <span class="tipo-d">Titoli, quando servono personalità e larghezza. È un carattere a larghezza variabile: si può stringere o allargare senza deformarlo. Lo usano Terra, Notte, Mercato, Vigna e Vinile.</span></div>
+      </div>
+      <div class="tipo-r">
+        <span class="tipo-l">Montserrat</span>
+        <div><p style="font-family:Montserrat,sans-serif;font-size:28px;font-weight:600;letter-spacing:-.02em">Scegliere cosa bere</p>
+        <span class="tipo-d">Testo lungo e maiuscoletti spaziati. Regge bene le dimensioni piccole ed è la voce di Terra, Mercato e Vinile; in Nordico fa anche i titoli, in maiuscolo.</span></div>
+      </div>
+      <div class="tipo-r">
+        <span class="tipo-l">Poppins</span>
+        <div><p style="font-family:Poppins,sans-serif;font-size:28px;font-weight:500;letter-spacing:-.02em">Scegliere cosa bere</p>
+        <span class="tipo-d">Geometrico e amichevole: è la voce di Definitivo, Pastello, Notte e Vigna. Nei pesi leggeri dà l'aria ariosa di Nordico.</span></div>
+      </div>
+    </div>
+    <p class="nota">Le dimensioni non sono fisse: i titoli si adattano alla larghezza dello schermo, fra un minimo e un massimo. Il testo di lettura resta fra 13 e 15 px con interlinea 1,6–1,8, perché sotto i 13 px in italiano si legge male.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Il vocabolario</span>
+      <h2>I valori che ogni tema riscrive</h2>
+      <p>Sono i nomi con cui le pagine chiedono un colore o una misura. Le pagine non sanno di che tema sono vestite: chiedono «il colore principale» e il tema risponde.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Nome</th><th>Cosa comanda</th><th>Esempio nel tema di serie</th></tr></thead>
+        <tbody>
+          <tr><th>primary</th><td>Colore principale: prezzi, pulsanti pieni, voci attive</td><td>Petrolio #005f73</td></tr>
+          <tr><th>primary-dark</th><td>La sua versione scura: fasce, barra di servizio</td><td>#003d4d</td></tr>
+          <tr><th>accent</th><td>Il secondo colore, usato poco: occhielli, filetti, stelle</td><td>Oro #c9a87c</td></tr>
+          <tr><th>bg / card</th><td>Fondo della pagina e fondo delle schede</td><td>#f7f3ee e bianco</td></tr>
+          <tr><th>fg / muted-fg</th><td>Testo principale e testo secondario</td><td>#1a1a1a e #7a7060</td></tr>
+          <tr><th>border / border-soft</th><td>Contorni normali e contorni appena accennati</td><td>Nero al 9% e al 6%</td></tr>
+          <tr><th>r / r-sm / r-lg</th><td>Quanto sono tondi gli angoli: normale, piccolo, grande</td><td>14 / 10 / 20 px</td></tr>
+          <tr><th>shadow-sm / md / lg</th><td>Le tre profondità delle ombre</td><td>Da appena visibile a staccata</td></tr>
+          <tr><th>font-sans / font-display</th><td>Carattere del testo e carattere dei titoli</td><td>Poppins e Poppins</td></tr>
+          <tr><th>ok</th><td>Il verde delle conferme</td><td>#2d6a4f</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Un tema nuovo si fa riscrivendo questi valori. Solo se serve un gesto suo — una fascia piatta, una foto ad arco, un contorno spesso — si aggiungono poche regole in fondo al file.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Le otto direzioni</span>
+      <h2>Gli stessi contenuti, otto vestiti</h2>
+      <p>Ogni anteprima è la stessa pagina catalogo, fotografata con quel tema addosso. Si passa dall'uno all'altro dal selettore in basso, su qualunque pagina.</p>
+    </div>
+    <div class="temi-lista">
+
+      <article class="tl">
+        <img src="foto/temi/definitivo.jpg" alt="Il catalogo con il tema Definitivo" loading="lazy">
+        <div class="tl-txt">
+          <h3>Definitivo <em>· quello di serie</em></h3>
+          <div class="sw"><i style="background:#005f73"></i><i style="background:#003d4d"></i><i style="background:#c9a87c"></i><i style="background:#f7f3ee"></i></div>
+          <p>Il petrolio e l'oro di shop.stappando.it con i caratteri più morbidi. Fasce scure in gradiente, angoli tondi, ombre gentili. È il tema che vede chi arriva la prima volta.</p>
+          <span class="tl-f">Poppins · angoli 14 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/pastello.jpg" alt="Il catalogo con il tema Pastello" loading="lazy">
+        <div class="tl-txt">
+          <h3>Pastello <em>· il più leggero</em></h3>
+          <div class="sw"><i style="background:#c9718a"></i><i style="background:#a8536c"></i><i style="background:#e8b04b"></i><i style="background:#fdfaf7"></i></div>
+          <p>Rosa antico e salvia su fondo crema. Angoli molto tondi, nessun contrasto duro, la foto sta dentro la scheda con i suoi angoli: la bottiglia resta la cosa più scura della pagina.</p>
+          <span class="tl-f">Poppins · angoli 22 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/terra.jpg" alt="Il catalogo con il tema Terra" loading="lazy">
+        <div class="tl-txt">
+          <h3>Terra <em>· da rivista</em></h3>
+          <div class="sw"><i style="background:#7a3b26"></i><i style="background:#3f2015"></i><i style="background:#93a06a"></i><i style="background:#f6f1e8"></i></div>
+          <p>Terracotta, oliva e sabbia: il colore viene dal vigneto, non dal marchio. Fasce a tinta piatta chiuse da un filetto oliva, titoli larghi, occhiello col trattino come nei sommari.</p>
+          <span class="tl-f">Bricolage + Montserrat · angoli 10 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/nordico.jpg" alt="Il catalogo con il tema Nordico" loading="lazy">
+        <div class="tl-txt">
+          <h3>Nordico <em>· il più asciutto</em></h3>
+          <div class="sw"><i style="background:#25415c"></i><i style="background:#152738"></i><i style="background:#b1714a"></i><i style="background:#f4f6f8"></i></div>
+          <p>L'unico con la fascia chiara invece che scura, con i numeri divisi da righe verticali. Titoli piccoli in maiuscolo spaziato, testo leggero, quasi nessuna ombra. Molta aria, poco colore.</p>
+          <span class="tl-f">Montserrat + Poppins · angoli 4 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/notte.jpg" alt="Il catalogo con il tema Notte" loading="lazy">
+        <div class="tl-txt">
+          <h3>Notte <em>· a luci spente</em></h3>
+          <div class="sw"><i style="background:#0e1113"></i><i style="background:#0a0c0e"></i><i style="background:#d8b56a"></i><i style="background:#171b1e"></i></div>
+          <p>Fondo carbone, oro col contagocce, testata di vetro sfocato e un alone caldo sotto ogni bottiglia. È l'unico tema scuro: la cosa più illuminata della pagina è l'etichetta. <a href="tema-notte.html">Scheda completa</a>.</p>
+          <span class="tl-f">Bricolage + Poppins · angoli 10 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/mercato.jpg" alt="Il catalogo con il tema Mercato" loading="lazy">
+        <div class="tl-txt">
+          <h3>Mercato <em>· il più commerciale</em></h3>
+          <div class="sw"><i style="background:#c9281f"></i><i style="background:#141414"></i><i style="background:#f2c200"></i><i style="background:#f4f2ef"></i></div>
+          <p>Rosso, nero e giallo da volantino. Titoli maiuscoli fuori misura, occhiello evidenziato, contorni netti e prezzo scritto grande: si capisce in mezzo secondo quanto costa e quanto si risparmia.</p>
+          <span class="tl-f">Bricolage + Montserrat · angoli 0 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/vigna.jpg" alt="Il catalogo con il tema Vigna" loading="lazy">
+        <div class="tl-txt">
+          <h3>Vigna <em>· il più botanico</em></h3>
+          <div class="sw"><i style="background:#2f5d3a"></i><i style="background:#1c3a24"></i><i style="background:#c8a15a"></i><i style="background:#f4f2e9"></i></div>
+          <p>Verde bosco, crema e ottone. La fascia si chiude con due angoli tondi e la foto della bottiglia sta dentro un arco, come in una nicchia: è la firma del tema, si riconosce da lontano.</p>
+          <span class="tl-f">Bricolage + Poppins · angoli 20 px</span>
+        </div>
+      </article>
+
+      <article class="tl">
+        <img src="foto/temi/vinile.jpg" alt="Il catalogo con il tema Vinile" loading="lazy">
+        <div class="tl-txt">
+          <h3>Vinile <em>· il più netto</em></h3>
+          <div class="sw"><i style="background:#101010"></i><i style="background:#c6f24a"></i><i style="background:#f2f1ec"></i><i style="background:#e6e5df"></i></div>
+          <p>Da copertina di disco: nero pieno, un verde acido, contorni da tre pixel e ombre piene spostate di qualche pixel, come una stampa fuori registro. Titoli enormi e stretti.</p>
+          <span class="tl-f">Bricolage stretto + Montserrat · angoli 0 px</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">L'altra manopola</span>
+      <h2>Le tre impaginazioni</h2>
+      <p>Il tema dà colori e caratteri, l'impaginazione dà la disposizione: sono due scelte separate e si incrociano, quindi le combinazioni sono ventiquattro.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Impaginazione</th><th>Filtri</th><th>Risultati</th><th>Quando serve</th></tr></thead>
+        <tbody>
+          <tr><th>Standard</th><td>Colonna a sinistra, fissa</td><td>Griglia da quattro, cinque sugli schermi larghi</td><td>È l'impostazione di partenza</td></tr>
+          <tr><th>Vetrina</th><td>Barra in alto con le tendine</td><td>Poche per riga e grandi, foto più alte</td><td>Quando conta guardare, non confrontare</td></tr>
+          <tr><th>Compatto</th><td>Colonna stretta</td><td>Una riga per bottiglia: foto, dati, prezzo</td><td>Quando si confrontano prezzi e premi</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">Le cose che non cambiano</span><h2>Quello che nessun tema può toccare</h2></div>
+    <ul class="lista">
+      <li><b>La struttura della scheda.</b> Foto, cantina, nome, targhette, premi, due righe di descrizione, prezzo, pulsante, «venduto e spedito da». L'ordine è sempre quello: un tema può cambiarne i colori, non l'ordine. <a href="catalogo-specifiche.html">Il dettaglio è qui</a>.</li>
+      <li><b>La testata.</b> Un solo file per tutte le pagine: stesse voci, stessa ricerca, stesso carrello. Cambiarla in una pagina sola vuol dire romperla in quaranta.</li>
+      <li><b>La spedizione per cantina.</b> Gratis da 69 € <em>su ogni cantina</em>, non sul totale. Sta scritto nella scheda, nella pagina prodotto e nel carrello, che raggruppa le righe per cantina: è la cosa che i clienti fraintendono di più, quindi si ripete.</li>
+      <li><b>I caratteri.</b> Tre, quelli sopra. Nessun tema ne aggiunge, nessuno usa le grazie.</li>
+      <li><b>Le foto delle bottiglie.</b> Scontornate su fondo trasparente. È per questo che funzionano sia sui temi chiari sia su Notte senza rifarle.</li>
+    </ul>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">Per chi ci mette le mani</span><h2>Dove stanno le cose</h2></div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>File</th><th>Cosa contiene</th></tr></thead>
+        <tbody>
+          <tr><th>temi/base.css</th><td>Lo scheletro comune: griglia, testate di pagina, bottoni, riquadri, piè di pagina, e le regole per la stampa.</td></tr>
+          <tr><th>temi/header.css · header.js</th><td>La testata unica, con le tendine, la ricerca e il menù del telefono.</td></tr>
+          <tr><th>temi/card.css · card.js</th><td>La scheda prodotto e le funzioni per griglia e carosello.</td></tr>
+          <tr><th>temi/carrello.css · carrello.js</th><td>Il carrello a quattro passi, con il conto delle spedizioni per cantina.</td></tr>
+          <tr><th>temi/prodotti.js</th><td>Le 24 etichette di prova: sono l'unica fonte dei dati.</td></tr>
+          <tr><th>temi/skin-*.css</th><td>Gli otto temi.</td></tr>
+          <tr><th>temi/layout-*.css</th><td>Le impaginazioni Vetrina e Compatto.</td></tr>
+          <tr><th>temi/skin.js</th><td>Il selettore in basso: tiene a mente tema e impaginazione mentre navighi.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Un tema nuovo si aggiunge in tre mosse: copiare un file <b>skin-*.css</b> e riscrivere i valori, aggiungere una riga nell'elenco dentro <b>skin.js</b>, aggiungere la scheda nella <a href="temi.html">galleria dei temi</a>. Nessuna pagina va toccata.</p>
+  </div>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>

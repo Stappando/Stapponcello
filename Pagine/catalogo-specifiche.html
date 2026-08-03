@@ -48,6 +48,8 @@
 .passi-num li + li::before{top:11px}
 .passi-num b{color:var(--fg);font-weight:600}
 .prosa{font-size:14.5px;line-height:1.75;color:var(--muted-fg);max-width:74ch}
+.scarica{margin-top:22px}
+@media print{.scarica{display:none !important}}
 .tab-wrap{overflow-x:auto}
 .tab{width:100%;border-collapse:collapse;min-width:620px;font-size:13px}
 .tab th,.tab td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
@@ -141,7 +143,9 @@
     <h1>Il catalogo, spiegato riga per riga</h1>
     <p class="lead">Tutto quello che c'è dentro la pagina <a href="catalogo.html">catalogo</a>: gli otto filtri e da dove prendono i valori, i cinque ordinamenti, com'è fatta la scheda, cosa succede quando non c'è nessun risultato. Serve a chi la deve costruire davvero, non è una pagina del sito.</p>
     <div class="headstats"><div><b>8</b><span>Filtri</span></div><div><b>5</b><span>Ordinamenti</span></div><div><b>24</b><span>Etichette di prova</span></div></div>
-  </div>
+  
+    <a class="btn btn-gold scarica" href="pdf/catalogo-come-funziona.pdf" download>Scarica il PDF <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></a>
+</div>
 </header>
 
 <main>
