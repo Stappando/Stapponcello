@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Catalogo, come funziona</title>
+<meta name="description" content="Documento di lavoro: filtri, ordinamenti, scheda e stati della pagina catalogo di Stappando." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+.lista{margin-top:4px}
+.lista li{position:relative;padding-left:22px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.lista li + li{margin-top:9px}
+.lista li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.lista b{color:var(--fg);font-weight:600}
+.lista code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+  background:var(--muted);padding:2px 6px;border-radius:5px;color:var(--fg);
+}
+.passi-num{counter-reset:p;margin-top:4px}
+.passi-num li{
+  counter-increment:p;position:relative;padding-left:38px;
+  font-size:14px;line-height:1.65;color:var(--muted-fg);
+}
+.passi-num li + li{margin-top:11px;padding-top:11px;border-top:1px solid var(--border-soft)}
+.passi-num li::before{
+  content:counter(p,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--accent-dark);
+}
+.passi-num li + li::before{top:11px}
+.passi-num b{color:var(--fg);font-weight:600}
+.prosa{font-size:14.5px;line-height:1.75;color:var(--muted-fg);max-width:74ch}
+.tab-wrap{overflow-x:auto}
+.tab{width:100%;border-collapse:collapse;min-width:620px;font-size:13px}
+.tab th,.tab td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.tab tbody th{font-weight:600;color:var(--fg);white-space:nowrap}
+.tab td{color:var(--muted-fg)}
+.tab em{font-style:normal;font-weight:600;color:var(--fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.nota{font-size:12.5px;color:var(--muted-fg);margin-top:16px;line-height:1.65;max-width:80ch}
+.nota b{color:var(--fg)}
+.sec.panel + .sec.panel{margin-top:22px}
+</style>
+
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
+</head>
+<body data-nav="shop">
+
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Catalogo · come funziona</span>
+    </nav>
+    <span class="eyebrow">Documento di lavoro</span>
+    <h1>Il catalogo, spiegato riga per riga</h1>
+    <p class="lead">Tutto quello che c'è dentro la pagina <a href="catalogo.html">catalogo</a>: gli otto filtri e da dove prendono i valori, i cinque ordinamenti, com'è fatta la scheda, cosa succede quando non c'è nessun risultato. Serve a chi la deve costruire davvero, non è una pagina del sito.</p>
+    <div class="headstats"><div><b>8</b><span>Filtri</span></div><div><b>5</b><span>Ordinamenti</span></div><div><b>24</b><span>Etichette di prova</span></div></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="panel lift">
+    <div class="sec-head" style="margin-bottom:18px">
+      <span class="eyebrow">In due parole</span>
+      <h2>Una pagina sola per tutto</h2>
+      <p>Questa pagina serve a tre cose diverse che nel sito sembrano tre pagine: la categoria (vini, bollicine, distillati…), il risultato di una ricerca e la selezione filtrata. Cambia solo cosa arriva già acceso: il resto è identico, così chi naviga non deve reimparare niente.</p>
+    </div>
+    <ul class="lista">
+      <li><b>Categoria</b> — si arriva con <code>catalogo.html?cat=vini</code>: il filtro Categoria parte già su quella voce, il titolo resta lo stesso.</li>
+      <li><b>Ricerca</b> — dal campo in testata; cerca per <b>uvaggio, regione e produttore</b>. Il testo cercato diventa una targhetta che si può togliere.</li>
+      <li><b>Vini e distillati insieme</b> — nessuna pagina separata per gli spirits: stessa griglia, stessa barra dei filtri, cambia solo la Categoria.</li>
+    </ul>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">La colonna a sinistra</span>
+      <h2>Gli otto filtri, in quest'ordine</h2>
+      <p>Nessun elenco è scritto a mano: ogni filtro si costruisce leggendo le etichette in catalogo, con il numero accanto. Se domani si aggiunge una bottiglia con un vitigno nuovo, quel vitigno compare da solo. I gruppi con pochi valori restano chiusi.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Filtro</th><th>Come si sceglie</th><th>Come si sommano</th><th>Valori oggi</th></tr></thead>
+        <tbody>
+          <tr><th>Categoria</th><td>Uno solo (pallino)</td><td>Sostituisce il precedente</td><td>Tutto il catalogo, Vini, Bollicine, Distillati, Liquori e amari, Aperitivi e vermouth</td></tr>
+          <tr><th>Regione</th><td>Più di uno</td><td>In alternativa: Lazio <em>oppure</em> Piemonte</td><td>12 regioni, più i produttori esteri</td></tr>
+          <tr><th>Vitigno</th><td>Più di uno</td><td>In alternativa</td><td>16 fra vitigni e basi (per i distillati: erbe e botaniche)</td></tr>
+          <tr><th>Prezzo</th><td>Cursore, tetto massimo</td><td>Taglia tutto quello che costa di più</td><td>Da 8 € a 120 € e oltre</td></tr>
+          <tr><th>Premi</th><td>Più di uno</td><td>In alternativa</td><td>12 fra guide e punteggi: Tre Bicchieri, Slow Wine, Cinque Grappoli, Parker, i punteggi del nostro assaggio…</td></tr>
+          <tr><th>Brand</th><td>Più di uno</td><td>In alternativa</td><td>20 cantine e distillerie</td></tr>
+          <tr><th>Denominazione</th><td>Più di uno</td><td>In alternativa</td><td>22 fra DOCG, DOC, IGT/IGP e menzioni</td></tr>
+          <tr><th>Filosofia</th><td>Più di uno</td><td>Si sommano: bio <em>e</em> vegan</td><td>Bio, Biodinamico, SQNPI, Vegan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota"><b>Perché Filosofia si somma e i Premi no.</b> Chi cerca «bio e vegan» vuole una bottiglia che sia tutte e due le cose. Chi spunta due guide vuole invece vedere le bottiglie premiate dall'una <em>o</em> dall'altra: sommarle darebbe quasi sempre zero risultati.</p>
+    <p class="nota">Le certificazioni (Bio, Vegan, SQNPI, Biodinamico) stanno solo in <b>Filosofia</b>: non compaiono anche fra i Premi, altrimenti lo stesso concetto finirebbe in due filtri diversi.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Sopra i risultati</span>
+      <h2>La barra e le targhette</h2>
+    </div>
+    <ul class="lista">
+      <li><b>Il conto</b> — «24 etichette trovate su 24». Si aggiorna a ogni tocco e viene letto anche dai lettori di schermo.</li>
+      <li><b>Ordina per</b> — cinque voci: <em>Consigliati</em> (l'ordine nostro, quello di partenza), <em>Prezzo crescente</em>, <em>Prezzo decrescente</em>, <em>Più apprezzati</em> (voto medio), <em>Ultimi arrivati</em>.</li>
+      <li><b>Griglia o elenco</b> — due bottoni. La griglia è quella di partenza; l'elenco mette la scheda in riga ed è la stessa forma dell'impaginazione Compatto.</li>
+      <li><b>Le targhette</b> — ogni filtro acceso diventa una targhetta sotto la barra, con la × per toglierlo. «Azzera tutto» le spegne tutte insieme e riporta la Categoria su «Tutto il catalogo».</li>
+      <li><b>Su telefono</b> — la colonna sparisce e diventa il bottone «Filtri», che apre il pannello di lato con il numero dei filtri accesi.</li>
+    </ul>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">La griglia</span>
+      <h2>Quattro per riga, cinque sugli schermi larghi</h2>
+      <p>Il catalogo è l'unica pagina che si allarga: da 1560 pixel in su passa a cinque colonne e con lui si allargano testata e fascia, così non resta niente fuori asse.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Larghezza dello schermo</th><th>Colonne</th><th>Colonna dei filtri</th></tr></thead>
+        <tbody>
+          <tr><th>da 1560 px</th><td>5</td><td>a sinistra, fissa</td></tr>
+          <tr><th>da 1241 a 1559 px</th><td>4</td><td>a sinistra, fissa</td></tr>
+          <tr><th>da 901 a 1240 px</th><td>3</td><td>a sinistra, fissa</td></tr>
+          <tr><th>da 521 a 900 px</th><td>2</td><td>pannello che si apre</td></tr>
+          <tr><th>fino a 520 px</th><td>1</td><td>pannello che si apre</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">La scheda</span>
+      <h2>Cosa c'è dentro, dall'alto in basso</h2>
+      <p>È la stessa scheda che si vede in home, nei correlati e nei caroselli: <a href="prodotto.html">una sola forma</a> in tutto il sito, così il cliente riconosce sempre quello che guarda.</p>
+    </div>
+    <ol class="passi-num">
+      <li><b>La foto</b> — bottiglia scontornata su fondo chiaro, quadrata. Si alza appena al passaggio del mouse.</li>
+      <li><b>Le due etichette sopra la foto</b> — a sinistra il punteggio del nostro assaggio o «Bio»; a destra il messaggio commerciale: sconto, «Il più scelto», «Da dessert».</li>
+      <li><b>La cantina</b> — in piccolo, maiuscolo, sopra il nome.</li>
+      <li><b>Il nome</b> — etichetta e annata, porta alla scheda prodotto.</li>
+      <li><b>Tre targhette</b> — tipologia, regione, voto medio.</li>
+      <li><b>Premi e certificazioni</b> — coppa dorata per le guide, foglia verde per bio, vegan, SQNPI.</li>
+      <li><b>Due righe di descrizione</b> — sempre due, anche quando il testo è più corto: così le schede restano allineate.</li>
+      <li><b>Quanti l'hanno comprato</b> — negli ultimi sette giorni.</li>
+      <li><b>Il prezzo</b> — con il prezzo pieno barrato accanto, se è in offerta.</li>
+      <li><b>Aggiungi al carrello</b> — diventa verde per un attimo quando è fatto, e il numerino in testata sale.</li>
+      <li><b>Venduto e spedito da</b> — il nome del venditore e la soglia: <b>gratis da 69 €</b> su quella cantina.</li>
+    </ol>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">La regola che confonde tutti</span>
+      <h2>La spedizione è per cantina, non per ordine</h2>
+    </div>
+    <p class="prosa">Ogni cantina spedisce per conto suo: la soglia dei 69 € vale su ogni cantina, non sul totale del carrello. Se prendi 50 € da una e 20 € da un'altra, il carrello dice 70 € ma le spedizioni da pagare sono due. Per questo la frase «venduto e spedito da» sta già nella scheda e nella pagina prodotto, e il carrello raggruppa le righe per cantina mostrando quanto manca a ciascuna.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Quando qualcosa non c'è</span>
+      <h2>Gli stati della pagina</h2>
+    </div>
+    <ul class="lista">
+      <li><b>Nessun risultato</b> — si dice quale incrocio ha svuotato la lista e si offre di togliere l'ultimo filtro, non di ricominciare da capo.</li>
+      <li><b>Filtro senza etichette</b> — la voce resta visibile con lo zero accanto e non si può spuntare: fa capire che quel valore esiste, ma non in questa selezione.</li>
+      <li><b>Bottiglia finita</b> — la scheda resta, il pulsante diventa «Avvisami»; non si nasconde, perché quella bottiglia è il motivo per cui il cliente è arrivato qui.</li>
+      <li><b>Poche rimaste</b> — sotto le tre bottiglie si scrive quante ne restano, senza conti alla rovescia finti.</li>
+    </ul>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head">
+      <span class="eyebrow">Sotto il cofano</span>
+      <h2>Dove stanno le cose</h2>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>File</th><th>Cosa contiene</th></tr></thead>
+        <tbody>
+          <tr><th>temi/prodotti.js</th><td>Le 24 etichette di prova: sono l'unica fonte. Ogni voce ha categoria, tipologia, regione, vitigno, denominazione, filosofia, premi, venditore, prezzo, voto, foto.</td></tr>
+          <tr><th>temi/card.js</th><td>La scheda prodotto, uguale in tutto il sito, e le funzioni per griglia e carosello.</td></tr>
+          <tr><th>temi/card.css</th><td>Il vestito della scheda.</td></tr>
+          <tr><th>catalogo.html</th><td>Filtri, ordinamenti, targhette e griglia di questa pagina.</td></tr>
+          <tr><th>temi/skin-*.css</th><td>Gli otto temi: colori, caratteri, forma delle fasce.</td></tr>
+          <tr><th>temi/layout-*.css</th><td>Le impaginazioni Vetrina e Compatto, che si incrociano con i temi.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Da sistemare prima di andare online: i premi delle 24 etichette di prova sono inventati e vanno sostituiti con quelli veri; i prezzi sono indicativi; la Cuvée Extra Dry è l'unica foto con il fondo bianco invece che scontornata.</p>
+  </div>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>

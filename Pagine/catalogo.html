@@ -376,6 +376,29 @@ footer{background:#12181a;color:rgba(255,255,255,.7);flex:none}
   display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;font-weight:700;flex:none;
 }
 
+/* ── la griglia dei risultati: quattro per riga, cinque
+      sugli schermi larghi. Il catalogo respira più delle
+      altre pagine, così la fascia si allarga con lui. ──── */
+#grid.pgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+/* sugli schermi larghi il catalogo si allarga e passa a cinque:
+   si allargano anche testata e fascia, così resta tutto in asse */
+@media(min-width:1560px){
+  #grid.pgrid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  body .shop,body .pagehead .wrap,body .topbar-in,body .utilbar-in{max-width:1440px}
+}
+@media(max-width:1240px){
+  #grid.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:1080px){
+  #grid.pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  #grid.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  #grid.pgrid{grid-template-columns:1fr}
+}
+
 /* ── responsive ───────────────────────────────────────── */
 @media(max-width:1080px){
   .topnav{display:none}
