@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Le colline di Podere Cigli al tramonto, con i filari e la casa colonica">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5d9a8"/><stop offset="45%" stop-color="#eebd85"/><stop offset="100%" stop-color="#e2a173"/>
+    </linearGradient>
+    <linearGradient id="c1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9aa77a"/><stop offset="100%" stop-color="#7d8c62"/>
+    </linearGradient>
+    <linearGradient id="c2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7e9060"/><stop offset="100%" stop-color="#61734b"/>
+    </linearGradient>
+    <linearGradient id="c3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5d7048"/><stop offset="100%" stop-color="#43563a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#cielo)"/>
+  <circle cx="612" cy="168" r="54" fill="#fdf0d5" opacity=".92"/>
+
+  <!-- colline lontane -->
+  <path d="M0 268 C 140 224 250 262 360 246 C 470 230 560 260 690 236 C 740 227 780 232 800 236 L800 600 L0 600 Z" fill="url(#c1)"/>
+  <!-- collina di mezzo con i cipressi -->
+  <path d="M0 336 C 130 300 240 330 350 316 C 470 300 580 328 800 306 L800 600 L0 600 Z" fill="url(#c2)"/>
+  <g fill="#42533a">
+    <ellipse cx="118" cy="300" rx="10" ry="34"/><ellipse cx="146" cy="306" rx="9" ry="28"/>
+    <ellipse cx="172" cy="298" rx="10" ry="36"/><ellipse cx="200" cy="308" rx="8" ry="26"/>
+  </g>
+
+  <!-- la casa colonica -->
+  <g>
+    <rect x="556" y="286" width="104" height="66" rx="3" fill="#e8d3b2"/>
+    <path d="M548 288 L608 258 L668 288 Z" fill="#b8714f"/>
+    <rect x="574" y="312" width="16" height="22" fill="#6b5a44"/>
+    <rect x="606" y="310" width="14" height="14" fill="#6b5a44"/>
+    <rect x="634" y="310" width="14" height="14" fill="#6b5a44"/>
+    <rect x="648" y="252" width="12" height="30" fill="#c08863"/>
+  </g>
+
+  <!-- collina in primo piano con i filari -->
+  <path d="M0 402 C 180 366 320 400 470 384 C 620 368 720 392 800 380 L800 600 L0 600 Z" fill="url(#c3)"/>
+  <g stroke="#334029" stroke-width="7" stroke-linecap="round" opacity=".55">
+    <path d="M-20 470 C 180 434 340 466 500 450 C 640 436 730 456 820 446"/>
+    <path d="M-20 512 C 180 476 340 508 500 492 C 640 478 730 498 820 488"/>
+    <path d="M-20 556 C 180 520 340 552 500 536 C 640 522 730 542 820 532"/>
+    <path d="M-20 600 C 180 564 340 596 500 580 C 640 566 730 586 820 576"/>
+  </g>
+  <g fill="#2c3823" opacity=".5">
+    <circle cx="90" cy="466" r="9"/><circle cx="230" cy="452" r="9"/><circle cx="380" cy="458" r="9"/>
+    <circle cx="150" cy="510" r="9"/><circle cx="300" cy="500" r="9"/><circle cx="470" cy="492" r="9"/>
+    <circle cx="120" cy="554" r="10"/><circle cx="330" cy="546" r="10"/><circle cx="560" cy="536" r="10"/>
+  </g>
+</svg>

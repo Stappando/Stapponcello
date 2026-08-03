@@ -154,14 +154,12 @@ img,svg{display:block}
 }
 .hero-lead{margin-top:18px;color:rgba(255,255,255,.78);font-size:16px;line-height:1.6;max-width:46ch}
 .hero-lead strong{color:#fff;font-weight:600}
-.hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-cta{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
 .hero-trust{
-  display:flex;gap:26px;margin-top:34px;padding-top:22px;
-  border-top:1px solid rgba(255,255,255,.16);flex-wrap:wrap;
+  margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);
+  font-size:13px;color:rgba(255,255,255,.62);line-height:1.6;
 }
-.hero-trust div{min-width:0}
-.hero-trust b{display:block;font-family:var(--font-display);font-size:22px;font-weight:700}
-.hero-trust span{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.hero-trust b{color:#fff;font-weight:700}
 
 /* ── buttons ──────────────────────────────────────────── */
 .btn{
@@ -261,23 +259,21 @@ main{flex:1}
 
 /* ── la nostra idea ───────────────────────────────────── */
 .why{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
-.idea-head{max-width:56ch}
 .claim{
-  font-family:var(--font-display);
+  font-family:var(--font-display);max-width:20ch;
   font-size:clamp(24px,3vw,36px);font-weight:600;line-height:1.16;
-  letter-spacing:-.035em;margin-top:14px;
+  letter-spacing:-.035em;
 }
 .claim em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
 .claim em::after{
   content:"";position:absolute;left:0;right:0;bottom:2px;height:9px;
   background:rgba(201,168,124,.4);border-radius:3px;z-index:-1;
 }
-.idea-lead{margin-top:16px;font-size:15px;color:var(--muted-fg);line-height:1.7;max-width:56ch}
 
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:38px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
 .step{
   position:relative;background:var(--bg);border:1px solid var(--border-soft);
-  border-radius:var(--r-lg);padding:26px 24px;transition:.18s;
+  border-radius:var(--r-lg);padding:22px 22px 24px;transition:.18s;
 }
 .step.on{
   background:linear-gradient(165deg,var(--primary-dark),var(--primary));border-color:transparent;
@@ -288,16 +284,12 @@ main{flex:1}
 .step .ic{
   width:44px;height:44px;border-radius:var(--r-sm);
   background:var(--primary-soft);color:var(--primary);
-  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px;
 }
 .step.on .ic{background:rgba(201,168,124,.22);color:var(--accent)}
-.step .lbl{
-  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-fg);
-}
-.step.on .lbl{color:var(--accent)}
 .step h3{
   font-family:var(--font-display);
-  font-size:19px;font-weight:600;line-height:1.22;margin-top:9px;letter-spacing:-.03em;
+  font-size:19px;font-weight:600;line-height:1.22;letter-spacing:-.03em;
 }
 .step p{margin-top:9px;font-size:13.5px;color:var(--muted-fg);line-height:1.6}
 .step.on p{color:rgba(255,255,255,.76)}
@@ -320,7 +312,6 @@ main{flex:1}
 .founders .who b{color:var(--fg);font-weight:600}
 
 /* ── schede prodotto ──────────────────────────────────── */
-.sec-num{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-fg)}
 .sec-top .link{
   font-size:12.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
 }
@@ -400,40 +391,41 @@ main{flex:1}
 .collection{
   position:relative;overflow:hidden;border-radius:var(--r-lg);margin-top:26px;
   background:linear-gradient(150deg,#2f4a3a 0%,#22382c 100%);
-  color:#fff;padding:38px 40px;min-height:230px;
-  display:flex;flex-direction:column;justify-content:center;
+  color:#fff;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  min-height:250px;
 }
-.collection::after{
-  content:"";position:absolute;right:-100px;top:-120px;width:420px;height:420px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
-}
-.coll-in{position:relative;z-index:2;max-width:52ch}
+.coll-in{position:relative;z-index:2;padding:34px 36px;align-self:center;max-width:52ch}
 .coll-pill{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.14);padding:7px 14px;border-radius:999px;
   font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
 }
-.coll-pill i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
-.coll-head{display:flex;align-items:center;gap:16px;margin-top:18px}
-.coll-crest{
-  width:52px;height:52px;border-radius:var(--r-sm);flex:none;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;
+/* l'immagine della cantina, con le bottiglie davanti */
+.coll-media{position:relative;min-height:230px;overflow:hidden}
+.coll-media > img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  -webkit-mask-image:linear-gradient(100deg,transparent 0,#000 22%);
+  mask-image:linear-gradient(100deg,transparent 0,#000 22%);
 }
-.coll-head h3{
-  font-family:var(--font-display);
-  font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.1;letter-spacing:-.035em;
-}
-/* solo il sottotitolo accanto al titolo, non il crest */
-.coll-head > div span{display:block;font-size:12.5px;color:rgba(255,255,255,.62);margin-top:5px}
-.collection p{margin-top:14px;font-size:14px;color:rgba(255,255,255,.76);line-height:1.6;max-width:44ch}
-.collection .btn{margin-top:20px;align-self:flex-start}
 .coll-bottles{
-  position:absolute;right:34px;top:0;bottom:0;z-index:1;
-  display:flex;align-items:center;gap:18px;pointer-events:none;
+  position:absolute;right:30px;top:0;bottom:0;z-index:2;
+  display:flex;align-items:center;gap:16px;pointer-events:none;
 }
-.coll-bottles .btl{height:210px;filter:drop-shadow(0 18px 26px rgba(0,0,0,.4))}
-.coll-bottles .btl:nth-child(2){height:238px}
+.coll-bottles .btl{position:relative;width:auto;height:190px;object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
+.coll-bottles .btl:nth-child(2){height:216px}
+
+.coll-head{display:flex;align-items:center;gap:13px;margin-top:16px}
+.coll-crest{
+  width:44px;height:44px;flex:none;border-radius:50%;
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.34);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:17px;font-weight:700;
+}
+.coll-head h3{font-family:var(--font-display);font-size:23px;font-weight:600;letter-spacing:-.03em;line-height:1.15}
+.coll-head span{font-size:11.5px;color:rgba(255,255,255,.66);display:block;margin-top:3px}
+.collection p{margin-top:13px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.8);max-width:44ch}
+.collection .btn{margin-top:20px}
+.coll-pill i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 
 /* ── cantine da conoscere ─────────────────────────────── */
 .explore{background:var(--card);border-top:1px solid var(--border-soft)}
@@ -605,7 +597,18 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   .foot-in{grid-template-columns:1fr}
   .search{order:3;flex-basis:100%;max-width:none;margin:0}
   .topbar-in{height:auto;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;gap:12px}
-  .hero-trust{gap:18px}
+  /* le due chiamate stanno affiancate: una riga sola, non due */
+  .hero-cta{flex-wrap:nowrap;gap:8px}
+  .hero-cta .btn{flex:1;min-width:0;padding:12px 12px;font-size:12px;text-align:center;justify-content:center}
+  .hero-cta .btn svg{display:none}
+  .hero-trust{font-size:12px}
+  .collection{grid-template-columns:1fr}
+  .coll-media{min-height:180px;order:-1}
+  .coll-media > img{-webkit-mask-image:none;mask-image:none}
+  .coll-bottles{right:16px}
+  .coll-bottles .btl{height:130px}
+  .coll-bottles .btl:nth-child(2){height:150px}
+  .coll-in{padding:24px 22px 28px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
@@ -695,16 +698,14 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
       </p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="cantina.html">
-          Dai un'occhiata a chi abbiamo selezionato
+          Guarda le cantine
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
         </a>
         <a class="btn btn-outline" href="javascript:void(0)">Chiedici un consiglio</a>
       </div>
-      <div class="hero-trust">
-        <div><b>320</b><span>Cantine indipendenti</span></div>
-        <div><b>20</b><span>Regioni</span></div>
-        <div><b>4,7/5</b><span>Su 3.482 recensioni</span></div>
-      </div>
+      <p class="hero-trust">
+        <b>320</b> cantine · <b>20</b> regioni · <b>4,7/5</b> su 3.482 recensioni
+      </p>
     </div>
 
     <div>
@@ -739,63 +740,13 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   </div>
 </section>
 
-<!-- ══ LA NOSTRA IDEA ═══════════════════════════════════ -->
-<section class="sec why">
-  <div class="wrap">
-    <div class="idea-head">
-      <p class="eyebrow">— 01 · La nostra idea</p>
-      <p class="claim">Tra lo scaffale e la cattedra, <em>c'è la tavola</em>.</p>
-    </div>
-
-    <div class="steps">
-      <article class="step">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18M3 10h18M3 16h18"/><path d="M6 4v6M10 4v6M14 10v6M18 10v6"/></svg>
-        </span>
-        <p class="lbl">Lo scaffale</p>
-        <h3>Più scelta, più smarrimento</h3>
-        <p>Mille etichette e nessuno che ti dica quale aprire stasera.</p>
-      </article>
-
-      <article class="step">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z"/><path d="M8 20h8M12 16v4"/><path d="M8 9h8M8 12h5"/></svg>
-        </span>
-        <p class="lbl">La cattedra</p>
-        <h3>Per capire devi già sapere</h3>
-        <p>Le parole difficili non ti fanno bere meglio.</p>
-      </article>
-
-      <article class="step on">
-        <span class="ic" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/></svg>
-        </span>
-        <p class="lbl">La tavola · Stappando</p>
-        <h3>Qualcuno si siede accanto a te</h3>
-        <p>Ti racconta cosa hai nel bicchiere, senza farti pesare quanto sa.</p>
-      </article>
-    </div>
-
-    <div class="founders">
-      <span class="avatar" aria-hidden="true">RC</span>
-      <div>
-        <q>Dietro ogni bottiglia, prima del vino, ci sono un luogo e delle mani.</q>
-        <p class="who"><b>Roberto e Claudio</b> — fondatori ·
-        <a href="chi-siamo.html" style="color:var(--primary);font-weight:600">la nostra storia</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ 02 · I CONSIGLI DELLA SETTIMANA ══════════════════ -->
+<!-- ══ I CONSIGLI DELLA SETTIMANA ══════════════════════ -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-top">
       <div class="sec-head">
-        <p class="sec-num">— 02</p>
-        <p class="eyebrow">Freschi di cantina</p>
         <h2 class="h2">I consigli della settimana</h2>
-        <p>Otto bottiglie scelte in questi giorni.</p>
+        <p>Otto, scelte in questi giorni.</p>
       </div>
       <a class="link" href="catalogo.html">Vedi tutti
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -804,37 +755,67 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 
     <div id="prodGrid"></div>
 
-    <!-- banner collezione -->
-    <a class="collection" href="catalogo.html">
-      <div class="coll-bottles" id="collBottles" aria-hidden="true"></div>
-      <div class="coll-in">
-        <span class="coll-pill"><i></i>La collezione</span>
-        <div class="coll-head">
-          <span class="coll-crest" aria-hidden="true">C</span>
-          <div>
-            <h3>L'estate di Podere Cigli</h3>
-            <span>Toscana · bianchi &amp; rosati</span>
-          </div>
-        </div>
-        <p>Sei etichette pensate per le sere lunghe: fresche, sapide, di quelle che si bevono senza pensarci.</p>
-        <span class="btn btn-primary">
-          Scopri la collezione
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-        </span>
-      </div>
-    </a>
+    <!-- ══ BANNER DELLA COLLEZIONE ═══════════════════════
+         Contenuto, immagine e link arrivano da BANNER, qui sotto
+         in fondo alla pagina: nel sito vero li scrive la
+         dashboard admin, in Contenuti (CMS). Nessun testo di
+         questo riquadro è scritto dentro il disegno.
+         ═══════════════════════════════════════════════════ -->
+    <a class="collection" id="banner" href="catalogo.html"></a>
   </div>
 </section>
+
+<!-- ══ LA NOSTRA IDEA ═══════════════════════════════════ -->
+<section class="sec why">
+  <div class="wrap">
+    <p class="claim">Tra lo scaffale e la cattedra, <em>c'è la tavola</em>.</p>
+
+    <div class="steps">
+      <article class="step">
+        <span class="ic" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18M3 10h18M3 16h18"/><path d="M6 4v6M10 4v6M14 10v6M18 10v6"/></svg>
+        </span>
+        <h3>Lo scaffale</h3>
+        <p>Mille etichette, nessuno che ti dica quale aprire.</p>
+      </article>
+
+      <article class="step">
+        <span class="ic" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H4z"/><path d="M8 20h8M12 16v4"/><path d="M8 9h8M8 12h5"/></svg>
+        </span>
+        <h3>La cattedra</h3>
+        <p>Parole difficili che non ti fanno bere meglio.</p>
+      </article>
+
+      <article class="step on">
+        <span class="ic" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/></svg>
+        </span>
+        <h3>La tavola</h3>
+        <p>Qualcuno accanto a te che ti dice cosa hai nel bicchiere.</p>
+      </article>
+    </div>
+
+    <div class="founders">
+      <span class="avatar" aria-hidden="true">RC</span>
+      <div>
+        <q>Dietro ogni bottiglia ci sono un luogo e delle mani.</q>
+        <p class="who"><b>Roberto e Claudio</b> ·
+        <a href="chi-siamo.html" style="color:var(--primary);font-weight:600">la nostra storia</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ══ CAROSELLO · BOLLICINE ════════════════════════════ -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-top">
       <div class="sec-head">
-        <p class="sec-num">— 03</p>
-        <p class="eyebrow">Da aprire senza motivo</p>
         <h2 class="h2">Bollicine</h2>
-        <p>Metodo classico e Prosecco che teniamo sempre in frigo.</p>
+        <p>Metodo classico e Prosecco, sempre in frigo.</p>
       </div>
       <a class="link" href="catalogo.html?cat=bollicine">Vedi tutte
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -849,8 +830,6 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   <div class="wrap">
     <div class="sec-top">
       <div class="sec-head">
-        <p class="sec-num">— 04</p>
-        <p class="eyebrow">Conviene riempire una cassa sola</p>
         <h2 class="h2">Torre dei Falchi, dal Lazio</h2>
         <p>Più bottiglie dalla stessa cantina, <b>una spedizione sola</b>. Da 69 € è gratis.</p>
       </div>
@@ -862,15 +841,13 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   </div>
 </section>
 
-<!-- ══ 05 · LE CANTINE ══════════════════════════════════ -->
+<!-- ══ LE CANTINE ══════════════════════════════════ -->
 <section class="sec explore">
   <div class="wrap">
     <div class="sec-top">
       <div class="sec-head">
-        <p class="sec-num">— 05</p>
-        <p class="eyebrow">Dietro ogni bottiglia, delle mani</p>
         <h2 class="h2">Le cantine da conoscere</h2>
-        <p>Ci siamo andati di persona, una per una.</p>
+        <p>Ci siamo andati, una per una.</p>
       </div>
       <a class="link" href="cantina.html">Tutte le 320
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -881,8 +858,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 
     <div class="seller" style="grid-template-columns:1fr auto;align-items:center;padding:22px 26px">
       <div>
-        <p class="eyebrow">Sei una cantina?</p>
-        <h3 style="margin-top:6px;font-size:20px">Vendi su Stappando</h3>
+        <h3 style="font-size:20px">Sei una cantina? Vendi su Stappando</h3>
       </div>
       <a class="btn btn-dark" href="contatti.html">Come funziona
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -895,7 +871,6 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 <section class="sec">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Recensioni verificate</p>
       <h2 class="h2">Cosa dice chi ha già stappato</h2>
     </div>
     <div class="rev-top">
@@ -959,9 +934,8 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 <section class="wrap" style="padding-bottom:8px">
   <div class="news">
     <div>
-      <p class="eyebrow">La lettera del giovedì</p>
       <h2>Una mail a settimana, solo se abbiamo qualcosa da dire</h2>
-      <p>Una storia, le etichette nuove. Niente “ultimi 3 pezzi”.</p>
+      <p>Una storia e le etichette nuove. Mai “ultimi 3 pezzi”.</p>
     </div>
     <div>
       <form class="news-form" id="newsForm" novalidate>
@@ -1183,6 +1157,52 @@ document.addEventListener('DOMContentLoaded', function(){
   caroselloProdotti(document.getElementById('carLazio'),
     PRODOTTI.filter(function(p){return p.regione === 'Lazio'}).concat(PRODOTTI.slice(1,4)));
 });
+
+/* ══ BANNER DELLA COLLEZIONE ══════════════════════════
+   Tutto quello che si vede nel riquadro sta qui dentro:
+   nel sito vero questi campi arrivano dalla dashboard
+   admin, in Contenuti (CMS), e si cambiano senza toccare
+   il codice. Immagine, testi, bottiglie e link compresi. */
+const BANNER = {
+  targhetta: 'La collezione',
+  cantina:   'Podere Cigli',
+  iniziale:  'C',
+  titolo:    'L\u2019estate di Podere Cigli',
+  sottotitolo: 'Toscana \u00b7 bianchi & rosati',
+  testo:     'Sei etichette per le sere lunghe: fresche, sapide, da bere senza pensarci.',
+  bottone:   'Scopri la collezione',
+  link:      'catalogo.html',
+  immagine:  'foto/cantine/podere-cigli.svg',
+  alt:       'Le colline di Podere Cigli, con i filari e la casa colonica',
+  bottiglie: ['foto/roselvo-rosato.png','foto/piana-mosaico-bianco.png'],
+};
+
+(function(){
+  const el = document.getElementById('banner');
+  if(!el) return;
+  el.href = BANNER.link;
+  el.innerHTML =
+    '<div class="coll-in">' +
+      '<span class="coll-pill"><i></i>' + esc(BANNER.targhetta) + '</span>' +
+      '<div class="coll-head">' +
+        '<span class="coll-crest" aria-hidden="true">' + esc(BANNER.iniziale) + '</span>' +
+        '<div><h3>' + esc(BANNER.titolo) + '</h3>' +
+        '<span>' + esc(BANNER.sottotitolo) + '</span></div>' +
+      '</div>' +
+      '<p>' + esc(BANNER.testo) + '</p>' +
+      '<span class="btn btn-primary">' + esc(BANNER.bottone) +
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>' +
+      '</span>' +
+    '</div>' +
+    '<div class="coll-media">' +
+      '<img src="' + BANNER.immagine + '" alt="' + esc(BANNER.alt) + '" loading="lazy">' +
+      '<div class="coll-bottles" aria-hidden="true">' +
+        BANNER.bottiglie.map(function(f){
+          return '<img class="btl" src="' + f + '" alt="" loading="lazy">';
+        }).join('') +
+      '</div>' +
+    '</div>';
+})();
 
 /* ══ GRIGLIA CANTINE ══════════════════════════════════ */
 const STAR = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>`;
