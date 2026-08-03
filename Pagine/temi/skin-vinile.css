@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · tema VINILE
+   Da copertina di disco: bianco sporco, nero pieno e un verde
+   acido. Contorni spessi, ombre nette, niente sfumature.
+   Titoli enormi in Bricolage Grotesque, testo in Montserrat.
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --sidebar-bg:#101010;
+  --primary:#101010; --primary-dark:#000000; --primary-soft:rgba(16,16,16,.06);
+  --accent:#c6f24a; --accent-dark:#7f9e18;
+  --bg:#f2f1ec; --card:#ffffff; --fg:#101010; --muted-fg:#5f5f5a; --muted:#e6e5df;
+  --border:#101010; --border-soft:rgba(16,16,16,.14); --ok:#2c7a4b;
+  --r:0px; --r-sm:0px; --r-lg:0px;
+  --shadow-sm:none;
+  --shadow-md:4px 4px 0 #101010;
+  --shadow-lg:8px 8px 0 #101010;
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+}
+
+body h1,body h2,body h3{
+  font-variation-settings:"wdth" 75,"opsz" 96;
+  font-weight:800;letter-spacing:-.05em;line-height:.94;
+}
+body .hero h1{font-size:clamp(40px,7vw,86px)}
+body .pagehead h1{font-size:clamp(36px,6vw,74px);max-width:16ch}
+body .sec-head h2{font-size:clamp(26px,3.6vw,44px)}
+body .eyebrow{
+  border:2px solid currentColor;padding:3px 9px;display:inline-block;
+  color:var(--fg);font-size:9.5px;letter-spacing:.2em;
+}
+
+/* ── fasce: nero pieno, titolo fuori scala ────────────── */
+body .hero,body .pagehead{background:#101010;border-bottom:3px solid #101010}
+body .hero::after,body .pagehead::after{display:none}
+body .pagehead .eyebrow,body .hero-copy .eyebrow{color:var(--accent)}
+body .utilbar{background:#101010;border-bottom:2px solid var(--accent)}
+body .topbar{border-bottom:3px solid #101010}
+
+/* ── la barra sotto al titolo: verde acido, bordo nero ── */
+body .toolbar,body .tools{
+  background:var(--accent);border:3px solid #101010;box-shadow:none;border-radius:0;padding:12px 18px;
+}
+body .toolbar .tb-count,body .toolbar label,body .tools label{color:#101010;font-weight:700}
+
+/* ── contorni spessi e ombre nette ────────────────────── */
+body .btn,body select,body .chip,body .tagline,
+body .pc-l,body .pc-r,body .pc-chip,body .pc-premio,
+body .viewtoggle,body .viewtoggle button,body .tabs,body .tabs button,
+body .tipo-tag,body .filtri a,body .qty,body .bar-t,body .search-box,
+body .cart-qty,body .cart-coupon input,body .cart-coupon button,body .cart-btn{border-radius:0}
+body .btn{border:2px solid #101010;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:12px}
+body .btn-primary{background:var(--accent);color:#101010;box-shadow:3px 3px 0 #101010}
+body .btn-dark{background:#101010;color:var(--accent);box-shadow:3px 3px 0 var(--accent)}
+body .btn-outline{border-color:#fff;color:#fff}
+
+body .pc,body .panel,body .filters{border:3px solid #101010;box-shadow:none}
+body .pc:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 #101010;border-color:#101010}
+body .pc-foto{background:var(--muted);border-bottom:3px solid #101010}
+body .pc-l{background:#fff;border:2px solid #101010;font-weight:700}
+body .pc-r{background:var(--accent);color:#101010;border:2px solid #101010}
+body .pc-nome{font-weight:700}
+body .pc-prezzo{font-family:var(--font-display);font-size:26px;font-weight:800}
+body .pc-buy{background:#101010;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+body .pc-buy:hover{background:var(--accent);color:#101010}
+body .pc-buy{font-size:11px;letter-spacing:.02em}
+body .pc-buy span{white-space:nowrap}

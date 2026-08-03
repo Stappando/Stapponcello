@@ -11,6 +11,10 @@
     {id:'pastello',   nome:'Pastello',   a:'#c9718a', b:'#d4e5db'},
     {id:'terra',      nome:'Terra',      a:'#7a3b26', b:'#93a06a'},
     {id:'nordico',    nome:'Nordico',    a:'#25415c', b:'#b1714a'},
+    {id:'notte',      nome:'Notte',      a:'#0e1113', b:'#d8b56a'},
+    {id:'mercato',    nome:'Mercato',    a:'#c9281f', b:'#f2c200'},
+    {id:'vigna',      nome:'Vigna',      a:'#2f5d3a', b:'#c8a15a'},
+    {id:'vinile',     nome:'Vinile',     a:'#101010', b:'#c6f24a'},
   ];
   const IMPAGINAZIONI = [
     {id:'standard', nome:'Standard'},
@@ -105,7 +109,12 @@
     }
     .skinbar button:hover{color:#fff;background:rgba(255,255,255,.09)}
     .skinbar button.on{background:#fff;color:#141416;font-weight:600}
-    .skinbar i{width:10px;height:10px;border-radius:50%;flex:none;display:block}
+    .skinbar i{width:12px;height:12px;border-radius:50%;flex:none;display:block}
+    /* con otto temi restano i pallini: il nome lo mostra solo quello in uso */
+    .skinbar [data-tema]{padding:8px 9px}
+    .skinbar [data-tema] span{display:none}
+    .skinbar [data-tema].on{padding:8px 12px}
+    .skinbar [data-tema].on span{display:inline}
     .skinbar .sep{width:1px;height:20px;background:rgba(255,255,255,.16);margin:0 4px;flex:none}
     .skinbar.chiusa .sep{display:none}
     .skinbar .hide{
@@ -132,8 +141,8 @@
   barra.setAttribute('aria-label','Direzione grafica del sito');
   barra.innerHTML =
     '<span class="lab">Tema</span>' +
-    TEMI.map(t => `<button type="button" data-tema="${t.id}" aria-pressed="false">
-        <i style="background:linear-gradient(135deg,${t.a} 48%,${t.b} 48%)"></i>${t.nome}
+    TEMI.map(t => `<button type="button" data-tema="${t.id}" aria-pressed="false" title="${t.nome}" aria-label="${t.nome}">
+        <i style="background:linear-gradient(135deg,${t.a} 48%,${t.b} 48%)"></i><span>${t.nome}</span>
       </button>`).join('') +
     '<span class="sep" aria-hidden="true"></span>' +
     '<span class="lab">Impaginazione</span>' +

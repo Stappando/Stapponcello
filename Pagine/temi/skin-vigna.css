@@ -1,0 +1,60 @@
+/* ══════════════════════════════════════════════════════════
+   Stappando · tema VIGNA
+   Botanico e morbido: verde bosco, crema e ottone. Le foto
+   delle bottiglie stanno dentro un arco, come in una nicchia.
+   Titoli in Bricolage Grotesque, testo in Poppins.
+   ══════════════════════════════════════════════════════════ */
+:root{
+  --sidebar-bg:#1f3428;
+  --primary:#2f5d3a; --primary-dark:#1c3a24; --primary-soft:rgba(47,93,58,.09);
+  --accent:#c8a15a; --accent-dark:#9c7736;
+  --bg:#f4f2e9; --card:#fffefa; --fg:#22281f; --muted-fg:#6f7566; --muted:#e8e6d9;
+  --border:rgba(34,40,31,.13); --border-soft:rgba(34,40,31,.07); --ok:#3f7d52;
+  --r:20px; --r-sm:14px; --r-lg:26px;
+  --shadow-sm:0 2px 8px -4px rgba(34,40,31,.22);
+  --shadow-md:0 12px 30px -14px rgba(34,40,31,.3);
+  --shadow-lg:0 28px 60px -24px rgba(34,40,31,.4);
+  --font-sans:Poppins,Montserrat,system-ui,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+}
+
+body{background-image:
+  radial-gradient(900px 520px at 84% -10%,rgba(200,161,90,.16),transparent 60%),
+  radial-gradient(700px 460px at -8% 28%,rgba(47,93,58,.1),transparent 62%);
+  background-attachment:fixed}
+
+body h1,body h2,body h3{font-variation-settings:"opsz" 40;font-weight:600;letter-spacing:-.03em}
+body .eyebrow{
+  display:inline-flex;align-items:center;gap:8px;color:var(--accent-dark);letter-spacing:.2em;
+}
+body .eyebrow::after{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* ── fasce: verde profondo con l'arco in alto ─────────── */
+body .hero,body .pagehead{
+  background:linear-gradient(168deg,var(--primary-dark),var(--primary));
+  border-bottom-left-radius:34px;border-bottom-right-radius:34px;
+}
+body .hero::after,body .pagehead::after{
+  background:radial-gradient(circle,rgba(200,161,90,.24),transparent 70%);
+}
+
+/* ── la barra sotto al titolo: pastiglia crema ────────── */
+body .toolbar,body .tools{
+  background:var(--muted);border:none;box-shadow:none;border-radius:999px;padding:12px 24px;
+}
+
+/* ── la firma del tema: la foto sta in una nicchia ────── */
+body .pc-foto{
+  border-radius:999px 999px var(--r-sm) var(--r-sm);
+  margin:8px 8px 0;border-bottom:none;
+  background:radial-gradient(circle at 50% 44%,rgba(255,255,255,.96),transparent 60%),
+             linear-gradient(180deg,#eceadd,#e2e0d0);
+}
+body .pc{border-color:var(--border)}
+body .pc:hover{border-color:var(--accent)}
+body .pc-l{top:18px;left:16px}
+body .pc-r{top:18px;right:16px}
+
+/* dettagli tondi anche altrove */
+body .filters,body .panel{border-radius:26px}
+body .pcar-nav{border-color:var(--border)}
