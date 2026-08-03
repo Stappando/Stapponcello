@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Dossier generale</title>
+<meta name="description" content="Documento unico di riepilogo: sezioni, scheda prodotto, ruoli, alberatura, sistema grafico e stato del progetto Stappando." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+.indice{padding:24px 28px !important}
+.ind-t{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:14px}
+.indice ol{columns:2;column-gap:34px;counter-reset:i;list-style:none}
+.indice li{counter-increment:i;break-inside:avoid;padding:5px 0}
+.indice li::before{
+  content:counter(i,decimal-leading-zero);font-family:var(--font-display);
+  font-size:11px;font-weight:700;color:var(--accent-dark);margin-right:10px;
+}
+.indice a{font-size:13.5px;font-weight:500;color:var(--fg)}
+.indice a:hover{color:var(--primary);text-decoration:underline}
+
+.h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em;margin:26px 0 12px}
+.h3:first-of-type{margin-top:18px}
+.prosa{font-size:14.5px;line-height:1.8;color:var(--muted-fg);max-width:76ch}
+.prosa + .prosa{margin-top:13px}
+.prosa b{color:var(--fg);font-weight:600}
+.lista li{position:relative;padding-left:22px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.lista li + li{margin-top:9px}
+.lista li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.lista b{color:var(--fg);font-weight:600}
+.lista em,.tab em,.prosa em{font-style:normal;font-weight:600;color:var(--fg)}
+.lista a,.nota a,.regola a{color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.passi-num{counter-reset:p}
+.passi-num li{counter-increment:p;position:relative;padding-left:40px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.passi-num li + li{margin-top:11px;padding-top:11px;border-top:1px solid var(--border-soft)}
+.passi-num li::before{
+  content:counter(p,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--font-display);font-size:12.5px;font-weight:700;color:var(--accent-dark);
+}
+.passi-num li + li::before{top:11px}
+.passi-num b{color:var(--fg);font-weight:600}
+
+.doppia{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px}
+.box{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:18px 20px}
+.box h3{font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:11px}
+
+.regola{
+  margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);
+  background:var(--primary-soft);border-left:3px solid var(--primary);
+  font-size:13.5px;line-height:1.7;color:var(--fg);
+}
+.regola b{font-weight:700}
+
+.ruoli{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:6px}
+.ruolo{border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;background:var(--card)}
+.ruolo h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em}
+.ruolo h3 em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted-fg);letter-spacing:0}
+.ruolo p{font-size:12.5px;line-height:1.6;color:var(--muted-fg);margin-top:9px}
+.ruolo .si{border-top:1px solid var(--border-soft);padding-top:9px}
+.ruolo .si b{color:var(--ok,#2d6a4f)}
+.ruolo .no b{color:#8b2635}
+.ruolo p b{font-weight:700}
+
+.tab-wrap{overflow-x:auto}
+.tab{width:100%;border-collapse:collapse;min-width:560px;font-size:13px}
+.tab th,.tab td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.tab tbody th{font-weight:600;color:var(--fg)}
+.tab tbody th em{font-style:normal;font-weight:500;font-size:11px;color:var(--muted-fg)}
+.tab td{color:var(--muted-fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.tab .grp{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--bg);padding-top:12px;padding-bottom:8px;
+}
+.mat{min-width:720px}
+.mat thead th:not(:first-child),.mat td:not(:first-child){text-align:center;width:64px}
+.mat tbody td{font-size:14px;color:var(--fg)}
+.nota{font-size:12.5px;color:var(--muted-fg);margin-top:16px;line-height:1.65;max-width:82ch}
+.nota b{color:var(--fg)}
+.sec.panel + .sec.panel{margin-top:22px}
+.scarica{margin-top:22px}
+@media print{
+  .scarica{display:none !important}
+  .indice{break-after:page;page-break-after:always}
+  .sec.panel{break-before:auto}
+  .ruolo,.doppia .box,.regola{break-inside:avoid;page-break-inside:avoid}
+  .indice ol{columns:2}
+  .tab{min-width:0 !important;font-size:10.5px}
+  .mat{min-width:0 !important;font-size:9.5px}
+  .tab th,.tab td{padding:5px 7px}
+}
+</style>
+
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
+</head>
+<body>
+
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Dossier</span>
+    </nav>
+    <span class="eyebrow">Documento unico · riepilogo generale</span>
+    <h1>Stappando, tutto quello che c'è</h1>
+    <p class="lead">Un solo documento che tiene insieme il resto: com'è fatto il sito, sezione per sezione, come funziona la scheda prodotto, chi può fare cosa, la mappa completa delle pagine e le regole che valgono ovunque. È il punto di partenza per chiunque entri adesso nel progetto.</p>
+    <div class="headstats"><div><b>44</b><span>Pagine</span></div><div><b>6</b><span>Dashboard</span></div><div><b>7</b><span>Ruoli</span></div><div><b>8</b><span>Temi</span></div></div>
+  
+    <a class="btn btn-gold scarica" href="pdf/dossier-stappando.pdf" download>Scarica il PDF <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></a>
+</div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <nav class="indice panel lift" aria-label="Indice del documento">
+    <p class="ind-t">Cosa c'è dentro</p>
+    <ol>
+      <li><a href="#uno">Cos'è Stappando</a></li>
+      <li><a href="#due">La mappa del sito</a></li>
+      <li><a href="#tre">La testata, uguale ovunque</a></li>
+      <li><a href="#quattro">Le sezioni, una per una</a></li>
+      <li><a href="#cinque">Il catalogo</a></li>
+      <li><a href="#sei">La scheda prodotto</a></li>
+      <li><a href="#sette">La scheda cantina</a></li>
+      <li><a href="#otto">Carrello e pagamento</a></li>
+      <li><a href="#nove">I ruoli</a></li>
+      <li><a href="#dieci">Le sei dashboard</a></li>
+      <li><a href="#undici">Il sistema grafico</a></li>
+      <li><a href="#dodici">I dati di prova</a></li>
+      <li><a href="#tredici">L'elenco completo delle pagine</a></li>
+      <li><a href="#quattordici">Cosa manca</a></li>
+    </ol>
+  </nav>
+
+  <section class="sec panel" id="uno">
+    <div class="sec-head"><span class="eyebrow">01</span><h2>Cos'è Stappando</h2></div>
+    <p class="prosa">Un marketplace di vino: 320 cantine indipendenti che vendono dal produttore a casa, senza il passaggio dell'enoteca. Non è un e-commerce con un magazzino unico — ogni cantina è un venditore, spedisce le sue bottiglie e ha la sua soglia di spedizione gratuita. Questa cosa sola spiega metà delle scelte di interfaccia che trovi in questo documento.</p>
+    <p class="prosa">Il messaggio di partenza è dichiarato: <b>«Vino? facciamola facile.»</b> Davanti allo scaffale la gente si blocca — troppa scelta, paura di sbagliare, il timore di sembrare ignoranti. Stappando nasce per far sparire quell'ansia, non per aggiungere un'altra cattedra. Da qui derivano il tono dei testi (niente parole da sommelier senza tradurle), le due righe di descrizione in ogni scheda, gli abbinamenti scritti come li direbbe un amico.</p>
+    <div class="doppia">
+      <div class="box">
+        <h3>Cosa si trova</h3>
+        <ul class="lista">
+          <li>Vini, bollicine, distillati, liquori e amari, aperitivi e vermouth: un catalogo solo, non pagine separate per gli spirits.</li>
+          <li>Cantine raccontate una per una, con la storia della visita fatta da Roberto o da Claudio.</li>
+          <li>Un blog — le Storie — con territori, enocultura, abbinamenti e interviste.</li>
+          <li>Un abbonamento, il Wine Club, con tre piani.</li>
+          <li>Le esperienze in cantina, che portano a Vineis: sito esterno, non nostro.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Chi ci compra</h3>
+        <ul class="lista">
+          <li><b>Privati</b> — il grosso. Possono concludere l'ordine anche senza registrarsi.</li>
+          <li><b>Horeca</b> — ristoranti, enoteche, wine bar: stesso catalogo, listino riservato, riordino rapido. L'account va approvato.</li>
+          <li><b>Le cantine</b> — non comprano: vendono. Hanno un pannello per prodotti, ordini, recensioni e statistiche.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="regola">
+      <b>La regola che i clienti fraintendono di più.</b> La spedizione è gratuita da 69 € <em>su ogni cantina</em>, non sul totale del carrello. Se prendi 50 € da una cantina e 20 € da un'altra, il carrello segna 70 € ma le spedizioni da pagare sono due, 6,90 € l'una. Per questo la frase «venduto e spedito da» sta nella scheda prodotto, nella pagina prodotto e nel carrello, che raggruppa le righe per cantina e mostra quanto manca a ciascuna.
+    </div>
+  </section>
+
+  <section class="sec panel" id="due">
+    <div class="sec-head">
+      <span class="eyebrow">02</span><h2>La mappa del sito</h2>
+      <p>Quattro insiemi: quello che sta nella barra in alto, quello che sta dietro al profilo, le aree riservate e le pagine di servizio. <a href="alberatura.html">La versione navigabile è qui</a>.</p>
+    </div>
+
+    <h3 class="h3">Barra in alto — cinque voci</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Voce</th><th>Dove porta</th><th>Cosa c'è sotto</th></tr></thead>
+        <tbody>
+          <tr><th>Shop</th><td>catalogo.html</td><td>Vini · Spirits · Da regalare · Per tutti i giorni · Risultati di ricerca. Sono tutte la stessa pagina con filtri diversi.</td></tr>
+          <tr><th>Storie</th><td>storie.html</td><td>Indice dei racconti · Territori · Enocultura · Abbinamenti · Articolo. Nella tendina compaiono gli ultimi articoli usciti.</td></tr>
+          <tr><th>Experience</th><td>experience.html</td><td>Pagina ponte «Cos'è Vineis», senza tendina: da lì si esce verso vineis.eu.</td></tr>
+          <tr><th>Cantine</th><td>cantine.html</td><td>Solo un link: la pagina tiene l'indice delle cantine e la mappa del territorio. Da lì si entra nella scheda della singola cantina.</td></tr>
+          <tr><th>Wine Club</th><td>wineclub.html</td><td>Una landing sola con i tre piani, l'attivazione e le domande frequenti.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Barra utente — tre strumenti</h3>
+    <ul class="lista">
+      <li><b>Cerca</b> — cerca per <em>uvaggio, regione e produttore</em>: sono le tre cose che la gente ha in testa quando arriva. Suggerisce mentre scrivi e porta al catalogo filtrato.</li>
+      <li><b>Profilo</b> — accedi o registrati, il mio account, ordini e resi, dettaglio ordine con tracking, indirizzi e pagamenti.</li>
+      <li><b>Carrello</b> — si apre a finestra sopra la pagina, senza farti perdere il posto, e contiene tutti e quattro i passi dell'acquisto.</li>
+    </ul>
+
+    <h3 class="h3">Aree riservate</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Chi</th><th>Dove entra</th></tr></thead>
+        <tbody>
+          <tr><th>Cliente · B2C</th><td>Il mio Stappando</td></tr>
+          <tr><th>Horeca · B2B</th><td>Area Horeca</td></tr>
+          <tr><th>Cantina</th><td>Pannello titolare (owner) e pannello operativo (manager)</td></tr>
+          <tr><th>Piattaforma</th><td>Dashboard Admin e Dashboard Manager Admin</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Pagine di servizio</h3>
+    <ul class="lista">
+      <li><b>Azienda</b> — Chi siamo, Lavora con noi, Contatti.</li>
+      <li><b>Assistenza</b> — Spedizioni e consegne, Resi e rimborsi, Metodi di pagamento, Domande frequenti.</li>
+      <li><b>Legali</b> — Termini e condizioni, Privacy policy, Cookie policy, e la pagina 404.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="tre">
+    <div class="sec-head"><span class="eyebrow">03</span><h2>La testata, uguale ovunque</h2></div>
+    <p class="prosa">Un solo file per tutte e 43 le pagine. Se cambia una voce, cambia dappertutto: è la ragione per cui non esistono testate «di pagina». Sopra c'è una striscia scura con le tre cose che rassicurano — quante cantine, la soglia di spedizione, il voto medio delle recensioni verificate — e sotto la barra vera.</p>
+    <ol class="passi-num">
+      <li><b>Logo</b> a sinistra, con la parola «enoteca» sotto.</li>
+      <li><b>Le cinque voci.</b> Shop e Storie aprono una tendina larga quanto la pagina; Experience, Cantine e Wine Club sono link diretti. La voce della sezione in cui ti trovi resta accesa.</li>
+      <li><b>La ricerca</b>, al centro, sempre visibile: è il modo più usato per arrivare a una bottiglia.</li>
+      <li><b>Profilo e carrello</b> a destra, con il numero delle bottiglie sul carrello.</li>
+      <li><b>Sul telefono</b> le voci si chiudono in un menù a soffietto e la ricerca passa sotto, a tutta larghezza.</li>
+    </ol>
+    <p class="nota">La tendina dello Shop ha cinque colonne — Vini, Bollicine, Distillati, Liquori e amari, e una colonna doppia con «Per occasione», «Sostenibilità» e «In evidenza». Quella delle Storie ha gli ultimi articoli usciti, le rubriche e il riquadro dell'iscrizione alla lettera del giovedì.</p>
+  </section>
+  <section class="sec panel" id="quattro">
+    <div class="sec-head"><span class="eyebrow">04</span><h2>Le sezioni, una per una</h2></div>
+
+    <h3 class="h3">Home</h3>
+    <p class="prosa">Si apre con il problema, non con l'offerta: «Scegliere cosa bere non dovrebbe essere così complicato». Sotto il titolo ci sono i tre numeri che rassicurano e, a destra, il consiglio di stasera con una bottiglia sola e la cantina del mese. Poi si vende: i consigli della settimana, le bottiglie da aprire senza motivo, un blocco che spiega la spedizione per cantina, le cantine con i loro banner, due caroselli — bollicine e un territorio — e la lettera dei fondatori. È stata asciugata apposta: il testo lungo scoraggia, i prodotti no.</p>
+
+    <h3 class="h3">Shop</h3>
+    <p class="prosa">Una pagina sola per tutto: categoria, ricerca, selezione filtrata. Cambia solo cosa arriva già acceso. Vini e distillati stanno insieme, con la stessa griglia e la stessa colonna di filtri: separarli avrebbe raddoppiato le pagine senza aiutare nessuno. <a href="catalogo-specifiche.html">Il documento del catalogo</a> la spiega filtro per filtro.</p>
+
+    <h3 class="h3">Storie</h3>
+    <p class="prosa">Il blog, diviso in tre rubriche — Territori, Enocultura, Abbinamenti — più le interviste ai produttori. Non è un contenitore di parole: nella tendina della testata compaiono gli ultimi articoli, e ogni racconto porta alle bottiglie di cui parla. La lettera del giovedì è l'unica newsletter: una cantina, le persone che la mandano avanti, il territorio da cui nasce. Mai un volantino.</p>
+
+    <h3 class="h3">Experience</h3>
+    <p class="prosa">Una pagina ponte, volutamente senza tendina: spiega cos'è Vineis e poi manda fuori, su vineis.eu. Serve a non far sembrare le esperienze in cantina un prodotto nostro quando non lo sono, e a non perdere chi le cerca.</p>
+
+    <h3 class="h3">Cantine</h3>
+    <p class="prosa">Indice di tutte le cantine più la mappa del territorio, nella stessa pagina. Da qui si entra nella scheda della singola cantina, che è la parte più raccontata del sito.</p>
+
+    <h3 class="h3">Wine Club</h3>
+    <p class="prosa">Una landing sola con quattro passi — racconti i tuoi gusti, i produttori selezionano, ricevi la cassa, valuti e affiniamo — e tre piani: <b>Scoperta</b> 19 € al mese (3 bottiglie sotto i 15 €), <b>Cantina</b> 39 € (6 bottiglie, sconto 10% sul catalogo, accesso alle collezioni in anteprima), <b>Collezione</b> 89 € (6 etichette che non finiscono in catalogo, sconto 15%, una visita in cantina l'anno con Vineis). Si salta un mese fino a tre giorni prima della spedizione, si disdice con un clic.</p>
+  </section>
+
+  <section class="sec panel" id="cinque">
+    <div class="sec-head">
+      <span class="eyebrow">05</span><h2>Il catalogo</h2>
+      <p>Qui il riassunto; il dettaglio completo sta nel <a href="catalogo-specifiche.html">documento dedicato</a>.</p>
+    </div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Filtro</th><th>Come si sceglie</th><th>Come si sommano</th></tr></thead>
+        <tbody>
+          <tr><th>Categoria</th><td>Uno solo</td><td>Sostituisce il precedente</td></tr>
+          <tr><th>Regione</th><td>Più di uno</td><td>In alternativa</td></tr>
+          <tr><th>Vitigno</th><td>Più di uno</td><td>In alternativa</td></tr>
+          <tr><th>Prezzo</th><td>Cursore</td><td>Taglia sopra la soglia</td></tr>
+          <tr><th>Premi</th><td>Più di uno</td><td>In alternativa</td></tr>
+          <tr><th>Brand</th><td>Più di uno</td><td>In alternativa</td></tr>
+          <tr><th>Denominazione</th><td>Più di uno</td><td>In alternativa</td></tr>
+          <tr><th>Filosofia</th><td>Più di uno</td><td>Si sommano: bio <em>e</em> vegan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Nessun elenco è scritto a mano: i valori si costruiscono leggendo le etichette in catalogo, con il numero accanto. Cinque ordinamenti (consigliati, prezzo su e giù, più apprezzati, ultimi arrivati), le targhette dei filtri accesi sotto la barra, quattro colonne di bottiglie — cinque sugli schermi larghi.</p>
+  </section>
+
+  <section class="sec panel" id="sei">
+    <div class="sec-head">
+      <span class="eyebrow">06</span><h2>La scheda prodotto</h2>
+      <p>Due cose diverse portano lo stesso nome, e conviene tenerle separate: la <b>scheda in griglia</b> (quella che si ripete ovunque) e la <b>pagina prodotto</b>, la PDP.</p>
+    </div>
+
+    <h3 class="h3">La scheda in griglia</h3>
+    <p class="prosa">Una sola forma in tutto il sito: home, catalogo, correlati, caroselli. Il cliente impara a leggerla una volta e la ritrova ovunque — cambiarla da una pagina all'altra è confusione, non varietà. Dall'alto in basso:</p>
+    <ol class="passi-num">
+      <li><b>La foto</b> — bottiglia scontornata su fondo chiaro, quadrata, con un alone di luce sotto. Si alza appena al passaggio del mouse.</li>
+      <li><b>Le due etichette sopra la foto</b> — a sinistra il punteggio del nostro assaggio o «Bio»; a destra il messaggio commerciale: lo sconto, «Il più scelto», «Da dessert».</li>
+      <li><b>La cantina</b>, in piccolo e maiuscolo, sopra il nome: prima chi l'ha fatto, poi cosa.</li>
+      <li><b>Il nome</b> — etichetta e annata; porta alla pagina prodotto.</li>
+      <li><b>Tre targhette</b> — tipologia, regione, voto medio.</li>
+      <li><b>Premi e certificazioni</b> — coppa dorata per le guide, foglia verde per bio, vegan, SQNPI.</li>
+      <li><b>Due righe di descrizione</b>, sempre due anche quando il testo è più corto, così le schede restano allineate.</li>
+      <li><b>Quanti l'hanno comprato</b> negli ultimi sette giorni.</li>
+      <li><b>Il prezzo</b>, con il prezzo pieno barrato accanto se è in offerta.</li>
+      <li><b>Aggiungi al carrello</b> — diventa verde per un attimo, e il numerino in testata sale.</li>
+      <li><b>Venduto e spedito da</b> — il nome del venditore e la soglia: gratis da 69 € su quella cantina.</li>
+    </ol>
+
+    <h3 class="h3">La pagina prodotto (PDP)</h3>
+    <p class="prosa">Sopra: la galleria con la bottiglia vera, e accanto la colonna dell'acquisto — cantina, nome, annata, le targhette dei premi, il voto con il numero di recensioni, il prezzo, la quantità, il pulsante, e sotto il riquadro <b>«venduto e spedito da»</b> con la soglia. Poi, in ordine:</p>
+    <ul class="lista">
+      <li><b>La carta d'identità</b> — denominazione, annata, vitigno, gradazione, affinamento, formato, bottiglie l'anno. Fatti, non aggettivi.</li>
+      <li><b>Com'è nel bicchiere</b> — la nostra degustazione, scritta in italiano normale.</li>
+      <li><b>Con cosa lo apriamo</b> — quattro abbinamenti asciutti: un piatto per riga, senza il paragrafo di contorno.</li>
+      <li><b>La cantina</b> — chi lo fa, con il link alla scheda della cantina.</li>
+      <li><b>Cosa dice chi l'ha bevuto</b> — recensioni verificate, cioè di chi l'ha comprato davvero.</li>
+      <li><b>Chi compra questo prende anche</b> — un carosello di correlati, con le stesse schede identiche del resto del sito.</li>
+    </ul>
+    <p class="nota">Tolti per scelta: la finestra di beva (nessuno la legge e spaventa), e il riquadro «chi ha selezionato il vino» con il capo sommelier — dava l'aria da cattedra che il progetto vuole evitare.</p>
+  </section>
+
+  <section class="sec panel" id="sette">
+    <div class="sec-head"><span class="eyebrow">07</span><h2>La scheda cantina</h2></div>
+    <p class="prosa">È il pezzo che distingue Stappando da un e-commerce qualsiasi: non una biografia aziendale, ma il racconto di una visita fatta davvero. La struttura è sempre la stessa: la cantina in numeri (ettari, altitudine, anno, bottiglie), la storia — «Quattro ettari e nessuna fretta» — le vigne una per una, e poi il blocco centrale: <b>«La visita, raccontata da noi»</b>. Chi dei due c'è andato, com'è nato il contatto, il viaggio, cosa abbiamo assaggiato e cosa abbiamo deciso di tenere. In fondo le etichette di quella cantina, con le solite schede, e le informazioni per andarci.</p>
+  </section>
+
+  <section class="sec panel" id="otto">
+    <div class="sec-head"><span class="eyebrow">08</span><h2>Carrello e pagamento</h2></div>
+    <p class="prosa">Il carrello è una finestra che scorre da destra sopra la pagina: non ti porta via da dove sei. Dentro ci stanno tutti e quattro i passi, uno dopo l'altro, con i pallini in cima che dicono a che punto sei.</p>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Passo</th><th>Cosa si fa</th></tr></thead>
+        <tbody>
+          <tr><th>1 · Carrello</th><td>Le righe raggruppate per cantina, con quantità e giacenza. Per ogni cantina una barra dice quanto manca ai 69 €.</td></tr>
+          <tr><th>2 · Indirizzo</th><td>Dati e consegna. Si può concludere anche senza registrarsi, con la sola email.</td></tr>
+          <tr><th>3 · Pagamento</th><td>Metodo, codice sconto, riepilogo con le spedizioni contate una per cantina.</td></tr>
+          <tr><th>4 · Conferma</th><td>Numero d'ordine e cosa succede adesso.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="regola">
+      <b>Come si contano le spedizioni.</b> Il carrello raggruppa le righe per cantina e calcola una spedizione per gruppo: 0 € se quel gruppo supera i 69 €, altrimenti 6,90 €. Tre cantine sotto soglia fanno 20,70 € di spedizione, ed è scritto riga per riga, non nascosto nel totale. Il ritiro in cantina, dove previsto, azzera solo la spedizione di quella cantina.
+    </div>
+    <p class="nota">Il consegnato è tracciabile da «Traccia il tuo ordine» anche senza account, con numero d'ordine ed email. I resi si aprono dall'area personale scegliendo un motivo: annata errata, acquisto sbagliato, prodotto diverso, vino difettoso, danno, smarrimento, ritardo.</p>
+  </section>
+  <section class="sec panel" id="nove">
+    <div class="sec-head">
+      <span class="eyebrow">09</span><h2>I ruoli</h2>
+      <p>Sette identità, dalla più esposta alla più profonda. I permessi non sono inventati: vengono dalle voci di menù delle sei dashboard. <a href="ruoli.html">La versione navigabile è qui</a>.</p>
+    </div>
+
+    <div class="ruoli">
+      <article class="ruolo"><h3>Visitatore <em>· non registrato</em></h3>
+        <p>Chiunque arrivi senza account: è il grosso del traffico e deve poter capire tutto prima di dare un'email.</p>
+        <p class="si"><b>Può</b> sfogliare catalogo, vini e cantine · leggere le Storie · cercare per uvaggio, regione o produttore · riempire il carrello · <b>concludere l'ordine senza registrarsi</b>, con la sola email.</p>
+        <p class="no"><b>Non può</b> ritrovare gli ordini passati · vedere i prezzi Horeca · scrivere recensioni.</p>
+      </article>
+
+      <article class="ruolo"><h3>Cliente <em>· B2C registrato</em></h3>
+        <p>Il privato che compra per sé o per regalo. La sua area è «Il mio Stappando».</p>
+        <p class="si"><b>Può</b> ordinare, tracciare, aprire un reso con motivo · gestire indirizzi e dati di fatturazione · tenere una wishlist · usare codici sconto e buoni · iscriversi al Wine Club e saltare un mese · recensire quello che ha comprato.</p>
+        <p class="no"><b>Non può</b> vedere i prezzi riservati Horeca · accedere ai dati di altri clienti.</p>
+      </article>
+
+      <article class="ruolo"><h3>Horeca <em>· B2B, account approvato</em></h3>
+        <p>Ristoranti, enoteche, wine bar. Stesso catalogo, listino riservato, logiche di riordino.</p>
+        <p class="si"><b>Può</b> comprare al listino B2B con sconti per volume · riordinare in un clic · tenere una wishlist di locale · gestire dati azienda e fatturazione.</p>
+        <p class="no"><b>Non può</b> vedere i margini della piattaforma o delle cantine · comprare ai prezzi B2C.</p>
+      </article>
+
+      <article class="ruolo"><h3>Vendor manager <em>· cantina, operativo</em></h3>
+        <p>Chi in cantina lavora tutti i giorni: carica i vini, prepara gli ordini, risponde alle recensioni. Non è il titolare.</p>
+        <p class="si"><b>Può</b> creare e modificare i prodotti della cantina · gestire giacenze e stato degli ordini · vedere statistiche e recensioni · chiedere una sponsorizzazione.</p>
+        <p class="no"><b>Non può</b> toccare le impostazioni della cantina (payout, dati fiscali) · vedere le cantine altrui.</p>
+      </article>
+
+      <article class="ruolo"><h3>Vendor owner <em>· cantina, titolare</em></h3>
+        <p>Fa tutto quello che fa il manager, più quello che riguarda soldi e contratto.</p>
+        <p class="si"><b>Può</b> tutto quello del manager · <b>sponsorizzare</b> le proprie etichette e decidere il budget · impostazioni cantina: payout, dati fiscali, anagrafica · vedere fatturato e costi delle sponsorizzazioni.</p>
+        <p class="no"><b>Non può</b> vedere le cantine altrui · cambiare le commissioni concordate.</p>
+      </article>
+
+      <article class="ruolo"><h3>Manager admin <em>· piattaforma, operativo</em></h3>
+        <p>Chi manda avanti il marketplace ogni giorno. Non ha permessi fissi: è l'admin che decide modulo per modulo cosa vede.</p>
+        <p class="si"><b>Può</b>, se abilitato, gestire utenti, cantine, catalogo e ordini globali · pagamenti, spedizioni e corrieri · promozioni, marketing, blog e CMS · moderare recensioni e gestire il Wine Club · leggere report.</p>
+        <p class="no"><b>Non può</b> assegnare ruoli e permessi · cambiare commissioni e contratti · toccare feature flag, API e log · approvare da solo i rimborsi oltre soglia.</p>
+      </article>
+
+      <article class="ruolo"><h3>Admin <em>· piattaforma, super/owner</em></h3>
+        <p>Il ruolo radice. Ha le cinque chiavi che il manager admin non ha, ed è l'unico che può darle a qualcun altro.</p>
+        <p class="si"><b>Può</b> tutto · concedere o negare al manager admin ogni singolo modulo · ruoli e permessi · commissioni e contratti · feature flag e integrazioni · log e audit · approvare i rimborsi oltre soglia.</p>
+        <p class="no"><b>Non può</b> niente: è il livello più alto — per questo ogni sua azione finisce nel log.</p>
+      </article>
+    </div>
+
+    <h3 class="h3">La matrice, in breve</h3>
+    <div class="tab-wrap">
+      <table class="tab mat">
+        <thead><tr><th>Permesso</th><th>Visit.</th><th>Cliente</th><th>Horeca</th><th>V. manager</th><th>V. owner</th><th>M. admin</th><th>Admin</th></tr></thead>
+        <tbody>
+          <tr><td class="grp" colspan="8">Acquisto</td></tr>
+          <tr><th>Sfogliare catalogo, vini e cantine</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Listino riservato Horeca</th><td>—</td><td>—</td><td>✓</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Concludere un ordine</th><td>✓</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th>Wine Club</th><td>—</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Wishlist</th><td>—</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th>Scrivere recensioni</th><td>—</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><th>Rispondere alle recensioni</th><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td class="grp" colspan="8">La propria cantina</td></tr>
+          <tr><th>Prodotti, giacenze</th><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Ordini e statistiche della cantina</th><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Sponsorizzare le etichette</th><td>—</td><td>—</td><td>—</td><td>◐</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Payout e dati fiscali</th><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td class="grp" colspan="8">Piattaforma</td></tr>
+          <tr><th>Utenti, vendor, catalogo, ordini globali</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>◐</td><td>✓</td></tr>
+          <tr><th>Pagamenti e rimborsi oltre soglia</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>◐</td><td>✓</td></tr>
+          <tr><th>Spedizioni, promozioni, CMS, report</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>◐</td><td>✓</td></tr>
+          <tr><td class="grp" colspan="8">Solo il ruolo radice</td></tr>
+          <tr><th>Ruoli e permessi</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+          <tr><th>Commissioni e contratti</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+          <tr><th>Feature flag, API, log e audit</th><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota"><b>✓</b> permesso pieno · <b>◐</b> concesso dall'admin, o con approvazione · <b>—</b> non accede.</p>
+  </section>
+
+  <section class="sec panel" id="dieci">
+    <div class="sec-head"><span class="eyebrow">10</span><h2>Le sei dashboard</h2></div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Pannello</th><th>Voci di menù</th></tr></thead>
+        <tbody>
+          <tr><th>Il mio Stappando<br><em>cliente</em></th><td>Panoramica · Ordini · Wine Club · Wishlist · Codici sconto e buoni · Le mie recensioni. In fondo: Pagamenti · Indirizzi e consegna · Comunicazioni · Profilo e sicurezza · Assistenza.</td></tr>
+          <tr><th>Area Horeca<br><em>B2B</em></th><td>Panoramica · Listino B2B · Riordino rapido · Ordini · Wishlist. In fondo: Dati azienda · Impostazioni · Supporto.</td></tr>
+          <tr><th>Pannello cantina<br><em>vendor manager</em></th><td>Panoramica · Ordini · Prodotti · Recensioni · Statistiche · Supporto.</td></tr>
+          <tr><th>Pannello titolare<br><em>vendor owner</em></th><td>Le stesse del manager, più <b>Sponsorizza</b> e <b>Impostazioni</b>.</td></tr>
+          <tr><th>Manager admin</th><td>Panoramica globale · Catalogo · Vendor/Cantine · Utenti · Ordini · Pagamenti · Wine Club · Promozioni e codici · Spedizioni e corrieri · Contenuti (CMS) · Blog · Marketing · Recensioni · Report e analytics · Impostazioni sistema.</td></tr>
+          <tr><th>Admin<br><em>super/owner</em></th><td>Tutte quelle del manager admin, più <b>Ruoli e permessi</b>, <b>Integrazioni/API</b>, <b>Log e audit</b>, <b>Feature flag</b>, <b>Commissioni e contratti</b>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Le cinque voci in più dell'admin sono esattamente le cinque chiavi della matrice: è da lì che nasce la distinzione fra i due ruoli di piattaforma, non da una scelta astratta.</p>
+  </section>
+
+  <section class="sec panel" id="undici">
+    <div class="sec-head">
+      <span class="eyebrow">11</span><h2>Il sistema grafico</h2>
+      <p>Qui il riassunto; il documento completo è <a href="stile.html">Le scelte stilistiche</a>.</p>
+    </div>
+    <ul class="lista">
+      <li><b>Tre caratteri, mai con grazie.</b> Bricolage Grotesque per i titoli quando serve personalità, Montserrat per il testo lungo e i maiuscoletti, Poppins per l'aria geometrica.</li>
+      <li><b>Otto temi</b> — Definitivo, Pastello, Terra, Nordico, Notte, Mercato, Vigna, Vinile. Ognuno è un file solo che riscrive una ventina di valori: nessuna pagina contiene colori suoi.</li>
+      <li><b>Tre impaginazioni</b> — Standard, Vetrina (filtri in una barra in alto, bottiglie grandi), Compatto (una riga per bottiglia). Si incrociano con i temi: ventiquattro combinazioni.</li>
+      <li><b>Una sola scheda prodotto</b>, una sola testata, un solo carrello. Un tema può cambiarne i colori, non l'ordine delle cose.</li>
+      <li><b>Le foto</b> delle bottiglie sono scontornate su fondo trasparente: per questo funzionano sia sui temi chiari sia su Notte senza rifarle.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="dodici">
+    <div class="sec-head"><span class="eyebrow">12</span><h2>I dati di prova</h2></div>
+    <p class="prosa">Tutto il sito legge un unico elenco di 24 etichette. Non ci sono dati sparsi nelle pagine: se una bottiglia cambia lì, cambia ovunque — home, catalogo, correlati, caroselli, carrello.</p>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Cosa</th><th>Quanti</th><th>Esempi</th></tr></thead>
+        <tbody>
+          <tr><th>Etichette</th><td>24</td><td>12 con la foto vera presa da stappando.it</td></tr>
+          <tr><th>Categorie</th><td>4</td><td>Vini, bollicine, distillati, liquori</td></tr>
+          <tr><th>Tipologie</th><td>8</td><td>Rosso, bianco, rosato, spumante, dolce, gin, grappa, amaro</td></tr>
+          <tr><th>Regioni</th><td>12</td><td>Piemonte, Lazio, Puglia, Sicilia, Veneto… più il Sudafrica</td></tr>
+          <tr><th>Vitigni e basi</th><td>16</td><td>Nebbiolo, Primitivo, Verdicchio, Glera… e le botaniche del gin</td></tr>
+          <tr><th>Denominazioni</th><td>22</td><td>Barolo DOCG, Franciacorta DOCG, Trento DOC, Prosecco DOC…</td></tr>
+          <tr><th>Cantine</th><td>20</td><td>Cascina Vergne, Torre dei Falchi, I Casali, Distilleria KM 0…</td></tr>
+          <tr><th>Premi</th><td>12</td><td>Tre Bicchieri, Slow Wine, Cinque Grappoli, Parker, i nostri punteggi</td></tr>
+          <tr><th>Filosofia</th><td>4</td><td>Bio (14 etichette), Vegan (5), SQNPI, Biodinamico</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="sec panel" id="tredici">
+    <div class="sec-head"><span class="eyebrow">13</span><h2>L'elenco completo delle pagine</h2>
+      <p>Quarantaquattro schermate nella cartella <b>Pagine</b>, più le sei dashboard in <b>Dashboards</b>. Tutte hanno la stessa testata, lo stesso carrello e lo stesso selettore di tema.</p></div>
+    <h3 class="h3">Vendita</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>homepage.html</th><td>La home: problema, consigli, cantine, caroselli, la lettera</td></tr>
+      <tr><th>catalogo.html</th><td>Il catalogo: filtri, ordinamenti, griglia. Vale anche per categorie e ricerca</td></tr>
+      <tr><th>prodotto.html</th><td>La pagina prodotto (PDP)</td></tr>
+      <tr><th>da-regalare.html</th><td>Selezione da regalare</td></tr>
+      <tr><th>per-tutti-i-giorni.html</th><td>Selezione per tutti i giorni</td></tr>
+      <tr><th>collezioni.html</th><td>Le collezioni delle cantine (competenza del vendor)</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Cantine e racconti</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>cantine.html</th><td>Indice delle cantine e mappa del territorio</td></tr>
+      <tr><th>cantina.html</th><td>Scheda di una cantina: storia, vigne, la visita raccontata, le etichette</td></tr>
+      <tr><th>storie.html</th><td>Indice dei racconti</td></tr>
+      <tr><th>storie-territori.html</th><td>Rubrica Territori</td></tr>
+      <tr><th>storie-enocultura.html</th><td>Rubrica Enocultura</td></tr>
+      <tr><th>storie-abbinamenti.html</th><td>Rubrica Abbinamenti</td></tr>
+      <tr><th>storia.html</th><td>Un articolo del blog</td></tr>
+      <tr><th>experience.html</th><td>Pagina ponte verso Vineis</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Wine Club</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>wineclub.html</th><td>Wine Club: la landing</td></tr>
+      <tr><th>wineclub-piani.html</th><td>Wine Club: i tre piani a confronto</td></tr>
+      <tr><th>wineclub-attiva.html</th><td>Attiva l'abbonamento</td></tr>
+      <tr><th>wineclub-faq.html</th><td>Wine Club: domande frequenti</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Acquisto</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>carrello.html</th><td>Carrello e checkout nella pagina intera</td></tr>
+      <tr><th>checkout-indirizzo.html</th><td>Passo 2 del pagamento: indirizzo e consegna</td></tr>
+      <tr><th>checkout-pagamento.html</th><td>Passo 3 del pagamento: metodo e riepilogo</td></tr>
+      <tr><th>ordine-confermato.html</th><td>Passo 4: ordine confermato</td></tr>
+      <tr><th>tracking.html</th><td>Traccia il tuo ordine, anche senza account</td></tr>
+      <tr><th>ordine.html</th><td>Dettaglio di un ordine, con la spedizione per cantina</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Account</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>accedi.html</th><td>Accedi o registrati, con il passaggio per l'account Horeca</td></tr>
+      <tr><th>indirizzi-pagamenti.html</th><td>Area personale: indirizzi e metodi di pagamento</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Assistenza e azienda</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>chi-siamo.html</th><td>Chi siamo: la storia di Roberto e Claudio</td></tr>
+      <tr><th>lavora-con-noi.html</th><td>Lavora con noi</td></tr>
+      <tr><th>contatti.html</th><td>Contatti e modulo di richiesta</td></tr>
+      <tr><th>spedizioni.html</th><td>Spedizioni e consegne, con la regola dei 69 € per cantina</td></tr>
+      <tr><th>resi.html</th><td>Resi e rimborsi</td></tr>
+      <tr><th>pagamenti.html</th><td>Metodi di pagamento accettati</td></tr>
+      <tr><th>faq.html</th><td>Domande frequenti</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Legali e servizio</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>termini.html</th><td>Termini e condizioni</td></tr>
+      <tr><th>privacy.html</th><td>Privacy policy</td></tr>
+      <tr><th>cookie.html</th><td>Cookie policy</td></tr>
+      <tr><th>404.html</th><td>Pagina non trovata, con le scorciatoie per rientrare</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Documenti di lavoro</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Cosa contiene</th></tr></thead><tbody>
+      <tr><th>alberatura.html</th><td>La mappa navigabile di tutte le schermate</td></tr>
+      <tr><th>ruoli.html</th><td>I sette ruoli e la matrice dei permessi</td></tr>
+      <tr><th>catalogo-specifiche.html</th><td>Documento: il catalogo spiegato riga per riga</td></tr>
+      <tr><th>stile.html</th><td>Documento: le scelte stilistiche e gli otto temi</td></tr>
+      <tr><th>tema-notte.html</th><td>Documento: la scheda del tema Notte</td></tr>
+      <tr><th>temi.html</th><td>Galleria degli otto temi e delle tre impaginazioni</td></tr>
+    </tbody></table></div>
+    <h3 class="h3">Dashboards</h3>
+    <div class="tab-wrap"><table class="tab"><thead><tr><th>File</th><th>Chi la usa</th></tr></thead><tbody>
+      <tr><th>dashboard-user.html</th><td>Cliente B2C · «Il mio Stappando»</td></tr>
+      <tr><th>dashboard-horeca.html</th><td>Ristoranti e enoteche · listino B2B</td></tr>
+      <tr><th>dashboard-vendor-manager.html</th><td>Cantina · chi ci lavora ogni giorno</td></tr>
+      <tr><th>dashboard-vendor-owner.html</th><td>Cantina · il titolare</td></tr>
+      <tr><th>dashboard-manager-admin.html</th><td>Piattaforma · operativo</td></tr>
+      <tr><th>dashboard-admin.html</th><td>Piattaforma · super/owner</td></tr>
+    </tbody></table></div>
+  </section>
+  <section class="sec panel" id="quattordici">
+    <div class="sec-head"><span class="eyebrow">14</span><h2>Cosa manca, e cosa va deciso</h2>
+      <p>Scritto qui perché non si perda: sono le cose che un mockup non può risolvere da solo.</p>
+    </div>
+
+    <h3 class="h3">Da decidere</h3>
+    <ul class="lista">
+      <li><b>I punti di ritiro.</b> Nel pannello del cliente c'è un sistema completo — quattro punti, mappa, predefinito, resi — ma nelle indicazioni è stato detto che non esistono. O si tolgono, o si tengono: oggi sono l'unica contraddizione fra dashboard e regole.</li>
+      <li><b>Owner e manager di cantina si somigliano ancora.</b> Al manager restano prodotti, ordini, statistiche e recensioni; le collezioni gliele abbiamo tolte e le sponsorizzazioni sono del titolare. Resta da decidere se il manager debba vedere il fatturato.</li>
+      <li><b>Chi invita lo staff della cantina.</b> Il titolare dovrebbe poter creare i suoi manager, ma nel pannello non c'è una gestione utenti: oggi l'unico che può farlo è l'admin.</li>
+      <li><b>Serve un ruolo Redazione?</b> Blog e CMS stanno dentro admin e manager admin. Se le Storie diventano centrali conviene un ruolo che tocchi solo i contenuti e non veda ordini né pagamenti.</li>
+    </ul>
+
+    <h3 class="h3">Da costruire</h3>
+    <ul class="lista">
+      <li><b>La porta d'ingresso vera.</b> Registrazione, recupero password, verifica email: c'è la schermata di accesso, ma il giro completo no. Finché manca, nelle dashboard si entra solo per link diretto.</li>
+      <li><b>L'approvazione degli account Horeca.</b> Un ristorante non può auto-assegnarsi il listino B2B: serve una richiesta con partita IVA e una coda di approvazione. Non c'è né l'una né l'altra.</li>
+      <li><b>Il pagamento vero.</b> I quattro passi ci sono come schermate, ma dietro non c'è nessun incasso.</li>
+    </ul>
+
+    <h3 class="h3">Da sistemare nei dati</h3>
+    <ul class="lista">
+      <li><b>I premi sono inventati.</b> Tre Bicchieri, Slow Wine, i punteggi: servono quelli veri prima di mostrarli a qualcuno fuori.</li>
+      <li><b>I prezzi sono indicativi</b>, messi per far vedere sconti e soglie.</li>
+      <li><b>Dodici bottiglie su ventiquattro</b> hanno la foto vera presa da stappando.it; le altre hanno un disegno. La Cuvée Extra Dry è l'unica con il fondo bianco invece che scontornata.</li>
+    </ul>
+
+    <div class="regola">
+      <b>Dove leggere il resto.</b> Il catalogo filtro per filtro sta in <a href="catalogo-specifiche.html">Catalogo · come funziona</a>; il sistema grafico in <a href="stile.html">Le scelte stilistiche</a>, con un tema raccontato per intero in <a href="tema-notte.html">Scheda del tema Notte</a>; la mappa navigabile in <a href="alberatura.html">Alberatura</a> e i permessi in <a href="ruoli.html">Ruoli utente</a>. Tutti scaricabili in PDF.
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>
