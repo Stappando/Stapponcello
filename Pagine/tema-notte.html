@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Tema Notte</title>
+<meta name="description" content="Scheda del tema Notte di Stappando: colori, caratteri, forma delle fasce e delle schede." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+.anteprima{margin-top:20px}
+.anteprima img{width:100%;height:auto;display:block;border-radius:var(--r-sm);border:1px solid var(--border)}
+.anteprima figcaption{font-size:12px;color:var(--muted-fg);margin-top:10px;line-height:1.6}
+@media print{.anteprima{break-inside:avoid}.anteprima img{border:1px solid #ccc}}
+.prosa{font-size:14.5px;line-height:1.8;color:var(--muted-fg);max-width:74ch}
+.pal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:4px}
+.pal-c i{display:block;height:64px;border-radius:var(--r-sm);margin-bottom:10px}
+.pal-c b{display:block;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.pal-c span{display:block;font-size:11.5px;color:var(--muted-fg);margin-top:3px;line-height:1.45}
+.tipo{margin-top:2px}
+.tipo-r{display:flex;gap:20px;padding:16px 0;border-bottom:1px solid var(--border-soft)}
+.tipo-r:last-child{border-bottom:none}
+.tipo-l{
+  flex:none;width:90px;font-size:9.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted-fg);padding-top:6px;
+}
+.tipo-x{font-size:30px;line-height:1.1}
+.tipo-y{font-size:15px;line-height:1.6;max-width:56ch}
+.tipo-z{font-size:10px;font-weight:700;letter-spacing:.26em;color:var(--accent)}
+.tipo-d{display:block;font-size:11.5px;color:var(--muted-fg);margin-top:8px}
+.lista{margin-top:2px}
+.lista li{position:relative;padding-left:22px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.lista li + li{margin-top:9px}
+.lista li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.lista b{color:var(--fg);font-weight:600}
+.lista a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.scarica{margin-top:22px}
+@media print{.scarica{display:none !important}}
+.tab-wrap{overflow-x:auto}
+.tab{width:100%;border-collapse:collapse;min-width:560px;font-size:13px}
+.tab th,.tab td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.tab tbody th{font-weight:600;color:var(--fg);white-space:nowrap}
+.tab td{color:var(--muted-fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.nota{font-size:12.5px;color:var(--muted-fg);margin-top:16px;line-height:1.65;max-width:80ch}
+.nota b{color:var(--fg)}
+.sec.panel + .sec.panel{margin-top:22px}
+@media print{
+  .pal-c i{height:44px;box-shadow:inset 0 0 0 1px #ccc}
+  .tipo-x{font-size:24px}
+}
+</style>
+
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
+</head>
+<body>
+
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <a href="temi.html">Temi grafici</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Notte</span>
+    </nav>
+    <span class="eyebrow">Scheda del tema</span>
+    <h1>Notte</h1>
+    <p class="lead">Enoteca a luci spente: fondo carbone, oro e vetro. Nella pagina la cosa più illuminata è l'etichetta. Questa scheda contiene tutto quello che serve per rifarlo: colori, caratteri, forma delle fasce e delle schede.</p>
+    <div class="headstats"><div><b>1</b><span>File</span></div><div><b>2</b><span>Caratteri</span></div><div><b>5</b><span>Colori</span></div></div>
+  
+    <a class="btn btn-gold scarica" href="pdf/tema-notte.pdf" download>Scarica il PDF <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></a>
+</div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="panel lift">
+    <div class="sec-head" style="margin-bottom:16px">
+      <span class="eyebrow">L'idea</span>
+      <h2>Spegnere la stanza per accendere la bottiglia</h2>
+    </div>
+    <p class="prosa">Gli altri temi illuminano la pagina; questo la spegne. Il fondo scende a carbone, i testi diventano avorio e l'unico colore vivo è l'oro, usato con il contagocce: un filo sotto le fasce, il prezzo, il pulsante. Sotto ogni bottiglia c'è un alone caldo, come una luce da banco, e la testata è vetro sfocato che lascia intravedere quello che scorre. È il tema giusto per le etichette importanti, le verticali e i regali; è l'unico degli otto a fondo scuro.</p>
+    <figure class="anteprima">
+      <img src="foto/temi/notte.jpg" alt="La pagina catalogo con il tema Notte" loading="lazy">
+      <figcaption>La pagina catalogo vestita Notte: fascia carbone, alone caldo sotto le bottiglie, prezzo e pulsante in oro.</figcaption>
+    </figure>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">I colori</span><h2>Cinque, e l'oro si usa poco</h2></div>
+    <div class="pal">
+      <div class="pal-c"><i style="background:#0e1113"></i><b>#0e1113</b><span>Fondo della pagina</span></div>
+      <div class="pal-c"><i style="background:#0a0c0e"></i><b>#0a0c0e</b><span>Fasce e barra di servizio</span></div>
+      <div class="pal-c"><i style="background:#171b1e"></i><b>#171b1e</b><span>Schede, riquadri, tendine</span></div>
+      <div class="pal-c"><i style="background:#d8b56a"></i><b>#d8b56a</b><span>Oro: prezzo, pulsanti, filetti</span></div>
+      <div class="pal-c"><i style="background:#f2efe9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)"></i><b>#f2efe9</b><span>Testo</span></div>
+    </div>
+    <p class="nota">Il grigio dei testi secondari è <b>#9aa0a4</b>; i contorni sono l'avorio al 13% di opacità, così restano visibili senza diventare righe bianche. Il verde di conferma è <b>#6fbf95</b>, schiarito apposta: quello chiaro degli altri temi sul carbone sparirebbe.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">I caratteri</span><h2>Bricolage per i titoli, Poppins per il resto</h2></div>
+    <div class="tipo">
+      <div class="tipo-r">
+        <span class="tipo-l">Titoli</span>
+        <div><p class="tipo-x" style="font-family:'Bricolage Grotesque',Montserrat,sans-serif;font-variation-settings:'opsz' 72;font-weight:500;letter-spacing:-.03em">Scegliere cosa bere</p>
+        <span class="tipo-d">Bricolage Grotesque · peso 500 · spaziatura −0,03em · occhio ottico 72</span></div>
+      </div>
+      <div class="tipo-r">
+        <span class="tipo-l">Testo</span>
+        <div><p class="tipo-y" style="font-family:Poppins,sans-serif">Ogni bottiglia qui dentro è passata da una degustazione alla cieca del nostro team.</p>
+        <span class="tipo-d">Poppins · peso 400 · interlinea 1,6</span></div>
+      </div>
+      <div class="tipo-r">
+        <span class="tipo-l">Occhiello</span>
+        <div><p class="tipo-z">TUTTE LE ETICHETTE ASSAGGIATE</p>
+        <span class="tipo-d">Poppins · peso 700 · 10 px · spaziatura 0,26em · maiuscolo · oro</span></div>
+      </div>
+    </div>
+    <p class="nota">Nessun carattere con grazie, qui come negli altri sette temi: si usano solo Bricolage Grotesque, Montserrat e Poppins.</p>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">Le forme</span><h2>Cosa cambia rispetto al tema di serie</h2></div>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Elemento</th><th>Definitivo</th><th>Notte</th></tr></thead>
+        <tbody>
+          <tr><th>Fascia di testata</th><td>Gradiente petrolio con alone dorato</td><td>Carbone pieno, filo d'oro sotto, alone caldo</td></tr>
+          <tr><th>Barra in alto</th><td>Bianca, piena</td><td>Vetro scuro sfocato</td></tr>
+          <tr><th>Barra sotto al titolo</th><td>Scheda bianca staccata</td><td>Scheda scura con linguetta d'oro a sinistra</td></tr>
+          <tr><th>Sfondo della foto</th><td>Alone bianco su grigio chiaro</td><td>Alone dorato su grigio scuro</td></tr>
+          <tr><th>Prezzo</th><td>Petrolio</td><td>Oro</td></tr>
+          <tr><th>Pulsante d'acquisto</th><td>Pieno petrolio, testo bianco</td><td>Pieno oro, testo scuro</td></tr>
+          <tr><th>Angoli</th><td>14 px</td><td>10 px</td></tr>
+          <tr><th>Ombre</th><td>Morbide e chiare</td><td>Profonde, quasi nere</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec panel">
+    <div class="sec-head"><span class="eyebrow">Come si mette</span><h2>Un file solo</h2></div>
+    <ul class="lista">
+      <li>Il tema vive tutto in <b>temi/skin-notte.css</b>: ridefinisce una ventina di valori che tutte le pagine usano già, più una manciata di regole per fasce, testata e schede.</li>
+      <li>Si sceglie dal selettore in basso a destra, su qualunque pagina, oppure dalla <a href="temi.html">galleria dei temi</a>. La scelta resta in memoria mentre navighi.</li>
+      <li>Si incrocia con le tre impaginazioni — Standard, Vetrina, Compatto — che cambiano la disposizione senza toccare i colori.</li>
+      <li>Le foto delle bottiglie sono scontornate su fondo trasparente: è per questo che funzionano sia sul chiaro sia sullo scuro senza rifarle.</li>
+    </ul>
+  </div>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>
