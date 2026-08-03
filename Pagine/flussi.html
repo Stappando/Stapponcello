@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stappando · Flussi delle pagine chiave</title>
+<meta name="description" content="Documento di lavoro: per home, catalogo, PDP, carrello e checkout — da dove ci si arriva, cosa si può fare, gli stati e cosa serve dal server." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-sans:Montserrat,system-ui,-apple-system,sans-serif;
+  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --primary:#005f73; --primary-dark:#003d4d; --primary-soft:rgba(0,95,115,.08);
+  --accent:#c9a87c; --accent-dark:#a8814f;
+  --bg:#f7f3ee; --card:#ffffff; --fg:#1a1a1a; --muted-fg:#7a7060; --muted:#f0ebe3;
+  --border:rgba(0,0,0,.09); --border-soft:rgba(0,0,0,.06); --ok:#2d6a4f;
+  --r:16px; --r-sm:12px; --r-lg:24px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04); --shadow-md:0 4px 16px rgba(0,0,0,.07);
+  --shadow-lg:0 16px 44px rgba(0,61,77,.16);
+}
+</style>
+<link rel="stylesheet" href="temi/base.css">
+<link rel="stylesheet" href="temi/header.css">
+<link rel="stylesheet" href="temi/carrello.css">
+<link rel="stylesheet" href="temi/card.css">
+<style>
+.indice{padding:24px 28px !important}
+.ind-t{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:14px}
+.indice ol{columns:2;column-gap:34px;counter-reset:i;list-style:none}
+.indice li{counter-increment:i;break-inside:avoid;padding:5px 0}
+.indice li::before{
+  content:counter(i,decimal-leading-zero);font-family:var(--font-display);
+  font-size:11px;font-weight:700;color:var(--accent-dark);margin-right:10px;
+}
+.indice a{font-size:13.5px;font-weight:500;color:var(--fg)}
+.indice a:hover{color:var(--primary);text-decoration:underline}
+
+.h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em;margin:26px 0 12px}
+.h3:first-of-type{margin-top:18px}
+.prosa{font-size:14.5px;line-height:1.8;color:var(--muted-fg);max-width:76ch}
+.prosa + .prosa{margin-top:13px}
+.prosa b{color:var(--fg);font-weight:600}
+.lista li{position:relative;padding-left:22px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.lista li + li{margin-top:9px}
+.lista li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.lista b{color:var(--fg);font-weight:600}
+.lista em,.tab em,.prosa em{font-style:normal;font-weight:600;color:var(--fg)}
+.lista a,.nota a,.regola a{color:var(--primary);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.passi-num{counter-reset:p}
+.passi-num li{counter-increment:p;position:relative;padding-left:40px;font-size:14px;line-height:1.7;color:var(--muted-fg)}
+.passi-num li + li{margin-top:11px;padding-top:11px;border-top:1px solid var(--border-soft)}
+.passi-num li::before{
+  content:counter(p,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--font-display);font-size:12.5px;font-weight:700;color:var(--accent-dark);
+}
+.passi-num li + li::before{top:11px}
+.passi-num b{color:var(--fg);font-weight:600}
+
+.doppia{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:18px}
+.box{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:18px 20px}
+.box h3{font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:11px}
+
+.regola{
+  margin-top:20px;padding:16px 18px;border-radius:var(--r-sm);
+  background:var(--primary-soft);border-left:3px solid var(--primary);
+  font-size:13.5px;line-height:1.7;color:var(--fg);
+}
+.regola b{font-weight:700}
+
+.ruoli{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:6px}
+.ruolo{border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;background:var(--card)}
+.ruolo h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em}
+.ruolo h3 em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--muted-fg);letter-spacing:0}
+.ruolo p{font-size:12.5px;line-height:1.6;color:var(--muted-fg);margin-top:9px}
+.ruolo .si{border-top:1px solid var(--border-soft);padding-top:9px}
+.ruolo .si b{color:var(--ok,#2d6a4f)}
+.ruolo .no b{color:#8b2635}
+.ruolo p b{font-weight:700}
+
+.tab-wrap{overflow-x:auto}
+.tab{width:100%;border-collapse:collapse;min-width:560px;font-size:13px}
+.tab th,.tab td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--border-soft);vertical-align:top}
+.tab thead th{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted-fg);border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.tab tbody th{font-weight:600;color:var(--fg)}
+.tab tbody th em{font-style:normal;font-weight:500;font-size:11px;color:var(--muted-fg)}
+.tab td{color:var(--muted-fg)}
+.tab tbody tr:hover td,.tab tbody tr:hover th{background:var(--muted)}
+.tab .grp{
+  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-dark);background:var(--bg);padding-top:12px;padding-bottom:8px;
+}
+.mat{min-width:720px}
+.mat thead th:not(:first-child),.mat td:not(:first-child){text-align:center;width:64px}
+.mat tbody td{font-size:14px;color:var(--fg)}
+.nota{font-size:12.5px;color:var(--muted-fg);margin-top:16px;line-height:1.65;max-width:82ch}
+.nota b{color:var(--fg)}
+.sec.panel + .sec.panel{margin-top:22px}
+.scarica{margin-top:22px}
+@media print{
+  .scarica{display:none !important}
+  .indice{break-after:page;page-break-after:always}
+  .sec.panel{break-before:auto}
+  .ruolo,.doppia .box,.regola{break-inside:avoid;page-break-inside:avoid}
+  .indice ol{columns:2}
+  .tab{min-width:0 !important;font-size:10.5px}
+  .mat{min-width:0 !important;font-size:9.5px}
+  .tab th,.tab td{padding:5px 7px}
+}
+</style>
+<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
+</head>
+<body>
+
+<!-- file condivisi: devono stare prima degli script di pagina -->
+<script src="temi/header.js"></script>
+<script src="temi/carrello.js"></script>
+<script src="temi/prodotti.js"></script>
+<script src="temi/card.js"></script>
+
+<!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
+<div class="utilbar">
+  <div class="utilbar-in">
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
+      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
+      Spedizione gratis da 69 € su ogni cantina
+    </span>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+      <b>4,7/5</b> su 3.482 recensioni verificate
+    </span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="homepage.html" aria-label="Stappando, home">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub">Enoteca</div>
+    </a>
+
+    <nav class="topnav" aria-label="Navigazione principale"></nav>
+
+    <div class="search">
+      <div class="search-box" id="hbox">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" autocomplete="off" aria-label="Cerca per uvaggio, regione o produttore"
+               placeholder="Cerca per uvaggio, regione o produttore…">
+        <button class="search-clear" id="hclear" type="button" aria-label="Cancella la ricerca">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="results" id="hres" role="listbox" aria-label="Suggerimenti di ricerca"></div>
+    </div>
+
+    <div class="top-icons">
+      <button class="iconbtn burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="mobnav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="iconbtn" href="accedi.html" aria-label="Area personale">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="iconbtn" href="carrello.html" data-carrello aria-label="Carrello">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2l1.5 11h10L20 8H7"/><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+        <b id="cartCount">3</b>
+      </a>
+    </div>
+  </div>
+
+  <nav class="mobnav" id="mobnav" aria-label="Navigazione principale (mobile)"></nav>
+</header>
+
+<header class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Percorso di navigazione">
+      <a href="homepage.html">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      <span aria-current="page">Flussi delle pagine chiave</span>
+    </nav>
+    <span class="eyebrow">Documento di lavoro · prima di programmare</span>
+    <h1>Come si naviga e cosa si può fare</h1>
+    <p class="lead">Pagina per pagina, il percorso completo: da dove ci si arriva, cosa si può fare, dove si può andare, cosa succede quando qualcosa non va e quali dati servono dal server. Scritto per essere aperto accanto all'editor mentre si costruisce.</p>
+    <div class="headstats"><div><b>5</b><span>Pagine chiave</span></div><div><b>4</b><span>Passi d'acquisto</span></div><div><b>2</b><span>Percorsi: ospite e registrato</span></div></div>
+  
+    <a class="btn btn-gold scarica" href="pdf/flussi-pagine-chiave.pdf" download>Scarica il PDF <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg></a>
+</div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <nav class="indice panel lift" aria-label="Indice del documento">
+    <p class="ind-t">Le pagine</p>
+    <ol>
+      <li><a href="#leggenda">Come si legge questo documento</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#catalogo">Catalogo</a></li>
+      <li><a href="#pdp">Pagina prodotto · PDP</a></li>
+      <li><a href="#cart">Carrello</a></li>
+      <li><a href="#checkout">Checkout · i tre passi</a></li>
+      <li><a href="#dopo">Dopo l'ordine</a></li>
+      <li><a href="#regole">Le regole che valgono ovunque</a></li>
+    </ol>
+  </nav>
+
+  <section class="sec panel" id="leggenda">
+    <div class="sec-head"><span class="eyebrow">00</span><h2>Come si legge questo documento</h2></div>
+    <p class="prosa">Ogni pagina è raccontata sempre nello stesso ordine, così si trova subito quello che serve.</p>
+    <ul class="lista">
+      <li><b>Da dove ci si arriva</b> — tutti gli ingressi possibili, compresi quelli da fuori (link condivisi, ricerca, newsletter).</li>
+      <li><b>Cosa si può fare</b> — ogni azione con quello che succede subito e dove porta. È la tabella da tradurre in codice.</li>
+      <li><b>Dove si può andare</b> — le uscite, cioè i link che portano fuori dalla pagina.</li>
+      <li><b>Quando qualcosa non va</b> — gli stati: vuoto, esaurito, errore, offline.</li>
+      <li><b>Cosa serve dal server</b> — i dati che la pagina deve ricevere per funzionare. Non è uno schema di API: è la lista della spesa.</li>
+    </ul>
+    <div class="regola">
+      <b>Due percorsi, non uno.</b> Tutto quello che segue vale sia per chi è entrato con un account sia per chi non ce l'ha. Il visitatore <em>può concludere l'ordine</em>: gli si chiede solo l'email. Dove il comportamento cambia, è scritto esplicitamente <b>ospite</b> o <b>registrato</b>.
+    </div>
+  </section>
+
+  <section class="sec panel" id="home">
+    <div class="sec-head"><span class="eyebrow">01</span><h2>Home</h2>
+      <p>Serve a far capire in dieci secondi che qui scegliere è facile, e a mandare la gente su una bottiglia. Non è una vetrina istituzionale: è la prima pagina di vendita.</p>
+    </div>
+
+    <h3 class="h3">Da dove ci si arriva</h3>
+    <ul class="lista">
+      <li>Dal logo in testata, da qualunque pagina del sito.</li>
+      <li>Da fuori: ricerca su Google, link condivisi, newsletter, social.</li>
+      <li>Dopo l'uscita da un'area riservata.</li>
+    </ul>
+
+    <h3 class="h3">Cosa si può fare</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Azione</th><th>Cosa succede</th><th>Dove porta</th></tr></thead>
+        <tbody>
+          <tr><th>Cercare dalla testata</th><td>Suggerimenti mentre si scrive: uvaggio, regione, produttore</td><td>Catalogo con la ricerca applicata</td></tr>
+          <tr><th>«Dai un'occhiata a chi abbiamo selezionato»</th><td>—</td><td>Indice delle cantine</td></tr>
+          <tr><th>«Chiedici un consiglio»</th><td>Apre il contatto: è la scorciatoia per chi non sa da dove partire</td><td>Contatti</td></tr>
+          <tr><th>Aprire il consiglio di stasera</th><td>—</td><td>Pagina prodotto di quella bottiglia</td></tr>
+          <tr><th>Aprire la cantina del mese</th><td>—</td><td>Scheda cantina</td></tr>
+          <tr><th>Aggiungere al carrello da una scheda</th><td>Il pulsante diventa verde per un attimo, il numerino in testata sale, il carrello si apre a finestra</td><td>Resta sulla home</td></tr>
+          <tr><th>Aprire una scheda prodotto</th><td>—</td><td>PDP</td></tr>
+          <tr><th>Scorrere un carosello</th><td>Le frecce scorrono di una schermata; su telefono si trascina</td><td>Resta sulla home</td></tr>
+          <tr><th>«Vedi tutti» su un blocco</th><td>—</td><td>Catalogo già filtrato su quella selezione</td></tr>
+          <tr><th>Aprire un banner cantina</th><td>—</td><td>Scheda di quella cantina</td></tr>
+          <tr><th>Iscriversi alla lettera del giovedì</th><td>Email, conferma a schermo</td><td>Resta sulla home</td></tr>
+          <tr><th>Aprire profilo o carrello</th><td>Il carrello si apre a finestra; il profilo porta all'accesso o all'area personale</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Dove si può andare</h3>
+    <p class="prosa">Catalogo (intero o filtrato), pagina prodotto, indice delle cantine, singola cantina, Storie, Wine Club, Experience, Chi siamo, Contatti, accesso. Più il carrello, che non è una pagina ma una finestra.</p>
+
+    <h3 class="h3">Quando qualcosa non va</h3>
+    <ul class="lista">
+      <li><b>Bottiglia esaurita in vetrina</b> — la scheda resta, il pulsante diventa «Avvisami». Non si nasconde: magari è proprio quella che stava cercando.</li>
+      <li><b>Niente da mostrare in un blocco</b> — il blocco intero sparisce, non resta un titolo con il vuoto sotto.</li>
+    </ul>
+
+    <h3 class="h3">Cosa serve dal server</h3>
+    <ul class="lista">
+      <li>Le bottiglie dei blocchi e dei caroselli, già ordinate: consigli della settimana, novità, una selezione per territorio.</li>
+      <li>Il consiglio di stasera (una bottiglia) e la cantina del mese.</li>
+      <li>I tre numeri della barra: cantine attive, soglia di spedizione, voto medio con quante recensioni.</li>
+      <li>Le cantine in evidenza per i banner.</li>
+      <li>Per ogni bottiglia servono già: prezzo pieno e scontato, giacenza, voto, premi, filosofia, venditore. Sono gli stessi dati della scheda: non si fanno due chiamate.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="catalogo">
+    <div class="sec-head"><span class="eyebrow">02</span><h2>Catalogo</h2>
+      <p>Sta in mezzo fra la home e la PDP: qui il dettaglio è essenziale, perché il documento completo è <a href="catalogo-specifiche.html">Catalogo · come funziona</a>.</p>
+    </div>
+
+    <h3 class="h3">Da dove ci si arriva</h3>
+    <ul class="lista">
+      <li>Dalla voce Shop e da ogni voce della sua tendina.</li>
+      <li>Dalla ricerca in testata.</li>
+      <li>Dai «vedi tutti» della home e dai link dentro le Storie.</li>
+      <li>Da fuori, con l'indirizzo già filtrato: <code>catalogo.html?cat=vini</code>.</li>
+    </ul>
+
+    <h3 class="h3">Cosa si può fare</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Azione</th><th>Cosa succede</th></tr></thead>
+        <tbody>
+          <tr><th>Accendere un filtro</th><td>La griglia si aggiorna subito, il conto cambia, compare la targhetta con la ×</td></tr>
+          <tr><th>Spegnere una targhetta</th><td>Toglie quel filtro solo, lasciando gli altri</td></tr>
+          <tr><th>Azzera tutto</th><td>Spegne tutto e riporta la categoria su «Tutto il catalogo»</td></tr>
+          <tr><th>Cambiare ordinamento</th><td>Cinque voci; la selezione resta mentre si filtra</td></tr>
+          <tr><th>Passare a elenco</th><td>Una riga per bottiglia, per confrontare prezzi e premi</td></tr>
+          <tr><th>Aggiungere al carrello</th><td>Dalla griglia, senza aprire la bottiglia</td></tr>
+          <tr><th>Aprire una bottiglia</th><td>Porta alla PDP</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Quando qualcosa non va</h3>
+    <p class="prosa">Se l'incrocio dei filtri svuota la lista, si dice <em>quale</em> filtro l'ha svuotata e si offre di togliere l'ultimo, non di ricominciare. I valori senza etichette restano visibili con lo zero accanto e non si possono spuntare.</p>
+
+    <h3 class="h3">Cosa serve dal server</h3>
+    <ul class="lista">
+      <li>Le bottiglie della selezione, con il totale e i conteggi per ogni valore di ogni filtro — vanno calcolati sulla selezione corrente, non sul catalogo intero, altrimenti i numeri mentono.</li>
+      <li>Il minimo e il massimo di prezzo, per il cursore.</li>
+      <li>Il ricalcolo deve reggere il cambio di un filtro senza ricaricare la pagina.</li>
+    </ul>
+  </section>
+  <section class="sec panel" id="pdp">
+    <div class="sec-head"><span class="eyebrow">03</span><h2>Pagina prodotto · PDP</h2>
+      <p>È la pagina dove si decide. Deve rispondere a tre domande in quest'ordine: cos'è, con cosa lo bevo, di chi mi fido.</p>
+    </div>
+
+    <h3 class="h3">Da dove ci si arriva</h3>
+    <ul class="lista">
+      <li>Da una scheda in griglia: catalogo, home, correlati, caroselli, scheda cantina.</li>
+      <li>Dai suggerimenti della ricerca.</li>
+      <li>Da fuori: è la pagina più condivisa e più indicizzata. Deve reggere l'arrivo a freddo, senza il percorso prima.</li>
+      <li>Dalla wishlist e dal riordino rapido (Horeca).</li>
+    </ul>
+
+    <h3 class="h3">Cosa si può fare</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Azione</th><th>Cosa succede</th><th>Dove porta</th></tr></thead>
+        <tbody>
+          <tr><th>Cambiare immagine</th><td>Tre viste: la bottiglia, il vino nel calice, il vigneto</td><td>Resta</td></tr>
+          <tr><th>Alzare e abbassare la quantità</th><td>Il pulsante mostra il totale aggiornato; il meno si spegne a 1, il più si ferma alla giacenza</td><td>Resta</td></tr>
+          <tr><th>Aggiungi al carrello</th><td>Il carrello si apre a finestra con la riga già dentro e il numerino sale</td><td>Resta</td></tr>
+          <tr><th>Salva nella wishlist</th><td><b>Registrato:</b> il cuore si accende e resta. <b>Ospite:</b> si chiede di entrare, e dopo l'accesso la bottiglia è già salvata</td><td>Resta o accesso</td></tr>
+          <tr><th>Confeziona per regalo</th><td>Aggiunge la confezione regalo alla riga; il messaggio si scrive al passo dell'indirizzo</td><td>Resta</td></tr>
+          <tr><th>Aprire la cantina</th><td>—</td><td>Scheda cantina</td></tr>
+          <tr><th>Leggere le recensioni</th><td>Solo di chi ha comprato davvero; si possono ordinare per più recenti o più utili</td><td>Resta</td></tr>
+          <tr><th>Scrivere una recensione</th><td>Solo se quella bottiglia è stata comprata con quell'account</td><td>Modulo</td></tr>
+          <tr><th>Aprire un correlato</th><td>Le stesse schede identiche del resto del sito</td><td>Un'altra PDP</td></tr>
+          <tr><th>Condividere</th><td>Indirizzo pulito, senza i parametri dei filtri</td><td>Resta</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Cosa deve mostrare, in quest'ordine</h3>
+    <ol class="passi-num">
+      <li><b>Cantina, nome, annata</b> — prima chi l'ha fatto, poi cosa.</li>
+      <li><b>Premi e certificazioni</b>, voto con il numero di recensioni.</li>
+      <li><b>Prezzo</b>, con il pieno barrato se in offerta, e la giacenza se è bassa.</li>
+      <li><b>Quantità e pulsante</b>.</li>
+      <li><b>Venduto e spedito da</b> — il riquadro con il nome del venditore e la soglia dei 69 € su quella cantina. Non è una nota a piè di pagina: è dove nasce metà delle domande all'assistenza.</li>
+      <li><b>La carta d'identità</b> — denominazione, annata, vitigno, gradazione, affinamento, formato, bottiglie l'anno.</li>
+      <li><b>Com'è nel bicchiere</b> — la degustazione, in italiano normale.</li>
+      <li><b>Con cosa lo apriamo</b> — quattro abbinamenti asciutti, un piatto per riga.</li>
+      <li><b>La cantina</b>, con il link alla scheda.</li>
+      <li><b>Le recensioni verificate</b>.</li>
+      <li><b>I correlati</b>.</li>
+    </ol>
+
+    <h3 class="h3">Quando qualcosa non va</h3>
+    <ul class="lista">
+      <li><b>Esaurita</b> — la pagina resta viva: il pulsante diventa «Avvisami quando torna», si chiede l'email e si mostrano tre alternative della stessa cantina o dello stesso vitigno.</li>
+      <li><b>Ultime bottiglie</b> — si scrive quante ne restano, senza conti alla rovescia finti.</li>
+      <li><b>Annata cambiata</b> — si dice che l'annata in vendita è un'altra, invece di far sparire la pagina.</li>
+      <li><b>Bottiglia tolta dal catalogo</b> — non un 404 secco: si spiega e si porta alla cantina o alla categoria.</li>
+      <li><b>Chiesta più quantità della giacenza</b> — il più si ferma, con la ragione scritta accanto.</li>
+    </ul>
+
+    <h3 class="h3">Cosa serve dal server</h3>
+    <ul class="lista">
+      <li>Tutti i dati della bottiglia, comprese le foto delle tre viste e la scheda tecnica.</li>
+      <li>Giacenza vera al momento del caricamento, e ricontrollata quando si aggiunge al carrello.</li>
+      <li>Nome del venditore, sua soglia di spedizione e costo se sotto soglia.</li>
+      <li>Recensioni con l'indicazione di acquisto verificato, e il permesso di scrivere per l'utente collegato.</li>
+      <li>I correlati, con lo stesso formato delle schede.</li>
+      <li>Se l'utente è collegato: se la bottiglia è già nella wishlist.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="cart">
+    <div class="sec-head"><span class="eyebrow">04</span><h2>Carrello</h2>
+      <p>Non è una pagina: è una finestra che scorre da destra sopra quella dove sei. Chi compra vino aggiunge una bottiglia alla volta e vuole continuare a guardare, non essere portato via.</p>
+    </div>
+
+    <h3 class="h3">Da dove ci si arriva</h3>
+    <ul class="lista">
+      <li>Dall'icona in testata, da qualunque pagina.</li>
+      <li>Da solo, subito dopo un «aggiungi al carrello»: si apre per confermare che è successo.</li>
+      <li>Dal link diretto al carrello a pagina intera, per chi arriva da un promemoria.</li>
+    </ul>
+
+    <h3 class="h3">Cosa si può fare</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Azione</th><th>Cosa succede</th></tr></thead>
+        <tbody>
+          <tr><th>Cambiare la quantità</th><td>Totali e spedizioni si ricalcolano subito; il meno a 1 diventa «togli»</td></tr>
+          <tr><th>Togliere una riga</th><td>Sparisce con la possibilità di annullare per qualche secondo</td></tr>
+          <tr><th>Inserire un buono</th><td>Si applica o si spiega perché no: scaduto, minimo non raggiunto, già usato</td></tr>
+          <tr><th>Scegliere il ritiro in enoteca</th><td>Azzera la spedizione <em>di quella cantina soltanto</em></td></tr>
+          <tr><th>Chiudere la finestra</th><td>Il carrello resta pieno; torna esattamente dov'era</td></tr>
+          <tr><th>Vai all'indirizzo</th><td>Passa al secondo passo, dentro la stessa finestra</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="h3">Come si contano le spedizioni</h3>
+    <div class="regola">
+      Le righe si raggruppano <b>per cantina</b>. Ogni gruppo ha la sua spedizione: <b>0 €</b> se supera i 69 €, altrimenti <b>6,90 €</b>. Tre cantine sotto soglia fanno 20,70 €, scritti riga per riga e non nascosti nel totale. Per ogni gruppo una barra mostra quanto manca alla soglia: è il punto in cui si vende una bottiglia in più, e insieme è la cosa che i clienti fraintendono di più. Il ritiro azzera solo il gruppo che lo usa.
+    </div>
+
+    <h3 class="h3">Quando qualcosa non va</h3>
+    <ul class="lista">
+      <li><b>Carrello vuoto</b> — non una pagina bianca: si porta al catalogo e si mostrano tre bottiglie.</li>
+      <li><b>Giacenza scesa mentre eri lì</b> — la riga si abbassa alla quantità disponibile, con la spiegazione. Non si toglie da sola.</li>
+      <li><b>Bottiglia tolta dal catalogo</b> — la riga resta segnata come non più disponibile e non entra nel totale, così si capisce cos'è cambiato.</li>
+      <li><b>Prezzo cambiato</b> — si mostra il vecchio e il nuovo prima di andare avanti.</li>
+      <li><b>Buono non valido</b> — si dice il motivo, non «codice errato».</li>
+    </ul>
+
+    <h3 class="h3">Cosa serve dal server</h3>
+    <ul class="lista">
+      <li>Il carrello vero, non solo quello del browser: deve sopravvivere alla chiusura della scheda e, per chi è collegato, seguire l'account su un altro dispositivo.</li>
+      <li>Il ricalcolo dei totali a ogni modifica, spedizioni comprese: i conti non si fanno nel browser.</li>
+      <li>La validità del buono, con il motivo del rifiuto.</li>
+      <li>Il controllo della giacenza a ogni apertura.</li>
+      <li>Quali cantine offrono il ritiro e dove.</li>
+    </ul>
+  </section>
+  <section class="sec panel" id="checkout">
+    <div class="sec-head"><span class="eyebrow">05</span><h2>Checkout · i tre passi</h2>
+      <p>Dal carrello alla conferma. Vale una regola sola: <b>non si obbliga nessuno a registrarsi</b>. Si chiede l'email, e alla fine si offre di tenere l'account già compilato.</p>
+    </div>
+
+    <h3 class="h3">Passo 2 · Indirizzo e consegna</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Campo</th><th>Obbligatorio</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><th>Email</th><td>Sì</td><td>È l'unica cosa che serve per ordinare da ospite: ci vanno conferma e tracking</td></tr>
+          <tr><th>Nome e cognome</th><td>Sì</td><td>—</td></tr>
+          <tr><th>Indirizzo</th><td>Sì</td><td>Via e numero civico</td></tr>
+          <tr><th>CAP, città, provincia</th><td>Sì</td><td>Il CAP decide i tempi di consegna e le isole</td></tr>
+          <tr><th>Telefono</th><td>Sì</td><td>Lo chiede il corriere per la consegna del vino</td></tr>
+          <tr><th>Note per il corriere</th><td>No</td><td>Citofono, orari, dove lasciarlo</td></tr>
+          <tr><th>Fatturazione diversa</th><td>No</td><td>Si apre solo se serve; con partita IVA compaiono i campi fiscali</td></tr>
+          <tr><th>Messaggio regalo</th><td>No</td><td>Compare solo se nel carrello c'è una confezione regalo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="lista">
+      <li><b>Registrato</b> — gli indirizzi salvati compaiono già pronti da scegliere, con il predefinito selezionato. Se ne può aggiungere uno senza uscire dal flusso.</li>
+      <li><b>La spedizione</b> — corriere espresso in 48 ore, gratuito sopra soglia per quella cantina. Dove la cantina lo prevede, si può ritirare in enoteca.</li>
+      <li><b>Se il carrello ha più cantine</b> — si dice chiaramente che arriveranno più pacchi, in giorni magari diversi. Meglio dirlo prima che spiegarlo dopo.</li>
+    </ul>
+
+    <h3 class="h3">Passo 3 · Pagamento</h3>
+    <div class="tab-wrap">
+      <table class="tab">
+        <thead><tr><th>Metodo</th><th>Come si comporta</th></tr></thead>
+        <tbody>
+          <tr><th>Carta di credito o debito</th><td>Campi in pagina; l'ordine parte solo a pagamento riuscito</td></tr>
+          <tr><th>PayPal</th><td>Si esce e si rientra: al ritorno il carrello dev'essere ancora lì</td></tr>
+          <tr><th>Satispay</th><td>Codice da inquadrare, con l'attesa della conferma</td></tr>
+          <tr><th>Bonifico bancario</th><td>L'ordine resta in attesa: le bottiglie si impegnano ma non partono</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="lista">
+      <li>Il riepilogo resta visibile mentre si paga: bottiglie, spedizioni <em>contate per cantina</em>, sconto del buono, totale.</li>
+      <li>Il buono si può ancora inserire qui: qualcuno lo trova nell'email proprio in quel momento.</li>
+      <li>Si spuntano condizioni e privacy. Sull'alcol serve la conferma di essere maggiorenni.</li>
+      <li>Si torna indietro senza perdere niente: i dati dell'indirizzo restano compilati.</li>
+    </ul>
+
+    <h3 class="h3">Passo 4 · Conferma</h3>
+    <ul class="lista">
+      <li>Numero d'ordine ben visibile, e la stessa email spedita subito.</li>
+      <li>Cosa succede adesso, detto in tre righe: preparazione, partenza, consegna. Se le cantine sono più d'una, si dice che i pacchi saranno più d'uno.</li>
+      <li>Il link per tracciare l'ordine, che funziona <em>anche da ospite</em> con numero ed email.</li>
+      <li><b>Ospite:</b> qui e solo qui si offre l'account, già compilato: manca la password. Non prima.</li>
+    </ul>
+
+    <h3 class="h3">Quando qualcosa non va</h3>
+    <ul class="lista">
+      <li><b>Pagamento rifiutato</b> — si resta sul passo 3 con il carrello intatto e il motivo scritto; si può cambiare metodo.</li>
+      <li><b>Bottiglia esaurita mentre pagavi</b> — si blocca prima dell'incasso, si mostra quale riga e si lascia decidere: togliere o rinunciare.</li>
+      <li><b>Indirizzo non servito</b> — si dice subito, al CAP, non alla fine.</li>
+      <li><b>Ritorno da PayPal a metà</b> — il carrello si ritrova, non si ricomincia.</li>
+      <li><b>Doppio invio</b> — un ordine solo: il secondo clic non deve generare un secondo ordine.</li>
+    </ul>
+
+    <h3 class="h3">Cosa serve dal server</h3>
+    <ul class="lista">
+      <li>Validazione del CAP con tempi e costi, isole comprese.</li>
+      <li>Indirizzi salvati e predefinito, per chi è collegato.</li>
+      <li>Impegno della giacenza per la durata del pagamento, e rilascio se non va a buon fine.</li>
+      <li>Creazione dell'ordine <em>una volta sola</em>, anche a fronte di clic ripetuti.</li>
+      <li>Ordine spezzato per cantina, perché ogni cantina spedisce per conto suo.</li>
+      <li>Email di conferma e codice di tracciamento consultabile senza account.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="dopo">
+    <div class="sec-head"><span class="eyebrow">06</span><h2>Dopo l'ordine</h2></div>
+    <ul class="lista">
+      <li><b>Traccia il tuo ordine</b> — numero ed email, senza account. Mostra i pacchi separati per cantina, ognuno con il suo stato.</li>
+      <li><b>Dettaglio ordine</b> — per chi è collegato: righe, spedizioni contate per cantina, documenti, e il pulsante per aprire un reso.</li>
+      <li><b>Reso</b> — si sceglie un motivo, e il motivo cambia chi paga: annata errata, prodotto diverso, vino difettoso, danno, smarrimento, ritardo, oppure ripensamento.</li>
+      <li><b>Recensione</b> — si può scrivere solo su quello che si è comprato: è ciò che rende «verificate» le recensioni mostrate nella PDP.</li>
+    </ul>
+  </section>
+
+  <section class="sec panel" id="regole">
+    <div class="sec-head"><span class="eyebrow">07</span><h2>Le regole che valgono ovunque</h2></div>
+    <ol class="passi-num">
+      <li><b>La spedizione è per cantina.</b> 69 € su ogni cantina, non sul totale. Vale nella scheda, nella PDP, nel carrello, nel checkout e nel dettaglio ordine, con le stesse parole.</li>
+      <li><b>Il visitatore può comprare.</b> Nessun muro di registrazione. L'account si propone dopo, a ordine fatto.</li>
+      <li><b>Una sola scheda prodotto.</b> Stessa forma in home, catalogo, correlati, caroselli, cantina. Cambiarla in un punto solo è confusione.</li>
+      <li><b>Il carrello non porta via.</b> È una finestra sopra la pagina: si chiude e si è ancora dove si era.</li>
+      <li><b>Gli errori spiegano.</b> Mai «codice errato»: sempre il motivo e la via d'uscita.</li>
+      <li><b>Niente urgenze finte.</b> Le giacenze basse si scrivono, i conti alla rovescia no.</li>
+      <li><b>Le recensioni sono di chi ha comprato.</b> Altrimenti non è una recensione, è una pubblicità.</li>
+      <li><b>I dati stanno in un posto solo.</b> Una bottiglia si scrive una volta e la leggono tutte le pagine.</li>
+    </ol>
+    <div class="regola">
+      <b>Ordine di lavoro suggerito.</b> Prima catalogo e PDP, che reggono il traffico da fuori e sono già documentati filtro per filtro. Poi il carrello con il conto delle spedizioni per cantina, che è la parte con più regole. Poi il checkout, che dipende dal carrello. La home per ultima: è quella che cambia più spesso e serve che i blocchi peschino da cose già pronte.
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="logo">STAPP<em>ANDO</em></div>
+      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
+    </div>
+    <nav class="foot-col" aria-label="Esplora">
+      <h4>Esplora</h4>
+      <ul>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
+        <li><a href="storie.html">Storie</a></li>
+        <li><a href="wineclub.html">Wine Club</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Assistenza">
+      <h4>Assistenza</h4>
+      <ul>
+        <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
+        <li><a href="resi.html">Resi e rimborsi</a></li>
+        <li><a href="pagamenti.html">Metodi di pagamento</a></li>
+        <li><a href="tracking.html">Traccia il tuo ordine</a></li>
+        <li><a href="faq.html">Domande frequenti</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
+      </ul>
+    </nav>
+    <nav class="foot-col" aria-label="Azienda">
+      <h4>Azienda</h4>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
+        <li><a href="termini.html">Termini e condizioni</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+        <li><a href="../index.html">Indice dei mockup</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <div>
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 ·
+        © 2026 Stappando S.r.l. · <a href="../index.html">Torna all'indice dei mockup</a>
+      </div>
+      <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="temi/skin.js"></script>
+
+</body>
+</html>

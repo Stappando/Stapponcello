@@ -261,10 +261,15 @@ footer.site .foot-legal a{text-decoration:underline}
   .headstats,.ph-stats{border-top:1px solid #ccc;padding-top:10px;margin-top:14px}
   main{padding-bottom:0 !important}
   .wrap{max-width:none !important;padding:0 !important}
+  /* i riquadri lunghi possono spezzarsi, altrimenti restano
+     mezze pagine bianche; a non spezzarsi sono le cose corte */
   .panel,.sec.panel{
-    break-inside:avoid;page-break-inside:avoid;
+    break-inside:auto;page-break-inside:auto;
     box-shadow:none !important;border:1px solid #ddd !important;
     padding:16px 18px !important;margin-top:14px !important;
+  }
+  .panel.lift,.box,.ruolo,.regola,.tl,.pal-c,.anteprima{
+    break-inside:avoid;page-break-inside:avoid;
   }
   .panel.lift{margin-top:14px !important}
   h1,h2,h3{break-after:avoid;page-break-after:avoid}
