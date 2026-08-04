@@ -71,8 +71,11 @@ function carosello(el, lista){
     '<button class="pcar-nav next" type="button" aria-label="Avanti">'+
     '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></button>';
   var track = el.querySelector('.pcar-track');
-  el.querySelector('.prev').addEventListener('click', function(){ track.scrollBy({left:-track.clientWidth*0.8, behavior:'smooth'}); });
-  el.querySelector('.next').addEventListener('click', function(){ track.scrollBy({left: track.clientWidth*0.8, behavior:'smooth'}); });
+  /* si scorre di una vista intera: le schede restano allineate
+     e non ne resta mai una a metà sul bordo */
+  function passo(){ return track.clientWidth; }
+  el.querySelector('.prev').addEventListener('click', function(){ track.scrollBy({left:-passo(), behavior:'smooth'}); });
+  el.querySelector('.next').addEventListener('click', function(){ track.scrollBy({left: passo(), behavior:'smooth'}); });
 }
 
 /* un solo ascoltatore per tutte le schede della pagina */

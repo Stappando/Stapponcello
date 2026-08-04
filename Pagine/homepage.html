@@ -197,10 +197,12 @@ img,svg{display:block}
   box-shadow:var(--shadow-lg);color:var(--fg);display:flex;flex-direction:column;
 }
 .pick-art{
-  position:relative;height:250px;flex:none;
+  position:relative;height:230px;flex:none;padding:16px;
+  background:radial-gradient(circle at 50% 46%,rgba(255,255,255,.96),transparent 62%),
+             linear-gradient(180deg,var(--muted),var(--bg));
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.pick-art .btl{height:196px;filter:drop-shadow(0 14px 22px rgba(0,0,0,.28));position:relative}
+.pick-art img{max-height:100%;width:auto;object-fit:contain;filter:drop-shadow(0 14px 22px rgba(0,0,0,.24))}
 .pick-art .scene{position:absolute;inset:0;width:100%;height:100%}
 .pick-badge{
   position:absolute;top:14px;left:14px;z-index:2;
@@ -258,10 +260,10 @@ main{flex:1}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 /* ── la nostra idea ───────────────────────────────────── */
-.why{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
+.why{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);padding:44px 0}
 .claim{
-  font-family:var(--font-display);max-width:20ch;
-  font-size:clamp(24px,3vw,36px);font-weight:600;line-height:1.16;
+  font-family:var(--font-display);max-width:26ch;
+  font-size:clamp(21px,2.3vw,27px);font-weight:600;line-height:1.2;
   letter-spacing:-.035em;
 }
 .claim em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
@@ -270,10 +272,10 @@ main{flex:1}
   background:rgba(201,168,124,.4);border-radius:3px;z-index:-1;
 }
 
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
 .step{
   position:relative;background:var(--bg);border:1px solid var(--border-soft);
-  border-radius:var(--r-lg);padding:22px 22px 24px;transition:.18s;
+  border-radius:var(--r);padding:16px 18px 18px;transition:.18s;
 }
 .step.on{
   background:linear-gradient(165deg,var(--primary-dark),var(--primary));border-color:transparent;
@@ -282,23 +284,23 @@ main{flex:1}
 .step:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
 .step.on:hover{box-shadow:var(--shadow-lg)}
 .step .ic{
-  width:44px;height:44px;border-radius:var(--r-sm);
+  width:34px;height:34px;border-radius:var(--r-sm);
   background:var(--primary-soft);color:var(--primary);
-  display:flex;align-items:center;justify-content:center;margin-bottom:13px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px;
 }
 .step.on .ic{background:rgba(201,168,124,.22);color:var(--accent)}
 .step h3{
   font-family:var(--font-display);
-  font-size:19px;font-weight:600;line-height:1.22;letter-spacing:-.03em;
+  font-size:16px;font-weight:600;line-height:1.25;letter-spacing:-.03em;
 }
-.step p{margin-top:9px;font-size:13.5px;color:var(--muted-fg);line-height:1.6}
+.step p{margin-top:6px;font-size:13px;color:var(--muted-fg);line-height:1.55}
 .step.on p{color:rgba(255,255,255,.76)}
 
 /* firma dei fondatori */
 .founders{
   display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start;
-  margin-top:34px;padding:26px 28px;
-  background:var(--bg);border-left:3px solid var(--accent);border-radius:0 var(--r-lg) var(--r-lg) 0;
+  margin-top:22px;padding:16px 20px;align-items:center;gap:16px;
+  background:var(--bg);border-left:3px solid var(--accent);border-radius:0 var(--r) var(--r) 0;
 }
 .founders .avatar{
   width:54px;height:54px;border-radius:50%;flex:none;
@@ -389,42 +391,45 @@ main{flex:1}
 
 /* ── banner collezione ────────────────────────────────── */
 .collection{
-  position:relative;overflow:hidden;border-radius:var(--r-lg);margin-top:26px;
+  position:relative;overflow:hidden;border-radius:var(--r);margin-top:22px;
   background:linear-gradient(150deg,#2f4a3a 0%,#22382c 100%);
-  color:#fff;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  min-height:250px;
+  color:#fff;display:grid;grid-template-columns:minmax(0,1fr) 300px;
+  min-height:0;
 }
-.coll-in{position:relative;z-index:2;padding:34px 36px;align-self:center;max-width:52ch}
+.coll-in{
+  position:relative;z-index:2;padding:18px 24px;align-self:center;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
 .coll-pill{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.14);padding:7px 14px;border-radius:999px;
-  font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:7px;flex:none;
+  background:rgba(255,255,255,.14);padding:5px 11px;border-radius:999px;
+  font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
 }
 /* l'immagine della cantina, con le bottiglie davanti */
-.coll-media{position:relative;min-height:230px;overflow:hidden}
+.coll-media{position:relative;min-height:120px;overflow:hidden}
 .coll-media > img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   -webkit-mask-image:linear-gradient(100deg,transparent 0,#000 22%);
   mask-image:linear-gradient(100deg,transparent 0,#000 22%);
 }
 .coll-bottles{
-  position:absolute;right:30px;top:0;bottom:0;z-index:2;
-  display:flex;align-items:center;gap:16px;pointer-events:none;
+  position:absolute;right:22px;top:0;bottom:0;z-index:2;
+  display:flex;align-items:center;gap:12px;pointer-events:none;
 }
-.coll-bottles .btl{position:relative;width:auto;height:190px;object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
-.coll-bottles .btl:nth-child(2){height:216px}
+.coll-bottles .btl{position:relative;width:auto;height:104px;object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
+.coll-bottles .btl:nth-child(2){height:118px}
 
-.coll-head{display:flex;align-items:center;gap:13px;margin-top:16px}
+.coll-head{display:flex;align-items:center;gap:12px;flex:1;min-width:220px}
 .coll-crest{
-  width:44px;height:44px;flex:none;border-radius:50%;
+  width:36px;height:36px;flex:none;border-radius:50%;
   background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.34);color:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-size:17px;font-weight:700;
+  font-family:var(--font-display);font-size:14px;font-weight:700;
 }
-.coll-head h3{font-family:var(--font-display);font-size:23px;font-weight:600;letter-spacing:-.03em;line-height:1.15}
-.coll-head span{font-size:11.5px;color:rgba(255,255,255,.66);display:block;margin-top:3px}
-.collection p{margin-top:13px;font-size:14px;line-height:1.6;color:rgba(255,255,255,.8);max-width:44ch}
-.collection .btn{margin-top:20px}
+.coll-head h3{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:-.03em;line-height:1.2}
+.coll-head span{font-size:11px;color:rgba(255,255,255,.62);display:block;margin-top:2px}
+.collection p{display:none}
+.collection .btn{flex:none;padding:10px 18px;font-size:12.5px}
 .coll-pill i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 
 /* ── cantine da conoscere ─────────────────────────────── */
@@ -603,12 +608,12 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   .hero-cta .btn svg{display:none}
   .hero-trust{font-size:12px}
   .collection{grid-template-columns:1fr}
-  .coll-media{min-height:180px;order:-1}
+  .coll-media{min-height:120px;order:-1}
   .coll-media > img{-webkit-mask-image:none;mask-image:none}
   .coll-bottles{right:16px}
-  .coll-bottles .btl{height:130px}
-  .coll-bottles .btl:nth-child(2){height:150px}
-  .coll-in{padding:24px 22px 28px}
+  .coll-bottles .btl{height:88px}
+  .coll-bottles .btl:nth-child(2){height:100px}
+  .coll-in{padding:16px 18px 20px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
@@ -709,22 +714,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     </div>
 
     <div>
-      <a class="pick" href="prodotto.html">
-        <div class="pick-art" id="pickArt">
-          <span class="pick-badge"><i></i>Il consiglio di stasera</span>
-        </div>
-        <div class="pick-body">
-          <span class="pick-kicker">Rosso · Puglia · 14,5% vol</span>
-          <h3>Primitivo ‘Èja’ 2022</h3>
-          <p>Il rosso della domenica: caldo e schietto.</p>
-          <div class="pick-foot">
-            <span class="price">€ 16,90</span>
-            <span class="pick-link">Vedi il vino
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-            </span>
-          </div>
-        </div>
-      </a>
+      <a class="pick" id="pick" href="prodotto.html"></a>
 
       <a class="wmonth" href="cantina.html">
         <span class="crest" aria-hidden="true">CR</span>
@@ -746,7 +736,6 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     <div class="sec-top">
       <div class="sec-head">
         <h2 class="h2">I consigli della settimana</h2>
-        <p>Otto, scelte in questi giorni.</p>
       </div>
       <a class="link" href="catalogo.html">Vedi tutti
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
@@ -1143,8 +1132,29 @@ function sceneProdotto(style){
 
 /* ── stelle ───────────────────────────────────────────── */
 /* ══ CONSIGLIO DI STASERA ═════════════════════════════ */
-document.getElementById('pickArt').insertAdjacentHTML(
-  'afterbegin', sceneProdotto('rosso') + bottleSVG('rosso'));
+/* la bottiglia consigliata: si cambia riga, non disegno.
+   Deve avere la foto vera, come le schede del catalogo. */
+const CONSIGLIO = 'p08';
+(function(){
+  const el = document.getElementById('pick');
+  if(!el || typeof PRODOTTI === 'undefined') return;
+  const v = PRODOTTI.find(x => x.id === CONSIGLIO) || PRODOTTI[0];
+  const eur = n => n.toLocaleString('it-IT',{minimumFractionDigits:2}) + ' \u20ac';
+  el.innerHTML =
+    '<div class="pick-art">' +
+      '<span class="pick-badge"><i></i>Il consiglio di stasera</span>' +
+      '<img src="' + v.foto + '" alt="' + esc(v.nome) + '">' +
+    '</div>' +
+    '<div class="pick-body">' +
+      '<span class="pick-kicker">' + esc(v.tipo + ' \u00b7 ' + v.regione + ' \u00b7 ' + v.abv) + '</span>' +
+      '<h3>' + esc(v.nome) + '</h3>' +
+      '<p>' + esc(v.desc) + '</p>' +
+      '<div class="pick-foot"><span class="price">' + eur(v.prezzo) + '</span>' +
+      '<span class="pick-link">Vedi il vino' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>' +
+      '</span></div>' +
+    '</div>';
+})();
 
 /* ══ SCHEDE PRODOTTO ══════════════════════════════════
    Le schede arrivano da temi/card.js: foto vere, stesso
