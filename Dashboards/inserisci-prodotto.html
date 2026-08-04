@@ -184,12 +184,31 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 .check b{font-weight:600}
 .check span.d{display:block;font-size:11.5px;color:var(--muted-fg);margin-top:2px;line-height:1.45}
 
+/* sottotitolo dentro una scheda, per separare i blocchi */
+.sub{display:flex;align-items:center;gap:12px}
+.sub h3{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--primary);white-space:nowrap}
+.sub i{flex:1;height:1px;background:var(--border)}
+
+/* regola scritta come una frase, con i numeri da riempire */
+.rule{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:13.5px;line-height:1.6;
+  padding:12px 15px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg);
+}
+.rule .lead{font-weight:600}
+.rule .input{width:82px;flex:none;text-align:center;padding:8px 6px;background:var(--card);font-weight:600}
+
 .chipbox{display:flex;flex-wrap:wrap;gap:8px}
 .chipcheck{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid var(--border);border-radius:999px;font-size:12.5px;color:var(--muted-fg);cursor:pointer;transition:.15s;background:var(--card)}
 .chipcheck:hover{color:var(--fg);border-color:rgba(0,0,0,.18)}
 .chipcheck input{position:absolute;opacity:0;width:1px;height:1px}
 .chipcheck:has(input:checked){background:rgba(0,95,115,.08);border-color:rgba(0,95,115,.35);color:var(--primary);font-weight:600}
 .chipcheck:has(input:focus-visible){outline:2px solid var(--primary);outline-offset:2px}
+/* voce aggiunta a mano: si può anche togliere */
+.chipdel{margin:-2px -5px -2px 1px;padding:3px;border-radius:999px;color:inherit;opacity:.55;display:flex}
+.chipdel:hover{opacity:1;background:rgba(0,0,0,.08)}
+.addchip{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.addchip .input{flex:1;min-width:180px;max-width:320px;padding:8px 13px;font-size:13px}
+.addchip .btn{flex:none}
 
 .seg{display:flex;gap:8px;flex-wrap:wrap}
 .segopt{flex:1;min-width:150px;position:relative}
@@ -203,6 +222,11 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 .segopt input:focus-visible + .body{outline:2px solid var(--primary);outline-offset:2px}
 .segopt .body b{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
 .segopt .body span{display:block;font-size:11.5px;color:var(--muted-fg);margin-top:4px;line-height:1.45}
+/* variante corta: una parola sola, senza spiegazione */
+.seg.compact .segopt{min-width:0}
+.seg.compact .body{padding:10px 12px;text-align:center}
+.seg.compact .body b{justify-content:center;font-weight:500}
+.seg.compact input:checked + .body b{font-weight:600;color:var(--primary)}
 
 /* righe ripetibili (vitigni, abbinamenti, premi) */
 .rowlist{display:flex;flex-direction:column;gap:10px}
@@ -240,27 +264,79 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 }
 .meter .ends{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted-fg)}
 
-/* selezione immagini */
-.imggrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.imgopt{position:relative;border:2px solid var(--border);border-radius:var(--r-sm);overflow:hidden;background:var(--muted);height:112px;transition:.15s;padding:0}
-.imgopt:hover{border-color:rgba(0,95,115,.35)}
-.imgopt img{width:100%;height:100%;object-fit:contain;padding:8px;background:linear-gradient(165deg,#faf6f2,#efe6dd)}
-.imgopt.on{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,95,115,.12)}
-.imgopt .chk{
-  position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:999px;background:var(--primary);
-  color:#fff;display:none;align-items:center;justify-content:center;
+/* caricamento delle foto */
+.upload{
+  display:flex;align-items:center;gap:16px;padding:22px 20px;border:1.5px dashed rgba(0,0,0,.18);
+  border-radius:var(--r);background:var(--bg);cursor:pointer;transition:.16s;
 }
-.imgopt.on .chk{display:flex}
-.imgopt .cap{
-  position:absolute;left:0;right:0;bottom:0;padding:4px 6px;font-size:9.5px;font-weight:600;
-  background:rgba(255,255,255,.92);color:var(--muted-fg);text-align:left;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.upload:hover,.upload.over{border-color:var(--primary);background:rgba(0,95,115,.05)}
+.upload.over{border-style:solid}
+.upload .di{width:46px;height:46px;border-radius:var(--r-sm);background:rgba(0,95,115,.1);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.upload .up-txt{flex:1;min-width:0}
+.upload .up-txt b{display:block;font-size:14px;font-weight:600}
+.upload .up-txt span{display:block;font-size:12px;color:var(--muted-fg);margin-top:4px;line-height:1.5}
+.upload .btn{flex:none;pointer-events:none}
+/* l'input sta fuori dalla label per non aprire due volte il selettore:
+   il contorno di focus glielo diamo da qui */
+.upload:has(~ #fFile:focus-visible){outline:2px solid var(--primary);outline-offset:3px;border-color:var(--primary)}
+
+.filelist{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.filelist:empty{display:none}
+.fileitem{
+  display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);
+  border-radius:var(--r-sm);background:var(--card);
 }
-.dropzone{
-  display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px dashed rgba(0,0,0,.16);
-  border-radius:var(--r-sm);background:var(--bg);font-size:12.5px;color:var(--muted-fg);line-height:1.5;
+.fileitem.main{border-color:rgba(0,95,115,.35);background:rgba(0,95,115,.035)}
+.fileitem .mini{
+  width:44px;height:56px;flex:none;border-radius:8px;overflow:hidden;
+  background:linear-gradient(165deg,#faf6f2,#efe6dd);display:flex;align-items:center;justify-content:center;
 }
-.dropzone .di{width:38px;height:38px;border-radius:10px;background:rgba(0,95,115,.1);color:var(--primary);display:flex;align-items:center;justify-content:center;flex:none}
+.fileitem .mini img{max-width:100%;max-height:100%;object-fit:contain}
+.fileitem .meta{flex:1;min-width:0}
+.fileitem .meta b{display:block;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fileitem .meta span{display:block;font-size:11.5px;color:var(--muted-fg);margin-top:2px}
+.fileitem .tagmain{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--primary);color:#fff;padding:3px 8px;border-radius:999px;flex:none}
+.fileitem .acts{display:flex;gap:4px;flex:none}
+.fileitem .acts button{padding:7px;border-radius:9px;color:var(--muted-fg);transition:.15s;display:flex}
+.fileitem .acts button:hover{background:var(--muted);color:var(--fg)}
+.fileitem .acts button.rm:hover{background:var(--err-bg);color:var(--err)}
+.prev-vuota{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11.5px;color:var(--muted-fg)}
+.prev-vuota[hidden]{display:none}
+
+/* ── sezione Horeca: canale a parte, quindi si vede che è a parte ── */
+.card.b2b{border-color:rgba(109,31,44,.3);box-shadow:0 6px 22px rgba(109,31,44,.1)}
+.card.b2b .card-h{
+  padding:20px 24px;border-bottom-color:rgba(109,31,44,.18);
+  background:linear-gradient(120deg,rgba(109,31,44,.08),rgba(201,168,124,.09));
+}
+.card.b2b .card-h .num{width:30px;height:30px;background:#6d1f2c;color:#fff;font-size:13px}
+.card.b2b .card-h h2{font-size:17px}
+.card.b2b .card-h p{font-size:12.5px;margin-top:3px}
+.card.b2b .card-b{padding:24px;gap:22px}
+.card.b2b .sub h3{color:#6d1f2c}
+.tagB2B{
+  flex:none;font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#6d1f2c;background:rgba(109,31,44,.1);border:1px solid rgba(109,31,44,.24);
+  padding:5px 11px;border-radius:999px;
+}
+.b2b-note{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:var(--r);
+  border:1px solid rgba(109,31,44,.2);background:rgba(109,31,44,.045)}
+.b2b-note .bi{width:40px;height:40px;border-radius:var(--r-sm);background:rgba(109,31,44,.12);color:#6d1f2c;
+  display:flex;align-items:center;justify-content:center;flex:none}
+.b2b-note h3{font-size:14.5px;font-weight:600}
+.b2b-note p{font-size:13px;color:var(--muted-fg);margin-top:5px;line-height:1.6}
+.card.b2b .rule{font-size:14.5px;padding:16px 18px;border-color:rgba(109,31,44,.22);background:rgba(109,31,44,.04)}
+.card.b2b .rule .input{width:94px;padding:10px 6px;font-size:15px;border-color:rgba(109,31,44,.28)}
+.card.b2b .input:focus{border-color:rgba(109,31,44,.5);box-shadow:0 0 0 3px rgba(109,31,44,.12)}
+.card.b2b .check input:checked + .box{background:#6d1f2c;border-color:#6d1f2c}
+.b2b-riepilogo{
+  font-size:13px;line-height:1.65;color:var(--muted-fg);padding:14px 18px;border-radius:var(--r-sm);
+  background:var(--muted);border-left:3px solid #6d1f2c;
+}
+.b2b-riepilogo b{color:var(--fg);font-weight:600}
+.b2b-riepilogo:empty{display:none}
 
 /* avvisi */
 .banner{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-radius:var(--r);
@@ -395,7 +471,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 @media (max-width:1180px){
   .page{grid-template-columns:1fr}
   .col-side{position:static;order:-1}
-  .imggrid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 @media (max-width:900px){
   .sidebar{display:none}
@@ -410,7 +485,8 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 }
 @media (max-width:620px){
   .grid2,.grid3,.grid4{grid-template-columns:1fr}
-  .imggrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .upload{flex-wrap:wrap;text-align:left}
+  .upload .btn{width:100%}
   .rline{flex-wrap:wrap}
   .rline .fix{width:100%}
   .backlink span{display:none}
@@ -558,8 +634,8 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           <div class="card-b">
 
             <div class="field">
-              <label for="fNome">Nome dell'etichetta <span class="req" aria-hidden="true">*</span></label>
-              <input class="input" id="fNome" name="nome" data-req="Nome dell'etichetta" data-sec="identita"
+              <label for="fNome">Nome del prodotto <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="fNome" name="nome" data-req="Nome del prodotto" data-sec="identita"
                      placeholder="es. Barolo Bussia 2019" maxlength="80" autocomplete="off" aria-required="true">
               <p class="hint">Come compare sulla scheda pubblica e nei risultati di ricerca. Annata inclusa.</p>
               <p class="err" id="err-fNome"></p>
@@ -595,7 +671,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
               </div>
             </div>
 
-            <div class="grid3">
+            <div class="grid4">
               <div class="field">
                 <label for="fCategoria">Categoria <span class="req" aria-hidden="true">*</span></label>
                 <select class="input" id="fCategoria" data-req="Categoria" data-sec="identita" aria-required="true">
@@ -615,35 +691,16 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                 <p class="err" id="err-fTipologia"></p>
               </div>
               <div class="field">
+                <label for="fDenominazione">Denominazione</label>
+                <input class="input" id="fDenominazione" placeholder="es. Barolo DOCG" autocomplete="off">
+                <p class="hint">Nome e sigla insieme, come in etichetta.</p>
+              </div>
+              <div class="field">
                 <label for="fAnnata">Annata <span class="req" aria-hidden="true">*</span></label>
                 <input class="input" id="fAnnata" data-req="Annata" data-sec="identita" inputmode="numeric" maxlength="4"
                        placeholder="2019" autocomplete="off" aria-required="true">
                 <p class="hint">Scrivi <b>NV</b> se il prodotto non ha annata.</p>
                 <p class="err" id="err-fAnnata"></p>
-              </div>
-            </div>
-
-            <div class="grid3">
-              <div class="field">
-                <label for="fClasse">Classificazione</label>
-                <select class="input" id="fClasse">
-                  <option>DOCG</option>
-                  <option>DOC</option>
-                  <option>IGT</option>
-                  <option>Vino da tavola</option>
-                  <option>DOP</option>
-                  <option>IGP</option>
-                  <option>Senza classificazione</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="fDenominazione">Denominazione</label>
-                <input class="input" id="fDenominazione" placeholder="es. Barolo" autocomplete="off">
-                <p class="hint">Il nome per esteso, senza la sigla.</p>
-              </div>
-              <div class="field">
-                <label for="fMenzione">Menzione o vigna</label>
-                <input class="input" id="fMenzione" placeholder="es. Bussia · Riserva" autocomplete="off">
               </div>
             </div>
 
@@ -782,6 +839,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                 <select class="input" id="fChiusura">
                   <option>Sughero monopezzo</option>
                   <option>Sughero agglomerato</option>
+                  <option>Tappo Stelvin</option>
                   <option>Tappo a vite</option>
                   <option>Tappo a corona</option>
                   <option>Vetro</option>
@@ -798,12 +856,14 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 
             <div class="grid2">
               <div class="field">
-                <label for="fAffinamento">Affinamento</label>
-                <input class="input" id="fAffinamento" placeholder="es. 30 mesi in botte grande di rovere" autocomplete="off">
+                <label for="fVinificazione">Vinificazione</label>
+                <textarea class="input" id="fVinificazione" rows="3" maxlength="400"
+                          placeholder="es. Diraspatura totale, macerazione di 25 giorni sulle bucce con follature manuali, fermentazione spontanea in cemento."></textarea>
               </div>
               <div class="field">
-                <label for="fVinificazione">Vinificazione</label>
-                <input class="input" id="fVinificazione" placeholder="es. macerazione 25 giorni, cemento" autocomplete="off">
+                <label for="fAffinamento">Affinamento</label>
+                <textarea class="input" id="fAffinamento" rows="3" maxlength="400"
+                          placeholder="es. 30 mesi in botte grande di rovere di Slavonia da 25 hl, poi 12 mesi in bottiglia prima dell'uscita."></textarea>
               </div>
             </div>
 
@@ -835,14 +895,22 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 
             <div class="field">
               <span class="lbl">Certificazioni e regimi</span>
-              <div class="chipbox">
-                <label class="chipcheck"><input type="checkbox" class="cert" value="Bio">Biologico</label>
+              <div class="chipbox" id="certBox">
+                <label class="chipcheck"><input type="checkbox" class="cert" value="Biologico">Biologico</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="Biodinamico">Biodinamico</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="SQNPI">SQNPI</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="Vegan">Vegan</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="Senza solfiti aggiunti">Senza solfiti aggiunti</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="Vino naturale">Naturale</label>
                 <label class="chipcheck"><input type="checkbox" class="cert" value="Non filtrato">Non filtrato</label>
+              </div>
+              <div class="addchip">
+                <input class="input" id="certNew" maxlength="44" autocomplete="off"
+                       placeholder="Aggiungine una che non è in elenco" aria-label="Nuova certificazione">
+                <button class="btn btn-ghost btn-sm" type="button" data-addchip="cert">
+                  <svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Aggiungi
+                </button>
               </div>
               <p class="hint only-vendor">
                 Se dichiari una certificazione, in revisione ti chiediamo il <b>certificato dell'organismo di controllo</b>.
@@ -852,12 +920,20 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
 
             <div class="field">
               <span class="lbl">Etichettatura obbligatoria</span>
-              <div class="chipbox">
-                <label class="chipcheck"><input type="checkbox" id="fAllSolfiti" checked>Contiene solfiti</label>
-                <label class="chipcheck"><input type="checkbox" id="fAllUova">Contiene uova (albumina)</label>
-                <label class="chipcheck"><input type="checkbox" id="fAllLatte">Contiene latte (caseina)</label>
+              <div class="chipbox" id="allBox">
+                <label class="chipcheck"><input type="checkbox" class="all" value="Contiene solfiti" checked>Contiene solfiti</label>
+                <label class="chipcheck"><input type="checkbox" class="all" value="Contiene uova (albumina)">Contiene uova (albumina)</label>
+                <label class="chipcheck"><input type="checkbox" class="all" value="Contiene latte (caseina)">Contiene latte (caseina)</label>
               </div>
-              <p class="hint">Gli allergeni compaiono in fondo alla scheda pubblica, come richiede il Reg. UE 1169/2011.</p>
+              <div class="addchip">
+                <input class="input" id="allNew" maxlength="44" autocomplete="off"
+                       placeholder="Aggiungi un'altra dicitura" aria-label="Nuova dicitura di etichettatura">
+                <button class="btn btn-ghost btn-sm" type="button" data-addchip="all">
+                  <svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Aggiungi
+                </button>
+              </div>
+              <p class="hint">Le diciture compaiono in fondo alla scheda pubblica, come richiede il Reg. UE 1169/2011.</p>
             </div>
 
           </div>
@@ -907,21 +983,33 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                   <input type="range" id="mAcidita" class="sens" min="0" max="100" step="1" value="50">
                   <div class="ends"><span>Morbida</span><span>Tesa</span></div>
                 </div>
-                <div class="meter">
-                  <div class="top"><label for="mDolcezza">Dolcezza</label><output id="oDolcezza">10</output></div>
-                  <input type="range" id="mDolcezza" class="sens" min="0" max="100" step="1" value="10">
-                  <div class="ends"><span>Secco</span><span>Dolce</span></div>
+              </div>
+              <p class="hint">Sono i cursori che il cliente vede come barre nella sezione «Com'è nel bicchiere».</p>
+            </div>
+
+            <div class="grid2">
+              <div class="field">
+                <span class="lbl">Residuo zuccherino</span>
+                <div class="seg compact" role="radiogroup" aria-label="Residuo zuccherino">
+                  <label class="segopt"><input type="radio" name="dolcezza" value="Secco" checked><span class="body"><b>Secco</b></span></label>
+                  <label class="segopt"><input type="radio" name="dolcezza" value="Abboccato"><span class="body"><b>Abboccato</b></span></label>
+                  <label class="segopt"><input type="radio" name="dolcezza" value="Dolce"><span class="body"><b>Dolce</b></span></label>
                 </div>
               </div>
-              <p class="hint">Sono i quattro cursori che il cliente vede come barre nella sezione «Com'è nel bicchiere».</p>
+              <div class="field">
+                <span class="lbl">Effervescenza</span>
+                <div class="seg compact" role="radiogroup" aria-label="Effervescenza">
+                  <label class="segopt"><input type="radio" name="effervescenza" value="Fermo" checked><span class="body"><b>Fermo</b></span></label>
+                  <label class="segopt"><input type="radio" name="effervescenza" value="Frizzante"><span class="body"><b>Frizzante</b></span></label>
+                </div>
+              </div>
             </div>
 
             <div class="field">
               <span class="lbl">Abbinamenti a tavola</span>
               <div class="rowlist" id="abbinamenti">
                 <div class="rline">
-                  <div class="grow"><input class="input a-nome" placeholder="Piatto · es. Brasato al Barolo" maxlength="40" aria-label="Piatto"></div>
-                  <div class="grow"><input class="input a-desc" placeholder="Una riga di spiegazione" maxlength="70" aria-label="Descrizione dell'abbinamento"></div>
+                  <div class="grow"><input class="input a-nome" placeholder="es. Brasato al Barolo" maxlength="60" aria-label="Abbinamento"></div>
                   <button class="del" type="button" data-del="abbinamento" aria-label="Rimuovi l'abbinamento">
                     <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
                   </button>
@@ -954,10 +1042,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                 Aggiungi un premio
               </button>
             </div>
-            <div class="infobox only-vendor">
-              <svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8.5v.01"/></svg>
-              <span>I premi dichiarati vengono <b>verificati in revisione</b> sulle guide ufficiali. Se non troviamo il riconoscimento lo togliamo dalla scheda e ti avvisiamo: il prodotto viene pubblicato lo stesso.</span>
-            </div>
             <div class="only-admin">
               <label class="check">
                 <input type="checkbox" id="fAssaggiato">
@@ -980,35 +1064,29 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           <div class="card-b">
 
             <div class="field">
-              <span class="lbl">Foto principale <span class="req" aria-hidden="true">*</span></span>
-              <div class="imggrid" id="imgGrid" role="radiogroup" aria-label="Foto principale"></div>
-              <p class="err" id="err-immagine"></p>
-            </div>
+              <span class="lbl">Foto del prodotto <span class="req" aria-hidden="true">*</span></span>
 
-            <div class="dropzone">
-              <span class="di" aria-hidden="true">
-                <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M3 16v2a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-2"/></svg>
-              </span>
-              <div>
-                <b>Carica le tue foto</b> — JPG o PNG, fondo bianco o trasparente, lato lungo almeno 1200 px, massimo 5 MB.
-                Nel prototipo la galleria qui sopra sostituisce l'upload.
-              </div>
+              <label class="upload" id="upload" for="fFile">
+                <span class="di" aria-hidden="true">
+                  <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M3 16v2a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-2"/></svg>
+                </span>
+                <span class="up-txt">
+                  <b>Trascina qui le foto, o scegli un file</b>
+                  <span>JPG o PNG · fondo bianco o trasparente · lato lungo almeno 1200 px · massimo 5 MB</span>
+                </span>
+                <span class="btn btn-ghost btn-sm" aria-hidden="true">Scegli i file</span>
+              </label>
+              <input type="file" id="fFile" class="sr" accept="image/jpeg,image/png" multiple>
+
+              <div class="filelist" id="fileList"></div>
+              <p class="hint">La prima foto è quella principale: è quella che si vede nel catalogo e in cima alla scheda. Trascina o usa «Rendi principale» per cambiarla.</p>
+              <p class="err" id="err-immagine"></p>
             </div>
 
             <div class="field">
               <label for="fAlt">Testo alternativo della foto</label>
               <input class="input" id="fAlt" placeholder="es. Bottiglia di Barolo Bussia 2019 · Cascina Vergne" maxlength="120" autocomplete="off">
               <p class="hint">Serve a chi naviga con lo screen reader e aiuta la ricerca per immagini. Lo compiliamo noi dal nome se lo lasci vuoto.</p>
-            </div>
-
-            <div class="field">
-              <span class="lbl">Contenuti extra della galleria</span>
-              <div class="chipbox">
-                <label class="chipcheck"><input type="checkbox" checked>Vino nel calice</label>
-                <label class="chipcheck"><input type="checkbox" checked>Il vigneto</label>
-                <label class="chipcheck"><input type="checkbox">Retro etichetta</label>
-                <label class="chipcheck"><input type="checkbox">Confezione regalo</label>
-              </div>
             </div>
 
           </div>
@@ -1024,6 +1102,8 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
             </div>
           </div>
           <div class="card-b">
+
+            <div class="sub"><h3>Prezzo al pubblico</h3><i></i></div>
 
             <div class="grid4">
               <div class="field">
@@ -1048,13 +1128,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                 <input class="input" id="fSconto" readonly tabindex="-1" value="—">
               </div>
               <div class="field">
-                <span class="lbl">Prezzo al litro</span>
-                <input class="input" id="fLitro" readonly tabindex="-1" value="—">
-              </div>
-            </div>
-
-            <div class="grid3">
-              <div class="field">
                 <label for="fIva">Aliquota IVA</label>
                 <select class="input" id="fIva">
                   <option value="22" selected>22% · ordinaria</option>
@@ -1062,14 +1135,9 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                   <option value="4">4% · agevolata</option>
                 </select>
               </div>
-              <div class="field">
-                <label for="fHoreca">Prezzo riservato Horeca</label>
-                <div class="affix">
-                  <span class="unit-l">€</span>
-                  <input class="input pad-l" id="fHoreca" inputmode="decimal" placeholder="facoltativo" autocomplete="off">
-                </div>
-                <p class="hint">Visibile solo ai locali con account B2B approvato.</p>
-              </div>
+            </div>
+
+            <div class="grid2">
               <div class="field only-admin">
                 <label for="fCommissione">Commissione piattaforma</label>
                 <div class="affix">
@@ -1086,6 +1154,8 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                 </div>
               </div>
             </div>
+
+            <div class="sub"><h3>Disponibilità</h3><i></i></div>
 
             <div class="grid4">
               <div class="field">
@@ -1134,10 +1204,92 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           </div>
         </section>
 
-        <!-- ══ 7 · LOGISTICA ════════════════════════════ -->
-        <section class="card" id="sec-logistica">
+        <!-- ══ 7 · LISTINO HORECA · sezione a sé, canale a sé ══ -->
+        <section class="card b2b" id="sec-horeca">
           <div class="card-h">
             <span class="num">7</span>
+            <div style="flex:1;min-width:0">
+              <h2>Listino Horeca · B2B</h2>
+              <p>Il canale dei ristoranti, delle enoteche e dei wine bar: prezzi e condizioni tutte sue.</p>
+            </div>
+            <span class="tagB2B">Riservato</span>
+          </div>
+          <div class="card-b">
+
+            <div class="b2b-note">
+              <span class="bi" aria-hidden="true">
+                <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/><path d="M8 21h8"/></svg>
+              </span>
+              <div>
+                <h3>Lo vedono solo i locali con account Horeca approvato</h3>
+                <p>
+                  Non compare mai sulla scheda pubblica né nel carrello dei privati.
+                  <b>Lascia vuoto il prezzo se non vuoi vendere questo prodotto al canale B2B</b>:
+                  il resto della scheda resta valido per lo shop.
+                </p>
+              </div>
+            </div>
+
+            <div class="sub"><h3>Prezzo e soglia d'ingresso</h3><i></i></div>
+
+            <div class="grid2">
+              <div class="field">
+                <label for="fHoreca">Prezzo Horeca</label>
+                <div class="affix">
+                  <span class="unit-l">€</span>
+                  <input class="input pad-l" id="fHoreca" data-sec="horeca" inputmode="decimal" placeholder="31,00" autocomplete="off">
+                </div>
+                <p class="hint">A bottiglia, IVA esclusa. Deve stare sotto al prezzo al pubblico.</p>
+                <p class="err" id="err-fHoreca"></p>
+              </div>
+              <div class="field">
+                <label for="fHorecaMin">Minimo per ordine</label>
+                <div class="affix">
+                  <span class="unit-l">€</span>
+                  <input class="input pad-l" id="fHorecaMin" data-sec="horeca" inputmode="decimal" placeholder="250,00" autocomplete="off">
+                </div>
+                <p class="hint">Sotto questa soglia il locale non può chiudere l'ordine.</p>
+              </div>
+            </div>
+
+            <div class="sub"><h3>Condizioni commerciali</h3><i></i></div>
+
+            <div class="field">
+              <div class="rule">
+                <span class="lead">Ogni</span>
+                <input class="input" id="fHorecaCartoni" inputmode="numeric" placeholder="10" aria-label="Numero di cartoni">
+                <span>cartoni acquistati, <b>1 cartone in omaggio</b>.</span>
+              </div>
+              <label class="check" style="margin-top:12px">
+                <input type="checkbox" id="fHorecaMisti" checked>
+                <span class="box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span><b>Vale anche sugli ordini misti</b><span class="d">Se il locale mette in ordine etichette diverse, il cartone omaggio è quello del <b>prodotto più economico</b>.</span></span>
+              </label>
+            </div>
+
+            <div class="sub"><h3>Sconto quantità</h3><i></i></div>
+
+            <div class="field">
+              <div class="rule">
+                <span class="lead">Ogni</span>
+                <input class="input" id="fScontoQtaBt" inputmode="numeric" placeholder="36" aria-label="Numero di bottiglie">
+                <span>bottiglie, sconto del</span>
+                <input class="input" id="fScontoQtaPct" inputmode="decimal" placeholder="5" aria-label="Percentuale di sconto">
+                <span>% <b>in fattura</b>.</span>
+              </div>
+              <p class="hint">Si applica a scaglioni: 72 bottiglie valgono due volte lo sconto, non una.</p>
+              <p class="err" id="err-fScontoQtaPct"></p>
+            </div>
+
+            <p class="b2b-riepilogo" id="b2bRiepilogo"></p>
+
+          </div>
+        </section>
+
+        <!-- ══ 8 · LOGISTICA ════════════════════════════ -->
+        <section class="card" id="sec-logistica">
+          <div class="card-h">
+            <span class="num">8</span>
             <div>
               <h2>Logistica e spedizione</h2>
               <p>Servono al calcolo del corriere e all'imballo.</p>
@@ -1161,16 +1313,14 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
                   <option>Su ordinazione (oltre 5 giorni)</option>
                 </select>
               </div>
-              <div class="field">
+              <div class="field" style="grid-column:span 2">
                 <label for="fMagazzino">Da dove parte</label>
-                <select class="input" id="fMagazzino">
-                  <option>Direttamente dalla cantina</option>
-                  <option>Magazzino climatizzato Stappando</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="fLotto">Lotto di produzione</label>
-                <input class="input" id="fLotto" placeholder="es. L-2019-B14" autocomplete="off">
+                <select class="input" id="fMagazzino"></select>
+                <p class="hint">
+                  Gli indirizzi arrivano dall'anagrafica della cantina.
+                  <span class="only-vendor">Per aggiungerne uno vai nelle impostazioni della cantina.</span>
+                  <span class="only-admin">Cambiando cantina qui sopra cambia anche l'elenco.</span>
+                </p>
               </div>
             </div>
             <div class="field">
@@ -1189,24 +1339,16 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           </div>
         </section>
 
-        <!-- ══ 8 · SEO ══════════════════════════════════ -->
+        <!-- ══ 9 · SEO ══════════════════════════════════ -->
         <section class="card" id="sec-seo">
           <div class="card-h">
-            <span class="num">8</span>
+            <span class="num">9</span>
             <div>
-              <h2>SEO e indirizzo pubblico</h2>
+              <h2>SEO</h2>
               <p>Come il prodotto viene trovato su Google e dentro il sito.</p>
             </div>
           </div>
           <div class="card-b">
-            <div class="field">
-              <label for="fSlug">Indirizzo della pagina</label>
-              <div class="affix">
-                <span class="unit-l" style="font-size:12px">stappando.it/p/</span>
-                <input class="input" id="fSlug" style="padding-left:108px" placeholder="barolo-bussia-2019" autocomplete="off">
-              </div>
-              <p class="hint">Generato dal nome finché non lo modifichi a mano.</p>
-            </div>
             <div class="field">
               <label for="fMetaT">Titolo per i motori di ricerca</label>
               <input class="input" id="fMetaT" maxlength="70" placeholder="Barolo Bussia 2019 · Cascina Vergne | Stappando" autocomplete="off">
@@ -1226,10 +1368,10 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           </div>
         </section>
 
-        <!-- ══ 9 · PUBBLICAZIONE ════════════════════════ -->
+        <!-- ══ 10 · PUBBLICAZIONE ═══════════════════════ -->
         <section class="card" id="sec-pubblicazione">
           <div class="card-h">
-            <span class="num">9</span>
+            <span class="num">10</span>
             <div>
               <h2 id="pubTitle">Invio per l'approvazione</h2>
               <p id="pubSub">Cosa succede a questa scheda quando premi il pulsante.</p>
@@ -1418,7 +1560,11 @@ select.input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg 
           </div>
           <div class="prev-art">
             <span class="prev-badge" id="prevBadge" style="display:none"><i></i>Assaggiato dal nostro team</span>
-            <img id="prevImg" src="../Pagine/foto/colle-pisano.png" alt="">
+            <img id="prevImg" alt="" hidden>
+            <span class="prev-vuota" id="prevVuota">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-4 4 3 3-2 4 3"/></svg>
+              Nessuna foto caricata
+            </span>
           </div>
           <div class="prev-b">
             <div class="prev-tags" id="prevTags"></div>
@@ -1587,22 +1733,11 @@ var TIPOLOGIE = {
   liquori:['Amaro','Bitter','Liquore','Limoncello','Mirto','Sambuca','Anice','Ratafià','Genepy','Genziana','Vermouth','Aperitivo','Porto','Sherry']
 };
 
-/* ── foto disponibili nel prototipo ───────────────────── */
-var FOTO = [
-  {f:'colle-pisano.png',              l:'Colle Pisano'},
-  {f:'apa-torre-falchi.png',          l:'Apa Torre Falchi'},
-  {f:'cannellino-torre-falchi.png',   l:'Cannellino'},
-  {f:'eja-buccoliero.png',            l:'Eja Buccoliero'},
-  {f:'ma-mi.png',                     l:'Ma-Mi'},
-  {f:'piana-mosaico-bianco.png',      l:'Piana Mosaico'},
-  {f:'roselvo-rosato.png',            l:'Roselvo Rosato'},
-  {f:'metodo-classico-rosato.png',    l:'Metodo Classico'},
-  {f:'cuvee-extra-dry.png',           l:'Cuvée Extra Dry'},
-  {f:'prosecco-valdobbiadene.png',    l:'Valdobbiadene'},
-  {f:'ormarins-blanc-de-blancs.png',  l:'Blanc de Blancs'},
-  {f:'gin-km-0.png',                  l:'Gin km 0'}
-];
-var BASE_FOTO = '../Pagine/foto/';
+/* ── requisiti delle immagini ─────────────────────────── */
+var TIPI_OK = ['image/jpeg','image/png'];
+var PESO_MAX = 5 * 1024 * 1024;   /* 5 MB */
+var LATO_MIN = 1200;              /* px sul lato lungo */
+var FOTO_ESEMPIO = '../Pagine/foto/colle-pisano.png';  /* serve solo al pulsante «Riempi con un esempio» */
 
 /* ── sezioni, per l'indice e per l'avanzamento ────────── */
 var SEZIONI = [
@@ -1612,17 +1747,34 @@ var SEZIONI = [
   {id:'premi',         t:'Premi e riconoscimenti'},
   {id:'media',         t:'Immagini'},
   {id:'prezzo',        t:'Prezzo e disponibilità'},
+  {id:'horeca',        t:'Listino Horeca · B2B'},
   {id:'logistica',     t:'Logistica e spedizione'},
-  {id:'seo',           t:'SEO e indirizzo pubblico'},
+  {id:'seo',           t:'SEO'},
   {id:'pubblicazione', t:'Pubblicazione'}
 ];
 
 var stato = {
   ruolo:'vendor',
-  foto:FOTO[0].f,
-  slugToccato:false,
+  immagini:[],        /* {url, nome, peso, w, h, esempio} — la prima è la principale */
   altToccato:false,
   inviato:false
+};
+
+/* ── indirizzi di spedizione, per cantina ─────────────── */
+/* arrivano dall'anagrafica: qui sono fissi perché è un prototipo */
+var MAGAZZINO_PIATTAFORMA = 'Magazzino climatizzato Stappando · Via della Vite 12, 20121 Milano (MI)';
+var INDIRIZZI = {
+  'Cascina Vergne · La Morra (CN)':   ['Sede e cantina · Via Bussia 14, 12064 La Morra (CN)',
+                                       'Magazzino Annunziata · Frazione Annunziata 3, 12064 La Morra (CN)'],
+  'Cascina Rivetto · La Morra (CN)':  ['Sede e cantina · Borgata Serradenari 8, 12064 La Morra (CN)'],
+  'Podere Cigli · Maremma (GR)':      ['Sede e cantina · Strada del Cotone 21, 58100 Grosseto (GR)',
+                                       'Punto vendita · Via Aurelia Nord 44, 58100 Grosseto (GR)'],
+  'Tenuta Coccapane · Castelvetro (MO)':['Sede e cantina · Via Modena 130, 41014 Castelvetro (MO)'],
+  'Casale Marchese · Frascati (RM)':  ['Sede e cantina · Via di Vermicino 68, 00044 Frascati (RM)'],
+  'Antonio Buccoliero · Manduria (TA)':['Sede e cantina · Contrada Fumarulo, 74024 Manduria (TA)'],
+  'Palmento Nero · Etna (CT)':        ['Sede e cantina · Contrada Rampante 9, 95012 Castiglione di Sicilia (CT)'],
+  "Ca' del Lago · Erbusco (BS)":      ['Sede e cantina · Via Iseo 32, 25030 Erbusco (BS)'],
+  'Vigne di Ronco · Collio (GO)':     ['Sede e cantina · Località Ruttars 4, 34070 Dolegna del Collio (GO)']
 };
 
 /* ══ RUOLO ═══════════════════════════════════════════════ */
@@ -1667,6 +1819,7 @@ function applicaRuolo(r){
 
   disegnaSidebar(r);
   disegnaFlusso(R.flow);
+  aggiornaIndirizzi();
 
   /* l'URL segue il ruolo: così il link è condivisibile */
   try{
@@ -1727,7 +1880,7 @@ function aggiornaAvanzamento(){
   var campi = obbligatori();
   var extra = [
     {sec:'tecnica', ok:uvaggioOk()},
-    {sec:'media',   ok:!!stato.foto}
+    {sec:'media',   ok:stato.immagini.length > 0}
   ];
   var tot = campi.length + extra.length;
   var fatti = campi.filter(pieno).length + extra.filter(function(e){return e.ok}).length;
@@ -1759,9 +1912,8 @@ function aggiornaAvanzamento(){
 /* ══ ANTEPRIMA ═══════════════════════════════════════════ */
 function anteprima(){
   var nome  = $('#fNome').value.trim();
-  var cant  = stato.ruolo === 'admin' ? $('#fCantina').value : 'Cascina Vergne · La Morra (CN)';
+  var cant  = cantinaScelta();
   var tipo  = $('#fTipologia').value;
-  var cls   = $('#fClasse').value;
   var den   = $('#fDenominazione').value.trim();
   var annata= $('#fAnnata').value.trim();
   var reg   = $('#fRegione').value;
@@ -1769,12 +1921,14 @@ function anteprima(){
   var scontato = num($('#fScontato').value);
   var giac  = num($('#fGiacenza').value);
   var soglia= num($('#fSoglia').value) || 6;
-  var litri = num($('#fFormato').value) || 0.75;
   var gradi = $('#fGradi').value.trim();
 
-  $('#prevImg').src = BASE_FOTO + stato.foto;
+  var principale = stato.immagini[0];
+  $('#prevImg').hidden = !principale;
+  $('#prevVuota').hidden = !!principale;
+  if(principale) $('#prevImg').src = principale.url;
   $('#prevImg').alt = $('#fAlt').value.trim() || nome || '';
-  $('#prevNome').textContent = nome || "Nome dell'etichetta";
+  $('#prevNome').textContent = nome || 'Nome del prodotto';
 
   var uve = $$('#vitigni .rline').map(function(r){
     var n = $('.v-nome', r).value.trim(), p = $('.v-pct', r).value.trim();
@@ -1787,7 +1941,7 @@ function anteprima(){
   /* etichette colorate */
   var tags = [];
   if(tipo) tags.push('<span class="tg tipo">'+esc(tipo)+'</span>');
-  if(den)  tags.push('<span class="tg den">'+esc(den + (cls && cls !== 'Senza classificazione' ? ' ' + cls : ''))+'</span>');
+  if(den)  tags.push('<span class="tg den">'+esc(den)+'</span>');
   $$('.cert:checked').forEach(function(c){ tags.push('<span class="tg cert">'+esc(c.value)+'</span>'); });
   $$('#premi .p-nome').forEach(function(i){
     if(i.value.trim()) tags.push('<span class="tg" style="color:var(--accent-dark);border-color:rgba(168,129,79,.3);background:rgba(184,151,63,.14)">'+esc(i.value.trim())+'</span>');
@@ -1806,7 +1960,8 @@ function anteprima(){
     $('#prevOld').style.display = 'none';
     $('#prevSave').style.display = 'none';
   }
-  $('#prevVat').textContent = 'IVA inclusa' + (finale && litri ? ' · ' + eur(finale / litri) + ' al litro' : '');
+  var horeca = num($('#fHoreca').value);
+  $('#prevVat').textContent = 'IVA inclusa' + (horeca ? ' · Horeca ' + eur(horeca) + ' IVA esclusa' : '');
 
   /* disponibilità */
   var st = $('#prevStock');
@@ -1825,13 +1980,15 @@ function anteprima(){
   var formatoTxt = $('#fFormato').selectedOptions[0] ? $('#fFormato').selectedOptions[0].text : '';
   var alt = $('#fAltitudine').value.trim();
   var righe = [
-    ['Denominazione', den ? den + (cls && cls !== 'Senza classificazione' ? ' ' + cls : '') : ''],
+    ['Denominazione', den],
     ['Annata', annata],
     ['Vitigno', uve],
     ['Altitudine', alt ? alt + ' m s.l.m.' : ''],
     ['Esposizione', $('#fEsposizione').value],
     ['Vendemmia', $('#fVendemmia').value],
     ['Gradazione', gradi ? gradi + '% vol' : ''],
+    ['Residuo zuccherino', scelta('dolcezza')],
+    ['Effervescenza', scelta('effervescenza')],
     ['Affinamento', $('#fAffinamento').value.trim()],
     ['Formato', $('#fFormato').value ? formatoTxt : '']
   ].filter(function(r){return r[1]});
@@ -1847,13 +2004,30 @@ function anteprima(){
 function calcoli(){
   var listino = num($('#fPrezzo').value);
   var scontato = num($('#fScontato').value);
-  var litri = num($('#fFormato').value);
-
   $('#fSconto').value = (listino && scontato && scontato < listino)
     ? '-' + Math.round((1 - scontato / listino) * 100) + '%' : '—';
+}
 
-  var finale = (scontato && listino && scontato < listino) ? scontato : listino;
-  $('#fLitro').value = (finale && litri) ? eur(finale / litri) : '—';
+/* la scelta attiva di un gruppo di radio */
+function scelta(nome){
+  var el = $('input[name="' + nome + '"]:checked');
+  return el ? el.value : '';
+}
+
+/* la cantina in gioco: fissa per il vendor, scelta dall'admin */
+function cantinaScelta(){
+  return stato.ruolo === 'admin'
+    ? $('#fCantina').value
+    : 'Cascina Vergne · La Morra (CN)';
+}
+
+/* gli indirizzi di partenza seguono la cantina */
+function aggiornaIndirizzi(){
+  var sel = $('#fMagazzino');
+  var prima = sel.value;
+  var lista = (INDIRIZZI[cantinaScelta()] || []).concat([MAGAZZINO_PIATTAFORMA]);
+  sel.innerHTML = lista.map(function(i){return '<option>'+esc(i)+'</option>'}).join('');
+  if(lista.indexOf(prima) > -1) sel.value = prima;
 }
 
 function slugify(s){
@@ -1863,19 +2037,45 @@ function slugify(s){
 
 function autocompila(){
   var nome = $('#fNome').value.trim();
-  if(!stato.slugToccato) $('#fSlug').value = nome ? slugify(nome) : '';
   if(!stato.altToccato && nome){
-    var c = stato.ruolo === 'admin' ? ($('#fCantina').value || '').split(' · ')[0] : 'Cascina Vergne';
+    var c = cantinaScelta().split(' · ')[0];
     $('#fAlt').placeholder = 'Bottiglia di ' + nome + (c ? ' · ' + c : '');
   }
+}
+
+/* la frase in fondo alla sezione Horeca: rilegge le condizioni come le leggerà il locale */
+function riepilogoB2B(){
+  var prezzo = num($('#fHoreca').value);
+  var box = $('#b2bRiepilogo');
+  if(!prezzo){ box.innerHTML = ''; return; }
+
+  var voci = ['<b>' + eur(prezzo) + '</b> a bottiglia, IVA esclusa'];
+  var minimo = num($('#fHorecaMin').value);
+  if(minimo) voci.push('ordine minimo <b>' + eur(minimo) + '</b>');
+
+  var cartoni = num($('#fHorecaCartoni').value);
+  if(cartoni) voci.push('<b>1 cartone omaggio</b> ogni ' + cartoni +
+    ($('#fHorecaMisti').checked ? ', anche su ordini misti (sul prodotto più economico)' : ', solo su ordini di questa etichetta'));
+
+  var bt = num($('#fScontoQtaBt').value), pct = num($('#fScontoQtaPct').value);
+  if(bt && pct) voci.push('sconto in fattura del <b>' + String(pct).replace('.', ',') + '%</b> ogni ' + bt + ' bottiglie');
+
+  box.innerHTML = 'Il locale vedrà: ' + voci.join(' · ') + '.';
 }
 
 function aggiorna(){
   calcoli();
   autocompila();
   anteprima();
+  riepilogoB2B();
   aggiornaAvanzamento();
   sommaUvaggio();
+}
+
+/* la sezione «Da dove parte» dipende dalla cantina: si rifà quando cambia */
+function aggiornaTutto(){
+  aggiornaIndirizzi();
+  aggiorna();
 }
 
 /* ══ RIGHE RIPETIBILI ════════════════════════════════════ */
@@ -1893,8 +2093,7 @@ function rigaAbbinamento(){
   var d = document.createElement('div');
   d.className = 'rline';
   d.innerHTML =
-    '<div class="grow"><input class="input a-nome" placeholder="Piatto · es. Tajarin al tartufo" maxlength="40" aria-label="Piatto"></div>'+
-    '<div class="grow"><input class="input a-desc" placeholder="Una riga di spiegazione" maxlength="70" aria-label="Descrizione dell\'abbinamento"></div>'+
+    '<div class="grow"><input class="input a-nome" placeholder="es. Tajarin al tartufo" maxlength="60" aria-label="Abbinamento"></div>'+
     '<button class="del" type="button" data-del="abbinamento" aria-label="Rimuovi l\'abbinamento">'+
       '<svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
   return d;
@@ -1919,14 +2118,124 @@ function sommaUvaggio(){
     (tot && tot !== 100 ? ' <span>— dovrebbe fare 100%</span>' : '');
 }
 
+/* ══ VOCI AGGIUNTE A MANO (certificazioni, etichettatura) ═ */
+var CONTENITORE = {cert:'#certBox', all:'#allBox'};
+var CAMPO_NUOVO = {cert:'#certNew', all:'#allNew'};
+
+function aggiungiVoce(gruppo){
+  var campo = $(CAMPO_NUOVO[gruppo]);
+  var testo = campo.value.trim().replace(/\s+/g,' ');
+  if(!testo) { campo.focus(); return; }
+
+  /* niente doppioni: se c'è già, la spunto e basta */
+  var esistente = $$(CONTENITORE[gruppo] + ' input').filter(function(i){
+    return i.value.toLowerCase() === testo.toLowerCase();
+  })[0];
+  if(esistente){
+    esistente.checked = true;
+    campo.value = '';
+    toast('«' + testo + '» era già in elenco: l\'ho spuntata');
+    aggiorna();
+    return;
+  }
+
+  var l = document.createElement('label');
+  l.className = 'chipcheck';
+  l.innerHTML = '<input type="checkbox" class="'+gruppo+'" value="'+esc(testo)+'" checked>'+esc(testo)+
+    '<button class="chipdel" type="button" data-delchip aria-label="Togli '+esc(testo)+'">'+
+      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
+  $(CONTENITORE[gruppo]).appendChild(l);
+  campo.value = '';
+  campo.focus();
+  aggiorna();
+}
+
 /* ══ IMMAGINI ════════════════════════════════════════════ */
-function disegnaFoto(){
-  $('#imgGrid').innerHTML = FOTO.map(function(f){
-    return '<button type="button" class="imgopt'+(f.f === stato.foto ? ' on' : '')+'" data-foto="'+f.f+'" '+
-      'role="radio" aria-checked="'+(f.f === stato.foto)+'" aria-label="'+esc(f.l)+'">'+
-      '<img src="'+BASE_FOTO+f.f+'" alt="" loading="lazy">'+
-      '<span class="chk">'+CHECK+'</span><span class="cap">'+esc(f.l)+'</span></button>';
+function pesoLeggibile(b){
+  if(!b) return '';
+  return b >= 1048576 ? (b / 1048576).toFixed(1).replace('.', ',') + ' MB'
+                      : Math.round(b / 1024) + ' KB';
+}
+
+function disegnaImmagini(){
+  $('#fileList').innerHTML = stato.immagini.map(function(im, i){
+    var dettagli = [im.w ? im.w + ' × ' + im.h + ' px' : '', pesoLeggibile(im.peso),
+                    im.esempio ? 'foto di esempio' : ''].filter(Boolean).join(' · ');
+    return '<div class="fileitem'+(i === 0 ? ' main' : '')+'">'+
+      '<span class="mini"><img src="'+esc(im.url)+'" alt=""></span>'+
+      '<span class="meta"><b>'+esc(im.nome)+'</b><span>'+esc(dettagli)+'</span></span>'+
+      (i === 0 ? '<span class="tagmain">Principale</span>' : '')+
+      '<span class="acts">'+
+        (i === 0 ? '' :
+          '<button type="button" data-principale="'+i+'" title="Rendi principale" aria-label="Rendi principale '+esc(im.nome)+'">'+
+          '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4 2.5 5.3 5.5.6-4.1 3.8 1.1 5.3L12 16.4 7 19l1.1-5.3L4 9.9l5.5-.6Z"/></svg></button>')+
+        '<button type="button" class="rm" data-rimuovi="'+i+'" title="Rimuovi" aria-label="Rimuovi '+esc(im.nome)+'">'+
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7"/></svg></button>'+
+      '</span></div>';
   }).join('');
+}
+
+function erroreImmagini(msg){
+  var p = $('#err-immagine');
+  p.textContent = msg;
+  p.classList.toggle('on', !!msg);
+}
+
+/* controlla un file alla volta: tipo, peso, e poi il lato lungo una volta caricato */
+function aggiungiFile(files){
+  var scartati = [];
+  var daControllare = 0, finiti = 0;
+
+  Array.prototype.forEach.call(files, function(f){
+    if(TIPI_OK.indexOf(f.type) === -1){
+      scartati.push(f.name + ': accettiamo solo JPG o PNG.');
+      return;
+    }
+    if(f.size > PESO_MAX){
+      scartati.push(f.name + ': pesa ' + pesoLeggibile(f.size) + ', il massimo è 5 MB.');
+      return;
+    }
+    daControllare++;
+    var url = (w_URL && w_URL.createObjectURL) ? w_URL.createObjectURL(f) : '';
+    var img = new Image();
+    img.onload = function(){
+      finiti++;
+      var lungo = Math.max(img.naturalWidth, img.naturalHeight);
+      if(lungo < LATO_MIN){
+        scartati.push(f.name + ': il lato lungo è di ' + lungo + ' px, ne servono almeno ' + LATO_MIN + '.');
+        if(w_URL && w_URL.revokeObjectURL) w_URL.revokeObjectURL(url);
+      }else{
+        stato.immagini.push({url:url, nome:f.name, peso:f.size, w:img.naturalWidth, h:img.naturalHeight});
+      }
+      if(finiti === daControllare) chiudiCaricamento(scartati);
+    };
+    img.onerror = function(){
+      finiti++;
+      scartati.push(f.name + ": non riesco a leggere l'immagine.");
+      if(finiti === daControllare) chiudiCaricamento(scartati);
+    };
+    img.src = url;
+  });
+
+  if(daControllare === 0) chiudiCaricamento(scartati);
+}
+function chiudiCaricamento(scartati){
+  erroreImmagini(scartati.join(' '));
+  disegnaImmagini();
+  aggiorna();
+}
+var w_URL = window.URL || window.webkitURL;
+
+function rimuoviImmagine(i){
+  var im = stato.immagini.splice(i, 1)[0];
+  if(im && !im.esempio && w_URL && w_URL.revokeObjectURL) w_URL.revokeObjectURL(im.url);
+  disegnaImmagini();
+  aggiorna();
+}
+function rendiPrincipale(i){
+  stato.immagini.unshift(stato.immagini.splice(i, 1)[0]);
+  disegnaImmagini();
+  aggiorna();
 }
 
 /* ══ ERRORI ══════════════════════════════════════════════ */
@@ -2004,6 +2313,23 @@ function validaTutto(){
     problemi.push({t:'Prezzo scontato più alto del listino', id:'fScontato', sec:'prezzo'});
   }
 
+  /* listino Horeca: se c'è, deve stare sotto al pubblico */
+  var horeca = num($('#fHoreca').value);
+  if($('#fHoreca').value.trim() && (horeca === null || horeca <= 0)){
+    mostraErrore($('#fHoreca'), 'Indica un prezzo maggiore di zero, o lascia vuoto.');
+    problemi.push({t:'Prezzo Horeca non valido', id:'fHoreca', sec:'prezzo'});
+  }else if(horeca !== null && listino !== null && horeca >= listino){
+    mostraErrore($('#fHoreca'), 'Il prezzo Horeca è riservato: deve stare sotto al prezzo al pubblico.');
+    problemi.push({t:'Prezzo Horeca non conveniente', id:'fHoreca', sec:'prezzo'});
+  }
+
+  /* sconto quantità: percentuale sensata */
+  var pct = num($('#fScontoQtaPct').value);
+  if($('#fScontoQtaPct').value.trim() && (pct === null || pct <= 0 || pct >= 100)){
+    mostraErrore($('#fScontoQtaPct'), 'Lo sconto va fra 1 e 99%.');
+    problemi.push({t:'Sconto quantità non valido', id:'fScontoQtaPct', sec:'prezzo'});
+  }
+
   /* giacenza intera e non negativa */
   var gi = num($('#fGiacenza').value);
   if($('#fGiacenza').value.trim() && (gi === null || gi < 0 || gi % 1 !== 0)){
@@ -2027,11 +2353,9 @@ function validaTutto(){
   }
 
   /* foto */
-  if(!stato.foto){
-    var p2 = $('#err-immagine');
-    p2.textContent = 'Scegli la foto principale.';
-    p2.classList.add('on');
-    problemi.push({t:'Foto principale', id:'imgGrid', sec:'media'});
+  if(!stato.immagini.length){
+    erroreImmagini('Carica almeno una foto del prodotto.');
+    problemi.push({t:'Foto del prodotto', id:'fFile', sec:'media'});
   }
 
   return problemi;
@@ -2153,10 +2477,8 @@ function esempio(){
   $('#fCategoria').value = 'vini';
   tipologiePerCategoria();
   $('#fTipologia').value = 'Rosso';
+  $('#fDenominazione').value = 'Barolo DOCG';
   $('#fAnnata').value = '2019';
-  $('#fClasse').value = 'DOCG';
-  $('#fDenominazione').value = 'Barolo';
-  $('#fMenzione').value = 'Bussia';
   $('#fRegione').value = 'Piemonte';
   $('#fComune').value = 'La Morra (CN)';
 
@@ -2172,8 +2494,11 @@ function esempio(){
   $('#fGradi').value = '14,5';
   $('#fFormato').value = '0.75';
   $('#fSolfiti').value = '48';
-  $('#fAffinamento').value = '30 mesi in botte grande di rovere';
-  $('#fVinificazione').value = 'Macerazione 25 giorni, fermentazione spontanea';
+  $('#fChiusura').value = 'Sughero monopezzo';
+  $('#fVinificazione').value = 'Diraspatura totale, macerazione di 25 giorni sulle bucce con follature manuali, ' +
+    'fermentazione spontanea con i lieviti indigeni in vasche di cemento.';
+  $('#fAffinamento').value = '30 mesi in botte grande di rovere di Slavonia da 25 hl, ' +
+    'poi 12 mesi di riposo in bottiglia prima dell\'uscita.';
   $('#fServizio').value = '16-18 °C';
   $('#fDecant').value = '60 min';
   $('#fInvecchia').value = 'fino al 2040';
@@ -2183,17 +2508,16 @@ function esempio(){
     "ma è già pettinato, sostenuto da un'acidità che tiene il sorso dritto fino a un finale lungo e amaricante.";
   $('#fBreve').value = "Nebbiolo 100% da Bussia, 30 mesi in botte grande. Si beve adesso, ha vent'anni davanti.";
 
-  $('#mCorpo').value = 84; $('#mTannino').value = 78; $('#mAcidita').value = 72; $('#mDolcezza').value = 8;
+  $('#mCorpo').value = 84; $('#mTannino').value = 78; $('#mAcidita').value = 72;
   $$('.sens').forEach(sincronizzaCursore);
+  $('input[name="dolcezza"][value="Secco"]').checked = true;
+  $('input[name="effervescenza"][value="Fermo"]').checked = true;
 
-  var abb = [['Brasato al Barolo','La stessa bottiglia in pentola e nel bicchiere.'],
-             ['Tajarin al tartufo','Burro, tuorlo, tartufo bianco. Nient\'altro.'],
-             ['Formaggi stagionati',"Castelmagno d'alpeggio. Niente confetture."]];
+  var abb = ['Brasato al Barolo', 'Tajarin al tartufo bianco', 'Formaggi stagionati d\'alpeggio'];
   $('#abbinamenti').innerHTML = '';
   abb.forEach(function(a){
     var r = rigaAbbinamento();
-    $('.a-nome', r).value = a[0];
-    $('.a-desc', r).value = a[1];
+    $('.a-nome', r).value = a;
     $('#abbinamenti').appendChild(r);
   });
 
@@ -2203,22 +2527,30 @@ function esempio(){
   $('.p-anno', pr).value = '2026';
   $('#premi').appendChild(pr);
 
-  $$('.cert').forEach(function(c){ c.checked = (c.value === 'Bio'); });
+  $$('.cert').forEach(function(c){ c.checked = (c.value === 'Biologico'); });
 
-  stato.foto = 'colle-pisano.png';
-  disegnaFoto();
+  /* nel prototipo non possiamo caricare un file davvero: mettiamo una foto già a catalogo */
+  if(!stato.immagini.length){
+    stato.immagini.push({url:FOTO_ESEMPIO, nome:'barolo-bussia-2019.png', peso:0, esempio:true});
+    disegnaImmagini();
+    erroreImmagini('');
+  }
 
   $('#fPrezzo').value = '56,00';
   $('#fScontato').value = '48,00';
-  $('#fHoreca').value = '39,00';
+  $('#fHoreca').value = '31,00';
+  $('#fHorecaMin').value = '250,00';
+  $('#fHorecaCartoni').value = '10';
+  $('#fHorecaMisti').checked = true;
+  $('#fScontoQtaBt').value = '36';
+  $('#fScontoQtaPct').value = '5';
   $('#fGiacenza').value = '24';
   $('#fSoglia').value = '6';
   $('#fPeso').value = '1,3';
-  $('#fLotto').value = 'L-2019-B14';
   $('#fTag').value = 'nebbiolo, langhe, barolo, rosso da invecchiamento';
   if(stato.ruolo === 'vendor') $('#fDichiarazione').checked = true;
 
-  stato.slugToccato = false;
+  aggiornaIndirizzi();
   pulisciErrori();
   aggiorna();
   toast('Scheda riempita con il Barolo Bussia 2019');
@@ -2255,7 +2587,7 @@ function scrollspy(){
 
 /* ══ AVVIO ═══════════════════════════════════════════════ */
 disegnaIndice();
-disegnaFoto();
+disegnaImmagini();
 tipologiePerCategoria();
 $$('.sens').forEach(sincronizzaCursore);
 /* tre abbinamenti e un premio pronti da riempire */
@@ -2268,7 +2600,6 @@ applicaRuolo(ruoloDaUrl());
 var form = $('#form');
 form.addEventListener('input', function(e){
   var t = e.target;
-  if(t.id === 'fSlug') stato.slugToccato = true;
   if(t.id === 'fAlt')  stato.altToccato = true;
   if(t.classList.contains('sens')) sincronizzaCursore(t);
   if(t.classList.contains('bad')) togliErrore(t);
@@ -2280,6 +2611,7 @@ form.addEventListener('input', function(e){
 });
 form.addEventListener('change', function(e){
   if(e.target.id === 'fCategoria') tipologiePerCategoria();
+  if(e.target.id === 'fCantina') aggiornaIndirizzi();
   if(e.target.name === 'destinoAdmin'){
     $('#rowProgrammato').style.display = e.target.value === 'programmato' ? '' : 'none';
   }
@@ -2289,6 +2621,13 @@ form.addEventListener('change', function(e){
   aggiorna();
 });
 form.addEventListener('submit', function(e){ e.preventDefault(); invia(); });
+
+/* Invio dentro i campini «aggiungi voce»: aggiunge invece di mandare il modulo */
+form.addEventListener('keydown', function(e){
+  if(e.key !== 'Enter') return;
+  if(e.target.id === 'certNew'){ e.preventDefault(); aggiungiVoce('cert'); }
+  if(e.target.id === 'allNew'){  e.preventDefault(); aggiungiVoce('all'); }
+});
 
 function contatore(el, sel, limite, coda){
   var p = $(sel);
@@ -2302,14 +2641,23 @@ function contatore(el, sel, limite, coda){
 document.addEventListener('click', function(e){
   var t = e.target;
 
-  var foto = t.closest('[data-foto]');
-  if(foto){
-    stato.foto = foto.dataset.foto;
-    disegnaFoto();
-    var p = $('#err-immagine'); p.classList.remove('on'); p.textContent = '';
+  /* la × sta dentro una <label>: senza questo spegnerebbe la spunta */
+  var delchip = t.closest('[data-delchip]');
+  if(delchip){
+    e.preventDefault();
+    delchip.closest('.chipcheck').remove();
     aggiorna();
     return;
   }
+
+  var addchip = t.closest('[data-addchip]');
+  if(addchip){ aggiungiVoce(addchip.dataset.addchip); return; }
+
+  var princ = t.closest('[data-principale]');
+  if(princ){ rendiPrincipale(+princ.dataset.principale); return; }
+
+  var rimuovi = t.closest('[data-rimuovi]');
+  if(rimuovi){ rimuoviImmagine(+rimuovi.dataset.rimuovi); return; }
 
   var del = t.closest('[data-del]');
   if(del){
@@ -2378,6 +2726,26 @@ $('#addAbbinamento').addEventListener('click', function(){
 $('#addPremio').addEventListener('click', function(){
   $('#premi').appendChild(rigaPremio());
   $$('#premi .p-nome').pop().focus();
+});
+
+/* ── caricamento foto: dal selettore e dal trascinamento ─ */
+$('#fFile').addEventListener('change', function(){
+  if(this.files && this.files.length) aggiungiFile(this.files);
+  this.value = '';   /* così si può ricaricare due volte lo stesso file */
+});
+var zona = $('#upload');
+['dragenter','dragover'].forEach(function(ev){
+  zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.add('over'); });
+});
+['dragleave','drop'].forEach(function(ev){
+  zona.addEventListener(ev, function(e){ e.preventDefault(); zona.classList.remove('over'); });
+});
+zona.addEventListener('drop', function(e){
+  if(e.dataTransfer && e.dataTransfer.files.length) aggiungiFile(e.dataTransfer.files);
+});
+/* fuori dalla zona il trascinamento non deve aprire il file nel browser */
+['dragover','drop'].forEach(function(ev){
+  document.addEventListener(ev, function(e){ if(!e.target.closest('#upload')) e.preventDefault(); });
 });
 
 $('#btnCompila').addEventListener('click', esempio);
