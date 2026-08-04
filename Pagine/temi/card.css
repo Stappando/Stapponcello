@@ -99,8 +99,13 @@
 
 /* ── carosello ────────────────────────────────────────── */
 .pcar{position:relative}
+/* sempre lo stesso numero di schede in vista: quattro.
+   Niente mezze schede che spuntano dal bordo, e il numero
+   non cambia da un carosello all'altro. */
 .pcar-track{
-  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(232px,1fr);gap:18px;
+  --per-vista:4;--gap:18px;
+  display:grid;grid-auto-flow:column;gap:var(--gap);
+  grid-auto-columns:calc((100% - (var(--per-vista) - 1) * var(--gap)) / var(--per-vista));
   overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;
   scrollbar-width:none;-ms-overflow-style:none;
 }
@@ -116,11 +121,12 @@
 .pcar-nav.next{right:-14px}
 @media(max-width:1080px){
   .pgrid.p4{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pcar-track{--per-vista:3}
   .pcar-nav{display:none}
 }
 @media(max-width:720px){
   .pgrid,.pgrid.p4,.pgrid.p3{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .pc-foto{padding:12px}
-  .pcar-track{grid-auto-columns:minmax(190px,1fr)}
+  .pcar-track{--per-vista:2;--gap:12px}
 }
 @media(max-width:420px){.pgrid,.pgrid.p4,.pgrid.p3{grid-template-columns:1fr}}
