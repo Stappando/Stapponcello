@@ -95,7 +95,8 @@ img,svg{display:block}
    sotto la barra mentre si scorre, e lo scroll guida
    stagnola, gabbietta, tappo e bollicine.
    ══════════════════════════════════════════════════════════ */
-.stappa{position:relative;height:calc(var(--vh-stage) * 3.2)}
+/* 760 px di scorrimento in tutto: il tappo salta a metà, dopo un paio di colpi di rotella */
+.stappa{position:relative;height:calc(var(--vh-stage) + 760px)}
 .stage{
   position:sticky;top:var(--hh);height:var(--vh-stage);overflow:hidden;
   color:#fff;
@@ -336,6 +337,7 @@ main{flex:1}
 .chip.type{background:rgba(0,95,115,.1);color:var(--primary)}
 .chip.rate{background:#fff;border:1px solid var(--border)}
 .chip.rate svg{color:var(--accent-dark)}
+.chip .nv{font-size:inherit}
 .chip.bio{background:#fff;border:1px solid rgba(45,106,79,.5);color:var(--ok);margin-top:6px}
 .vc-desc{
   margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--muted-fg);
@@ -500,14 +502,51 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   .vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .vc-art{height:200px;padding:14px}
   .vc-img{width:140px;height:140px}
+  .wgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .mese{padding:26px 22px}
   .mese-head{gap:14px}
   .mese-crest{width:58px;height:58px;font-size:20px}
-  .wgrid{grid-template-columns:1fr}
   .foot-in{grid-template-columns:1fr}
   footer{margin-top:56px}
 }
-@media(max-width:420px){.vgrid{grid-template-columns:1fr}}
+/* ── telefono: schede compatte, quattro per schermata ── */
+@media(max-width:560px){
+  .vgrid,.wgrid{gap:10px;margin-top:18px}
+  .vc{border-radius:14px}
+  .vc-art{height:116px;padding:8px}
+  .vc-img{width:88px;height:88px;padding:7px;border-radius:9px}
+  .vc-tags{top:7px;left:7px;gap:4px}
+  .vc-tags .vtag{display:none;font-size:9px;padding:3px 7px}
+  .vc-tags .vtag.sale{display:inline-block}
+  .vc-fav{top:7px;right:7px;width:26px;height:26px}
+  .vc-fav svg{width:12px;height:12px}
+  .vc-body{padding:8px 10px 9px}
+  .vc-cantina{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vc h3{font-size:13px;line-height:1.22;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .chips{display:block;margin-top:5px;font-size:10.5px;line-height:1.3;color:var(--muted-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chips .chip{display:inline;background:none;border:0;padding:0;font-size:inherit;color:inherit;font-weight:500}
+  .chips .chip.type{color:var(--primary);font-weight:600}
+  .chips .chip + .chip::before{content:"\00a0\00b7\00a0";color:var(--muted-fg);font-weight:400}
+  .chips .chip svg{display:inline-block;width:9px;height:9px;vertical-align:-1px}
+  .chips .nv{display:none}
+  .bio-row,.vc-desc,.vc-sped{display:none}
+  .vc-bottom{padding-top:6px}
+  .vc-foot{padding-top:7px;gap:6px}
+  .price{font-size:16px}
+  .price s{font-size:10px;margin-right:4px}
+  .vc-add{width:28px;height:28px}
+  .vc-add svg{width:13px;height:13px}
+  .piu-uno{bottom:30px;right:6px;font-size:12px}
+  .wc{padding:12px 12px 11px;border-radius:14px}
+  .wc-top{flex-direction:column;align-items:flex-start;gap:8px}
+  .wc-crest{width:40px;height:40px;font-size:15px}
+  .wc h3{font-size:14px;line-height:1.2}
+  .wc .reg{font-size:11px;margin-top:2px}
+  .wc-foot{margin-top:8px;padding-top:8px;font-size:10.5px;line-height:1.3}
+  .wc-foot .rate{gap:3px}
+  .wc-foot .rate svg{width:9px;height:9px}
+  .wc-foot .go{display:none}
+}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
   .bubbles i,.totop::after,.mese::after,.news::after{animation:none}
@@ -1312,8 +1351,8 @@ function scheda(p){
       '<span class="vc-cantina">' + esc(p.cantina) + '</span>' +
       '<h3><a href="prodotto.html">' + esc(p.nome) + '</a></h3>' +
       '<div class="chips"><span class="chip type">' + esc(p.tipo) + '</span><span class="chip">' + esc(p.regione) + '</span>' +
-        (p.voto ? '<span class="chip rate">' + STAR + ' ' + p.voto + ' (' + p.nvoti + ')</span>' : '') + '</div>' +
-      (p.bio ? '<div><span class="chip bio">' + LEAF + 'Biologico</span></div>' : '') +
+        (p.voto ? '<span class="chip rate">' + STAR + ' ' + p.voto + '<small class="nv"> (' + p.nvoti + ')</small></span>' : '') + '</div>' +
+      (p.bio ? '<div class="bio-row"><span class="chip bio">' + LEAF + 'Biologico</span></div>' : '') +
       '<p class="vc-desc">' + esc(p.desc) + '</p>' +
       '<div class="vc-bottom">' +
         '<div class="vc-foot">' + prezzo(p) +
