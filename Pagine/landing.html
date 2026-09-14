@@ -4,32 +4,41 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Stappando · Landing</title>
-<meta name="description" content="Il vino giusto, scelto con chi se ne intende. 320 cantine indipendenti, ogni etichetta degustata prima di entrare in catalogo." />
+<meta name="description" content="Dalla cantina direttamente a casa tua. Vini di cantine indipendenti, scelti uno per uno. Sopra i 69,00 € per cantina la spedizione è gratis." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Montserrat:ital,wght@0,300..800;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <style>
+/* ══════════════════════════════════════════════════════════
+   Stappando · landing
+   Sopra: il logo a tutto schermo e la bottiglia che si stappa.
+   Sotto: la home di stappando-20.vercel.app, con i suoi
+   caratteri (Playfair Display + Inter) e i suoi colori.
+   ══════════════════════════════════════════════════════════ */
 :root{
   --primary:#005f73;
   --primary-dark:#003d4d;
   --primary-soft:rgba(0,95,115,.08);
   --accent:#c9a87c;
-  --accent-dark:#a8814f;
+  --accent-dark:#845f2e;
   --bg:#f7f3ee;
   --card:#ffffff;
-  --fg:#1a1a1a;
+  --fg:#003d4d;
   --muted-fg:#7a7060;
   --muted:#f0ebe3;
+  --art:#f3efe8;                 /* il fondo delle foto nelle schede */
   --border:rgba(0,0,0,.09);
   --border-soft:rgba(0,0,0,.06);
+  --ok:#2d6a4f;
   --r:16px;
   --r-sm:12px;
   --r-lg:24px;
   --shadow-sm:0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 16px rgba(0,0,0,.07);
   --shadow-lg:0 16px 44px rgba(0,61,77,.16);
-  --font-sans:Montserrat,system-ui,sans-serif;
-  --font-display:"Bricolage Grotesque",Montserrat,system-ui,sans-serif;
+  --font-sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:"Playfair Display",Georgia,serif;
+  --font-logo:Montserrat,Inter,system-ui,sans-serif;
   /* altezza della barra: la misura lo script, la scena si aggancia sotto */
   --hh:72px;
   --vh-stage:calc(100vh - var(--hh));
@@ -53,7 +62,7 @@ img,svg{display:block}
 
 .wrap{max-width:1240px;width:100%;margin:0 auto;padding:0 28px}
 .eyebrow{font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--accent-dark)}
-.h2{font-family:var(--font-display);font-size:clamp(24px,3vw,32px);font-weight:700;line-height:1.12;letter-spacing:-.03em}
+.h2{font-family:var(--font-display);font-size:clamp(26px,3vw,34px);font-weight:700;line-height:1.15}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{
   position:absolute;left:12px;top:-60px;z-index:100;padding:10px 16px;border-radius:999px;
@@ -61,21 +70,24 @@ img,svg{display:block}
   transition:top .15s;
 }
 .skip:focus{top:calc(var(--hh) + 12px)}
+.topbar .logo{font-family:var(--font-logo)}
 
 /* ── bottoni ──────────────────────────────────────────── */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:13px 24px;border-radius:999px;font-size:13px;font-weight:600;
-  letter-spacing:.02em;transition:.16s;flex:none;cursor:pointer;
+  height:46px;padding:0 24px;border-radius:999px;font-size:14px;font-weight:600;
+  transition:.16s;flex:none;cursor:pointer;white-space:nowrap;
 }
 .btn svg{transition:transform .18s ease}
 .btn:hover svg{transform:translateX(3px)}
 .btn-primary{background:var(--accent);color:var(--primary-dark);box-shadow:0 8px 22px -10px rgba(201,168,124,.9)}
-.btn-primary:hover{filter:brightness(1.07)}
-.btn-outline{border:1px solid rgba(255,255,255,.34);color:#fff}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-outline{border:1px solid rgba(255,255,255,.4);color:#fff}
 .btn-outline:hover{background:rgba(255,255,255,.12)}
 .btn-dark{background:var(--primary);color:#fff;box-shadow:0 10px 26px -12px rgba(0,95,115,.9)}
 .btn-dark:hover{background:var(--primary-dark)}
+.btn-ghost{border:1px solid var(--border);background:var(--card);color:var(--primary)}
+.btn-ghost:hover{background:var(--muted)}
 
 /* ══════════════════════════════════════════════════════════
    LA SCENA · logo a tutto schermo e la bottiglia che si stappa
@@ -124,7 +136,7 @@ img,svg{display:block}
   will-change:transform,opacity;
 }
 .wm{
-  display:block;font-family:var(--font-display);font-weight:800;line-height:.92;
+  display:block;font-family:var(--font-logo);font-weight:800;line-height:.92;
   font-size:clamp(58px,14vw,200px);letter-spacing:.08em;color:#fff;padding-left:.08em;
   text-shadow:0 22px 60px rgba(0,0,0,.4);
   animation:wm-in 1.1s cubic-bezier(.2,.8,.2,1) .12s both;
@@ -137,7 +149,7 @@ img,svg{display:block}
 }
 .wm-sub{
   display:block;margin-bottom:clamp(10px,1.6vw,22px);font-size:clamp(9px,1.1vw,14px);font-weight:600;
-  letter-spacing:.5em;text-transform:uppercase;color:rgba(255,255,255,.62);padding-left:.5em;
+  letter-spacing:.5em;text-transform:uppercase;color:var(--accent);padding-left:.5em;
   animation:wm-in 1.1s cubic-bezier(.2,.8,.2,1) both;
 }
 @keyframes wm-in{from{opacity:0;transform:translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
@@ -155,7 +167,7 @@ img,svg{display:block}
   height:100%;width:auto;aspect-ratio:240/760;overflow:visible;transform-origin:50% 92%;
   filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));will-change:transform;
 }
-.bottle text{font-family:var(--font-display)}
+.bottle text{font-family:var(--font-logo)}
 .lbl-brand{fill:var(--primary)}
 .lbl-gold{fill:var(--accent)}
 .lbl-gold-t{fill:var(--accent-dark)}
@@ -184,12 +196,11 @@ img,svg{display:block}
 }
 .after.on{pointer-events:auto}
 .after .eyebrow{color:var(--accent);font-size:11px}
-.after h2{font-family:var(--font-display);font-size:clamp(28px,3.6vw,52px);font-weight:600;line-height:1.05;letter-spacing:-.035em;margin-top:14px}
-.after .lead{margin-top:16px;font-size:16px;color:rgba(255,255,255,.76);line-height:1.6;max-width:44ch}
-.after .lead strong{color:#fff;font-weight:600}
-.after .cta{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
-.after .trust{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-size:12.5px;color:rgba(255,255,255,.6)}
-.after .trust b{color:#fff;font-weight:700}
+.after h2{font-family:var(--font-display);font-size:clamp(30px,4vw,58px);font-weight:700;line-height:1.06;margin-top:14px}
+.after .lead{margin-top:16px;font-size:16.5px;color:rgba(255,255,255,.8);line-height:1.62;max-width:44ch}
+.after .cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.after .cta .btn svg{transition:transform .18s ease}
+.after .cta .btn:hover svg{transform:translateY(3px)}
 
 /* l'invito a scorrere */
 .hint{
@@ -215,14 +226,12 @@ img,svg{display:block}
   .wm{font-size:clamp(44px,12.5vw,200px)}
   .bottle-wrap{height:60%;bottom:3%}
   .after{
-    left:18px;right:18px;width:auto;top:auto;bottom:15%;text-align:center;
+    left:18px;right:18px;width:auto;top:auto;bottom:13%;text-align:center;
     transform:translateY(calc((1 - var(--post)) * 44px));
   }
-  .after h2{font-size:clamp(26px,7vw,40px)}
+  .after h2{font-size:clamp(28px,8vw,44px)}
   .after .lead{margin-inline:auto;font-size:14px;margin-top:12px}
   .after .cta{justify-content:center;margin-top:20px}
-  .after .trust{display:none}
-  /* sopra la bottiglia, e sopra la barra dei temi del prototipo */
   .hint{
     left:50%;transform:translateX(-50%);bottom:170px;
     padding:8px 14px 8px 10px;border-radius:999px;
@@ -240,22 +249,20 @@ img,svg{display:block}
 }
 
 /* ══════════════════════════════════════════════════════════
-   IL RESTO DELLA PAGINA · scivola sopra la scena
+   IL RESTO DELLA PAGINA · la home del sito, sotto la scena
    ══════════════════════════════════════════════════════════ */
 .contenuto{
   position:relative;z-index:7;background:var(--bg);
   border-radius:var(--r-lg) var(--r-lg) 0 0;margin-top:calc(var(--r-lg) * -1);
-  box-shadow:0 -24px 60px -30px rgba(0,0,0,.45);
+  box-shadow:0 -24px 60px -30px rgba(0,0,0,.45);overflow:hidden;
 }
 main{flex:1}
-.sec{padding:76px 0}
+.sec{padding:52px 0 64px}
+.sec.white{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
 .sec-head{max-width:60ch}
-.sec-head .h2{margin-top:12px}
-.sec-head p{margin-top:12px;font-size:15px;color:var(--muted-fg);line-height:1.6}
+.sec-head p{margin-top:10px;font-size:15px;color:var(--muted-fg);line-height:1.6}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.sec-top .link{font-size:12.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-.sec-top .link svg{transition:transform .18s ease}
-.sec-top .link:hover svg{transform:translateX(3px)}
+.center{display:flex;justify-content:center;margin-top:34px}
 
 /* comparsa allo scroll */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.2,.8,.2,1),transform .75s cubic-bezier(.2,.8,.2,1)}
@@ -264,148 +271,209 @@ main{flex:1}
 .reveal[data-d="2"]{transition-delay:.2s}
 .reveal[data-d="3"]{transition-delay:.3s}
 
-/* ── manifesto ────────────────────────────────────────── */
-.manifesto{padding:88px 0 64px}
-.manifesto .big{
-  font-family:var(--font-display);font-size:clamp(30px,4.4vw,58px);font-weight:600;
-  line-height:1.04;letter-spacing:-.04em;max-width:19ch;margin-top:16px;
+/* ── hero: titolo e carosello dei più scelti ──────────── */
+.hero{
+  position:relative;overflow:hidden;color:#fff;padding:56px 0 40px;
+  background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;
 }
-.manifesto .big em{font-style:normal;color:var(--primary);position:relative;white-space:nowrap}
-.manifesto .big em::after{
-  content:"";position:absolute;left:0;right:0;bottom:.06em;height:.26em;border-radius:4px;z-index:-1;
-  background:color-mix(in srgb,var(--accent) 42%,transparent);
+.hero::after{
+  content:"";position:absolute;right:-140px;top:-180px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);pointer-events:none;
 }
-.manifesto .lead{margin-top:22px;font-size:17px;line-height:1.65;color:var(--muted-fg);max-width:54ch}
-.manifesto .lead strong{color:var(--fg);font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
-.stats b{
-  display:block;font-family:var(--font-display);font-size:clamp(30px,3.4vw,46px);font-weight:600;
-  letter-spacing:-.04em;line-height:1;color:var(--primary);font-variant-numeric:tabular-nums;
-}
-.stats b small{font-size:.5em;color:var(--muted-fg);font-weight:500;letter-spacing:0}
-.stats span{display:block;margin-top:9px;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-fg)}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.hero-in > *{min-width:0}
+.hero .title{font-family:var(--font-display);font-size:clamp(36px,4.2vw,58px);font-weight:700;line-height:1.06;max-width:13ch}
+.hero .lead{margin-top:20px;font-size:16.5px;line-height:1.62;color:rgba(255,255,255,.8);max-width:46ch}
+.hero .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
 
-/* ── nastro delle cantine ─────────────────────────────── */
-.ticker{
-  overflow:hidden;background:var(--card);padding:16px 0;
-  border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+.hcar{position:relative;min-width:0;width:100%}
+.hcar-win{overflow:hidden;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);background:var(--card)}
+.hcar-track{display:flex;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.hslide{flex:0 0 100%;width:100%;min-width:0;background:var(--card);color:var(--fg);display:flex;flex-direction:column}
+.hs-art{position:relative;background:var(--art);height:236px;display:flex;align-items:center;justify-content:center;padding:20px}
+.hs-img{width:188px;height:188px;background:#fff;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:center}
+.hs-img img{max-width:100%;max-height:100%;width:auto;height:100%;object-fit:contain}
+.hs-crest{
+  width:104px;height:104px;border-radius:50%;flex:none;
+  background:linear-gradient(150deg,var(--accent),#a8865a);color:var(--primary-dark);
+  font-family:var(--font-display);font-size:36px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 18px 30px -16px rgba(0,0,0,.45);
 }
-.ticker-track{display:flex;width:max-content;animation:ticker 52s linear infinite}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.ticker span{
-  display:inline-flex;align-items:center;gap:12px;padding-right:46px;white-space:nowrap;
-  font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-fg);
+.hs-badge{
+  position:absolute;top:14px;left:14px;background:#fff;border:1px solid var(--border);border-radius:999px;
+  padding:7px 12px;font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--fg);
 }
-.ticker span i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
-.ticker span b{color:var(--fg);font-weight:700}
-@keyframes ticker{to{transform:translateX(-50%)}}
+.hs-body{padding:20px 22px 22px}
+.hs-kicker{font-size:12.5px;color:var(--fg)}
+.hs-body h3{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1.18;margin-top:8px}
+.hs-body p{margin-top:8px;font-size:13.5px;color:var(--muted-fg);line-height:1.5}
+.hs-body p.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hs-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft)}
+.price{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--primary);white-space:nowrap}
+.price s{font-family:var(--font-sans);font-size:12.5px;font-weight:400;color:var(--muted-fg);margin-right:8px}
+.hs-meta{font-size:13px;color:var(--muted-fg)}
+.hs-link{font-size:13px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.hs-link svg{transition:transform .18s ease}
+.hslide:hover .hs-link svg{transform:translateX(3px)}
+.hcar-nav{
+  position:absolute;top:118px;z-index:2;width:40px;height:40px;border-radius:50%;
+  background:#fff;color:var(--fg);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;transition:.15s;
+}
+.hcar-nav:hover{background:var(--primary);color:#fff}
+.hcar-nav.prev{left:-14px}
+.hcar-nav.next{right:-14px}
+.hcar-foot{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:0 2px}
+.dots{display:flex;gap:6px}
+.dots button{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.35);padding:0;transition:.25s}
+.dots button.on{width:24px;background:var(--accent)}
+.pause{
+  display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.72);transition:.15s;
+}
+.pause:hover{color:#fff}
 
-/* ── come funziona ────────────────────────────────────── */
-.how-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:36px}
-.how-step{
+/* ── le schede prodotto del sito ──────────────────────── */
+.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:30px}
+.vc{
   position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
-  padding:26px 26px 28px;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease;
+  overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);
+  transition:transform .18s ease,box-shadow .18s ease;
 }
-.how-step:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
-.how-step .n{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--accent-dark)}
-.how-step .ic{
-  width:46px;height:46px;border-radius:14px;background:var(--primary-soft);color:var(--primary);
-  display:flex;align-items:center;justify-content:center;margin-top:18px;
+.vc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.vc-art{position:relative;background:var(--art);height:232px;display:flex;align-items:center;justify-content:center;padding:20px}
+.vc-img{width:170px;height:170px;background:#fff;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center}
+.vc-img img{max-width:100%;max-height:100%;width:auto;height:100%;object-fit:contain;transition:transform .28s cubic-bezier(.2,.8,.3,1)}
+.vc:hover .vc-img img{transform:scale(1.05)}
+.vc-tags{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;z-index:2}
+.vtag{font-size:10.5px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--accent);color:var(--primary-dark)}
+.vtag.bio{background:var(--primary);color:#fff}
+.vtag.sale{background:#e7dcc4;color:var(--primary-dark);font-variant-numeric:tabular-nums}
+.vc-fav{
+  position:absolute;top:12px;right:12px;z-index:2;width:32px;height:32px;border-radius:50%;
+  background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--fg);transition:.15s;
 }
-.how-step h3{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:-.03em;margin-top:16px;line-height:1.2}
-.how-step p{margin-top:8px;font-size:14px;line-height:1.6;color:var(--muted-fg)}
-.how-step.on{background:linear-gradient(165deg,var(--primary-dark),var(--primary));border-color:transparent;color:#fff;box-shadow:var(--shadow-lg)}
-.how-step.on .n{color:var(--accent)}
-.how-step.on .ic{background:rgba(255,255,255,.14);color:var(--accent)}
-.how-step.on p{color:rgba(255,255,255,.78)}
+.vc-fav:hover{border-color:var(--accent)}
+.vc-fav.on{color:#c0392b}
+.vc-fav.on svg{fill:currentColor}
+.vc-body{padding:16px 17px 17px;display:flex;flex-direction:column;flex:1}
+.vc-cantina{font-size:12.5px;color:var(--fg)}
+.vc h3{font-family:var(--font-display);font-size:17px;font-weight:600;line-height:1.25;margin-top:6px}
+.vc h3 a:hover{color:var(--primary)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:999px;background:var(--muted);color:var(--fg)}
+.chip.type{background:rgba(0,95,115,.1);color:var(--primary)}
+.chip.rate{background:#fff;border:1px solid var(--border)}
+.chip.rate svg{color:var(--accent-dark)}
+.chip.bio{background:#fff;border:1px solid rgba(45,106,79,.5);color:var(--ok);margin-top:6px}
+.vc-desc{
+  margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--muted-fg);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:37.5px;
+}
+.vc-bottom{margin-top:auto;padding-top:14px}
+.vc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px solid var(--border-soft)}
+.vc-add{
+  width:34px;height:34px;border-radius:50%;flex:none;background:var(--primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;transition:.16s;
+}
+.vc-add:hover{background:var(--primary-dark);transform:scale(1.06)}
+.vc-add.fatto{background:var(--ok)}
+.vc-sped{margin-top:10px;font-size:11px;line-height:1.45;color:var(--muted-fg)}
+.vc-sped b{color:var(--primary);font-weight:600}
 
-/* ── perché Stappando ─────────────────────────────────── */
-.why{background:var(--card);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
-.why-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:center}
-.why-copy .h2{font-size:clamp(26px,3.2vw,40px);max-width:16ch}
-.why-copy p{margin-top:14px;font-size:15px;line-height:1.65;color:var(--muted-fg);max-width:44ch}
-.why-copy .btn{margin-top:22px}
-.why-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.tile{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--r);padding:20px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
-.tile:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);background:var(--card)}
-.tile .ic{width:36px;height:36px;border-radius:10px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center}
-.tile h3{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.02em;margin-top:14px;line-height:1.25}
-.tile p{margin-top:6px;font-size:13px;line-height:1.55;color:var(--muted-fg)}
-
-/* ── wine club ────────────────────────────────────────── */
-.club{
-  position:relative;overflow:hidden;border-radius:var(--r-lg);color:#fff;padding:56px;
-  background:linear-gradient(150deg,var(--primary-dark),var(--primary));
-  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;
+/* ── cantina del mese ─────────────────────────────────── */
+.mese{
+  position:relative;overflow:hidden;border-radius:var(--r-lg);color:#fff;padding:40px 44px;
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:44px;align-items:center;
 }
-.club::after{
+.mese::after{
   content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,168,124,.26),transparent 70%);
+  background:radial-gradient(circle,rgba(201,168,124,.24),transparent 70%);pointer-events:none;
 }
-.club > *{position:relative;z-index:1}
-.club .eyebrow{color:var(--accent)}
-.club h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,42px);font-weight:600;line-height:1.08;letter-spacing:-.035em;margin-top:12px;max-width:18ch}
-.club p{margin-top:14px;font-size:15px;line-height:1.65;color:rgba(255,255,255,.76);max-width:44ch}
-.club .cta{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
-.club-bubbles{position:absolute;inset:0;pointer-events:none;z-index:0}
-.club-bubbles i{
-  position:absolute;bottom:-40px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);
-  background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.5),rgba(255,255,255,.04) 62%);
-  animation:cb linear infinite;
+.mese > *{position:relative;z-index:1}
+.mese-head{display:flex;gap:20px;align-items:flex-start}
+.mese-crest{
+  width:74px;height:74px;border-radius:50%;flex:none;
+  background:linear-gradient(150deg,var(--accent),#a8865a);color:var(--primary-dark);
+  font-family:var(--font-display);font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;
 }
-@keyframes cb{0%{transform:translateY(0);opacity:0}10%{opacity:1}90%{opacity:.6}100%{transform:translateY(-640px) translateX(24px);opacity:0}}
-.club-price{
-  justify-self:end;min-width:260px;padding:26px 30px;border-radius:var(--r-lg);
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);
+.mese .eyebrow{color:var(--accent)}
+.mese h2{font-family:var(--font-display);font-size:clamp(30px,3.4vw,44px);font-weight:700;line-height:1.1;margin-top:6px}
+.mese .regione{margin-top:8px;font-size:14px;color:rgba(255,255,255,.8)}
+.mese .desc{margin-top:18px;font-size:15px;line-height:1.65;color:rgba(255,255,255,.85);max-width:60ch}
+.mese-stats{display:flex;gap:34px;margin-top:22px;flex-wrap:wrap}
+.mese-stats b{display:block;font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.1}
+.mese-stats span{font-size:11.5px;color:rgba(255,255,255,.7)}
+.mese-cta{display:flex;flex-direction:column;gap:12px}
+.mese-cta .btn{width:100%;height:50px}
+
+/* ── cantine da conoscere ─────────────────────────────── */
+.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.wc{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;
+  box-shadow:var(--shadow-sm);transition:transform .18s ease,box-shadow .18s ease;display:block;
 }
-.club-price em{font-style:normal;display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
-.club-price b{display:block;font-family:var(--font-display);font-size:44px;font-weight:600;letter-spacing:-.04em;line-height:1;margin-top:10px}
-.club-price b small{font-size:14px;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:0;margin-left:4px}
-.club-price ul{margin-top:16px;display:flex;flex-direction:column;gap:8px}
-.club-price li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:rgba(255,255,255,.85);line-height:1.45}
-.club-price li svg{flex:none;color:var(--accent);margin-top:2px}
+.wc:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.wc-top{display:flex;align-items:center;gap:16px}
+.wc-crest{
+  width:62px;height:62px;border-radius:50%;flex:none;background:var(--primary);color:#fff;
+  font-family:var(--font-display);font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 22px -12px rgba(0,61,77,.7);
+}
+.wc h3{font-family:var(--font-display);font-size:20px;font-weight:600;line-height:1.2}
+.wc .reg{font-size:13px;color:var(--muted-fg);margin-top:3px}
+.wc-foot{
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--border-soft);
+  display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;color:var(--muted-fg);
+}
+.wc-foot .rate{display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap}
+.wc-foot .rate svg{color:var(--accent-dark)}
+.wc-foot .rate b{color:var(--fg);font-weight:600}
+.wc-foot .go{font-weight:600;color:var(--primary);display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.wc-foot .go svg{transition:transform .18s ease}
+.wc:hover .go svg{transform:translateX(3px)}
 
 /* ── recensioni ───────────────────────────────────────── */
-.rev-top{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:14px}
+.rev-top{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:16px}
 .rating-big{
-  display:flex;align-items:center;gap:14px;background:var(--card);
-  border:1px solid var(--border);border-radius:999px;padding:10px 20px 10px 14px;box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;gap:14px;background:var(--bg);
+  border:1px solid var(--border);border-radius:var(--r-lg);padding:12px 22px 12px 18px;
 }
 .rating-big b{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;color:var(--primary)}
-.rating-big span{font-size:11.5px;color:var(--muted-fg);font-weight:600}
+.rating-big .stars{display:flex;gap:2px;color:var(--accent-dark)}
+.rating-big span{font-size:11.5px;color:var(--muted-fg);font-weight:500;display:block;margin-top:3px}
+.rev-note{font-size:13px;color:var(--muted-fg)}
 .rev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
-.rev{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
-  padding:24px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;
-}
-.rev .quote{color:rgba(201,168,124,.7)}
-.rev p{font-size:14px;line-height:1.6;margin-top:12px;flex:1}
-.rev-who{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft)}
+.rev{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column}
+.rev .quote{color:var(--accent);opacity:.85}
+.rev h4{font-size:14px;font-weight:700;margin-top:14px}
+.rev p{font-size:14px;line-height:1.6;margin-top:8px;flex:1}
+.rev-who{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-soft);min-width:0}
 .avatar{
-  width:38px;height:38px;border-radius:50%;flex:none;
-  background:linear-gradient(150deg,var(--primary),var(--primary-dark));color:#fff;
+  width:38px;height:38px;border-radius:50%;flex:none;background:var(--primary);color:#fff;
   display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;letter-spacing:.04em;
 }
+.rev-who > div{min-width:0}
 .rev-who b{display:block;font-size:13px;font-weight:600}
-.rev-who span{font-size:11px;color:var(--muted-fg);display:flex;align-items:center;gap:5px}
-.verified{color:var(--primary)}
+.rev-who span{font-size:11px;color:var(--muted-fg);display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rev-who span svg{flex:none;color:var(--ok)}
+.rev-who span em{font-style:normal;overflow:hidden;text-overflow:ellipsis}
 
-/* ── newsletter ───────────────────────────────────────── */
+/* ── la lettera ───────────────────────────────────────── */
 .news{
-  background:linear-gradient(150deg,var(--primary-dark),var(--primary));
+  background:linear-gradient(135deg,var(--primary-dark),var(--primary));
   color:#fff;border-radius:var(--r-lg);padding:48px;position:relative;overflow:hidden;
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:44px;align-items:center;
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:center;
 }
 .news::after{
   content:"";position:absolute;left:-90px;bottom:-160px;width:380px;height:380px;border-radius:50%;
   background:radial-gradient(circle,rgba(201,168,124,.22),transparent 70%);
 }
 .news > *{position:relative;z-index:1}
-.news h2{font-family:var(--font-display);font-size:clamp(24px,2.6vw,32px);font-weight:700;line-height:1.14;margin-top:12px}
-.news p{margin-top:12px;color:rgba(255,255,255,.75);font-size:14.5px;line-height:1.6;max-width:46ch}
 .news .eyebrow{color:var(--accent)}
+.news h2{font-family:var(--font-display);font-size:clamp(24px,2.6vw,34px);font-weight:700;line-height:1.14;margin-top:12px}
+.news p{margin-top:12px;color:rgba(255,255,255,.8);font-size:15px;line-height:1.6;max-width:46ch}
 .news-form{display:flex;gap:10px;flex-wrap:wrap}
 .news-form input{
   flex:1;min-width:200px;height:50px;padding:0 20px;border-radius:999px;
@@ -414,7 +482,7 @@ main{flex:1}
 .news-form input::placeholder{color:rgba(255,255,255,.55)}
 .news-form input:focus{background:rgba(255,255,255,.18);border-color:var(--accent)}
 .news-form .btn{height:50px}
-.news-priv{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.5}
+.news-priv{margin-top:14px;font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.5}
 .news-priv a{text-decoration:underline}
 .news-ok{display:none;align-items:center;gap:10px;margin-top:14px;font-size:13px;font-weight:600;color:var(--accent)}
 .news-ok.on{display:flex}
@@ -422,25 +490,17 @@ main{flex:1}
 /* ── footer ───────────────────────────────────────────── */
 footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 .foot-in{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;padding-top:56px;padding-bottom:44px}
-.foot-brand .logo{color:#fff;font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1}
-.foot-brand .logo em{font-style:normal;color:var(--accent)}
-.foot-brand .logo-sub{font-size:8px;letter-spacing:.34em;margin-top:5px;font-weight:500;text-transform:uppercase}
-.foot-brand p{margin-top:16px;font-size:13px;line-height:1.65;max-width:34ch}
-.socials{display:flex;gap:8px;margin-top:20px}
-.socials a{
-  width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.16);
-  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:.15s;
-}
-.socials a:hover{background:var(--accent);border-color:var(--accent);color:var(--primary-dark)}
-.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:16px}
-.foot-col li + li{margin-top:9px}
-.foot-col a{font-size:13px;transition:.15s}
-.foot-col a:hover{color:var(--accent)}
+.foot-logo{height:32px;width:auto;filter:brightness(0) invert(1)}
+.foot-brand p{margin-top:18px;font-size:13px;line-height:1.65;max-width:34ch}
 .foot-pay{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
 .pay{
   height:26px;padding:0 9px;border-radius:5px;background:rgba(255,255,255,.08);
   display:flex;align-items:center;font-size:9.5px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.72);
 }
+.foot-col h4{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.foot-col li + li{margin-top:9px}
+.foot-col a{font-size:13px;transition:.15s}
+.foot-col a:hover{color:var(--accent)}
 .foot-legal{
   border-top:1px solid rgba(255,255,255,.1);padding:22px 0 32px;
   display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
@@ -454,58 +514,61 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
 
 /* ── responsive ───────────────────────────────────────── */
 @media(max-width:1080px){
-  .how-grid{grid-template-columns:1fr}
-  .why-in{grid-template-columns:1fr;gap:28px}
-  .club{grid-template-columns:1fr;padding:36px}
-  .club-price{justify-self:start}
+  .hero-in{grid-template-columns:minmax(0,1fr);gap:36px}
+  .hero .title{max-width:16ch}
+  .hcar-nav{display:none}
+  .vgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mese{grid-template-columns:minmax(0,1fr);padding:32px 30px;gap:28px}
+  .wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .rev-grid{grid-template-columns:1fr}
-  .news{grid-template-columns:1fr;gap:28px;padding:36px}
+  .news{grid-template-columns:minmax(0,1fr);gap:28px;padding:36px}
   .foot-in{grid-template-columns:1fr 1fr;gap:32px}
-  .stats{grid-template-columns:1fr 1fr;gap:26px 18px}
 }
 @media(max-width:720px){
   .wrap,.topbar-in,.utilbar-in{padding-left:18px;padding-right:18px}
-  .sec{padding:56px 0}
-  .manifesto{padding:60px 0 44px}
-  .why-tiles{grid-template-columns:1fr}
+  .sec{padding:44px 0 52px}
+  .hero{padding:40px 0 32px}
+  .hero .cta .btn{flex:1;min-width:0;padding:0 12px;font-size:13px}
+  .vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .vc-art{height:200px;padding:14px}
+  .vc-img{width:140px;height:140px}
+  .mese{padding:26px 22px}
+  .mese-head{gap:14px}
+  .mese-crest{width:58px;height:58px;font-size:20px}
+  .wgrid{grid-template-columns:1fr}
   .foot-in{grid-template-columns:1fr}
-  .club{padding:28px 22px}
-  .club-price{width:100%}
   footer{margin-top:56px}
 }
+@media(max-width:420px){.vgrid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none}
-  .ticker-track,.club-bubbles i{animation:none}
+  .hcar-track{transition:none}
   *{transition-duration:.001ms !important}
 }
 </style>
-<script>/* tema e impaginazione scelti prima del disegno, così non si vede il lampo */(function(){var d="temi/";try{var t=localStorage.getItem("stappando-tema")||"definitivo";document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-'+t+'.css">');var l=localStorage.getItem("stappando-layout");if(l&&l!=="standard")document.write('<link rel="stylesheet" id="layout" href="'+d+'layout-'+l+'.css">');}catch(e){document.write('<link rel="stylesheet" id="skin" href="'+d+'skin-definitivo.css">');}})();</script>
 <link rel="stylesheet" href="temi/header.css">
 <link rel="stylesheet" href="temi/carrello.css">
-<link rel="stylesheet" href="temi/card.css">
 </head>
 <body data-nav="">
 
 <!-- file condivisi: devono stare prima degli script di pagina -->
 <script src="temi/header.js"></script>
 <script src="temi/carrello.js"></script>
-<script src="temi/prodotti.js"></script>
-<script src="temi/card.js"></script>
 
 <!-- ══ TESTATA UNICA · vedi temi/header.css e temi/header.js ══ -->
 <div class="utilbar">
   <div class="utilbar-in">
     <span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
-      Marketplace di <b>320 cantine</b> · dal produttore a casa tua
+      Marketplace di <b>330 cantine</b> · dal produttore a casa tua
     </span>
     <span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-      Spedizione gratis da 69 € su ogni cantina
+      Spedizione gratis da <b>69,00 €</b> su ogni cantina
     </span>
     <span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
-      <b>4,7/5</b> su 3.482 recensioni verificate
+      <b>4,3/5</b> su 5.309 recensioni
     </span>
   </div>
 </div>
@@ -561,10 +624,10 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     <div class="glow" aria-hidden="true"></div>
 
     <div class="wordmark" aria-hidden="true">
-      <span class="wm-sub">Enoteca online</span>
+      <span class="wm-sub">Enocultura</span>
       <span class="wm">STAPP<em>ANDO</em></span>
     </div>
-    <h1 class="sr-only">Stappando, enoteca online: il vino giusto, scelto con chi se ne intende</h1>
+    <h1 class="sr-only">Stappando, enocultura: dalla cantina direttamente a casa tua</h1>
 
     <div class="bottle-wrap" id="bottleWrap" title="Clicca per stappare">
       <div class="bottle-in">
@@ -640,7 +703,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
             <rect x="60" y="480" width="120" height="3" class="lbl-gold"/>
             <rect x="60" y="617" width="120" height="3" class="lbl-gold"/>
             <text x="120" y="516" text-anchor="middle" class="lbl-brand" font-size="15" font-weight="800" letter-spacing="2.4">STAPP<tspan class="lbl-gold-t">ANDO</tspan></text>
-            <text x="120" y="530" text-anchor="middle" class="lbl-muted" font-size="6.2" font-weight="600" letter-spacing="3">ENOTECA ONLINE</text>
+            <text x="120" y="530" text-anchor="middle" class="lbl-muted" font-size="6.2" font-weight="600" letter-spacing="3">ENOCULTURA</text>
             <g fill="none" stroke-linecap="round" class="lbl-hill">
               <path d="M78 574 Q120 544 162 574" stroke-width="2"/>
               <path d="M84 580 Q120 556 156 580" stroke-width="1.6" opacity=".7"/>
@@ -714,17 +777,16 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     <div class="ring" aria-hidden="true"></div>
 
     <div class="after" id="after">
-      <p class="eyebrow">Stappato. Adesso tocca a te</p>
-      <h2>Il vino giusto, scelto con chi se ne intende.</h2>
-      <p class="lead"><strong>320 cantine indipendenti</strong>, ogni etichetta degustata dal nostro team prima di entrare in catalogo. Dal produttore a casa tua.</p>
+      <p class="eyebrow">Stappato</p>
+      <h2>Adesso tocca a te.</h2>
+      <p class="lead">Qui sotto trovi i vini più scelti, le ultime cantine arrivate e la cantina del mese.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="cantina.html">
-          Guarda le cantine
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        <a class="btn btn-primary" href="#contenuto">
+          Scopri i vini
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v13M6 12l6 6 6-6"/></svg>
         </a>
         <a class="btn btn-outline" href="catalogo.html">Vai al catalogo</a>
       </div>
-      <p class="trust"><b>320</b> cantine · <b>20</b> regioni · <b>4,7/5</b> su 3.482 recensioni</p>
     </div>
 
     <button class="hint" id="hint" type="button">
@@ -735,210 +797,137 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   </div>
 </section>
 
-<!-- ══ IL RESTO DELLA PAGINA ═══════════════════════════ -->
+<!-- ══ IL RESTO DELLA PAGINA · la home del sito ═════════ -->
 <div class="contenuto" id="contenuto">
 
-  <!-- ══ MANIFESTO ══════════════════════════════════════ -->
-  <section class="manifesto">
-    <div class="wrap">
-      <p class="eyebrow reveal">Vino? Facciamola facile</p>
-      <h2 class="big reveal" data-d="1">Scegliere cosa bere non dovrebbe essere <em>così complicato</em>.</h2>
-      <p class="lead reveal" data-d="2">Troppa scelta e ti perdi. <strong>Stappando nasce per far sparire quell'ansia:</strong> poche cantine scelte bene, e qualcuno accanto a te che ti dice cosa hai nel bicchiere.</p>
-      <div class="stats reveal" data-d="3" id="stats">
-        <div><b data-count="320">0</b><span>cantine</span></div>
-        <div><b data-count="20">0</b><span>regioni</span></div>
-        <div><b data-count="3482">0</b><span>recensioni verificate</span></div>
-        <div><b>4,7<small>/5</small></b><span>voto medio</span></div>
+  <!-- ══ HERO · titolo e carosello dei più scelti ═══════ -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="reveal">
+        <h2 class="title">Dalla cantina direttamente a casa tua</h2>
+        <p class="lead">Vini di cantine indipendenti, scelti uno per uno. Sopra i 69,00 € per cantina la spedizione è gratis.</p>
+        <div class="cta">
+          <a class="btn btn-outline" href="chi-siamo.html">Chi siamo, la nostra storia</a>
+          <a class="btn btn-primary" href="catalogo.html">I prodotti
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="hcar reveal" data-d="1" id="hcar" aria-roledescription="carosello" aria-label="I più scelti e le cantine più acquistate">
+        <div class="hcar-win"><div class="hcar-track" id="hcarTrack"></div></div>
+        <button class="hcar-nav prev" type="button" aria-label="Precedente">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+        </button>
+        <button class="hcar-nav next" type="button" aria-label="Successivo">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+        </button>
+        <div class="hcar-foot">
+          <div class="dots" id="hcarDots" role="tablist" aria-label="Scegli la scheda"></div>
+          <button class="pause" type="button" id="hcarPause" aria-pressed="false">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            <span>Pausa</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ IL NASTRO DELLE CANTINE ════════════════════════ -->
-  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
-
-  <!-- ══ COME FUNZIONA ══════════════════════════════════ -->
+  <!-- ══ LE ULTIME CANTINE ARRIVATE ═════════════════════ -->
   <section class="sec">
     <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow reveal">Come funziona</p>
-        <h2 class="h2 reveal" data-d="1">Tre passi, poi si stappa</h2>
+      <div class="sec-head reveal">
+        <h2 class="h2">Le ultime cantine arrivate</h2>
+        <p>Una bottiglia per ognuna delle quattro cantine iscritte per ultime.</p>
       </div>
-      <div class="how-grid">
-        <article class="how-step reveal">
-          <span class="n">01</span>
-          <span class="ic" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
-          </span>
-          <h3>Scegli la cantina</h3>
-          <p>Ci siamo andati una per una. Ogni etichetta è stata degustata dal nostro team prima di entrare in catalogo.</p>
-        </article>
-        <article class="how-step reveal" data-d="1">
-          <span class="n">02</span>
-          <span class="ic" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10h3.5l2.5 3v4h-6"/><circle cx="7" cy="19" r="2"/><circle cx="18" cy="19" r="2"/></svg>
-          </span>
-          <h3>La cantina spedisce</h3>
-          <p>Dal produttore a casa tua, senza magazzini in mezzo. Più bottiglie dalla stessa cantina, una spedizione sola: gratis da 69 €.</p>
-        </article>
-        <article class="how-step on reveal" data-d="2">
-          <span class="n">03</span>
-          <span class="ic" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 6a4 4 0 0 1-3 3.87V19h3v2H9v-2h3v-6.13A4 4 0 0 1 9 9L8 3Z"/></svg>
-          </span>
-          <h3>Tu stappi</h3>
-          <p>Se qualcosa non va, la rispediamo il giorno dopo. Senza moduli da compilare.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CAROSELLO · BOLLICINE ══════════════════════════ -->
-  <section class="sec" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-top reveal">
-        <div class="sec-head">
-          <p class="eyebrow">Da stappare stasera</p>
-          <h2 class="h2">Le bollicine</h2>
-          <p>Metodo classico e Prosecco, degustati da noi. Sempre in frigo.</p>
-        </div>
-        <a class="link" href="catalogo.html?cat=bollicine">Vedi tutte
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div id="carBollicine" class="reveal" data-d="1" style="margin-top:30px"></div>
-    </div>
-  </section>
-
-  <!-- ══ PERCHÉ STAPPANDO ═══════════════════════════════ -->
-  <section class="sec why">
-    <div class="wrap why-in">
-      <div class="why-copy reveal">
-        <p class="eyebrow">Perché Stappando</p>
-        <h2 class="h2">Tra lo scaffale e la cattedra, c'è la tavola.</h2>
-        <p>Mille etichette senza nessuno che ti dica quale aprire, o parole difficili che non ti fanno bere meglio. Noi stiamo in mezzo: accanto a te, a tavola.</p>
-        <a class="btn btn-dark" href="chi-siamo.html">La nostra storia
+      <div class="vgrid" id="ultime"></div>
+      <div class="center reveal">
+        <a class="btn btn-dark" href="catalogo.html">Tutti i prodotti
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
         </a>
       </div>
-      <div class="why-tiles">
-        <article class="tile reveal">
-          <span class="ic" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          </span>
-          <h3>Degustato, non solo elencato</h3>
-          <p>Ogni etichetta passa dal nostro tavolo prima che dal tuo.</p>
-        </article>
-        <article class="tile reveal" data-d="1">
-          <span class="ic" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/></svg>
-          </span>
-          <h3>Dal produttore a casa tua</h3>
-          <p>Spedisce la cantina. Niente magazzini, niente giri.</p>
-        </article>
-        <article class="tile reveal" data-d="2">
-          <span class="ic" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12l-8 8-9-9V3h8l9 9Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
-          </span>
-          <h3>Gratis da 69 €</h3>
-          <p>Su ogni cantina, senza minimo d'ordine complessivo.</p>
-        </article>
-        <article class="tile reveal" data-d="3">
-          <span class="ic" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
-          </span>
-          <h3>Un consiglio vero</h3>
-          <p>Scrivici cosa mangi: ti diciamo cosa aprire.</p>
-        </article>
-      </div>
     </div>
   </section>
 
-  <!-- ══ WINE CLUB ══════════════════════════════════════ -->
-  <section class="sec">
+  <!-- ══ CANTINA DEL MESE ═══════════════════════════════ -->
+  <section class="sec white">
     <div class="wrap">
-      <div class="club reveal">
-        <div class="club-bubbles" id="clubBubbles" aria-hidden="true"></div>
+      <div class="mese reveal">
         <div>
-          <p class="eyebrow">Wine Club</p>
-          <h2>Due bottiglie al mese, scelte per te.</h2>
-          <p>Ogni mese una cantina che non avresti cercato da solo, con la storia di chi la manda avanti. Si mette in pausa o si disdice quando vuoi.</p>
-          <div class="cta">
-            <a class="btn btn-primary" href="wineclub-piani.html">Scopri i piani
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
-            </a>
-            <a class="btn btn-outline" href="wineclub.html">Come funziona</a>
+          <div class="mese-head">
+            <span class="mese-crest" aria-hidden="true">SM</span>
+            <div>
+              <p class="eyebrow">Cantina del mese</p>
+              <h2>Santa Maria La Palma</h2>
+              <p class="regione">Sardegna</p>
+            </div>
+          </div>
+          <p class="desc">La loro è una storia che parte da molto lontano, quando il tempo era scandito dal susseguirsi delle stagioni, e i contadini dell’agro algherese non avevano altro che la terra e il loro ingegno. Tutto inizia nel 1946…</p>
+          <div class="mese-stats">
+            <div><b>10</b><span>prodotti</span></div>
+            <div><b>4,3/5</b><span>su 80 recensioni</span></div>
+            <div><b>da 6,50 €</b><span>a bottiglia</span></div>
           </div>
         </div>
-        <div class="club-price">
-          <em>Si parte da</em>
-          <b>19 €<small>al mese</small></b>
-          <ul>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Spedizione sempre inclusa</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Scheda di degustazione per ogni bottiglia</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Nessun vincolo: si disdice con un clic</li>
-          </ul>
+        <div class="mese-cta">
+          <a class="btn btn-primary" href="cantina.html">Vai alla cantina
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-outline" href="#lettera">Ricevi la lettera</a>
         </div>
       </div>
+      <div class="vgrid" id="meseProdotti"></div>
+    </div>
+  </section>
+
+  <!-- ══ CANTINE DA CONOSCERE ═══════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-top reveal">
+        <div class="sec-head">
+          <h2 class="h2">Cantine da conoscere</h2>
+          <p>Sei cantine da cui cominciare, ognuna con la sua scheda.</p>
+        </div>
+        <a class="btn btn-ghost" href="cantine.html">Tutte le 330 cantine
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="wgrid" id="cantine"></div>
     </div>
   </section>
 
   <!-- ══ RECENSIONI ═════════════════════════════════════ -->
-  <section class="sec" style="padding-top:0">
+  <section class="sec white">
     <div class="wrap">
       <div class="sec-head reveal">
-        <p class="eyebrow">Recensioni</p>
         <h2 class="h2">Cosa dice chi ha già stappato</h2>
       </div>
       <div class="rev-top reveal" data-d="1">
         <div class="rating-big">
-          <b>4,8</b>
+          <b>4,3</b>
           <div>
-            <div aria-hidden="true" style="display:flex;gap:2px;color:var(--accent-dark)">
+            <div class="stars" aria-hidden="true">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>
             </div>
-            <span>su 1.284 recensioni</span>
+            <span>su 5.309 recensioni</span>
           </div>
         </div>
-        <span style="font-size:12.5px;color:var(--muted-fg)">Raccolte dopo la consegna, senza filtri.</span>
+        <span class="rev-note">Raccolte dopo la consegna, senza filtri sulle valutazioni basse.</span>
       </div>
 
       <div class="rev-grid">
         <article class="rev reveal">
           <svg class="quote" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6c-3 1.6-5 4.4-5 8v4h6v-6H7c0-2 .8-3.6 2.6-4.6zm10 0c-3 1.6-5 4.4-5 8v4h6v-6h-3c0-2 .8-3.6 2.6-4.6z"/></svg>
-          <p>Tre bottiglie a caso, non ne ho sbagliata una.</p>
+          <h4>Ci siamo tornati due volte</h4>
+          <p>Aperto per una cena tra amici, ha retto benissimo. Tannino gentile, nessuna spigolosità.</p>
           <div class="rev-who">
-            <span class="avatar">GM</span>
+            <span class="avatar">CL</span>
             <div>
-              <b>Giulia M.</b>
-              <span><svg class="verified" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Acquisto verificato · Torino</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="rev reveal" data-d="1">
-          <svg class="quote" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6c-3 1.6-5 4.4-5 8v4h6v-6H7c0-2 .8-3.6 2.6-4.6zm10 0c-3 1.6-5 4.4-5 8v4h6v-6h-3c0-2 .8-3.6 2.6-4.6z"/></svg>
-          <p>Bottiglia rotta, rispedita il giorno dopo. Senza compilare niente.</p>
-          <div class="rev-who">
-            <span class="avatar">AR</span>
-            <div>
-              <b>Andrea R.</b>
-              <span><svg class="verified" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Acquisto verificato · Bologna</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="rev reveal" data-d="2">
-          <svg class="quote" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6c-3 1.6-5 4.4-5 8v4h6v-6H7c0-2 .8-3.6 2.6-4.6zm10 0c-3 1.6-5 4.4-5 8v4h6v-6h-3c0-2 .8-3.6 2.6-4.6z"/></svg>
-          <p>Quarto mese di Wine Club: due cantine che non avrei mai cercato da solo.</p>
-          <div class="rev-who">
-            <span class="avatar">SL</span>
-            <div>
-              <b>Sara L.</b>
-              <span><svg class="verified" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Abbonata Wine Club · Milano</span>
+              <b>Cliente Stappando</b>
+              <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Acquisto verificato · <em>Lacrima di Morro d'Alba DOC 2023 Biologico - 120Montebianco</em></span>
             </div>
           </div>
         </article>
@@ -946,13 +935,13 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     </div>
   </section>
 
-  <!-- ══ NEWSLETTER ═════════════════════════════════════ -->
-  <section class="wrap reveal" style="padding-bottom:8px">
+  <!-- ══ LA LETTERA ═════════════════════════════════════ -->
+  <section class="wrap reveal" id="lettera" style="padding-top:52px;padding-bottom:8px;scroll-margin-top:100px">
     <div class="news">
       <div>
-        <p class="eyebrow">La lettera del giovedì</p>
+        <p class="eyebrow">La lettera</p>
         <h2>Una mail a settimana, solo se abbiamo qualcosa da dire</h2>
-        <p>Una storia e le etichette nuove. Mai “ultimi 3 pezzi”.</p>
+        <p>Una storia e le etichette nuove. Mai «ultimi 3 pezzi».</p>
       </div>
       <div>
         <form class="news-form" id="newsForm" novalidate>
@@ -979,23 +968,8 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   <div class="wrap foot-in">
 
     <div class="foot-brand">
-      <div class="logo">STAPP<em>ANDO</em></div>
-      <div class="logo-sub" style="color:rgba(255,255,255,.4)">Enoteca online</div>
-      <p>Enoteca online di vini italiani da cantine indipendenti. Ogni etichetta in catalogo è stata degustata dal nostro team prima di essere messa in vendita.</p>
-      <div class="socials">
-        <a href="javascript:void(0)" aria-label="Instagram">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="javascript:void(0)" aria-label="Facebook">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg>
-        </a>
-        <a href="javascript:void(0)" aria-label="YouTube">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="m10.5 9.5 5 2.5-5 2.5z"/></svg>
-        </a>
-        <a href="javascript:void(0)" aria-label="LinkedIn">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4"/></svg>
-        </a>
-      </div>
+      <a href="homepage.html" aria-label="Stappando, home"><img class="foot-logo" src="foto/logo-stappando.png" alt="Stappando · Enocultura" width="500" height="122"></a>
+      <p>Marketplace di vini italiani da cantine indipendenti. Alcuni vini partono dal nostro magazzino, altri direttamente dalla cantina: per te è un posto solo.</p>
       <div class="foot-pay" aria-label="Metodi di pagamento accettati">
         <span class="pay">VISA</span>
         <span class="pay">MASTERCARD</span>
@@ -1009,26 +983,24 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
     <nav class="foot-col" aria-label="Esplora">
       <h4>Esplora</h4>
       <ul>
-        <li><a href="catalogo.html">Prodotti</a></li>
-        <li><a href="cantina.html">Cantine</a></li>
-        <li><a href="cantine.html">Regioni del vino</a></li>
+        <li><a href="catalogo.html">Shop</a></li>
+        <li><a href="catalogo.html?cat=spirits">Spirits</a></li>
+        <li><a href="cantine.html">Cantine</a></li>
         <li><a href="storie.html">Storie</a></li>
-        <li><a href="experience.html">Eventi</a></li>
         <li><a href="wineclub.html">Wine Club</a></li>
-        <li><a href="da-regalare.html">Idee regalo</a></li>
+        <li><a href="experience.html">Experience</a></li>
       </ul>
     </nav>
 
     <nav class="foot-col" aria-label="Assistenza">
       <h4>Assistenza</h4>
       <ul>
-        <li><a href="contatti.html">Contatti</a></li>
         <li><a href="spedizioni.html">Spedizioni e consegne</a></li>
         <li><a href="resi.html">Resi e rimborsi</a></li>
         <li><a href="pagamenti.html">Metodi di pagamento</a></li>
         <li><a href="tracking.html">Traccia il tuo ordine</a></li>
         <li><a href="faq.html">Domande frequenti</a></li>
-        <li><a href="accedi.html">Area Horeca</a></li>
+        <li><a href="contatti.html">Contatti</a></li>
       </ul>
     </nav>
 
@@ -1036,9 +1008,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
       <h4>Azienda</h4>
       <ul>
         <li><a href="chi-siamo.html">Chi siamo</a></li>
-        <li><a href="chi-siamo.html">Il nostro metodo di selezione</a></li>
         <li><a href="lavora-con-noi.html">Lavora con noi</a></li>
-        <li><a href="contatti.html">Vendi su Stappando</a></li>
         <li><a href="termini.html">Termini e condizioni</a></li>
         <li><a href="privacy.html">Privacy policy</a></li>
         <li><a href="cookie.html">Cookie policy</a></li>
@@ -1050,9 +1020,7 @@ footer{background:#12181a;color:rgba(255,255,255,.7);margin-top:76px;flex:none}
   <div class="wrap">
     <div class="foot-legal">
       <div>
-        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA e C.F. 12345678901 ·
-        REA MI-2345678 · Capitale sociale 50.000 € i.v. · Licenza UTF n. 4521/2024<br>
-        © 2026 Stappando S.r.l. — Tutti i diritti riservati. ·
+        Stappando S.r.l. · Via della Vite 12, 20121 Milano (MI) · P.IVA 12345678901 · © 2026 Stappando S.r.l. ·
         <a href="../index.html" style="text-decoration:underline">Torna all'indice dei mockup</a>
       </div>
       <span class="age"><i>18+</i> Bevi responsabilmente. Vendita vietata ai minori di 18 anni.</span>
@@ -1114,7 +1082,7 @@ function scrollPer(p){
   return top - altezzaBarra() + p * tot;
 }
 
-/* ── il colore delle bollicine segue il tema ─────────── */
+/* ── il colore delle bollicine: l'oro del sito ───────── */
 function oro(){
   var c = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
   var m = /^#([0-9a-f]{6})$/i.exec(c);
@@ -1330,73 +1298,215 @@ document.addEventListener('visibilitychange', function(){
 });
 })();
 
-/* ══ COMPARSE ALLO SCROLL E CONTATORI ═════════════════ */
+/* ══════════════════════════════════════════════════════════
+   I CONTENUTI · quello che si vede su stappando-20.vercel.app
+   Testi, prezzi e foto sono quelli della home del sito.
+   ══════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+var eur = function(n){ return Number(n).toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; };
+var ARROW = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
+var STAR  = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7z"/></svg>';
+var LEAF  = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-6 7-9 16-9 0 9-3 16-9 16Z"/><path d="M4 20c3-6 7-8 11-9"/></svg>';
+var HEART = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>';
+var PLUS  = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+
+/* ── il carosello del hero: i tre più scelti e le due cantine più acquistate ── */
+var SLIDES = [
+  {tipo:'vino', badge:'1° · Il più scelto', kicker:'Vini Bianchi · Campania', nome:'Fiano di Avellino ‘Alessandra’ DOCG 2013 - Di Meo',
+   nota:'Di Meo. 2 recensioni, media 5,0.', prezzo:60.00, prima:null, foto:'foto/fiano-alessandra-di-meo.png'},
+  {tipo:'vino', badge:'2° · Il più scelto', kicker:'Vini Rossi · Umbria', nome:'Cecapecore rosso dell’Umbria IGT 2025 - Favaroni',
+   nota:'Favaroni. 40 recensioni, media 4,4.', prezzo:6.80, prima:9.90, foto:'foto/cecapecore-favaroni.png'},
+  {tipo:'vino', badge:'3° · Il più scelto', kicker:'Vini Rossi · Puglia', nome:'Primitivo di Manduria ‘Stilio’ DOC 2023 - Mottura',
+   nota:'Mottura. 7 recensioni, media 4,5.', prezzo:11.60, prima:13.50, foto:'foto/stilio-mottura.png'},
+  {tipo:'cantina', badge:'La più acquistata', sigla:'SM', kicker:'Cantine · Sardegna', nome:'Santa Maria La Palma',
+   nota:'Il Vermentino di Sardegna ‘Aragosta’ DOC è un bianco iconico, fresco e marino, firmato Santa Maria La Palma. Prodotto da uve Vermentino coltivate nei terreni sabbiosi vicino ad Alghero, questo vino in…',
+   meta:'Sardegna · 10 etichette'},
+  {tipo:'cantina', badge:'La più acquistata', sigla:'FA', kicker:'Cantine · Umbria', nome:'Favaroni',
+   nota:'Il Cecapecore Rosso dell’Umbria IGT di Favaroni è un blend vibrante di Sagrantino, Merlot e Cabernet Sauvignon, vinificato in acciaio e affinato in parte in barrique. Al palato rivela un equilibrio pe…',
+   meta:'Umbria · 5 etichette'}
+];
+
+/* ── le ultime cantine arrivate ───────────────────────── */
+var ULTIME = [
+  {id:'u1', tag:'Cantina nuova', cantina:'Ai Casali', nome:'Vino Spumante Cuvèe Extra Dry - Ai Casali', tipo:'Spumanti', regione:'Veneto', stile:'spumante',
+   desc:'Dal colore giallo paglierino e dal perlage persistente, lo spumante Extra Dry presenta un ricco bouquet di profumi fruttati e floreali.',
+   prezzo:7.20, prima:8.20, venditore:'Bernardi', foto:'foto/cuvee-extra-dry.png'},
+  {id:'u2', tag:'Cantina nuova', cantina:'PODERE CIGLI', nome:'Toscana bianco ‘Tresìa’ IGT 2025 - Podere Cigli', tipo:'Vini Bianchi', regione:'Toscana', stile:'bianco',
+   desc:'colore giallo tenue, profumo floreale, fruttato; sapore secco, di corpo medio, piacevole.',
+   prezzo:10.90, prima:13.70, venditore:'cigli', foto:'foto/tresia-cigli.png'},
+  {id:'u3', tag:'Cantina nuova', bio:true, cantina:'BORGO DEL BACCANO', nome:'Lazio Bianco ‘Piana del Mosaico’ IGT Biologico - Borgo del Baccano 2022', tipo:'Vini Bianchi', regione:'Lazio', stile:'bianco',
+   desc:'di colore giallo paglierino, questo vino presenta note di frutti maturi.',
+   prezzo:9.00, prima:10.00, venditore:'PEDRINI', foto:'foto/piana-mosaico-bianco.png'},
+  {id:'u4', tag:'Cantina nuova', cantina:'Antonio Buccoliero', nome:'Primitivo Puglia ‘Èja’ IGP 2022 - Antonio Buccoliero', tipo:'Vini Rossi', regione:'Puglia', stile:'rosso',
+   desc:'Da antiche vigne allevate ad alberello nasce Èja, un Primitivo di Sava in sole 2.000 bottiglie, espressione autentica del suo territorio.',
+   prezzo:42.00, prima:null, venditore:'Antonio Buccoliero', foto:'foto/eja-buccoliero.png'}
+];
+
+/* ── i vini della cantina del mese ────────────────────── */
+var MESE = [
+  {id:'m1', sconto:'−18%', cantina:'Santa Maria La Palma', nome:'Vermentino di Sardegna ‘Aragosta’ DOC 2025 - Santa Maria La Palma', tipo:'Vini Bianchi', regione:'Sardegna', voto:'4,4', nvoti:11, stile:'bianco',
+   desc:'Il Vermentino di Sardegna ‘Aragosta’ DOC è un bianco iconico, fresco e marino, firmato Santa Maria La Palma. Prodotto da uve Vermentino coltivate nei terreni sabbiosi vicino ad Alghero, questo vino in…',
+   prezzo:6.50, prima:7.90, venditore:'Stappando', foto:'foto/aragosta-vermentino.png'},
+  {id:'m2', sconto:'−18%', cantina:'Santa Maria La Palma', nome:'Vermentino di Sardegna ‘Aragosta’ frizzante IGT - Santa Maria La Palma', tipo:'Vini Bianchi', regione:'Sardegna', voto:'4,3', nvoti:10, stile:'bianco',
+   desc:'Il Vermentino frizzante Santa Maria La Palma è un vino frizzante che incarna la freschezza e la vivacità della Sardegna. Ottenuto da uve bianche vendemmiate in anticipo, presenta un colore giallo pagl…',
+   prezzo:6.50, prima:7.90, venditore:'Stappando', foto:'foto/aragosta-frizzante.png'},
+  {id:'m3', sconto:'−13%', cantina:'Santa Maria La Palma', nome:'Vermentino di Sardegna ‘Il Blu’ DOC 2025 - Santa Maria la Palma', tipo:'Vini Bianchi', regione:'Sardegna', voto:'4,4', nvoti:10, stile:'bianco',
+   desc:'Vermentino di Sardegna ‘Il Blu’ DOC di Santa Maria La Palma è un bianco mediterraneo dallo spirito libero e solare. Aromi fruttati e floreali si uniscono a freschezza e sapidità marina, per un vino ch…',
+   prezzo:6.90, prima:7.90, venditore:'Stappando', foto:'foto/il-blu-vermentino.png'},
+  {id:'m4', sconto:'−18%', cantina:'Santa Maria La Palma', nome:'Spumante ‘Aragosta’ Brut - Santa Maria La Palma', tipo:'Spumanti', regione:'Sardegna', voto:'4,4', nvoti:10, stile:'spumante',
+   desc:'Questo spumante rappresenta per l’azienda, un connubio tra le vecchie e le nuove generazioni di viticoltori, un percorso di crescita capace di dare continuità e riconoscimento ad un vino importate com…',
+   prezzo:6.50, prima:7.90, venditore:'Stappando', foto:'foto/aragosta-brut.png'}
+];
+
+/* ── le cantine da conoscere ──────────────────────────── */
+var CANTINE = [
+  {sigla:'FA', nome:'Favaroni',     regione:'Umbria',                  voto:'4,4', nvoti:79, prodotti:5},
+  {sigla:'AR', nome:'Argiolas',     regione:'Sardegna',                voto:'4,4', nvoti:48, prodotti:7},
+  {sigla:'MO', nome:'Montagner',    regione:'Veneto',                  voto:'4,4', nvoti:88, prodotti:12},
+  {sigla:'PI', nome:'Pietrantonj',  regione:'Abruzzo',                 voto:'4,3', nvoti:52, prodotti:8},
+  {sigla:'LS', nome:'Li Seddi',     regione:'Sardegna',                voto:'4,4', nvoti:31, prodotti:6},
+  {sigla:'LS', nome:'La Sastrería', regione:'Territorio non indicato', voto:'4,4', nvoti:32, prodotti:3}
+];
+
+/* ── disegno delle schede ─────────────────────────────── */
+function prezzo(p){ return '<span class="price">' + (p.prima ? '<s>' + eur(p.prima) + '</s>' : '') + eur(p.prezzo) + '</span>'; }
+
+function slide(s, i){
+  var art = s.tipo === 'vino'
+    ? '<div class="hs-img"><img src="' + s.foto + '" alt="' + esc(s.nome) + '" loading="lazy"></div>'
+    : '<span class="hs-crest" aria-hidden="true">' + esc(s.sigla) + '</span>';
+  var foot = s.tipo === 'vino'
+    ? prezzo(s) + '<span class="hs-link">Vedi il vino ' + ARROW + '</span>'
+    : '<span class="hs-meta">' + esc(s.meta) + '</span><span class="hs-link">Scopri la cantina ' + ARROW + '</span>';
+  return '<a class="hslide" href="' + (s.tipo === 'vino' ? 'prodotto.html' : 'cantina.html') + '" role="group" aria-roledescription="scheda" aria-label="' + (i+1) + ' di ' + SLIDES.length + '">' +
+    '<div class="hs-art"><span class="hs-badge">' + esc(s.badge) + '</span>' + art + '</div>' +
+    '<div class="hs-body"><span class="hs-kicker">' + esc(s.kicker) + '</span><h3>' + esc(s.nome) + '</h3>' +
+    '<p' + (s.tipo === 'cantina' ? ' class="clamp"' : '') + '>' + esc(s.nota) + '</p>' +
+    '<div class="hs-foot">' + foot + '</div></div></a>';
+}
+
+function scheda(p){
+  var tags = '';
+  if(p.bio) tags += '<span class="vtag bio">Biologico</span>';
+  if(p.tag) tags += '<span class="vtag">' + esc(p.tag) + '</span>';
+  if(p.sconto) tags += '<span class="vtag sale">' + esc(p.sconto) + '</span>';
+  return '<article class="vc reveal" data-id="' + p.id + '">' +
+    '<div class="vc-art">' +
+      '<div class="vc-tags">' + tags + '</div>' +
+      '<button class="vc-fav" type="button" aria-label="Aggiungi ai preferiti" aria-pressed="false">' + HEART + '</button>' +
+      '<div class="vc-img"><img src="' + p.foto + '" alt="' + esc(p.nome) + '" loading="lazy"></div>' +
+    '</div>' +
+    '<div class="vc-body">' +
+      '<span class="vc-cantina">' + esc(p.cantina) + '</span>' +
+      '<h3><a href="prodotto.html">' + esc(p.nome) + '</a></h3>' +
+      '<div class="chips"><span class="chip type">' + esc(p.tipo) + '</span><span class="chip">' + esc(p.regione) + '</span>' +
+        (p.voto ? '<span class="chip rate">' + STAR + ' ' + p.voto + ' (' + p.nvoti + ')</span>' : '') + '</div>' +
+      (p.bio ? '<div><span class="chip bio">' + LEAF + 'Biologico</span></div>' : '') +
+      '<p class="vc-desc">' + esc(p.desc) + '</p>' +
+      '<div class="vc-bottom">' +
+        '<div class="vc-foot">' + prezzo(p) +
+          '<button class="vc-add" type="button" data-vadd="' + p.id + '" aria-label="Aggiungi al carrello">' + PLUS + '</button></div>' +
+        '<p class="vc-sped">Venduto e spedito da <b>' + esc(p.venditore) + '</b> · spedizione gratis da 69,00 € su questa cantina</p>' +
+      '</div>' +
+    '</div></article>';
+}
+
+function cantina(c){
+  return '<a class="wc reveal" href="cantina.html">' +
+    '<div class="wc-top"><span class="wc-crest" aria-hidden="true">' + esc(c.sigla) + '</span>' +
+      '<div><h3>' + esc(c.nome) + '</h3><p class="reg">' + esc(c.regione) + '</p></div></div>' +
+    '<div class="wc-foot"><span class="rate">' + STAR + ' <b>' + c.voto + '</b> (' + c.nvoti + ') · ' + c.prodotti + ' prodotti</span>' +
+      '<span class="go">Visita ' + ARROW + '</span></div></a>';
+}
+
+document.getElementById('hcarTrack').innerHTML = SLIDES.map(slide).join('');
+document.getElementById('ultime').innerHTML = ULTIME.map(scheda).join('');
+document.getElementById('meseProdotti').innerHTML = MESE.map(scheda).join('');
+document.getElementById('cantine').innerHTML = CANTINE.map(cantina).join('');
+/* le schede sfalsate: ogni colonna arriva un attimo dopo la precedente */
+['ultime','meseProdotti','cantine'].forEach(function(id){
+  Array.prototype.forEach.call(document.getElementById(id).children, function(el, i){ el.dataset.d = String(Math.min(i % 4, 3)); });
+});
+
+/* ── il carosello: gira da solo, si ferma col mouse o con Pausa ── */
+(function(){
+  var track = document.getElementById('hcarTrack'), dots = document.getElementById('hcarDots');
+  var pausa = document.getElementById('hcarPause'), box = document.getElementById('hcar');
+  var n = SLIDES.length, i = 0, timer = null, fermo = false, sospeso = false;
+  var ridotto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  dots.innerHTML = SLIDES.map(function(s, k){
+    return '<button type="button" role="tab" aria-label="Scheda ' + (k+1) + '"' + (k === 0 ? ' class="on" aria-selected="true"' : ' aria-selected="false"') + '></button>';
+  }).join('');
+  function vai(k){
+    i = (k + n) % n;
+    track.style.transform = 'translateX(-' + (i*100) + '%)';
+    Array.prototype.forEach.call(dots.children, function(d, j){ d.classList.toggle('on', j === i); d.setAttribute('aria-selected', String(j === i)); });
+  }
+  function avvia(){ clearInterval(timer); if(fermo || sospeso || ridotto) return; timer = setInterval(function(){ vai(i+1); }, 5000); }
+  box.querySelector('.prev').addEventListener('click', function(){ vai(i-1); avvia(); });
+  box.querySelector('.next').addEventListener('click', function(){ vai(i+1); avvia(); });
+  dots.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    vai(Array.prototype.indexOf.call(dots.children, b)); avvia();
+  });
+  pausa.addEventListener('click', function(){
+    fermo = !fermo;
+    pausa.setAttribute('aria-pressed', String(fermo));
+    pausa.querySelector('span').textContent = fermo ? 'Riprendi' : 'Pausa';
+    pausa.querySelector('svg').innerHTML = fermo ? '<path d="M7 4v16l13-8z"/>' : '<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>';
+    avvia();
+  });
+  box.addEventListener('mouseenter', function(){ sospeso = true; avvia(); });
+  box.addEventListener('mouseleave', function(){ sospeso = false; avvia(); });
+  /* col dito: si trascina */
+  var x0 = null;
+  track.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    if(x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if(Math.abs(dx) > 40){ vai(dx < 0 ? i+1 : i-1); avvia(); }
+  }, {passive:true});
+  avvia();
+})();
+
+/* ── «+» aggiunge al carrello a finestra, il cuore segna i preferiti ── */
+var TUTTI = ULTIME.concat(MESE);
+document.addEventListener('click', function(e){
+  var add = e.target.closest('[data-vadd]');
+  if(add){
+    var p = TUTTI.filter(function(x){ return x.id === add.dataset.vadd; })[0];
+    add.classList.add('fatto');
+    setTimeout(function(){ add.classList.remove('fatto'); }, 1200);
+    if(p && window.aggiungiAlCarrello){
+      window.aggiungiAlCarrello({nome:p.nome, cantina:p.cantina, prezzo:p.prezzo, prima:p.prima, stile:p.stile});
+    }
+    return;
+  }
+  var fav = e.target.closest('.vc-fav');
+  if(fav){
+    var on = fav.classList.toggle('on');
+    fav.setAttribute('aria-pressed', String(on));
+    fav.setAttribute('aria-label', on ? 'Togli dai preferiti' : 'Aggiungi ai preferiti');
+  }
+});
+
+/* ── comparse allo scroll ─────────────────────────────── */
 (function(){
   var ridotto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var easeOut = function(t){ return 1 - Math.pow(1 - t, 3); };
-  function contatori(){
-    Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function(el){
-      var fine = +el.dataset.count;
-      if(ridotto){ el.textContent = fine.toLocaleString('it-IT'); return; }
-      var t0 = null;
-      function tick(now){
-        if(!t0) t0 = now;
-        var k = easeOut(Math.min(1, (now - t0)/1500));
-        el.textContent = Math.round(fine*k).toLocaleString('it-IT');
-        if(k < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    });
-  }
   var els = document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window) || ridotto){
     Array.prototype.forEach.call(els, function(el){ el.classList.add('in'); });
-    contatori(); return;
+    return;
   }
   var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      e.target.classList.add('in'); io.unobserve(e.target);
-      if(e.target.id === 'stats') contatori();
-    });
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
   Array.prototype.forEach.call(els, function(el){ io.observe(el); });
 })();
 
-/* ══ IL NASTRO DELLE CANTINE ══════════════════════════ */
-(function(){
-  var CANTINE = [
-    ['Cascina Rivetto','Piemonte'], ['Podere Cigli','Toscana'], ['Torre dei Falchi','Lazio'],
-    ['Ai Casali','Veneto'], ['Tenuta Rosato','Puglia'], ['Ca’ del Lago','Lombardia'],
-    ['Palmento Nero','Sicilia'], ['Tenuta Sant’Urbano','Marche'], ['Vigne di Ronco','Friuli'],
-    ['Tenuta Coccapane','Emilia'], ['Maso Alteno','Trentino'], ['Colle Fiorito','Abruzzo']
-  ];
-  var el = document.getElementById('ticker');
-  if(!el) return;
-  var h = CANTINE.map(function(c){ return '<span><i></i><b>' + c[0] + '</b>' + c[1] + '</span>'; }).join('');
-  el.innerHTML = h + h;   /* due volte: il nastro gira senza salti */
-})();
-
-/* ══ CAROSELLO · BOLLICINE (schede da temi/card.js) ═══ */
-if(typeof caroselloProdotti === 'function' && window.PRODOTTI){
-  caroselloProdotti(document.getElementById('carBollicine'),
-    PRODOTTI.filter(function(p){ return p.cat === 'bollicine'; }));
-}
-
-/* ══ LE BOLLICINE DEL WINE CLUB ═══════════════════════ */
-(function(){
-  var cb = document.getElementById('clubBubbles');
-  if(!cb) return;
-  var h = '';
-  for(var i = 0; i < 16; i++){
-    var s = (6 + Math.random()*22).toFixed(0);
-    h += '<i style="left:' + (Math.random()*100).toFixed(1) + '%;width:' + s + 'px;height:' + s + 'px;' +
-         'animation-duration:' + (7 + Math.random()*9).toFixed(1) + 's;animation-delay:-' + (Math.random()*12).toFixed(1) + 's"></i>';
-  }
-  cb.innerHTML = h;
-})();
-
-/* ══ NEWSLETTER ═══════════════════════════════════════ */
+/* ── la lettera ───────────────────────────────────────── */
 document.getElementById('newsForm').addEventListener('submit', function(e){
   e.preventDefault();
   var email = document.getElementById('newsEmail');
@@ -1411,8 +1521,7 @@ document.getElementById('newsForm').addEventListener('submit', function(e){
   document.getElementById('newsOk').classList.add('on');
   email.value = '';
 });
+})();
 </script>
-
-<script src="temi/skin.js"></script>
 </body>
 </html>
